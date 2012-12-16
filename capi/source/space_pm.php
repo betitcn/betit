@@ -56,6 +56,15 @@ if( $_REQUEST['subop'] == 'view') {
 	$count = $result['count'];
 	$list = $result['data'];
 
+	foreach ($list as $key => $value) {
+		$list2 = uc_pm_view2($_SGLOBAL['supe_uid'], 0, $value["touid"], 1, 0, 1);
+		if (count($list2)){
+			$list[$key]["subject"] = $list2[0]["subject"];
+			$list[$key]["message"] = $list2[0]["message"];
+			$list[$key]["dateline"] =  $list2[0]["dateline"];
+		}
+	}
+
 	$multi = multi($count, $perpage, $page, "space.php?do=pm&filter=$filter");
 	
 	if($_SGLOBAL['member']['newpm']) {
@@ -64,6 +73,8 @@ if( $_REQUEST['subop'] == 'view') {
 		//UCenter
 		uc_pm_ignore($_SGLOBAL['supe_uid']);
 	}
+
+
 
 	$actives = array($filter=>' class="active"');
 }
