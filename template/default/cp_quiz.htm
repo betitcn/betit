@@ -1,0 +1,502 @@
+<!--{template header}-->
+
+<!--{if $_GET[op] == 'delete'}-->
+
+<h1>删除竞猜</h1>
+<a href="javascript:hideMenu();" class="float_del" title="关闭">关闭</a>
+<div class="popupmenu_inner">
+<form method="post" action="cp.php?ac=quiz&op=delete&quizid=$quizid">
+	<p>确定删除指定的竞猜吗？</p>
+	<p class="btn_line">
+		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
+		<input type="hidden" name="deletesubmit" value="true" />
+		<input type="submit" name="btnsubmit" value="确定" class="submit" />
+	</p>
+<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+</form>
+</div>
+
+<!--{elseif $_GET[op] == 'publickey'}-->
+
+<h1>公布竞猜</h1>
+<a href="javascript:hideMenu();" class="float_del" title="关闭">关闭</a>
+<div class="popupmenu_inner">
+<form method="post" action="cp.php?ac=quiz&op=publickey&quizid=$quizid">
+	<p>确定吗？</p>
+	<p class="btn_line">
+		<!--{loop $quiz[options] $key $value}-->
+		<input type="radio" name="keyid" value="$value[oid]">$value[option]<br>
+		<!--{/loop}-->
+		<input type="radio" name="keyid" value="3">本竞猜流失<br>
+		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
+		<input type="hidden" name="keysubmit" value="true" />
+		<input type="submit" name="btnsubmit" value="确定" class="submit" />
+	</p>
+<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+</form>
+</div>
+
+
+<!--{elseif $_GET[op] == 'edithot'}-->
+
+<h1>调整热度</h1>
+<a href="javascript:hideMenu();" class="float_del" title="关闭">关闭</a>
+<div class="popupmenu_inner">
+<form method="post" action="cp.php?ac=quiz&op=edithot&quizid=$quizid">
+	<p class="btn_line">
+		新的热度：<input type="text" name="hot" value="$quiz[hot]" size="5"> 
+		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
+		<input type="hidden" name="hotsubmit" value="true" />
+		<input type="submit" name="btnsubmit" value="确定" class="submit" />
+	</p>
+<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+</form>
+</div>
+
+<!--{elseif $op == 'get'}-->
+	<!--{if $_GET['filtrate'] == 'new' || $_GET['filtrate']=='we' }-->
+		<ul id="vote_list" class="voter_list">
+		<!--{if $voteresult}-->
+		<!--{loop $voteresult $value}-->
+			<li>
+				<!--{if $value[uid]==$_SGLOBAL[supe_uid]}-->
+				<img class="meicon" alt="我自己的" src="image/arrow.gif"/>
+				<!--{/if}-->
+				<!--{if empty($value[username])}-->
+				匿名
+				<!--{else}-->
+				<a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a>
+				<!--{/if}-->
+				<!--{date('Y-m-d H:i:s',$value[dateline],1)}--> 投一注给 $value[option]
+			</li>
+		<!--{/loop}-->
+		<!--{else}-->
+			<li>暂时没有相关<!--{if $_GET[filtrate]=='we'}-->好友<!--{/if}-->竞猜心情</li>
+		<!--{/if}-->
+		</ul>
+		<!--{if $multi}--><div class="page">$multi</div><br/><!--{/if}-->
+	<!--{else}-->
+		<ul id="vote_list" class="voter_list">
+		<!--{if $voteresult}-->
+		<!--{loop $voteresult $value}-->
+			<li>
+				<!--{if $value[uid]==$_SGLOBAL[supe_uid]}-->
+				<img class="meicon" alt="我自己的" src="image/arrow.gif"/>
+				<!--{/if}-->
+				<!--{if empty($value[username])}-->
+				匿名
+				<!--{else}-->
+				<a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a>
+				<!--{/if}-->
+				<!--{date('Y-m-d H:i:s',$value[dateline],1)}--> 在本次竞猜中 <!--{if $_GET['filtrate'] == 'win'}-->赢了<!--{eval echo $value[totalwin]-$value[totalcost];}--><!--{elseif $_GET['filtrate'] == 'lost'}-->输了<!--{eval echo $value[totalcost]-$value[totalwin];}--><!--{/if}-->
+			</li>
+		<!--{/loop}-->
+		<!--{else}-->
+			<li>本竞猜没有人<!--{if $_GET[filtrate]=='win'}-->赢<!--{elseif $_GET['filtrate'] == 'lost'}-->输<!--{/if}--></li>
+		<!--{/if}-->
+		</ul>
+		<!--{if $multi}--><div class="page">$multi</div><br/><!--{/if}-->
+	<!--{/if}-->
+
+<!--{elseif $op == 'invite'}-->
+
+<form id="inviteform" name="inviteform" method="post" action="cp.php?ac=quiz&op=invite&quizid=$quiz[quizid]&uid=$_GET[uid]&grade=$_GET[grade]&group=$_GET[group]&page=$_GET[page]&start=$_GET[start]">
+
+<h2 class="title"><img src="image/app/quiz.gif" />竞猜</h2>
+<div class="tabs_header">
+	<ul class="tabs">
+		<li><a href="cp.php?ac=quiz"><span>发起新竞猜</span></a></li>
+		<li class="active"><a href="cp.php?ac=quiz&op=invite&quizid=$quiz[quizid]"><span>邀请好友</span></a></li>
+		<li><a href="space.php?uid=$quiz[uid]&do=quiz&id=$quiz[quizid]"><span>返回竞猜</span></a></li>
+	</ul>
+</div>
+<div id="content" style="width: 640px;">
+	<div class="h_status">
+		您可以邀请下列好友来参与<a href="space.php?uid=$quiz[uid]&do=quiz&id=$quiz[quizid]">《$quiz[subject]》</a>竞猜
+	</div>
+	
+	<div class="h_status">
+		<!--{if $list}-->
+		<ul class="avatar_list">
+		<!--{loop $list $value}-->
+			<li><div class="avatar48"><a href="space.php?uid=$value[fuid]" title="{$_SN[$value[fuid]]}"><!--{avatar($value[fuid],small)}--></a></div>
+				<p>
+				<a href="space.php?uid=$value[fuid]" title="{$_SN[$value[fuid]]}">{$_SN[$value[fuid]]}</a>
+				</p>
+				<p><!--{if empty($invitearr[$value[fuid]])}--><input type="checkbox" name="ids[]" value="$value[fuid]">选定<!--{else}-->已邀请<!--{/if}--></p>
+			</li>
+		<!--{/loop}-->
+		</ul>
+		<div class="page">$multi</div>
+		<!--{else}-->
+		<div class="c_form">还没有好友。</div>
+		<!--{/if}-->
+	</div>
+	<p>
+		<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')">全选 &nbsp;
+		<input type="submit" name="invitesubmit" value="邀请" class="submit" />
+	</p>
+</div>
+
+<div id="sidebar" style="width: 150px;">
+	<div class="cat">
+		<h3>好友分类</h3>
+		<ul class="post_list line_list">
+			<li<!--{if $_GET[group]==-1}--> class="current"<!--{/if}-->><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=invite&group=-1">全部好友</a></li>
+			<!--{loop $groups $key $value}-->
+			<li<!--{if $_GET[group]==$key}--> class="current"<!--{/if}-->><a href="cp.php?ac=quiz&pid=$quiz[quizid]&op=invite&group=$key">$value</a></li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+</div>
+<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+</form>
+
+<!--{else}-->
+
+<script language="javascript" src="image/editor/editor_function.js"></script>
+<script language="javascript" src="source/script_quiz.js"></script>
+<script language="javascript" src="template/default/js/jquery-1.7.2.min.js"></script>
+<script language="javascript" src="swfupload/jquery.uploadify-3.1.min.js"></script>
+<link href="swfupload/uploadify.css" rel="stylesheet" type="text/css">
+<script language="javascript">var jquery = jQuery.noConflict(); </script>
+<script language="javascript">
+	function toggleMessageEditor()
+	{
+		jQuery('#uchome-ifrHtmlEditor').toggle();
+		jQuery('#introtip').toggle();
+		jQuery('#introtip2').toggle();
+	}
+	
+	function deletepic(key)
+	{
+		var s = '#fileinput_'+key;
+		jquery(s).show();  
+		var s2 = '#optionimga_'+key;
+		var p = jquery(s2).parent(); 
+		p.empty();
+		var s3 = '<img src="" id="optionimga_'+key+'" style="display:none"/>';
+		p.append(s3);
+		var s4 = '#pics_'+key;
+		jquery(s4).val("");
+	}
+	
+	
+　　</script>
+</script>
+<!--{if $topic}-->
+	<!--{template cp_topic_menu}-->
+<!--{else}-->
+	<h2 class="title"><img src="image/app/blog.gif" />竞猜</h2>
+	<div class="tabs_header">
+		<ul class="tabs">
+			<!--{if $quiz[quizid]}-->
+			<li class="active"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]"><span>编辑竞猜</span></a></li>
+			<!--{/if}-->
+			<li<!--{if empty($quiz[quizid])}--> class="active"<!--{/if}-->><a href="cp.php?ac=quiz"><span>发表新竞猜</span></a></li>
+			<li style="display:none"><a href="cp.php?ac=import"><span>竞猜导入</span></a></li>
+			<li><a href="space.php?uid=$space[uid]&do=quiz&view=me"><span>返回我的竞猜</span></a></li>
+		</ul>
+	</div>
+<!--{/if}-->
+
+<div class="c_form">
+
+	<style type="text/css">
+		.userData {behavior:url(#default#userdata);}
+	</style>
+
+
+	<form method="post" action="cp.php?ac=quiz&quizid=$quiz[quizid]" enctype="multipart/form-data">
+		<table cellspacing="4" cellpadding="4" width="100%" class="infotable">
+			<tr>
+				<td>
+					竞猜题目：<select name="classid" id="classid" onchange="addSort(this)" style="display:none">
+						<option value="0">选择分类</option>
+						<!--{loop $classarr $value}-->
+						<!--{if $value['classid'] == $quiz['classid']}-->
+						<option value="$value[classid]" selected>$value[classname]</option>
+						<!--{else}-->
+						<option value="$value[classid]">$value[classname]</option>
+						<!--{/if}-->
+						<!--{/loop}-->
+						<!--{if !$quiz['uid'] || $quiz['uid']==$_SGLOBAL['supe_uid']}--><option value="addoption" style="color:red;">+新建分类</option><!--{/if}-->
+					</select>
+					<input type="text" class="t_input" id="subject" name="subject" value="$quiz[subject]" size="60" onblur="relatekw();" />
+					<a href="javascript:;" onclick="toggleMessageEditor()" style="display:none"><span id="introtip">添加竞猜详细说明</span><span id="introtip2" style="display:none">隐藏竞猜详细说明</span></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<a id="doodleBox" href="magic.php?mid=doodle&showid=quiz_doodle&target=uchome-ttHtmlEditor&from=editor" style="display:none"></a>
+				<textarea class="userData" name="message" id="uchome-ttHtmlEditor" style="height:100%;width:100%;display:none;border:10px">$quiz[message]</textarea>
+				 <iframe src="editor.php?charset=$_SC[charset]&allowhtml=$allowhtml&doodle=<!--{if isset($_SGLOBAL[magic][doodle])}-->1<!--{/if}-->" name="uchome-ifrHtmlEditor" id="uchome-ifrHtmlEditor" scrolling="no" border="0" frameborder="0" style="width:100%;border: 1px solid #C5C5C5;display:none" height="400"></iframe>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" height="1px"><div style="width: 550px; height:1px; border-bottom:1px solid #DDDDDD;"></div></td>
+			</tr>
+			<!--{loop $quiz[options] $key $value}-->
+			<tr>
+				<td><div style="width:600px; margin:0 auto;"><div style=" float:left;width:350px;"><span style="color: #999;margin-right: 16px;"><!--{eval echo $oindex[$key+1]; }-->：</span><input id="options_<!--{eval echo $key+1; }-->_input" name="options[<!--{eval echo $key+1; }-->]" type="text" value="$value[option]" size="40" class="t_input">
+				<input name="pics[<!--{eval echo $key+1; }-->]" id="pics_<!--{eval echo $key+1; }-->" type="hidden" value="$value[picid]" ></div>
+				<div style=" float:left;width:100px;"><input type="file" name="attach_<!--{eval echo $key+1; }-->" value="上传图片" class="button" id="fileinput_<!--{eval echo $key+1; }-->" >
+				<div><img src="$value[pic]" id="optionimga_<!--{eval echo $key+1; }-->" style="display:none"/><!--{if $value[picid]}--><a href="do.php?ac=ajax&picid=$value[picid]&op=deletepic" id="pic_delete_$value[picid]" onclick="ajaxmenu(event, this.id,1000); deletepic(<!--{eval echo $key+1; }-->)">删除</a><!--{/if}--></div></div></div>
+				</td>
+				
+			<script>
+			jquery(document).ready(function() {
+				　　jquery('#fileinput_<!--{eval echo $key+1; }-->').uploadify({
+				 　　//以下参数均是可选
+				 　　'swf' : 'uploadify.swf', //指定上传控件的主体文件，默认'uploader.swf'
+				 　　'uploader' : 'cp.php?ac=upload', //指定服务器端上传处理文件，默认'upload.php教程'
+					'checkScript' : true,
+				 　　'cancelimg' : 'swfupload/uploadify-cancel.png', //指定取消上传的图片，默认'cancel.png'
+				 　　//'buttonimg':'swfupload/upload2.jpg',
+				 　　'auto' : true, //选定文件后是否自动上传，默认false
+				 　　//'folder' : '/userphoto' , //要上传到的服务器路径，默认'/'
+				 　　'multi' : false, //是否允许同时上传多文件，默认false
+				 　　'filedesc' : '图片文件' , //出现在上传对话框中的文件类型描述
+				 　　'fileext' : '*.jpg;*.bmp;*.png;*.gif', //控制可上传文件的扩展名，启用本项时需同时声明filedesc
+				 　　'sizelimit': 86400, //控制上传文件的大小，单位byte
+					'formData': { 'uploadsubmit2': 'true', 'albumid':'0', 'formhash':'<!--{eval echo formhash();}-->', 'index':'1', 'ac':'upload', 'uid' : '$_SGLOBAL[supe_uid]',"session":"<?php echo session_id()?>"},
+				 　　'onUploadSuccess': function(file, data, response) {
+				  　　	//jquery('#image').attr("src","<%=basepath%>userphoto/"+res ponse);
+				  　　	//jquery('#image').show();
+				  　　	//jquery('#photo').attr("value",response);
+						
+				  		data = eval("(" + data + ')');
+						
+						jquery("#optionimga_<!--{eval echo $key+1; }-->").attr("src",data.pic);
+						jquery("#optionimga_<!--{eval echo $key+1; }-->").show();
+						jquery("#pics_<!--{eval echo $key+1; }-->").val(data.picid);
+						var astr = '<a href="do.php?ac=ajax&picid='+data.picid+'&op=deletepic" id="pic_delete_'+data.picid+'" onclick="ajaxmenu(event, this.id,1000); deletepic(<!--{eval echo $key+1; }-->)">删除</a>';
+						jquery("#optionimga_<!--{eval echo $key+1; }-->").parent().append(astr);
+						
+				 　　},
+				 	'onUploadComplete': function(file){
+						jquery('#fileinput_<!--{eval echo $key+1; }-->').hide();
+						
+					},
+					'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+						alert('The file ' + file.name + ' could not be uploaded: ' + errorString);
+					},
+					'fileObjName':'attach',
+				 　　'onUploadError' : function(file, errorCode, errorMsg, errorString){
+				 　　	alert("文件:" + file.name + " 上传失败");
+				 　　}
+				　　});
+					<!--{if $value[picid]}-->
+					jquery('#fileinput_<!--{eval echo $key+1; }-->').hide();
+				  	<!--{/if}-->
+　　});
+</script>
+			</tr>
+			<!--{/loop}-->
+		
+		</table>
+		<table cellspacing="4" cellpadding="4" width="100%" class="infotable">
+			<tr>
+				<th width="100">参与所需金币：</th>
+				<td><input type="text" class="t_input" size="40" id="joincost" name="joincost" value="$quiz[joincost]"> </td>
+			</tr>
+			<tr>
+				<th width="100">每人竞猜份额：</th>
+				<td><input type="text" class="t_input" size="40" id="portion" name="portion" value="$quiz[portion]"> </td>
+			</tr>
+			<tr>
+				<th width="100">竞猜截止时间：</th>
+				<script type="text/javascript" src="source/script_calendar.js" charset="utf-8"></script>
+				<td><input type="text" class="t_input" size="40" id="endtime"  name="endtime" readonly value="<!--{date('Y-m-d H:i:s', $quiz[endtime]?$quiz[endtime]:$_SGLOBAL[timestamp]+$_SGLOBAL['quiz']['endtime'])}-->" onclick="showcalendar(event, this, 1, '2012-07-22')"></td>
+			</tr>
+			<tr>
+				<th width="100">预计公布结果：</th>
+				<td><input type="text" class="t_input" size="40" id="resulttime"  name="resulttime" readonly value="<!--{date('Y-m-d H:i:s', $quiz[resulttime]?$quiz[resulttime]:$_SGLOBAL[timestamp]+$_SGLOBAL['quiz']['resulttime'])}-->" onclick="showcalendar(event, this, 1, '2012-07-22')"></td>
+			</tr>
+		</table>
+		
+		<table cellspacing="4" cellpadding="4" width="100%" class="infotable">
+			<!--<tr>
+				<th width="100">标签</th>
+				<td><input type="text" class="t_input" size="40" id="tag" name="tag" value="$quiz[tag]"> <input type="button" name="clickbutton[]" value="自动获取" class="button" onclick="relatekw();" style="display:none"></td>
+			</tr>-->
+			
+			<!--{if $quiz['uid'] && $quiz['uid']!=$_SGLOBAL['supe_uid']}-->
+			<!--{eval $selectgroupstyle='display:none';}-->
+			<tbody style="display:none;">
+			<!--{/if}-->
+			<tr>
+				<th>隐私设置</th>
+				<td>
+					<select name="friend" onchange="passwordShow(this.value);">
+						<option value="0"$friendarr[0]>全站用户可见</option>
+						<option value="1"$friendarr[1]>全好友可见</option>
+						<option value="2"$friendarr[2]>仅指定的好友可见</option>
+						<option value="3"$friendarr[3]>仅自己可见</option>
+						<option value="4"$friendarr[4]>凭密码查看</option>
+					</select>
+					<span id="span_password" style="$passwordstyle">密码:<input type="text" name="password" value="$quiz[password]" size="10" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"></span>
+					<input type="checkbox" name="noreply" value="1"<!--{if $quiz[noreply]}--> checked<!--{/if}--> style="display:none"> <!--不允许评论-->
+				</td>
+			</tr>
+			<!--{if $quiz['uid'] && $quiz['uid']!=$_SGLOBAL['supe_uid']}--></tbody><!--{/if}-->
+			<tbody id="tb_selectgroup" style="$selectgroupstyle">
+			<tr>
+				<th>指定好友</th>
+				<td><select name="selectgroup" onchange="getgroup(this.value);">
+					<option value="">从好友组选择好友</option>
+					<!--{loop $groups $key $value}-->
+					<option value="$key">$value</option>
+					<!--{/loop}-->
+					</select> 多次选择会累加到下面的好友名单</td>
+			</tr>
+			<tr>
+				<th>&nbsp;</th>
+				<td>
+				<textarea name="target_names" id="target_names" style="width:85%;" rows="3">$quiz[target_names]</textarea>
+				<br>(可以填写多个好友名，请用空格进行分割)</td>
+			</tr>
+			</tbody>
+			
+			
+			<!--{if checkperm('managequiz')}-->
+			<tr>
+				<th width="100">热度</th>
+				<td>
+					<input type="text" class="t_input" name="hot" id="hot" value="$quiz[hot]" size="5">
+				</td>
+			</tr>
+			<!--{/if}-->
+			
+			<!--{if checkperm('seccode')}-->
+			<!--{if $_SCONFIG['questionmode']}-->
+			<tr>
+				<th style="vertical-align: top;">请回答验证问题</th>
+				<td>
+					<p><!--{eval question();}--></p>
+					<input type="text" id="seccode" name="seccode" value="" size="15" class="t_input" />
+				</td>
+			</tr>
+			<!--{else}-->
+			<tr>
+				<th style="vertical-align: top;">请填写验证码</th>
+				<td>
+					<script>seccode();</script>
+					<p>请输入上面的4位字母或数字，看不清可<a href="javascript:updateseccode()">更换一张</a></p>
+					<input type="text" id="seccode" name="seccode" value="" size="15" class="t_input" />
+				</td>
+			</tr>
+			<!--{/if}-->
+			<!--{/if}-->
+
+			<tr style="display:none">
+				<th width="100">动态选项</th>
+				<td>
+					<input type="checkbox" name="makefeed" id="makefeed" value="1"<!--{if ckprivacy('quiz', 1)}--> checked<!--{/if}-->> 产生动态 (<a href="cp.php?ac=privacy#feed" target="_blank">更改默认设置</a>)
+				</td>
+			</tr>			
+		</table>
+		<input type="hidden" name="quizsubmit" value="true" />
+		<input type="button" id="quizbutton" name="quizbutton" value="提交发布" onclick="validate(this);" style="display: none;" />
+		<input type="hidden" name="topicid" value="$_GET[topicid]" />
+		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+	</form>
+
+	<!--{if !$_SGLOBAL[inajax] && (!$quiz['uid'] || $quiz['uid']==$_SGLOBAL['supe_uid'])}-->
+	<table cellspacing="4" cellpadding="4" width="100%" class="infotable" style="display:none">
+		<tr><th width="100">图片</th><td>
+		<input type="button" name="clickbutton[]" value="上传图片" class="button" onclick="edit_album_show('pic')">
+		<input type="button" name="clickbutton[]" value="插入图片" class="button" onclick="edit_album_show('album')">
+		</td></tr>
+	</table>
+	<!--{/if}-->
+
+	<table cellspacing="4" cellpadding="4" width="100%" id="uchome-edit-pic" class="infotable" style="display:none;">
+		<tr>
+			<th width="100">&nbsp;</th>
+			<td>
+				<strong>选择图片</strong>: 
+				<table summary="Upload" cellspacing="2" cellpadding="0">
+					<tbody id="attachbodyhidden" style="display:none">
+						<tr>
+							<td>
+								<form method="post" id="upload" action="cp.php?ac=upload" enctype="multipart/form-data" target="uploadframe" style="background: transparent;">
+									<input type="file" name="attach" style="border: 1px solid #CCC;" />
+									<span id="localfile"></span>
+									<input type="hidden" name="uploadsubmit" id="uploadsubmit" value="true" />
+									<input type="hidden" name="albumid" id="albumid" value="0" />
+									<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+								</form>
+							</td>
+						</tr>
+					</tbody>
+					<tbody id="attachbody"></tbody>
+				</table>
+				<strong>存储相册</strong>: 
+				<table cellspacing="2" cellpadding="0">
+					<tr>
+						<td>
+							<select name="albumid" id="uploadalbum" onchange="addSort(this)">
+								<option value="-1">请选择相册</option>
+								<option value="-1">默认相册</option>
+								<!--{loop $albums $value}-->
+								<option value="$value[albumid]">$value[albumname]</option>
+								<!--{/loop}-->
+								<option value="addoption" style="color:red;">+新建相册</option>
+							</select>
+							<script src="source/script_upload.js" type="text/javascript"></script>
+							<iframe id="uploadframe" name="uploadframe" width="0" height="0" marginwidth="0" frameborder="0" src="about:blank"></iframe>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table cellspacing="4" cellpadding="4" width="100%" class="infotable" id="uchome-edit-album" style="display:none;">
+		<tr>
+			<th width="100">&nbsp;</th>
+			<td>
+				选择相册: <select name="view_albumid" onchange="picView(this.value)">
+					<option value="none">选择一个相册</option>
+					<option value="0">默认相册</option>
+					<!--{loop $albums $value}-->
+					<option value="$value[albumid]">$value[albumname]</option>
+					<!--{/loop}-->
+				</select> (点击图片可以插入到内容中)
+				<div id="albumpic_body"></div>
+			</td>
+		</tr>
+	</table>
+	<table cellspacing="4" cellpadding="4" width="100%" class="infotable">
+		<tr>
+			<th width="100">&nbsp;</th>
+			<td>
+			<input type="button" id="issuance" onclick="document.getElementById('quizbutton').click();" value="保存发布" class="submit" /></td>
+		</tr>
+	</table>
+	
+	<table cellspacing="4" cellpadding="4" width="100%" class="infotable" style="display:none">
+	<tr>
+			<th width="100">&nbsp;</th>
+			<td><table summary="Upload" cellspacing="2" cellpadding="0">
+					<tbody id="optionsattachbody">
+						<tr>
+							<td>
+								<form method="post" id="ajaxupload" action="cp.php?ac=upload" enctype="multipart/form-data" target="uploadframe" style="background: transparent;">
+									<input type="file" name="attach" style="border: 1px solid #CCC;" id="ajaxattach"/>
+									<span id="localfile"></span>
+									<input type="hidden" name="uploadsubmit2" id="uploadsubmit2" value="true" />
+									<input type="hidden" name="albumid" id="albumid" value="0" />
+									<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+									<input type="button" id="uploadsubmit_btn" name="uploadsubmit_btn" class="submit" value="图片上传" onclick="ajaxpost('ajaxupload', 'showPic')" />
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table></td>
+	</tr>
+	</table>
+</div>
+
+<!--{/if}-->
+<!--{template footer}-->

@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset= utf-8" />
+<title>betit官网</title>
+<link href="newstyle.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="org_js/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	var page=1;
+	window.onscroll=function(){
+	 var mayLoadContent = $(window).scrollTop() >= $(document).height() - $(window).height();
+	 if (mayLoadContent){
+		 ++page;
+		 $.ajax({
+			  type: 'POST',
+			  url: 'newdemocontent.html',
+			  data: {Page:page},
+			  success: function(data){
+				$(".iphonebody").append(data); 
+			  },
+			  dataType: 'html'
+		 });
+	 }
+	}	   
+});
+
+
+</script>
+
+</head>
+
+<body >
+<div id="header">
+  <div class="nav">
+    <div class="navleft"><a href="#"><img src="org_img/logo.jpg" /></a></div>
+    <div class="navright">
+      <ul class="u1">
+        <li class="num1"><a href="newindex.html">
+          <ul class="u6">
+            <li class="li01"><i class="pic01"></i></li>
+            <li class="li02"   onclick="style.color='#FCD422'">首页</li>
+          </ul>
+          </a></li>
+        <li class="num2"><a href="load.html" >
+          <ul class="u6">
+            <li class="li01"><i class="pic02"></i></li>
+            <li class="li02"  onclick="style.color='#FCD422'" >下载</li>
+          </ul>
+          </a></li>
+        <li class="num3yell"><a href="hot.html">
+          <ul class="u6">
+            <li class="li01"><i class="pic03"></i></li>
+            <li class="li02"  onclick="style.color='#FCD422'"><font class="f1">热门</font></li>
+          </ul>
+          </a></li>
+        <li class="num4"><a href="team2.html">
+          <ul class="u6">
+            <li class="li01"><i class="pic04"></i></li>
+            <li class="li02"   onclick="style.color='#FCD422'">团队</li>
+          </ul>
+          </a></li>
+        <li class="num5"><a href="hot.html"><ul class="u6"><li class="li01"><i class="pic05"></i></li><li class="li02"  onclick="style.color='#FCD422'" >进入</li></ul></a></li>
+         
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!--热门的Iphone部分-->
+<div id="content-iphone">
+  <div class="content-iphoneinner">
+    <div class="bottom-b"></div>
+    <!--顶部B的底部独立做一个div-->
+    
+    <div class="iphone">
+      <div class="iphonehead"></div>
+      <div class="iphonebody">
+        <ul>
+          <li >
+            <div class="outdiv">
+              <div id="whitehead"> <a class="type" href="space.php?uid=&amp;do=feed&amp;view=all&amp;appid=1&amp;icon=quiz" title="只看此类动态"><img style="width:48px; height:48px;" src="org_img/3.jpg"></a> <a class="newbettitle" target="_blank" href="#" >白雪琪 : </a><a target="_blank" href="space.php?uid=15&amp;do=quiz&amp;id=175"  class="newtitle02">哪部手机更受欢迎？</a> <span class="gray">1小时前</span> </div>
+              <div class="feed_content" id="whitebody">
+                <div class="twopic">
+                  <div class="picone"> <a href="#" target="_blank"><img src="org_img/picleft.png" class="summaryimg"></a> </div>
+                  <div class="middle"><div>
+                    ￥ 14500 </div><img style="margin-top:20px; width:70px; height:50px;" src="org_img/vs.png"> </div>
+                  <div class="pictwo"> <a href="#" target="_blank"><img src="org_img/picright.png" class="summaryimg"></a></div>
+                  <div class="clear" ></div>
+                </div>
+                <div class="twoword" >
+                  <div class="leftword">小米2代</div>
+                  <div class="rightword">Iphone5</div>
+                </div>
+                <div class="twohand">
+                  <div class="lefthand"><a href="#"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="org_img/lefthand.png"></a>120</div>
+                  <div class="midhand">00:09:12</div>
+                  <div class="righthand">125<a href="#"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="org_img/righthand.png"></a></div>
+                  <div class="clear" ></div>
+                </div>
+              </div>
+              <div id="whitefoot"> <a class="type" href="space.php?uid=&amp;do=feed&amp;view=all&amp;appid=1&amp;icon=quiz" title="只看此类动态"><img style="width:38px; height:38px; margin-top:5px;" src="org_img/2.jpg"></a> <a class="newbettitletitle" target="_blank" href="#" >小清新 : </a><a target="_blank" href="space.php?uid=15&amp;do=quiz&amp;id=175"  class="newtitle0202">哪部手机更受欢迎？</a> <span class="graygray">1小时前</span> </div>
+            </div>
+          </li>
+        </ul>
+        <ul>
+          <li  >
+            <div  class="outdiv" >
+              <div id="whitehead"> <a class="type" href="space.php?uid=&amp;do=feed&amp;view=all&amp;appid=1&amp;icon=quiz" title="只看此类动态"><img style="width:48px; height:48px;" src="org_img/3.jpg"></a> <a class="newbettitle" target="_blank" href="#" >白雪琪 : </a><a target="_blank" href="space.php?uid=15&amp;do=quiz&amp;id=175"  class="newtitle02">哪部手机更受欢迎？</a> <span class="gray">1小时前</span> </div>
+              <div class="feed_content" id="whitebody">
+                <div class="twopic">
+                  <div class="picone"> <a href="#" target="_blank"><img src="org_img/nopicA.png" class="summaryimg"></a> </div>
+                  <div class="middle"> <div>
+                    ￥ 14500</div> <img style="margin-top:20px; width:70px; height:50px;" src="org_img/vs.png"> </div>
+                  <div class="pictwo"> <a href="#" target="_blank"><img src="org_img/nopicB.png" class="summaryimg"></a></div>
+                  <div class="clear"></div>
+                </div>
+                <div class="twoword" >
+                  <div class="leftword">小米2代</div>
+                  <div class="rightword">Iphone5</div>
+                </div>
+                <div class="twohand">
+                  <div class="lefthand"><a href="#"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="org_img/lefthand.png"></a>120</div>
+                  <div class="midhand">00:09:12</div>
+                  <div class="righthand">125<a href="#"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="org_img/righthand.png"></a></div>
+                  <div class="clear" ></div>
+                </div>
+              </div>
+              <div id="whitefoot"> <a class="type" href="space.php?uid=&amp;do=feed&amp;view=all&amp;appid=1&amp;icon=quiz" title="只看此类动态"><img style="width:38px; height:38px; margin-top:5px;" src="org_img/2.jpg"></a> <a class="newbettitletitle" target="_blank" href="#" >小清新 : </a><a target="_blank" href="space.php?uid=15&amp;do=quiz&amp;id=175"  class="newtitle0202">哪部手机更受欢迎？</a> <span class="graygray">1小时前</span> </div>
+            </div>
+          </li>
+        </ul>
+        
+        <div class="loading" id="loading"></div>
+      <div class="loading" id="nomoreresults"></div>
+    
+    
+      </div>
+      <div class="iphonefoot"></div>
+      <div class="rightfirst">
+        <div class="rigtitle">热门标签</div>
+        <div class="rigcont">
+          <ul class="u8">
+            <li class="c1"><a href="#">中国好声音</a></li>
+            <li class="c2"><a href="#">中超</a></li>
+            <li class="c1"><a href="#">声动亚洲</a></li>
+            <li class="c2"><a href="#">英超</a></li>
+            <li class="c1"><a href="#">中国好声音</a></li>
+            <li class="c2"><a href="#">中超</a></li>
+            <li class="c1"><a href="#">声动亚洲</a></li>
+            <li class="c2"><a href="#">英超</a></li>
+            <li class="all" ><a href="#">全部</a></li>
+            
+          </ul>
+        </div>
+      </div>
+      <div class="rightsecond">
+        <div class="rigtitle">等级统计</div>
+        <div class="rigconttwo">
+          <ul class="u9">
+            <li class="d1"><img src="org_img/pA.png"></li>
+            <li class="d2">等级一</li>
+            <li class="d3">1000人</li>
+            <li class="d1"><img src="org_img/p2.png"></li>
+            <li class="d2">等级二</li>
+            <li class="d3">1000人</li>
+            <li class="d1"><img src="org_img/p3.png"></li>
+            <li class="d2">等级三</li>
+            <li class="d3">1000人</li>
+            <li class="d1"><img src="org_img/p4.png"></li>
+            <li class="d2">等级四</li>
+            <li class="d3">1000人</li>
+            <li class="d1"><img src="org_img/p5.png"></li>
+            <li class="d2">等级五</li>
+            <li class="d3">1000人</li>
+            <li class="d1"><img src="org_img/p6.png"></li>
+            <li class="d2">等级三</li>
+            <li class="d3">1000人</li>
+            <li class="d1"><img src="org_img/p7.png"></li>
+            <li class="d2">等级四</li>
+            <li class="d3">1000人</li>
+            <li class="d1"><img src="org_img/pQ.png"></li>
+            <li class="d2">等级三</li>
+            <li class="d3">1000人</li>
+            <li class="d1"><img src="org_img/pK.png"></li>
+            <li class="d2">等级四</li>
+            <li class="d3">1000人</li>
+            <div class="clear"></div>
+          </ul>
+        </div>
+      </div>
+      <div class="rightbone"></div>
+      <div class="rightbtwo"></div>
+    </div>
+  </div>
+  <div class="content-footer">
+    <ul class="u4">
+      <li><a href="#">关于我们</a>&nbsp;&nbsp;&nbsp;  |   &nbsp;&nbsp;&nbsp; <a href="#">媒体合作</a> &nbsp;&nbsp;&nbsp; |  &nbsp;&nbsp;&nbsp; <a href="#">使用帮助</a> </li>
+    </ul>
+    <ul class="u5">
+      <li><span class="copyright">Copyright @ 2010 广州市宏门网络科技有限公司 版权所有 - 粤ICP备08132436号 </span></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

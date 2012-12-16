@@ -1,0 +1,59 @@
+.loading{
+	background-image:url(../themes/images/default/loading/loading_bg.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.loading-logo{
+    background-image:url(../themes/images/default/loading/loading_logo.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.loading-sina-button{
+    background-image:url(../themes/images/default/loading/loading_sina_a.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.loading-sina-button-press{
+    background-image:url(../themes/images/default/loading/loading_sina_b.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+
+.loading-qq-button{
+    background-image:url(../themes/images/default/loading/loading_qq_a.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+
+
+
+.loading-qq-button-press{
+    background-image:url(../themes/images/default/loading/loading_qq_b.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+@media screen and (orientation:landscape) {
+    body {
+        -webkit-transform: rotate(-90deg);
+    }
+}
+
+
+@media screen and (orientation:portrait) {
+    body {
+        -webkit-transform: rotate(0deg);
+    }
+}
+
+
+.x-button-beitit{
+	background-color: none;
+	border-color: black;
+}
+

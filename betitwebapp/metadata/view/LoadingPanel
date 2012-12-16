@@ -1,0 +1,213 @@
+{
+    "type": "panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "isfirsttime": "true",
+        "designer|userClassName": "LoadingPanel",
+        "designer|initialView": true,
+        "cls": [
+            "loading"
+        ],
+        "fullscreen": false,
+        "floatingCls": null,
+        "height": 480,
+        "html": null,
+        "id": "loading-panel",
+        "left": null,
+        "width": 320,
+        "layout": "vbox",
+        "scrollable": "vertical"
+    },
+    "id": "ExtBox1-ext-gen7885",
+    "designerId": "ef6504dc-f092-4a06-aec0-2f28bec5dd01",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "isfirsttime",
+            "type": "string"
+        }
+    ],
+    "cn": [
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|userClassName": "onPanelPainted",
+                "fn": "onPanelPainted",
+                "implHandler": [
+                    "/*if (Ext.Viewport.getOrientation() == 'portrait'){\r",
+                    "var dimensions = component.getSize();\r",
+                    "if (dimensions.width>dimensions.height){\r",
+                    "component.setWidth(dimensions.height);\r",
+                    "component.setHeight(dimensions.width);\r",
+                    "var items = component.getItems().items;\r",
+                    "var index;\r",
+                    "for (index in items){\r",
+                    "dimensions = items[index].getSize();\r",
+                    "var top = items[index].getTop();\r",
+                    "var left = items[index].getLeft();\r",
+                    "items[index].setSize(dimensions.height, dimensions.width);\r",
+                    "items[index].setTop(left);\r",
+                    "items[index].setLeft(top);\r",
+                    "}\r",
+                    "}\r",
+                    "}*/\r",
+                    "\r",
+                    "/*if (Ext.Viewport.getOrientation() == 'portrait'){\r",
+                    "\r",
+                    "var w = Ext.Viewport.getWindowWidth();\r",
+                    "var h = Ext.Viewport.getWindowHeight();\r",
+                    "var dimensions = component.getSize();\r",
+                    "var newHeight = w*dimensions.height/dimensions.width;\r",
+                    "component.setWidth(w);\r",
+                    "component.setHeight(newHeight);\r",
+                    "Ext.Viewport.setHeight(newHeight);\r",
+                    "var ratio = newHeight/dimensions.height;\r",
+                    "var items = component.getItems().items;\r",
+                    "var index;\r",
+                    "for (index in items){\r",
+                    "\r",
+                    "items[index].setHeight( items[index].getHeight()*ratio);\r",
+                    "items[index].setWidth( items[index].getWidth()*ratio);\r",
+                    "items[index].setTop( items[index].getTop()*ratio);\r",
+                    "items[index].setLeft( items[index].getLeft()*ratio);\r",
+                    "\r",
+                    "}\r",
+                    "//   Ext.Viewport.setMargin(0);\r",
+                    "\r",
+                    "}else{*/\r",
+                    "\r",
+                    "var w = Ext.Viewport.getWindowWidth();\r",
+                    "var h = Ext.Viewport.getWindowHeight();\r",
+                    "var dimensions = component.getSize();\r",
+                    "if (w/h>dimensions.width/dimensions.height){\r",
+                    "\r",
+                    "    var newWidth = h*dimensions.width/dimensions.height;\r",
+                    "    var ratio = newWidth/dimensions.width; // scale\r",
+                    "    var margin = (w-newWidth)/2;\r",
+                    "    component.setWidth(newWidth);\r",
+                    "    component.setHeight(h);\r",
+                    "    //  Ext.Viewport.setSize(newWidth, h);\r",
+                    "\r",
+                    "    var items = component.getItems().items;\r",
+                    "    var index;\r",
+                    "    for (index in items){\r",
+                    "        items[index].setHeight( items[index].getHeight()*ratio);\r",
+                    "        items[index].setWidth( items[index].getWidth()*ratio);\r",
+                    "        items[index].setTop( items[index].getTop()*ratio);\r",
+                    "        items[index].setLeft( items[index].getLeft()*ratio);\r",
+                    "\r",
+                    "    }\r",
+                    "    // ios could not user Ext.Viewport.getOrientation() == 'landscape' check\r",
+                    "    // because the web app is defferent frome the safari definitation.\r",
+                    "    if ( Ext.os.is.iOS && !component.getIsfirsttime()){\r",
+                    "        margin = margin+80;\r",
+                    "\r",
+                    "    }\r",
+                    "\r",
+                    "    Ext.Viewport.setMargin(\"0 0 0 \"+margin);\r",
+                    "\r",
+                    "}else{\r",
+                    "    Ext.Viewport.setMargin(0);\r",
+                    "}/*else{\r",
+                    "    var newHeight = w*dimensions.height/dimensions.width;\r",
+                    "    var ratio = newHeight/dimensions.height;\r",
+                    "    var margin = (h-newHeight)/2;\r",
+                    "    component.setHeight(newHeight);\r",
+                    "    component.setWidth(w);\r",
+                    "\r",
+                    "    var items = component.getItems().items;\r",
+                    "    var index;\r",
+                    "    for (index in items){\r",
+                    "\r",
+                    "        items[index].setHeight( items[index].getHeight()*ratio);\r",
+                    "        items[index].setWidth( items[index].getWidth()*ratio);\r",
+                    "        items[index].setTop( items[index].getTop()*ratio);\r",
+                    "        items[index].setLeft( items[index].getLeft()*ratio);\r",
+                    "\r",
+                    "    }\r",
+                    "\r",
+                    "    Ext.Viewport.setMargin(\"0 \"+margin+\" 0 \"+margin);\r",
+                    "}*/\r",
+                    "//}\r",
+                    ""
+                ],
+                "single": false,
+                "name": "painted"
+            },
+            "designerId": "2976353b-f93e-4ae3-82ff-60d7bd1f8f6a"
+        },
+        {
+            "type": "container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|userClassName": "MyContainer",
+                "cls": [
+                    "loading-logo"
+                ],
+                "height": 156,
+                "id": "loading-panel-logo",
+                "itemId": "mycontainer",
+                "left": 105,
+                "top": 110,
+                "width": 118,
+                "scrollable": null
+            },
+            "designerId": "d3797298-62f0-432e-adc3-77fdeaf1f656"
+        },
+        {
+            "type": "button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|userClassName": "MyButton",
+                "baseCls": "x-button-beitit",
+                "cls": "loading-sina-button",
+                "height": 30,
+                "id": "loading-sina-button",
+                "left": 18,
+                "top": 328,
+                "width": 135,
+                "pressedCls": "loading-sina-button-press",
+                "text": null
+            },
+            "designerId": "b917041d-91f2-4120-908d-60bc4350c7f0"
+        },
+        {
+            "type": "button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|userClassName": "MyButton",
+                "baseCls": "x-button-beitit",
+                "cls": "loading-qq-button",
+                "height": 30,
+                "id": "loading-qq-button",
+                "left": 168,
+                "top": 328,
+                "width": 135,
+                "pressedCls": "loading-qq-button-press",
+                "text": null
+            },
+            "designerId": "31c254b7-6356-4608-bb5b-14a25da9105b"
+        }
+    ]
+}

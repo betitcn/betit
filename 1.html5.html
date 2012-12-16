@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Chrome DevRel Team (chrome-devrel@googlegroups.com)
+                 Alex Russell (slightlyoff@chromium.org)
+                 Brad Neuberg
+-->
+
+<!-- GB: modifications for s9 template pack:
+ 
+  o removed offline manifest
+  o removed disclaimer; it's just a prototype anyway
+  o removed google analytics script code
+  o removed google maps script code
+  o removed all slides
+
+  o in js/utils.js changed line 541pp queryAll('.transitionSlide')
+ 
+     - looks for h1 (not h2) and doesn't include img (icon)
+
+  o in styles/commons.css commented out rules for li and bullets
+ 
+   li {
+    list-style: none;
+    padding: 10px 0;
+   }
+   .bullets {
+  font-size: 40px;
+  }
+  .bullets li::before {
+    content: '· ';
+  }
+-->
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+    <title>操作系统 -- 丘文峰</title>
+    <link href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" rel="stylesheet" type="text/css" />
+    <link id="prettify-link" href="src/prettify/prettify.css" rel="stylesheet" disabled />
+    <link href="styles/fonts.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="styles/presentation.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="styles/common.css" rel="stylesheet" type="text/css" media="screen" />
+    <link class="theme" href="styles/default.css" rel="stylesheet" type="text/css" media="screen" />
+    <link class="theme" href="styles/moon.css" rel="stylesheet" type="text/css" media="screen" />
+    <link class="theme" href="styles/sand.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link class="theme" href="styles/sea_wave.css" rel="stylesheet" type="text/css" media="screen"/>
+  </head>
+  <body>
+    <div id="flex-container">
+    <nav id="helpers">
+      <button title="Previous slide" id="nav-prev" class="nav-prev">&#8701;</button> 
+      <button title="Jump to a random slide" id="slide-no">5</button> 
+      <button title="Next slide" id="nav-next" class="nav-next">&#8702;</button>
+      <menu>
+        <button type="checkbox" data-command="toc" title="Table of Contents" class="toc">TOC</button>
+        <!-- <button type="checkbox" data-command="resources" title="View Related Resources">&#9734;</button> -->
+        <button type="checkbox" data-command="notes" title="View Slide Notes">&#9999;</button>
+        <button type="checkbox" data-command="source" title="View slide source">&#8635;</button>
+        <button type="checkbox" data-command="help" title="View Help">?</button>
+      </menu>
+    </nav>
+    <div class="slides">
+      <div id="presentation-counter">Loading...</div>
+        <div class="slide" id="landing-slide">
+          <section class="middle">
+            <p>This presentation is an HTML5 website</p>
+            <p>Press <span id="left-init-key" class="key">&rarr;</span> key to advance.</p>
+          </section>
+          <aside class="note">
+            <section>
+              Welcome! (This field is for speaker notes and commentary.)
+            </section>
+          </aside> 
+        </div>
+
+        <div class="slide" id="controls-slide">
+          <header>Slides controls</header>
+          <section>
+            <ul>
+              <li><span class="key">&larr;</span> and <span class="key">&rarr;</span> to move around.</li>
+              <li><span class="key">Ctrl/Command</span> and <span class="key">+</span> or <span class="key">-</span> to zoom in and out if slides don’t fit.</li>
+              <li><span class="key">S</span> to view page source.</li>
+              <li><span class="key">T</span> to change the theme.</li>
+              <li><span class="key">H</span> to toggle syntax highlight.</li>
+              <li><span class="key">N</span> to toggle speaker notes.</li>
+              <li><span class="key">3</span> to toggle 3D effect.</li>
+              <li><span class="key">0</span> to toggle help.</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="slide" id="title-slide">
+          <section class="middle">
+            <hgroup>
+              <h1>
+                操作系统
+              </h1>
+              <h2>
+                绪论
+              </h2>
+			  <h3>
+                丘文峰
+              </h3>
+            </hgroup>
+          </section>
+        </div>
+
+        <div class="slide" id="table-of-contents">
+          <header><h1>本章内容</h1></header>
+          <section>
+            <ul id="toc-list">
+            </ul>
+          </section>
+        </div>
+
+
+        
+        <div class="slide transitionSlide" id="slide2">
+          <header><h1 id="section">1.1 操作系统概念</h1></header>
+          <section>
+              <!-- === begin markdown block =====================================================
+
+      generated by markdown 1.0.0 on Ruby 1.8.7 (2012-06-29) [i386-mingw32]
+                on Sun Sep 02 17:21:35 +0800 2012 with Markdown engine kramdown (0.13.8)
+                  using options { !to be done! }
+  -->
+
+<!-- _S9SLIDE_ -->
+<h1 id="section">1.1 操作系统概念</h1>
+
+<h3 id="section-1">计算机系统</h3>
+
+<p>计算机系统由两部分组成：硬件和软件。计算机硬件通常是由中央处理机（运算器和控制器）、存储器、输入设备和输出设备等部件组成。</p>
+
+<h3 id="section-2">计算机软件</h3>
+
+<ul>
+  <li>
+    <p>系统软件： 操作系统、多种语言处理程序（汇编和编译程序等）、连接装配程序、系统实用程序、多种工具软件等；</p>
+  </li>
+  <li>
+    <p>应用软件为应用编制的程序， APP</p>
+  </li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide3">
+          <header><h1 id="section-3">1.1 操作系统概念</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-3">1.1 操作系统概念</h1>
+
+<h3 id="bare-machine--virtual-machine">裸机与虚拟机（bare machine &amp; virtual machine)</h3>
+
+<p><img src="images/1/1.jpg" alt="操作系统与硬件软件的关系" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide4">
+          <header><h1 id="section-4">1.1 操作系统的三个视角</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-4">1.1 操作系统的三个视角</h1>
+
+<h3 id="section-5">用户、系统管理员、发展</h3>
+
+<ul>
+  <li>
+    <p>用户： 计算机是为用户提供服务的，操作系统为用户提供友好的人机交互</p>
+  </li>
+  <li>
+    <p>系统管理员： 为了合理地组织计算机工作流程，管理和分配计算机系统硬件及软件资源，操作系统是计算机的管理者</p>
+  </li>
+  <li>
+    <p>发展的观点看： 为了给计算机系统的功能扩展提供支撑写着台，使之在追加新的服务和功能时更加容易和不影响原有的服务与功能</p>
+  </li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide5">
+          <header><h1 id="section-6">1.2 操作系统的历史</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-6">1.2 操作系统的历史</h1>
+
+<h3 id="section-7">计算机发展的历程</h3>
+
+<ul>
+  <li>1946年至20世纪50年代末 第一代， 电子管时代， 人工操作阶段</li>
+  <li>20世纪50年代末至20世已60年代中期 第二代， 晶体管时代， 批处理系统</li>
+  <li>20世纪60年代中期至20世70年代中期 第三代 集成电路时代， 多道程序设计</li>
+  <li>20世纪70年代中期至20世纪末 第四代， 大规模和超大规模集成电路时代，分时系统</li>
+  <li>21世纪初至今， 以移动、分布和网络计算为代表向
+    <ul>
+      <li>普适计算</li>
+      <li>网格计算</li>
+      <li>巨型、微型、并行、分布、网络化、智能化和生物信息化几个方面发展</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="section-8">操作系统的发展过程</h3>
+
+<p>手工操作阶段 → 批处理系统 → 多道程序系统 → 分时系统 → 实时系统 → 通用操作系统 → 网络操作系统</p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide6">
+          <header><h1 id="section-9">1.2.1 手工操作阶段</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-9">1.2.1 手工操作阶段</h1>
+
+<h3 id="section-10">特点</h3>
+<ul>
+  <li>主要元器件是电子管</li>
+  <li>计算机速度慢, 几千次/秒</li>
+  <li>没有操作系统</li>
+  <li>程序独占资源</li>
+  <li>上机为手工操作</li>
+</ul>
+
+<h3 id="section-11">问题</h3>
+
+<p>随着计算机速度的提高，手工操作的慢速度与计算机高速度之间形成矛盾，成为性能瓶颈</p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide7">
+          <header><h1 id="section-12">1.2.2 早期批处理系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-12">1.2.2 早期批处理系统</h1>
+
+<h3 id="section-13">解决方案</h3>
+
+<ul>
+  <li>配备专门的计算机操作员，减少操作机器的错误 </li>
+  <li>进行批处理， 由监督程序（monitor）自动依次处理</li>
+</ul>
+
+<h3 id="section-14">早期批处理的两种方式</h3>
+
+<ul>
+  <li>
+    <p>联机批处理： 解决了作业自动转接，但是慢速的输入输出设备和快速主机之间处理串行工作，CPU仍有大量浪费</p>
+  </li>
+  <li>
+    <p>脱机批处理： 增加一台不与主机直接相连而专门用于与输入输出设备打交道的卫星机。</p>
+  </li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide8">
+          <header><h1 id="section-15">1.2.2  脱机批处理</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-15">1.2.2  脱机批处理</h1>
+
+<p><img src="images/1/2.jpg" alt="早期脱机批处理模型" /></p>
+
+<h3 id="section-16">卫星机的功能</h3>
+
+<ul>
+  <li>输入设备通过它把作业输入到输入磁带</li>
+  <li>输出磁带将作业执行地果输出到输出设备</li>
+</ul>
+
+<h3 id="section-17">批处理促进软件发展</h3>
+
+<ul>
+  <li>监督程序， 汇编程序， 编译程序， 连接装配程序， 程序库</li>
+  <li>程序覆盖技术</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide9">
+          <header><h1 id="section-18">1.2.2 监督程序的解题过程</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-18">1.2.2 监督程序的解题过程</h1>
+
+<p><img src="images/1/3.jpg" alt="监督程序的解题过程 " /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide10">
+          <header><h1 id="section-19">1.2.2 批处理的优缺点</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-19">1.2.2 批处理的优缺点</h1>
+
+<h3 id="section-20">优点</h3>
+
+<p>实现了作业的自动过渡，改善了主机CPU和输入输出设备使用情况，提高了计算机系统的处理能力</p>
+
+<h3 id="section-21">缺点</h3>
+
+<p>磁带需人工拆装， 既麻烦又易出错，需要专门的系统维护</p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide11">
+          <header><h1 id="section-22">1.2.2 执行系统 - 硬件促进软件革新</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-22">1.2.2 执行系统 - 硬件促进软件革新</h1>
+
+<p>20世纪60年代初期， 硬件获得了两方面的进展，导致操作系统进入执行系统阶段。</p>
+
+<h3 id="section-23">通道</h3>
+
+<ul>
+  <li>专门处理部件， 用于控制一台或多台输入输出设备工作</li>
+  <li>独立于CPU运行</li>
+</ul>
+
+<h3 id="section-24">中断</h3>
+
+<ul>
+  <li>中断是指当主机接到外部信号（如输入输出设备完成信号）时， 马上停止原来工作，转去处理这一件事件，处理完毕后，主机回到原来的断点继续工作</li>
+</ul>
+
+<h3 id="section-25">执行系统</h3>
+
+<ul>
+  <li>
+    <p>负责作业运行的自动调度，并提供输入输出控制功能。</p>
+  </li>
+  <li>
+    <p>输入输出联机操作，但是可以并行操作， 系统执行不需要人工干预，从而提高系统的安全性</p>
+  </li>
+  <li>
+    <p>成功案例： FMS, IBSYS。</p>
+  </li>
+</ul>
+
+<h3 id="section-26">问题</h3>
+
+<p>仍然是单道处理， 对于不同类型（计算密集型和IO密集型）的作业，存在资源的浪费</p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide12">
+          <header><h1 id="section-27">1.2.3 多道程序系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-27">1.2.3 多道程序系统</h1>
+
+<p><img src="images/1/4.jpg" alt="单道程序工作示例" /></p>
+
+<p><img src="images/1/5.jpg" alt="多道程序工作示例" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide13">
+          <header><h1 id="section-28">1.2.3 多道程序运行的特点</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-28">1.2.3 多道程序运行的特点</h1>
+
+<h3 id="section-29">概念</h3>
+
+<ul>
+  <li>根据作业对资源的要求和一定调度的原则，调若干个作业进入内存，让作业交替运行，以提高系统的资源利用率</li>
+</ul>
+
+<h3 id="section-30">特点</h3>
+
+<ul>
+  <li>内存中同时存放多个程序</li>
+  <li>宏观上并行</li>
+  <li>微观上串行</li>
+</ul>
+
+<h3 id="section-31">技术难点</h3>
+
+<ul>
+  <li>同步与互斥问题</li>
+  <li>内存管理， 以提高作业进入内存的道数</li>
+  <li>内存保护</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide14">
+          <header><h1 id="section-32">1.2.4 分时操作系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-32">1.2.4 分时操作系统</h1>
+
+<h3 id="section-33">分时技术</h3>
+
+<p>所谓分时技术， 就是把处理机的运行时间分成很短的时间片，按时间片轮流把处理机分配给各联机作业使用</p>
+
+<h3 id="section-34">多用户分时操作系统是当今计算机操作系统中最普遍使用的一类操作系统。</h3>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide15">
+          <header><h1 id="section-35">1.2.5 实时操作系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-35">1.2.5 实时操作系统</h1>
+
+<h3 id="section-36">特征</h3>
+
+<ul>
+  <li>以在允许时间范围之内（截止时间）做出响应为特征</li>
+</ul>
+
+<h3 id="section-37">要求</h3>
+
+<ul>
+  <li>计算机对于外来信息能以足够快的速度进行处理，并在被控对象允许时间范围内做出快速响应，其响应时间要求在秒级，毫秒级甚至微秒级或更小</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide16">
+          <header><h1 id="section-38">1.2.6 通用操作系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-38">1.2.6 通用操作系统</h1>
+
+<h3 id="section-39">概念</h3>
+
+<ul>
+  <li>同时兼有多道批处理、分时、实时处理的功能，或其中两种以上的功能。</li>
+</ul>
+
+<h3 id="section-40">典型通用操作系统</h3>
+
+<ul>
+  <li>实时批处理系统， 保证优先处理任务，插空进行批作业处理</li>
+  <li>分时批处理系统， 保证分时用户的前提下，进行批量作业处理</li>
+</ul>
+
+<h3 id="unix-">Unix 操作系统是一个通用的多用户分时交互型操作系统</h3>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide17">
+          <header><h1 id="section-41">1.2.7 操作系统的进一步发展</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-41">1.2.7 操作系统的进一步发展</h1>
+
+<ul>
+  <li>个人计算机上的操作系统， 例如 Windows操作系统系列</li>
+  <li>嵌入式操作系统， 例如 Symbian操作系统</li>
+  <li>网络操作系统</li>
+  <li>分布式操作系统</li>
+  <li>智能化操作系统</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide18">
+          <header><h1 id="section-42">1.3 操作系统的基本类型</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-42">1.3 操作系统的基本类型</h1>
+
+<ul>
+  <li>批处理操作系统（batch proccessing operating system）</li>
+  <li>分时操作系统（time sharing operationg system）</li>
+  <li>实时操作系统（real time operating system）</li>
+  <li>个人计算机操作系统（personal computer operating syetem）</li>
+  <li>网络操作系统（network operating system）</li>
+  <li>分布式操作系统（distributed opertating system）</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide19">
+          <header><h1 id="section-43">1.3.1 批处理操作系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-43">1.3.1 批处理操作系统</h1>
+
+<p><img src="images/1/6.jpg" alt="批处理系统中作业处理地及状态" /></p>
+
+<h3 id="section-44">批处理系统的主要特征</h3>
+
+<ul>
+  <li>用户脱机使用计算机</li>
+  <li>成批处理</li>
+  <li>多道程序运行</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide20">
+          <header><h1 id="section-45">1.3.1 批处理操作系统优缺点</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-45">1.3.1 批处理操作系统优缺点</h1>
+
+<h3 id="section-46">优点</h3>
+
+<ul>
+  <li>资源共享</li>
+  <li>作业调度</li>
+  <li>以牺牲交互来提高资源的利用率和作业吞吐量</li>
+</ul>
+
+<h3 id="section-47">缺点</h3>
+
+<ul>
+  <li>无交互性</li>
+  <li>作业周转时间长</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide21">
+          <header><h1 id="section-48">1.3.2 分时系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-48">1.3.2 分时系统</h1>
+
+<p>采用时间片轮转的方式，使一台计算机为多个终端用户服务。</p>
+
+<h3 id="section-49">特点</h3>
+<ul>
+  <li>交互性</li>
+  <li>多用户同时性</li>
+  <li>独立性</li>
+</ul>
+
+<h3 id="on-linemulti-userinteractive">分时操作系统是一种联机的（on-line）多用户（multi-user）交互式（interactive）的操作系统</h3>
+
+<ul>
+  <li>UNIX</li>
+  <li>CTSS</li>
+  <li>MUTICS</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide22">
+          <header><h1 id="section-50">1.3.3 实时系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-50">1.3.3 实时系统</h1>
+
+<h3 id="section-51">特点</h3>
+
+<ul>
+  <li>即时响应</li>
+  <li>高可靠性</li>
+</ul>
+
+<h3 id="section-52">缺点： 资源利用率可能较低</h3>
+
+<h3 id="section-53">设计考虑因素</h3>
+
+<ul>
+  <li>实时时钟管理（定时处理和延时处理）</li>
+  <li>连续的人-机对话</li>
+  <li>过载保护</li>
+  <li>采用冗余措施来保证高度可靠性和安全性</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide23">
+          <header><h1 id="section-54">1.3.4 通用操作系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-54">1.3.4 通用操作系统</h1>
+
+<p>批处理系统，分时系统和实时系统是操作系统的三种基本类型。在此基础上又发展了具有多种类型操作特征的操作，称为通用操作系统。它可以同时兼有批处理、分时、实时处理和多重处理的功能，或其中两种以上的功能</p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide24">
+          <header><h1 id="pc">1.3.5 个人PC机上的操作系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="pc">1.3.5 个人PC机上的操作系统</h1>
+
+<h3 id="section-55">特点</h3>
+
+<ul>
+  <li>联机的交互式单用户操作系统</li>
+  <li>相对多用户和分时所要求的处理机调度和存储保护方面要简单得多</li>
+  <li>人机交互是此类型操作系统的重点</li>
+  <li>多媒体功能</li>
+</ul>
+
+<h3 id="windowslinux">目前在个人计算机上使用的操作系统以Windows系列和Linux系列为主</h3>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide25">
+          <header><h1 id="section-56">1.3.6 网络操作系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-56">1.3.6 网络操作系统</h1>
+
+<p>在原来计算机操作系统的基础，按照网络体系结构的各个协议标准进行开发，包括网络管理、通信、资源共享、系统安全和多种网络应用服务等。</p>
+
+<h3 id="section-57">现代操作系统主要特征已包含网络功能，因此不再特指某个操作系统为网络操作系统</h3>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide26">
+          <header><h1 id="section-58">1.3.7 分布式操作系统</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-58">1.3.7 分布式操作系统</h1>
+
+<h3 id="section-59">概念</h3>
+
+<p>通过通信网络将物理上分布的具有自治功能的数据处理系统或计算机系统互联起来，实现信息交换和资源共享，协作完成任务。</p>
+
+<h3 id="section-60">特点</h3>
+
+<ul>
+  <li>分布式系统不一定有标准的协议</li>
+  <li>分布式系统需要有统一的操作系统， 统一性</li>
+  <li>系统的透明性</li>
+  <li>分布式系统的基础是网络</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide27">
+          <header><h1 id="section-61">1.4 操作系统的功能</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-61">1.4 操作系统的功能</h1>
+
+<h3 id="section-62">根据计算机的主要硬件资源，划分</h3>
+
+<ul>
+  <li>处理机管理， 处理机抽象-进程</li>
+  <li>存储管理， 内存分配、 存储保护、 内存扩充</li>
+  <li>设备管理， 设备独立性</li>
+  <li>文件管理， 文件、目录、盘</li>
+  <li>系统接口</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide28">
+          <header><h1 id="section-63">1.5 计算机硬件简介</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-63">1.5 计算机硬件简介</h1>
+
+<p><img src="images/1/7.jpg" alt="计算机的基本硬件元素" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide29">
+          <header><h1 id="section-64">1.5.2 与操作系统相关的几种主要寄存器</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-64">1.5.2 与操作系统相关的几种主要寄存器</h1>
+
+<h3 id="section-65">主要寄存器</h3>
+
+<ul>
+  <li>数据寄存器</li>
+  <li>地址寄存器</li>
+  <li>条件码寄存器</li>
+  <li>PC寄存器</li>
+  <li>IR寄存器</li>
+  <li>PSW</li>
+  <li>中断现场保护寄存器</li>
+  <li>过程调用堆栈</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide30">
+          <header><h1 id="section-66">1.5.3 存储的访问速度</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-66">1.5.3 存储的访问速度</h1>
+
+<p><img src="images/1/8.jpg" alt="存储介质的访问速度" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide31">
+          <header><h1 id="section-67">1.5.4 指令的执行与中断</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-67">1.5.4 指令的执行与中断</h1>
+
+<h3 id="section-68">指令执行的三阶段</h3>
+
+<ul>
+  <li>读指令</li>
+  <li>译指令</li>
+  <li>执行指令</li>
+</ul>
+
+<h3 id="section-69">指令执行的过程</h3>
+
+<p><img src="images/1/9.jpg" alt="指令的执行周期" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide32">
+          <header><h1 id="section-70">1.5.4 中断的执行过程</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-70">1.5.4 中断的执行过程</h1>
+
+<p><img src="images/1/10.jpg" alt="中断的执行过程" /></p>
+
+<h3 id="section-71">中断的好处</h3>
+
+<ul>
+  <li>实时处理依赖中断</li>
+  <li>提高处理机的执行效率</li>
+  <li>简化操作系统的程序设计</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide33">
+          <header><h1 id="section-72">1.5.4 中断处理时的指令执行周期</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-72">1.5.4 中断处理时的指令执行周期</h1>
+
+<p><img src="images/1/11.jpg" alt="中断处理时的指令执行周期" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide34">
+          <header><h1 id="section-73">1.5.5 操作系统的启动</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-73">1.5.5 操作系统的启动</h1>
+
+<ul>
+  <li>接通电源， power good</li>
+  <li>自检</li>
+  <li>引导</li>
+  <li>操作系统初始化</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide35">
+          <header><h1 id="section-74">1.6 算法描述</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-74">1.6 算法描述</h1>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+begin
+	local		x,k;
+	k←1;
+	while k&lt;=7 do
+		x←k;
+	repeat print(x);
+		x←p[x];
+	until x=k;
+	k←k+1;
+	od
+end
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide36">
+          <header><h1 id="section-75">1.7 研究操作系统的几种观点</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-75">1.7 研究操作系统的几种观点</h1>
+
+<h3 id="section-76">计算机资源的管理者</h3>
+
+<h3 id="section-77">用户界面的观点</h3>
+
+<h3 id="section-78">进程管理的观点</h3>
+
+<ul>
+  <li>进程 </li>
+  <li>间接制约关系</li>
+  <li>直接制约关系</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide37">
+          <header><h1 id="section-79">1.8 作业</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-79">1.8 作业</h1>
+
+<p>实现P19页 巡回置换算法，周六前提交至毕博平台</p>
+<!-- === end markdown block ===================================================== -->
+
+          </section>
+        </div>
+        
+
+
+        <div id="speaker-note" class="invisible" style="display: none;"></div>
+        <aside id="help" class="sidebar invisible" style="display: none;">
+          <table>
+            <caption>Help</caption>
+            <tbody>
+              <tr>
+                <th>Move Around</th>
+                <td>&larr;&nbsp;&rarr;</td>
+              </tr>
+              <tr>
+                <th>Source File</th>
+                <td>s</td>
+              </tr>
+              <tr>
+                <th>Change Theme</th>
+                <td>t</td>
+              </tr>
+              <tr>
+                <th>Syntax Highlight</th>
+                <td>h</td>
+              </tr>
+              <tr>
+                <th>Speaker Notes</th>
+                <td>n</td>
+              </tr>
+              <tr>
+                <th>Toggle 3D</th>
+                <td>3</td>
+              </tr>
+              <tr>
+                <th>Help</th>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        </aside>
+
+    </div> <!-- slides -->
+    </div>
+    
+    <!--[if lt IE 9]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
+    </script>
+    <script>CFInstall.check({ mode: "overlay" });</script>
+    <![endif]-->
+
+    <script src="src/prettify/prettify.js" onload="prettyPrint();" defer></script>
+    <script src="js/utils.js"></script>
+  </body>
+</html>

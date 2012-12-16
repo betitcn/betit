@@ -1,0 +1,188 @@
+<li class="s_clear $value[magic_class]" id="feed_{$value[feedid]}_li" onmouseover="feed_menu($value[feedid],1);" onmouseout="feed_menu($value[feedid],0);">
+	<div style="width:100%;overflow:hidden;" {$value[style]}>
+		<!--{if $value[uid] && empty($_TPL[hidden_more])}-->
+		<a href="cp.php?ac=feed&op=menu&feedid=$value[feedid]" class="float_more" id="a_feed_menu_$value[feedid]"  onmouseover="feed_menu($value[feedid],1);" onmouseout="feed_menu($value[feedid],0);" onclick="ajaxmenu(event, this.id)" title="显示更多选项" style="display:none;">菜单</a>
+		<!--{/if}-->
+		<a class="type"  href="space.php?uid=$value[uid]" title="只看此类动态"><img style="width:48px; height:48px;float:left;padding-right: 5px;" <!--{avatar($value[uid],small)}--> </a>
+		
+		<!--$value[title_template] -->
+		
+		<a class="newbettitle" target="_blank" href="#">$value[title_template]</a>
+
+		<!--{if empty($_TPL[hidden_time])}-->
+		<br/><span class="gray" ><!--{date('m-d H:i',$value[dateline],1)}--></span>
+		<!--{/if}-->
+		
+		<!--{if empty($_TPL[hidden_menu])}-->
+		<!--{if $value['idtype']=='doid'}-->
+		(<a href="javascript:;" onclick="docomment_get('docomment_$value[id]', 1);" id="do_a_op_$value[id]">回复</a>)
+		<!--{elseif in_array($value['idtype'], array('blogid','picid','sid','pid','eventid'))}-->
+		(<a href="javascript:;" onclick="feedcomment_get($value[feedid]);" id="feedcomment_a_op_$value[feedid]">评论</a>)
+		<!--{/if}-->
+		<!--{/if}-->
+
+		<div class="feed_content">
+		
+			<!--{if empty($_TPL[hidden_hot]) && $value[hot]}-->
+			<div class="hotspot"><a href="cp.php?ac=feed&feedid=$value[feedid]">$value[hot]</a></div>
+			<!--{/if}-->	
+		
+			
+			
+		
+			
+			
+		<!--{if $value['body_template']}-->
+			<div class="detail"<!--{if $value['image_3']}--> style="clear: both;"<!--{/if}-->>
+				
+			</div>
+			<!--{/if}-->
+				<ul>
+<!--{if $value['body_template']}-->
+
+<div style="width:100%;overflow:hidden;margin-left:50px;">
+
+
+
+
+
+
+
+	
+<div class="twopic" style="
+    padding-right: 100px;
+">
+<div class="picone" style="
+    width: 140px;
+    height: 140px;
+    float: left;
+">
+<!--{if $value['image_1']}-->
+			<a href="$value[image_1_link]"{$value[target]}><img src="$value[image_1]" class="summaryimg" /></a>
+			<!--{/if}-->
+	<!--{if $value['image_3']}-->
+			<a href="$value[image_3_link]"{$value[target]}><img src="$value[image_3]" class="summaryimg" /></a>
+			<!--{/if}-->
+
+</div>
+
+<div class="middle" style="
+   	text-align: center;
+width: 120px;
+float: left;
+font-size: 20px;
+font-weight: bold;
+font-family:'微软雅黑';
+
+
+">
+<br>
+<img src="image/org_img/gold.jpg" style="max-width:26px;max-height:25px;min-width:26px;min-height:25px"> $value[totalcost]&nbsp;&nbsp;<br/>
+	
+<img  src="image/org_img/vs_little.jpg" style="max-width:60px;max-height:40px;min-width:60px;min-height:40px">&nbsp;&nbsp;
+
+
+</div>
+
+<div class="pictwo" style="
+    float: left;
+    width: 140px;
+	height:140px;
+">
+<!--{if $value['image_2']}-->
+			<a href="$value[image_2_link]"{$value[target]}><img src="$value[image_2]" class="summaryimg" /></a>
+			<!--{/if}-->
+<!--{if $value['image_4']}-->
+			<a href="$value[image_4_link]"{$value[target]}><img src="$value[image_4]" class="summaryimg" /></a>
+			<!--{/if}-->
+<div class="clear" style="clear:both;"></div>
+
+</div>
+
+<div class="twoword" style="padding-right:120px; margin-bottom:30px;">
+ <!--{eval $list1 = $value[options];}-->
+				<!--{loop $list1 $value2}-->
+<div class="leftword" style="float:left;width:200px;">$value2[0]</div>
+<div class="rightword" style="float:right;margin-right:-105px;">$value2[1]</div>
+  <!--{/loop}-->
+</div>
+
+<div class="twohand" style="padding-right:120px; ">
+	  <!--{eval $list12 = $value[votenum];}-->
+<!--{loop $list12 $value8}-->
+<div class="lefthand" style="float:left; color:#DA5252; font-size:25px;	margin-top:20px;margin-left:-200px;" ><a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="image/newpeople/lefthand.jpg"></a>$value8[option][0]</div>
+<div class="righthand" style="float:right; color:#DA5252; font-size:25px;margin-top:20px;margin-right:-105px;">$value8[option][1]<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="image/newpeople/righthand.jpg"></a></div>
+	  <!--{/loop}-->
+</div>
+
+</div>
+</div>
+
+
+
+
+</ul>
+
+<!--{/if}-->
+			<!--{if $value['thisapp'] && !empty($value['body_data']['flashvar'])}-->
+			<div class="media">
+				<img src="image/vd.gif" alt="点击播放" onclick="javascript:showFlash('{$value['body_data']['host']}', '{$value['body_data']['flashvar']}', this, '{$value['feedid']}');" style="cursor:pointer;" />
+			</div>
+			<!--{elseif $value['thisapp'] && !empty($value['body_data']['musicvar'])}-->
+			<div class="media">
+				<img src="image/music.gif" alt="点击播放" onclick="javascript:showFlash('music', '{$value['body_data']['musicvar']}', this, '{$value['feedid']}');" style="cursor:pointer;" />
+			</div>
+			<!--{elseif $value['thisapp'] && !empty($value['body_data']['flashaddr'])}-->
+			<div class="media">
+				<img src="image/flash.gif" alt="点击查看" onclick="javascript:showFlash('flash', '{$value['body_data']['flashaddr']}', this, '{$value['feedid']}');" style="cursor:pointer;" />
+			</div>
+			<!--{/if}-->
+
+			<!--{if $value['body_general']}-->
+			<div class="quote"><span class="q">$value[body_general]</span></div>
+			<!--{/if}-->
+		</div>
+	</div>
+	
+	<!--{if $value['idtype']=='doid'}-->
+	<div id="docomment_$value[id]" style="display:none;"></div>
+	<!--{elseif $value['idtype']}-->
+	<div id="feedcomment_$value[feedid]" style="display:none;"></div>
+	<!--{/if}-->
+	
+	<!--{if !empty($hiddenfeed_num[$value[icon]])}-->
+	<div id="appfeed_open_$value[feedid]"><a href="javascript:;" id="feed_a_more_$value[feedid]" onclick="feed_more_show('$value[feedid]');">&raquo; 更多动态({$hiddenfeed_num[$value[icon]]})</a></div>
+	<div id="feed_more_$value[feedid]" style="display:none;">
+		<ol>
+		<!--{loop $hiddenfeed_list[$value[icon]] $appvalue}-->
+		<!--{eval $appvalue = mkfeed($appvalue);}-->
+		<li>
+		$appvalue[title_template]
+		<div class="feed_content" style="width:100%;overflow:hidden;">
+			<!--{if $appvalue['image_1']}-->
+			<a href="$appvalue[image_1_link]"{$appvalue[target]}><img src="$appvalue[image_1]" class="summaryimg" /></a>
+			<!--{/if}-->
+			<!--{if $appvalue['image_2']}-->
+			<a href="$appvalue[image_2_link]"{$appvalue[target]}><img src="$appvalue[image_2]" class="summaryimg" /></a>
+			<!--{/if}-->
+			<!--{if $appvalue['image_3']}-->
+			<a href="$appvalue[image_3_link]"{$appvalue[target]}><img src="$appvalue[image_3]" class="summaryimg" /></a>
+			<!--{/if}-->
+			<!--{if $appvalue['image_4']}-->
+			<a href="$appvalue[image_4_link]"{$appvalue[target]}><img src="$appvalue[image_4]" class="summaryimg" /></a>
+			<!--{/if}-->
+			<!--{if $appvalue['body_template']}-->
+			<div class="detail"<!--{if $appvalue['image_3']}--> style="clear: both;"<!--{/if}-->>
+				$appvalue[body_template]
+			</div>
+			<!--{/if}-->
+			<!--{if $appvalue['body_general']}-->
+			<div class="quote"><span class="q">$appvalue[body_general]</span></div>
+			<!--{/if}-->
+		</div>
+		</li>
+		<!--{/loop}-->
+		</ol>
+	</div>
+	<!--{/if}-->
+</li>

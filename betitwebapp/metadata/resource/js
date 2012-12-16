@@ -1,0 +1,13 @@
+{
+    "type": "jsresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "url": "http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js"
+    },
+    "id": "ExtBox1-ext-gen2155",
+    "designerId": "1129eac1-a50c-4fe1-9652-6cd85d219859"
+}

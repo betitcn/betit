@@ -1,0 +1,63 @@
+{
+    "type": "application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "views": [
+            "LoadingPanel"
+        ],
+        "icon": "resources/themes/images/default/loading/loading_logo.png",
+        "name": "Betit"
+    },
+    "configAlternates": {
+        "icon": "string"
+    },
+    "id": "ExtBox1-ext-gen1649",
+    "designerId": "application",
+    "cn": [
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|userClassName": "launch",
+                "fn": "launch",
+                "implHandler": [
+                    "// probably desktop browser, so simulate iPhone layout\r",
+                    "\r",
+                    "\r",
+                    "Ext.Viewport.on({\r",
+                    "    'resize': function(c, o){\r",
+                    "        Ext.Viewport.getActiveItem().fireEvent(\"painted\", Ext.Viewport.getActiveItem());\r",
+                    "\r",
+                    "    }\r",
+                    "});\r",
+                    "\r",
+                    "\r",
+                    "if (Ext.feature.has.Orientation){\r",
+                    "    \r",
+                    "}\r",
+                    "\r",
+                    "Ext.Viewport.on({\r",
+                    "    'orientationchange': function(c, o, w, h, e){\r",
+                    "\r",
+                    "        \r",
+                    "        if(o == 'portrait'){\r",
+                    "            Ext.getCmp(\"loading-panel\").setIsfirsttime(true);\r",
+                    "        }\r",
+                    "        else\r",
+                    "            Ext.getCmp(\"loading-panel\").setIsfirsttime(false);\r",
+                    "    }\r",
+                    "});"
+                ]
+            },
+            "designerId": "f4a74ce2-b6f7-4c38-a7ad-0ce24b9bf33e"
+        }
+    ]
+}

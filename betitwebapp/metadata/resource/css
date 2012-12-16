@@ -1,0 +1,14 @@
+{
+    "type": "cssresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "url": "resources/css/betit.css",
+        "id": "betitcss"
+    },
+    "id": "ExtBox1-ext-gen6491",
+    "designerId": "86ffa576-429c-4360-9ae1-c8a795456491"
+}

@@ -1,0 +1,60 @@
+{
+    "name": "betitwebapp",
+    "settings": {
+        "urlPrefix": "http://localhost:8080/betit/betitwebapp",
+        "spacesToIndent": 4,
+        "exportPath": "",
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false
+    },
+    "xdsVersion": "2.1.0",
+    "xdsBuild": 588,
+    "schemaVersion": 1,
+    "upgradeVersion": 210000000495,
+    "framework": "touch20",
+    "topInstanceFileMap": {
+        "7ba3e38e-5f74-4067-94d5-114eb9badbd0": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
+        },
+        "86ffa576-429c-4360-9ae1-c8a795456491": {
+            "paths": [
+                "metadata/resource/css"
+            ],
+            "className": "css"
+        },
+        "ef6504dc-f092-4a06-aec0-2f28bec5dd01": {
+            "paths": [
+                "metadata/view/LoadingPanel",
+                "app/view/override/LoadingPanel.js",
+                "app/view/LoadingPanel.js"
+            ],
+            "className": "LoadingPanel"
+        },
+        "1129eac1-a50c-4fe1-9652-6cd85d219859": {
+            "paths": [
+                "metadata/resource/js"
+            ],
+            "className": "js"
+        }
+    },
+    "viewOrderMap": {
+        "view": [
+            "ef6504dc-f092-4a06-aec0-2f28bec5dd01"
+        ],
+        "store": [],
+        "controller": [],
+        "model": [],
+        "resource": [
+            "7ba3e38e-5f74-4067-94d5-114eb9badbd0",
+            "86ffa576-429c-4360-9ae1-c8a795456491",
+            "1129eac1-a50c-4fe1-9652-6cd85d219859"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

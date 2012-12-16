@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Chrome DevRel Team (chrome-devrel@googlegroups.com)
+                 Alex Russell (slightlyoff@chromium.org)
+                 Brad Neuberg
+-->
+
+<!-- GB: modifications for s9 template pack:
+ 
+  o removed offline manifest
+  o removed disclaimer; it's just a prototype anyway
+  o removed google analytics script code
+  o removed google maps script code
+  o removed all slides
+
+  o in js/utils.js changed line 541pp queryAll('.transitionSlide')
+ 
+     - looks for h1 (not h2) and doesn't include img (icon)
+
+  o in styles/commons.css commented out rules for li and bullets
+ 
+   li {
+    list-style: none;
+    padding: 10px 0;
+   }
+   .bullets {
+  font-size: 40px;
+  }
+  .bullets li::before {
+    content: '· ';
+  }
+-->
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+    <title>操作系统</title>
+    <link href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" rel="stylesheet" type="text/css" />
+    <link id="prettify-link" href="src/prettify/prettify.css" rel="stylesheet" disabled />
+    <link href="styles/fonts.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="styles/presentation.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="styles/common.css" rel="stylesheet" type="text/css" media="screen" />
+    <link class="theme" href="styles/default.css" rel="stylesheet" type="text/css" media="screen" />
+    <link class="theme" href="styles/moon.css" rel="stylesheet" type="text/css" media="screen" />
+    <link class="theme" href="styles/sand.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link class="theme" href="styles/sea_wave.css" rel="stylesheet" type="text/css" media="screen"/>
+  </head>
+  <body>
+    <div id="flex-container">
+    <nav id="helpers">
+      <button title="Previous slide" id="nav-prev" class="nav-prev">&#8701;</button> 
+      <button title="Jump to a random slide" id="slide-no">5</button> 
+      <button title="Next slide" id="nav-next" class="nav-next">&#8702;</button>
+      <menu>
+        <button type="checkbox" data-command="toc" title="Table of Contents" class="toc">TOC</button>
+        <!-- <button type="checkbox" data-command="resources" title="View Related Resources">&#9734;</button> -->
+        <button type="checkbox" data-command="notes" title="View Slide Notes">&#9999;</button>
+        <button type="checkbox" data-command="source" title="View slide source">&#8635;</button>
+        <button type="checkbox" data-command="help" title="View Help">?</button>
+      </menu>
+    </nav>
+    <div class="slides">
+      <div id="presentation-counter">Loading...</div>
+        <div class="slide" id="landing-slide">
+          <section class="middle">
+            <p>This presentation is an HTML5 website</p>
+            <p>Press <span id="left-init-key" class="key">&rarr;</span> key to advance.</p>
+          </section>
+          <aside class="note">
+            <section>
+              Welcome! (This field is for speaker notes and commentary.)
+            </section>
+          </aside> 
+        </div>
+
+        <div class="slide" id="controls-slide">
+          <header>Slides controls</header>
+          <section>
+            <ul>
+              <li><span class="key">&larr;</span> and <span class="key">&rarr;</span> to move around.</li>
+              <li><span class="key">Ctrl/Command</span> and <span class="key">+</span> or <span class="key">-</span> to zoom in and out if slides don’t fit.</li>
+              <li><span class="key">S</span> to view page source.</li>
+              <li><span class="key">T</span> to change the theme.</li>
+              <li><span class="key">H</span> to toggle syntax highlight.</li>
+              <li><span class="key">N</span> to toggle speaker notes.</li>
+              <li><span class="key">3</span> to toggle 3D effect.</li>
+              <li><span class="key">0</span> to toggle help.</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="slide" id="title-slide">
+          <section class="middle">
+            <hgroup>
+              <h1>
+                操作系统
+              </h1>
+              <h2>
+                进程管理
+              </h2>
+            </hgroup>
+          </section>
+        </div>
+
+        <div class="slide" id="table-of-contents">
+          <header><h1>Agenda - Table of Contents</h1></header>
+          <section>
+            <ul id="toc-list">
+            </ul>
+          </section>
+        </div>
+
+
+        
+        <div class="slide transitionSlide" id="slide2">
+          <header><h1 id="section">3.1 进程的概念</h1></header>
+          <section>
+              <!-- === begin markdown block =====================================================
+
+      generated by markdown 1.0.0 on Ruby 1.8.7 (2012-06-29) [i386-mingw32]
+                on Thu Sep 27 07:42:20 +0800 2012 with Markdown engine kramdown (0.13.8)
+                  using options { !to be done! }
+  -->
+
+<!-- _S9SLIDE_ -->
+<h1 id="section">3.1 进程的概念</h1>
+
+<h4 id="section-1">现代操作系统的特点</h4>
+
+<ul>
+  <li>程序并发执行</li>
+  <li>资源共享</li>
+  <li>用户随机使用系统</li>
+</ul>
+
+<h4 id="section-2">这三者是互相联系和互相依赖的</h4>
+
+<h4 id="section-3">操作系统的重要任务之一是使用用户充分、有效地利用系统资源</h4>
+
+<h4 id="section-4">如何抽象？ &ndash; 进程</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide3">
+          <header><h1 id="section-5">3.1.1 程序的并发执行</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-5">3.1.1 程序的并发执行</h1>
+
+<h4 id="section-6">程序</h4>
+
+<p>程序用来描述计算机所要完成的独立功能，并在时间上严格按前后次序相继地进行计算机操作序列集合。</p>
+
+<h4 id="section-7">程序的顺序执行</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+Repeat iR ← M[PC]
+	pc ← pc+1
+	&lt; Execute (instructioniniR)&gt;
+Until CPU halt
+</pre></div>
+<!-- end code -->
+
+<ul>
+  <li>把一个具有独立功能的程序独占处理机直至最终结束的过程称为程序的顺序执行</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide4">
+          <header><h1 id="section-8">3.1.1 多道程序系统中的程序执行</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-8">3.1.1 多道程序系统中的程序执行</h1>
+
+<h4 id="section-9">程序顺序执行的特点</h4>
+
+<ul>
+  <li>顺序性</li>
+  <li>封闭性</li>
+  <li>可再现性</li>
+</ul>
+
+<h4 id="section-10">执行环境要求满足以下3个特点</h4>
+
+<ul>
+  <li>独立性</li>
+  <li>随机性</li>
+  <li>资源共享性</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide5">
+          <header><h1 id="concurrent">3.1.1 程序的并发性（concurrent）</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="concurrent">3.1.1 程序的并发性（concurrent）</h1>
+
+<h4 id="section-11">并发执行</h4>
+
+<ul>
+  <li>所谓并发执行，是为了增强计算机系统的处理能力和提高资源利用率所采取的一种同时操作技术。</li>
+  <li>多道程序间的并发执行</li>
+  <li>同一程序间代码的并发执行</li>
+  <li>程序的并发执行不同于程序的并行执行</li>
+</ul>
+
+<h4 id="section-12">并发执行的过程描述</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+S0
+Cobegin
+P1;P2;...;Pn
+Coend
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide6">
+          <header><h1 id="section-13">3.1.1 并发执行的条件</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-13">3.1.1 并发执行的条件</h1>
+
+<blockquote>
+  <p>1966年Bernstein提出了两相邻语句S1,S2可以并发执行的条件：若一语句读的变量与另一语句写的变量没有交集，且两条语句写的变量也没有交集，那么这两条语句是可以并发的。</p>
+</blockquote>
+
+<h4 id="section-14">程序并行带来的影响</h4>
+
+<ul>
+  <li>并发执行的好处是提高系统资源利用率</li>
+  <li>并发执行的不足是导致资源的共享和竞争问题，使程序失去封闭性和可再现性</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide7">
+          <header><h1 id="section-15">3.1.1 一个并发执行的例子</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-15">3.1.1 一个并发执行的例子</h1>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+procedure getaddr(top)
+	begin
+		local r
+		r ← (top)
+		top ← top-1
+		return r
+	end
+
+procedure reladdr(blk)
+	begin
+		top ← top+1
+		(top) ← blk
+	end
+</pre></div>
+<!-- end code -->
+
+<p><img src="images/3/1.jpg" alt="堆栈的取数和存数过程" /></p>
+
+<h4 id="s">错误是由于两程序共享资源堆栈S导致</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide8">
+          <header><h1 id="section-16">3.1.1 小结</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-16">3.1.1 小结</h1>
+
+<ul>
+  <li>由于程序的顺序性，静态性以及孤立性，用程序段作为描述其执行过程和共享资源的基本单位是不合适的</li>
+  <li>进程是描述程序的执行过程且能用来共享资源的基本单位</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide9">
+          <header><h1 id="section-17">3.1.2 进程的定义</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-17">3.1.2 进程的定义</h1>
+
+<h4 id="section-18">进程的5个定义</h4>
+
+<ul>
+  <li>进程是可以并发执行的计算部分</li>
+  <li>进程是一个独立的可以调度的活动</li>
+  <li>进程是一抽象实体，当它执行某个任务时，将要分配和释放各种资源</li>
+  <li>行为的规则叫程序，程序在处理机上执行时的活动称为进程</li>
+  <li>一个进程是一系列逐一执行的操作，而操作的确切含义则有赖于以何种详尽程序来描述进程</li>
+</ul>
+
+<h4 id="section-19">并发执行的程序在执行过程中分配和管理资源的基本单位</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide10">
+          <header><h1 id="section-20">3.1.2 进程和程序</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-20">3.1.2 进程和程序</h1>
+
+<h4 id="section-21">既有区别也有联系</h4>
+
+<ul>
+  <li>进程是一个动态概念，而程序是一个静态概念</li>
+  <li>进程具有并发特征，而程序没有。进程具有并发特征的两个方面，即独立性和异步性。</li>
+  <li>进程是竞争计算机系统资源的基本单位</li>
+  <li>不同的进程可以包含同一程序</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide11">
+          <header><h1 id="section-22">3.2 进程的描述</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-22">3.2 进程的描述</h1>
+
+<ul>
+  <li>系统通过进程控制块PCB描述进程存在，并反映其变化的物理实体</li>
+  <li>进程的PCB是系统感知进程的唯一实体</li>
+  <li>进程PCB结构都是全部或部分常驻内存</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide12">
+          <header><h1 id="pcb">3.2.1 进程控制块PCB</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="pcb">3.2.1 进程控制块PCB</h1>
+
+<h4 id="pcb-1">PCB是进程存在和死亡的标志</h4>
+<p>#### PCB的内容</p>
+
+<ul>
+  <li>描述信息 进程名或进程标识号， 用户名或用户标识号， 家庭关系</li>
+  <li>控制信息 进程当前状态， 进程优先级， 程序开始地址， 各种计时信息， 通信信息</li>
+  <li>资源管理器 内存管理， 对换和覆盖信息 共享程序段，输入输出设备号， 文件系统指针</li>
+  <li>CPU现场保护结构</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide13">
+          <header><h1 id="section-23">3.2.2 进程上下文</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-23">3.2.2 进程上下文</h1>
+
+<h4 id="section-24">进程上下文实际上是进程执行过程中顺序关联的静态描述。</h4>
+
+<ul>
+  <li>每个进程执行过、执行时的以及待执行的指令和数据</li>
+  <li>在指令寄存器、堆栈、状态字寄存器的内容</li>
+</ul>
+
+<h4 id="section-25">上文</h4>
+
+<p>已执行过的进程指令和数据在相关寄存器与堆栈中的内容</p>
+
+<h4 id="section-26">正文</h4>
+
+<p>把正在执行的指令和数据在寄存器与堆栈中的内容</p>
+
+<h4 id="section-27">下文</h4>
+
+<p>把待执行的指令和数据在寄存器与堆栈的内容</p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide14">
+          <header><h1 id="section-28">3.2.2 进程上下文（2）</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-28">3.2.2 进程上下文（2）</h1>
+
+<p><img src="images/3/2.jpg" alt="进程下上文结构" /></p>
+
+<h4 id="section-29">进程的系统级上下文</h4>
+
+<ul>
+  <li>静态部分 PCB结构，地址映射表格，核心栈</li>
+  <li>动态部分 与寄存器上下文相关联</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide15">
+          <header><h1 id="unix-system-v">3.2.2 UNIX System V进程上下文</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="unix-system-v">3.2.2 UNIX System V进程上下文</h1>
+
+<p><img src="images/3/3.jpg" alt="进程下上文结构" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide16">
+          <header><h1 id="section-30">3.2.3 进程上下文切换</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-30">3.2.3 进程上下文切换</h1>
+
+<h4 id="section-31">上下文切换的三个部分</h4>
+
+<ul>
+  <li>保存被切换进程的正文部分至有关存储区</li>
+  <li>操作系统进程中有关调度和资源分配程序执行</li>
+  <li>被选中进程的原来被保存的正文部分从有关存储区中取出，并送至有关寄存器与堆栈中，激活选中进程执行</li>
+</ul>
+
+<h4 id="section-32">上下文切换是一个十分耗时的过程</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide17">
+          <header><h1 id="section-33">3.2.4 进程空间与大小</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-33">3.2.4 进程空间与大小</h1>
+
+<p><img src="images/3/4.jpg" alt="进程下上文结构" /> </p>
+
+<h4 id="section-34">用户模式与系统模式</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide18">
+          <header><h1 id="section-35">3.3 进程状态</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-35">3.3 进程状态</h1>
+
+<p>进程的5种基本状态：</p>
+
+<ul>
+  <li>初始态</li>
+  <li>执行态</li>
+  <li>阻塞态（等待状态）</li>
+  <li>就绪态</li>
+  <li>终止态</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide19">
+          <header><h1 id="section-36">3.3.2 进程状态的转换</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-36">3.3.2 进程状态的转换</h1>
+
+<p><img src="images/3/5.jpg" alt="进程状态转换" /> </p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide20">
+          <header><h1 id="section-37">3.4 进程控制</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-37">3.4 进程控制</h1>
+
+<h4 id="section-38">定义</h4>
+
+<ul>
+  <li>进程控制，就是系统使用一些具有特定功能的程序段来创建、撤销进程以及完成进程各状态间的转换，从而达到多进程高效率并发执行和协调、实现资源共享的目的。</li>
+</ul>
+
+<h4 id="section-39">原语</h4>
+
+<ul>
+  <li>不允许中断的指令或程序段</li>
+  <li>原语执行于系统态，用于完成操作系统某些特定功能</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide21">
+          <header><h1 id="section-40">3.4.1 进程的创建</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-40">3.4.1 进程的创建</h1>
+
+<h4 id="section-41">进程创建的两种方式</h4>
+
+<ul>
+  <li>由系统程序模块统一创建， 在批处理系统中</li>
+  <li>由父进程创建</li>
+</ul>
+
+<p><img src="images/3/6.jpg" alt="创建原语流程图" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide22">
+          <header><h1 id="section-42">3.4.1 进程的撤销</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-42">3.4.1 进程的撤销</h1>
+
+<h4 id="section-43">进程撤销的3种情况</h4>
+
+<ul>
+  <li>该进程已完成所要求的功能而正常终止</li>
+  <li>由于某种错误导致非正常终止</li>
+  <li>祖先进程要求撤销某个进程</li>
+</ul>
+
+<p><img src="images/3/7.jpg" alt="撤销原语流图" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide23">
+          <header><h1 id="section-44">3.4.2 进程的阻塞</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-44">3.4.2 进程的阻塞</h1>
+
+<p><img src="images/3/8.jpg" alt="阻塞原语图" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide24">
+          <header><h1 id="section-45">3.4.2 进程的唤醒</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-45">3.4.2 进程的唤醒</h1>
+
+<p><img src="images/3/9.jpg" alt="唤醒原语图" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide25">
+          <header><h1 id="section-46">3.5 进程互斥</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-46">3.5 进程互斥</h1>
+
+<h4 id="section-47">并发执行受资源有限性制约</h4>
+
+<ul>
+  <li>进程并发特征（独立性和异步性），导致执行随机和提高资源利用率</li>
+  <li>进程执行过程受资源有限约束</li>
+</ul>
+
+<h4 id="section-48">资源有限约束</h4>
+
+<ul>
+  <li>临界区 程序在任何时刻可中断；可并发执行的三个条件的检验是不可能的；</li>
+  <li>一个例子</li>
+  <li>概念：把不允许多个并发进程交叉执行的一段程序称为临界部分或临界区</li>
+  <li>临界区由属于不同并发进程的程序段共享公用数据或公用数据变量引起的</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide26">
+          <header><h1 id="section-49">3.5.1 临界区的例子</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-49">3.5.1 临界区的例子</h1>
+
+<p><img src="images/3/10.jpg" alt="多进程共享内存栈区示例" /></p>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+
+getspace: begin local g
+		g ← stack[top]
+		top ← top-1
+		end
+
+release(ad):begin
+		top ← top+1
+		stack[top] ← ad
+end
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide27">
+          <header><h1 id="section-50">3.5.1 间接制约</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-50">3.5.1 间接制约</h1>
+
+<h4 id="section-51">临界区集合</h4>
+
+<p>一般来说，可以把那些不允许交叉执行的临界区按不同的公用数据划分成为不同的集合，把这些集合称为临界区集合。例如上例中，以公用数据栈S划分的临界区集合是{getspace, release}。</p>
+
+<h4 id="section-52">临界区的描述</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+when &lt;类名&gt; do &lt;临界区&gt; od
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide28">
+          <header><h1 id="section-53">3.5.1 间接制约</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-53">3.5.1 间接制约</h1>
+<p>#### 例子</p>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+
+getspace: when sp do getspace ← stack[top]
+		top ← top-1
+		od
+
+release(ad):when sp do top ← top+1 
+		stack[top] ← ad
+		od
+</pre></div>
+<!-- end code -->
+
+<h4 id="section-54">由于共享资源不允许并发进程交叉执行，称为间接制约</h4>
+
+<h4 id="section-55">解决共享资源而引发的间接制约采用， 互斥</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide29">
+          <header><h1 id="section-56">3.5.2 互斥</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-56">3.5.2 互斥</h1>
+
+<h4 id="section-57">定义</h4>
+
+<p>一组并发进程的一个或多个程序段，因共享某一公有资源而导致它们必须以一个不允许交叉执行的单位执行。即，不允许两个以上的共享该资源的并发进程同时进入临界区，称为互斥</p>
+
+<h4 id="section-58">互斥执行的四个原则</h4>
+
+<ul>
+  <li>不能假设各个并发进程的相对执行速度</li>
+  <li>进程不能阻止其他进程进入临界区</li>
+  <li>只能允许一个进程进入临界区</li>
+  <li>并发进程应在有限时间内进入临界区</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide30">
+          <header><h1 id="section-59">3.5.2 临界区</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-59">3.5.2 临界区</h1>
+
+<p><img src="images/3/11.jpg" alt="使用临界区的互斥" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide31">
+          <header><h1 id="section-60">3.5.2 忙等待的互斥</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-60">3.5.2 忙等待的互斥</h1>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+lock(x)=begin local x
+	repeat
+		v ← x
+	until v = 1
+	x ← 0
+</pre></div>
+<!-- end code -->
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+unlock(x)=begin x←1 end
+</pre></div>
+<!-- end code -->
+
+<h4 id="section-61">缺点： 违反了第3原则（为什么）</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide32">
+          <header><h1 id="section-62">3.5.2 原始解法</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-62">3.5.2 原始解法</h1>
+
+<p><img src="images/3/13.jpg" alt="忙等待的互斥" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide33">
+          <header><h1 id="peterson">3.5.2 Peterson解法</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="peterson">3.5.2 Peterson解法</h1>
+<p><img src="images/3/14.jpg" alt="Peterson解法" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide34">
+          <header><h1 id="tsl">3.5.2 TSL指令</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="tsl">3.5.2 TSL指令</h1>
+<p><img src="images/3/15.jpg" alt="TSL解法" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide35">
+          <header><h1 id="section-63">3.5.3 生产者和消费者问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-63">3.5.3 生产者和消费者问题</h1>
+
+<p><img src="images/3/16.jpg" alt="生产者和消费者问题" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide36">
+          <header><h1 id="section-64">3.5.3 信号量</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-64">3.5.3 信号量</h1>
+
+<h4 id="section-65">采用锁机制，会导致严重的性能问题及不公平现象</h4>
+
+<h4 id="section-66">一个例子</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+PA
+	A: lock(key[S])
+		&lt;S&gt;
+		unlock(key[S])
+		Goto A
+PB	
+	B: lock(key[S])
+		&lt;S&gt;
+		unlock(key[S])
+		Goto B
+</pre></div>
+<!-- end code -->
+
+<h4 id="section-67">如何解决不公平问题（引入第三方监督）</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide37">
+          <header><h1 id="section-68">3.5.3 信号量（2）</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-68">3.5.3 信号量（2）</h1>
+
+<h4 id="ewdijkstra">最早由E.W.Dijkstra提出</h4>
+
+<h4 id="section-69">信号量类似交通信号灯：红灯停，绿灯行</h4>
+
+<h4 id="section-70">信号量的含义</h4>
+
+<ul>
+  <li>为一整数</li>
+  <li>大于或等于0时代表可供并发进程使用的资源实体数</li>
+  <li>小于0则表示等待使用临界区的进程数</li>
+  <li>初始值为非负数</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide38">
+          <header><h1 id="pv">3.5.3 PV原语</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="pv">3.5.3 PV原语</h1>
+
+<h4 id="p">P原语</h4>
+
+<ul>
+  <li>SEM减1</li>
+  <li>若SEM减1后仍大于或等于0，则P语言返回，进程继续执行</li>
+  <li>若SEM减1后小于0，进程阻塞</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide39">
+          <header><h1 id="pv-1">3.5.3 PV原语</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="pv-1">3.5.3 PV原语</h1>
+<p><img src="images/3/17.jpg" alt="P原语" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide40">
+          <header><h1 id="pv-2">3.5.3 PV原语</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="pv-2">3.5.3 PV原语</h1>
+<p>#### V原语</p>
+
+<ul>
+  <li>SEM加1</li>
+  <li>若相加结果大于0，V原语停止执行，。进程返回调用处</li>
+  <li>若相加结果小于或等于0，则该信号的等待队列中唤醒一个等待进程，返回再返回原进程继续执行或转进程调度</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide41">
+          <header><h1 id="pv-3">3.5.3 PV原语</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="pv-3">3.5.3 PV原语</h1>
+<p><img src="images/3/18.jpg" alt="V原语" /></p>
+
+<h4 id="pv-4">PV操作必须采用原语实现</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide42">
+          <header><h1 id="p-1">3.5.3 P原语的实现</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="p-1">3.5.3 P原语的实现</h1>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+P(sem)
+	begin
+		封锁中断;
+		lock(lockbit);
+		val[sem]=val[sem]-1;
+		if val[sem]&lt;0
+			保护当前进程CPU现场
+			当前进程状态置为“等待”
+			将当前进程插入信号SEM等待队列
+			转进程调度
+		fi
+		unlock(lockbit):开放中断
+	end
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide43">
+          <header><h1 id="v">3.5.3 V原语的实现</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="v">3.5.3 V原语的实现</h1>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+P(sem)
+	begin
+		封锁中断;
+		lock(lockbit);
+		val[sem]=val[sem]+1;
+		if val[sem]≤0
+			local k
+			从sem等待阶列中选取一等待进程，将其指针置入k中
+			将k插入就绪队列
+			进程状态置为“就绪&quot;
+		fi
+		unlock(lockbit):开放中断
+	end
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide44">
+          <header><h1 id="pv-5">3.5.4 用PV原语实现进程互斥</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="pv-5">3.5.4 用PV原语实现进程互斥</h1>
+
+<h4 id="section-71">步骤</h4>
+
+<ul>
+  <li>设SEM为互斥信号量，其取值范围为(1,0,-1)</li>
+  <li>描述进程</li>
+</ul>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+PA:
+	P(SEM)
+	&lt;S&gt;
+	V(SEM)
+	...
+
+PB: 
+	P(SEM)
+	&lt;S&gt;
+	V&lt;SEM&gt;
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide45">
+          <header><h1 id="section-72">3.6 进程同步</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-72">3.6 进程同步</h1>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+Pc	:
+  	:
+	A: local Buf
+		Repeat
+			Buf ← Buf
+		Until Buf=空
+		计算
+		得到计算结果
+		Buf ← 计算结果
+		Goto A
+Pp	:
+	:
+	B: local Pri
+		Repeat
+			Pri ← Buf
+		Until Pri ≠ 空
+		打印Buf中的数据
+		清除Buf中的数据
+		Goto B	
+</pre></div>
+<!-- end code -->
+
+<h4 id="cpu">异步环境下的并发进程，存在CPU时间的极大浪费</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide46">
+          <header><h1 id="section-73">3.6 进程同步</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-73">3.6 进程同步</h1>
+
+<h4 id="section-74">进程间的同步</h4>
+
+<p>异步环境下的一组并发进程，因直接制约而互相发送消息而进行互相合作、互相等待，使得各进程按一定的速度执行的过程称为进程间的同步。</p>
+
+<h4 id="section-75">合作进程</h4>
+
+<p>具有同步关系的一组并发进程称为合作进程</p>
+
+<h4 id="section-76">消息或事件</h4>
+
+<p>合作进程间互相发送的信号称为消息或事件</p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide47">
+          <header><h1 id="section-77">3.6 进程同步</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-77">3.6 进程同步</h1>
+
+<h4 id="section-78">利用消息实现进程间同步</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+Pc	:
+	A: wait(Bufempty)
+		计算
+		Buf ← 计算结果
+		Bufempty ← false
+		signal(Buffull)
+		Goto A
+Pp	:
+	B: wait(Buffull)
+		打印Buf中的数据
+		清除Buf中的数据
+		Buffull ← false
+		signal(Bufempty)
+		Goto B
+</pre></div>
+<!-- end code -->
+
+<h4 id="section-79">消息原语</h4>
+
+<ul>
+  <li>wait: 等待到消息名为true的进程继续执行</li>
+  <li>signal: 向合作进程发送所需要的消息名，并置消息为true</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide48">
+          <header><h1 id="section-80">3.6.2 私用信号量</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-80">3.6.2 私用信号量</h1>
+
+<p>用于进程间同步的信号量一般称为私用信号量。一个进程的私用信号量是从制约进程发送来的进程Pi的执行条件所需要的消息。与私用信号量对应，互斥时使用的信号量为公用信号量。</p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide49">
+          <header><h1 id="pv-6">3.6.3  用P,V原语操作实现同步</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="pv-6">3.6.3  用P,V原语操作实现同步</h1>
+
+<h4 id="section-81">三步曲</h4>
+
+<ul>
+  <li>为<strong>各</strong>并发进程设置私用信号量</li>
+  <li>为私用信号量赋初值</li>
+  <li>利用P,V原语和私用信号量规定各进程的执行顺序</li>
+</ul>
+
+<p><img src="images/3/19.jpg" alt="缓冲区队列" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide50">
+          <header><h1 id="pv-7">3.6.3  用P,V原语操作实现同步</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="pv-7">3.6.3  用P,V原语操作实现同步</h1>
+
+<h4 id="section-82">解决方案</h4>
+
+<ul>
+  <li>设PA的私用信号量为Bufempty, 设PB的私用信号量为Buffull</li>
+  <li>令Bufempty ← n (n为缓冲队列的缓冲区个数）,Bufful的初始值为0</li>
+  <li>描述 ：</li>
+</ul>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+PA: deposit(data):
+	begin local x
+		P(Bufempty)
+		按FIFO方式选择一个空缓冲区Buf(x);
+		Buf(x) ← dat
+		Buf(x)置满标记
+		V(Buffull)
+	end
+
+PB:	remove(data):
+	begin local x
+		P(Buffull);
+		按FIFO方式选择一个装满数据的缓冲区Buf(x)
+		data ← Buf(x)
+		Buf(x)置空标记
+		V(Bufempty)
+	end
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide51">
+          <header><h1 id="section-83">3.6.4 生产者消费者问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-83">3.6.4 生产者消费者问题</h1>
+<p>#### 生产者与消费者问题</p>
+
+<ul>
+  <li>消息者想接收数据时，有界缓冲区至少有一个单元是满的</li>
+  <li>生产者想发送数据时，有界缓冲区至少有一个单元是空的</li>
+</ul>
+
+<p><img src="images/3/20.jpg" alt="缓冲区队列" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide52">
+          <header><h1 id="section-84">3.6.4 生产者消费者信号量解法</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-84">3.6.4 生产者消费者信号量解法</h1>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+sim mutex ← 1;
+sim avail ← n;
+sim full ← 0;
+deposit(data):
+	begin
+		P(avail)
+		P(mutex)
+		送数据入缓冲区某单元
+		V(full)
+		V(mutex)
+	end
+
+remove(data):
+	begin
+		P(full)
+		P(mutex)
+		取缓冲区中某单元数据
+		V(avail)
+		V(mutex)
+	end
+</pre></div>
+<!-- end code -->
+
+<h4 id="vp">由于V原语是释放资源的，所以可以以任意次序出现。但P原语则不然，如果次序混乱，将会造成进程之间的死锁。</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide53">
+          <header><h1 id="section-85">补充资源-前趋图</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-85">补充资源-前趋图</h1>
+
+<h4 id="section-86">为了描述一个程序的各部分（程序段或语句）间的依赖关系，或者是一个大的计算的各个子任务间的因果关系，我们常常采用前趋图方式。</h4>
+
+<h4 id="section-87">前趋图中的每个结点可以表示一条语句、一个程序段或一个进程，结点间的有向边表示两个结点之间存</h4>
+
+<h4 id="section-88">前趋图是一种偏序关系（自反，反对称，传递）</h4>
+
+<h4 id="pipjpipjpipjpjpi">如果（Pi，Pj）∈→，可写成Pi→Pj，Pi是Pj的直接前趋，Pj是Pi的直接后继</h4>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide54">
+          <header><h1 id="section-89">补充资源-前趋图</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-89">补充资源-前趋图</h1>
+<p><img src="images/3/21.jpg" alt="前趋图" /></p>
+
+<h4 id="section-90">该前趋图，存在下面的前趋关系：</h4>
+<pre><code>P1→P2，P1→P3，P1→P4，P2→P5，P3→P5， 　　P4→P6，P4→P7，P5→P8，P6→P8，P7→P9，P8→P9；
+</code></pre>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide55">
+          <header><h1 id="section-91">补充资源-前趋图</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-91">补充资源-前趋图</h1>
+
+<h4 id="section-92">画出以下语句的前趋图</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+	s1:  a:=x+y
+	s2:  b:=a-5 
+	s3:  c:=b+1     
+</pre></div>
+<!-- end code -->
+
+<h4 id="ex2">Ex2</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+	S1： a:=x+2
+    S2:  b:=y+4
+    S3:  c:=a+b
+    S4:  d:=c+6
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide56">
+          <header><h1 id="section-93">补充资源-前趋图</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-93">补充资源-前趋图</h1>
+
+<p>进程 P1、P2、P3 和 P4 的前趋图如下： 若用 PV 操作控制这几个进程并发执行的过程，则需要设置 4 个信号量 S1、S2、S3 和 S4。且信号量初值都等于零，图中 a 和 b 应分别填写（1），c 和 d 应分别填写（2）。</p>
+
+<p><img src="images/3/22.jpg" alt="前趋图" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide57">
+          <header><h1 id="section-94">补充资源-前趋图</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-94">补充资源-前趋图</h1>
+
+<p><img src="images/3/23.jpg" alt="前趋图" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide58">
+          <header><h1 id="section-95">补充资源-前趋图</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-95">补充资源-前趋图</h1>
+<p>(1)
+1. P(S1) P(S2)和 P(S3) </p>
+
+<ol>
+  <li>
+    <p>P(S1) P(S2)和 V(S1) </p>
+  </li>
+  <li>
+    <p>V(S1) VS2)和 P(S1) </p>
+  </li>
+  <li>
+    <p>V(S1) V(S2)和 V(S3) </p>
+  </li>
+</ol>
+
+<p>(3)
+1. P(S1) P(S2)和 P(S4) </p>
+
+<ol>
+  <li>
+    <p>P(S2) P(S3)和 P(S4) </p>
+  </li>
+  <li>
+    <p>V(S1) V(S2)和 V(S4) </p>
+  </li>
+  <li>
+    <p>V(S2) V(S3)和 V(S4)</p>
+  </li>
+</ol>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide59">
+          <header><h1 id="section-96">哲学家问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-96">哲学家问题</h1>
+
+<h4 id="section-97">描述</h4>
+
+<ul>
+  <li>有5位哲学家围坐在一张圆桌旁，桌子中央放有一盘通心面，每人面前有一只盘子，每两人之间放一把叉子；每位哲学家思考、饥饿，然后吃通心面；为了吃面，哲学家必须获得两把叉子，且每人只能直接从紧领自己的左边或右边去取叉子</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide60">
+          <header><h1 id="section-98">哲学家问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-98">哲学家问题</h1>
+<p><img src="images/3/24.png" alt="前趋图" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide61">
+          <header><h1 id="section-99">哲学家问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-99">哲学家问题</h1>
+
+<h4 id="section-100">读题</h4>
+
+<ul>
+  <li>每把叉子必须互斥使用。</li>
+</ul>
+
+<h4 id="section-101">解法</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+	sim fork[5];
+	i ← 0;
+	while i&lt;5 do
+		fork[i] ← 1;
+	od
+	philosopher_i():
+		begin 
+			while True do
+				think();
+				P(fork[i]);
+				P(fork[(i+1)%5]);
+				eat();
+				V(fork[i]);
+				V(fork[(i+1)%5]);
+			od
+		end
+		
+	</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide62">
+          <header><h1 id="section-102">哲学家问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-102">哲学家问题</h1>
+
+<h4 id="section-103">解法</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+#define N 5
+#define LEFT (i+N-1)%N
+#define RIGHT (i+1)%N
+#define THINKING 0
+#define HUNGRY 1
+#define EATING 2
+typedef int semaphore;
+int state[N];
+semaphore mutex=1;
+semaphore s[N];
+
+void philosopher(int i)
+{
+	while(TRUE){
+		think();
+		take_forks(i);
+		eat();
+		put_forks(i);
+	}
+}
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide63">
+          <header><h1 id="section-104">哲学家问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-104">哲学家问题</h1>
+
+<h4 id="section-105">解法</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+void tack_forks(int i)
+{
+	P(mutex);
+	state[i] = HUNGRY;
+	test(i);
+	V(mutex);
+	V(s[i])
+}
+void put_forks(i)
+{
+	P(mutex);
+	state[i] = THINKING;
+	test[LEFT];
+	test[RIGHT];
+	V(mutex);
+}
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide64">
+          <header><h1 id="section-106">哲学家问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-106">哲学家问题</h1>
+
+<h4 id="section-107">解法</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+void test(i)
+{
+	if (state[i]==HUNGRY &amp;&amp; state[LEFT] != EATING 
+			&amp;&amp; state[RIGHT] != EATING){
+		state[i] = EATING;
+		V(s[i]);
+	}
+}
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide65">
+          <header><h1 id="section-108">解法的潜在问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-108">解法的潜在问题</h1>
+
+<ol>
+  <li>至多允许4位哲学家同时吃面</li>
+  <li>奇数号哲学家先取左边的叉子，然后再取右边的叉子。偶数号哲学家先取右边的叉子，然后再取左边的叉子</li>
+  <li>每位哲学家取到手边的两把叉子才开始吃面，否则连一把叉子也不取</li>
+</ol>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide66">
+          <header><h1 id="section-109">读者-写者问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-109">读者-写者问题</h1>
+
+<h4 id="section-110">描述</h4>
+
+<ul>
+  <li>读者写者问题是一个经典的并发程序设计问题，（1971年，Courtois, Heymans, Parnas），有两组并发进程 ：读者和写者，共享文件F</li>
+</ul>
+
+<h4 id="section-111">要求</h4>
+
+<p>1 允许多个读者同时对文件执行读操作</p>
+
+<p>2 只允许一个写者对文件执行写操作</p>
+
+<p>3 任何写者在完成写操作前不允许其他读者或写者工作</p>
+
+<p>4 写者在执行写操作前，应让已有的写者和读者全部退出</p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide67">
+          <header><h1 id="section-112">读者和写者的解法</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-112">读者和写者的解法</h1>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+int readcount ← 0;
+sim writeblock ← 1;
+sim mutex ← 1;
+
+reader():
+	begin
+		P(mutex)
+		readcount ← readcount+1
+		if readcount == 1:
+			P(writeblock)
+		fi
+		V(mutex)
+		{读文件}
+		P(mutex)
+		readcount ← readcount-1
+		if readcount == 0:
+			V(writeblock)
+		fi
+		V(mutex)
+	end
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide68">
+          <header><h1 id="section-113">读者和写者的解法</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-113">读者和写者的解法</h1>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+
+writer():
+	begin
+		P(writeblock)
+		{写文件}
+		V(writeblock)
+	end
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide69">
+          <header><h1 id="section-114">理发师问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-114">理发师问题</h1>
+
+<h4 id="section-115">描述</h4>
+
+<ul>
+  <li>理发店里有一位理发师，一把理发椅和n把供等候理发的顾客休憩的椅子；如果没有顾客，理发师便在理发椅上睡觉，当有顾客到来时，他唤醒理发师；如果理发师正在理发时又有新的顾客来到，那么如果还有空椅子，顾客就坐下来等待，否则离开理发店</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide70">
+          <header><h1 id="section-116">理发师问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-116">理发师问题</h1>
+
+<h4 id="section-117">解法</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+	int waiting=0;
+	int CHAIRS =N;
+	semaphore customers, barbers, mutex;
+	customer=0; barbers=0; mutex=1;
+	barber():
+		begin
+			while True do
+				P(customer);
+				P(mutex);
+				waiting--;
+				V(barbers);
+				V(mutex);
+				cut_hari();
+			od
+		end
+
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide71">
+          <header><h1 id="section-118">理发师问题</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-118">理发师问题</h1>
+
+<h4 id="section-119">解法</h4>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+
+	customer_i():
+		begin
+			P(mutex)
+			if waiting &lt; CHAIRS:
+				waiting ← waiting + 1;
+				V(customers);
+				V(mutex);
+				P(barbers);
+				get_haircut();
+			else
+				V(mutex)
+			fi	
+
+		end
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide72">
+          <header><h1 id="section-120">3.7 进程通信</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-120">3.7 进程通信</h1>
+
+<h4 id="section-121">根据内容划分</h4>
+
+<ul>
+  <li>控制信息的传送：低级通信，目的控制进程执行速度 </li>
+  <li>大批量数据传送：高级通信，目的传送大量信息，实现交换信息</li>
+</ul>
+
+<h4 id="section-122">进程的通信方式</h4>
+
+<ul>
+  <li>主从式</li>
+  <li>会话式</li>
+  <li>消息或邮箱机制</li>
+  <li>共享存储区方式</li>
+</ul>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide73">
+          <header><h1 id="section-123">3.7.2 消息缓冲机制</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-123">3.7.2 消息缓冲机制</h1>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+send(m):
+	begin
+		向系统申请一个消息缓冲区
+		P(mutex)
+		将发送区消息m送入新申请的消息缓冲区
+		把消息缓冲区挂入接收进程的消息队列
+		V(mutex)
+		V(SM)
+	end
+
+receive(n):
+	beign:
+		P(SM)
+		P(mutex)
+		摘下消息列队中的消息n
+		将消息n从缓冲区复制到接收区
+		释放缓冲区
+		V(mutex)
+	end
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide74">
+          <header><h1 id="section-124">3.7.3 邮箱通信</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-124">3.7.3 邮箱通信</h1>
+
+<p><img src="images/3/25.jpg" alt="邮箱通信结构" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide75">
+          <header><h1 id="section-125">3.7.3 邮箱通信</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-125">3.7.3 邮箱通信</h1>
+
+<p>邮箱通信的特点已经在前面介绍过，对于只有一发送进程和一接收进程使用的邮箱同，进程间的通信应该满足如下条件：</p>
+
+<ul>
+  <li>发送进程发送消息时，邮箱中至少要有一个空格能存放该消息</li>
+  <li>接收进程接收消息时，邮箱中至少要有一个消息存在</li>
+</ul>
+
+<!-- begin code{} -->
+<div class="code"><pre class="brush: ruby toolbar: false gutter: true">
+deposit(m):
+	begin local x
+		P(fromnum)
+		选择空格x
+		将消息m放入空格x中
+		置x的标志为满
+		V(mesnum)
+	end
+
+remove(m):
+	beign local x
+		P(mesnum)
+		选择满格x
+		把满格x中的消息取出放在m中
+		置格x标志为空
+		V(fromnum)
+	end
+</pre></div>
+<!-- end code -->
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide76">
+          <header><h1 id="section-126">3.7.3 和控制台通信</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-126">3.7.3 和控制台通信</h1>
+
+<p><img src="images/3/27.jpg" alt="邮箱通信结构" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide77">
+          <header><h1 id="ccp">3.7.3 CCP和用户进程的接口</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="ccp">3.7.3 CCP和用户进程的接口</h1>
+
+<p><img src="images/3/28.jpg" alt="邮箱通信结构" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide78">
+          <header><h1 id="section-127">3.7.管道</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-127">3.7.管道</h1>
+
+<p><img src="images/3/29.jpg" alt="邮箱通信结构" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide79">
+          <header><h1 id="section-128">3.7.管道</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-128">3.7.管道</h1>
+
+<p><img src="images/3/30.jpg" alt="邮箱通信结构" /></p>
+
+
+
+          </section>
+        </div>
+        
+        <div class="slide transitionSlide" id="slide80">
+          <header><h1 id="section-129">3.7.管道</h1></header>
+          <section>
+              <!-- _S9SLIDE_ -->
+<h1 id="section-129">3.7.管道</h1>
+
+<p><img src="images/3/31.jpg" alt="邮箱通信结构" /></p>
+<!-- === end markdown block ===================================================== -->
+
+          </section>
+        </div>
+        
+
+
+        <div id="speaker-note" class="invisible" style="display: none;"></div>
+        <aside id="help" class="sidebar invisible" style="display: none;">
+          <table>
+            <caption>Help</caption>
+            <tbody>
+              <tr>
+                <th>Move Around</th>
+                <td>&larr;&nbsp;&rarr;</td>
+              </tr>
+              <tr>
+                <th>Source File</th>
+                <td>s</td>
+              </tr>
+              <tr>
+                <th>Change Theme</th>
+                <td>t</td>
+              </tr>
+              <tr>
+                <th>Syntax Highlight</th>
+                <td>h</td>
+              </tr>
+              <tr>
+                <th>Speaker Notes</th>
+                <td>n</td>
+              </tr>
+              <tr>
+                <th>Toggle 3D</th>
+                <td>3</td>
+              </tr>
+              <tr>
+                <th>Help</th>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        </aside>
+
+    </div> <!-- slides -->
+    </div>
+    
+    <!--[if lt IE 9]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
+    </script>
+    <script>CFInstall.check({ mode: "overlay" });</script>
+    <![endif]-->
+
+    <script src="src/prettify/prettify.js" onload="prettyPrint();" defer></script>
+    <script src="js/utils.js"></script>
+  </body>
+</html>
