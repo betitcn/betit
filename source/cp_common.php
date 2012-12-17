@@ -14,7 +14,7 @@ if($op == 'logout') {
 	
 	if($_GET['uhash'] == $_SGLOBAL['uhash']) {
 		//É¾³ýsession
-		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE client=1 AND uid='$setarr[uid]' ");
+		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE client=1 AND uid='$_SGLOBAL[supe_uid]' ");
 		$isonline = $_SGLOBAL['db']->fetch_array($query);
 
 		if (!$isonline){
