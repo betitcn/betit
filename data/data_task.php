@@ -40,8 +40,8 @@ $_SGLOBAL['task']=Array
 		(
 		'taskid' => 3,
 		'available' => 1,
-		'name' => '发表自己的第一篇打赌',
-		'note' => '现在，就写下自己的第一篇打赌吧。<br>与大家一起分享自己的生活感悟。',
+		'name' => '发表自己的第一篇竞猜',
+		'note' => '现在，就写下自己的第一篇竞猜吧。<br>与大家一起分享自己的生活感悟。',
 		'num' => '0',
 		'maxnum' => '0',
 		'image' => 'image/task/blog.gif',
