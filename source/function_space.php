@@ -146,6 +146,7 @@ function insertsession($setarr) {
 		//统计更新
 		include_once(S_ROOT.'./source/function_cp.php');
 		updatestat('login', 1);
+
 	}else{
 		$setarr["password"] = $isonline["password"];
 		$spacearr = array(
@@ -183,6 +184,7 @@ function insertsession($setarr) {
 		include_once(S_ROOT.'./source/function_cp.php');
 		updatestat('login', 1);
 	}
+	return $setarr;
 }
 
 //获取任务
