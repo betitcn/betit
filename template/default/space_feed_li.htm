@@ -25,13 +25,7 @@
 		
 			<!--{if empty($_TPL[hidden_hot]) && $value[hot]}-->
 			<div class="hotspot"><a href="cp.php?ac=feed&feedid=$value[feedid]">$value[hot]</a></div>
-			<!--{/if}-->	
-		
-			
-			
-		
-			
-			
+			<!--{/if}-->			
 		<!--{if $value['body_template']}-->
 			<div class="detail"<!--{if $value['image_3']}--> style="clear: both;"<!--{/if}-->>
 				
@@ -42,21 +36,12 @@
 
 <div style="width:100%;overflow:hidden;margin-left:50px;">
 
-
-
-
-
-
-
 	
-<div class="twopic" style="
-    padding-right: 100px;
-">
+<div class="twopic" style="padding-right: 100px;">
 <div class="picone" style="
     width: 140px;
     height: 140px;
-    float: left;
-">
+    float: left;">
 <!--{if $value['image_1']}-->
 			<a href="$value[image_1_link]"{$value[target]}><img src="$value[image_1]" class="summaryimg" /></a>
 			<!--{else}-->
@@ -107,7 +92,7 @@ font-family:'微软雅黑';
  <!--{eval $list1 = $value[options];}-->
 				<!--{loop $list1 $value2}-->
 <div class="leftword" style="float:left;width:200px;">$value2[0]</div>
-<div class="rightword" style="float:right;margin-right:-105px;">$value2[1]</div>
+<div class="rightword" style="position:relative;left:105px;float:right;">$value2[1]</div>
   <!--{/loop}-->
 </div>
 
@@ -115,7 +100,7 @@ font-family:'微软雅黑';
 	  <!--{eval $list12 = $value[votenum];}-->
 <!--{loop $list12 $value8}-->
 <div class="lefthand" style="float:left; color:#DA5252; font-size:25px;	margin-top:20px;margin-left:-200px;" ><a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="image/newpeople/lefthand.jpg"></a>$value8[option][0]</div>
-<div class="righthand" style="float:right; color:#DA5252; font-size:25px;margin-top:20px;margin-right:-105px;">$value8[option][1]<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="image/newpeople/righthand.jpg"></a></div>
+<div class="righthand" style="position:relative;left:105px;float:right; color:#DA5252; font-size:25px;">$value8[option][1]<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="image/newpeople/righthand.jpg"></a></div>
 	  <!--{/loop}-->
 </div>
 
