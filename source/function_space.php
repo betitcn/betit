@@ -91,7 +91,7 @@ function insertsession($setarr) {
 	if($_SCONFIG['onlinehold'] < 300) $_SCONFIG['onlinehold'] = 300;
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE client=0 AND (uid='$setarr[uid]' OR lastactivity<'".($_SGLOBAL['timestamp']-$_SCONFIG['onlinehold'])."')");
 
-	$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE client=1 AND (uid='$setarr[uid]' OR lastactivity<'".($_SGLOBAL['timestamp']-259200)."')");
+	//$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE client=1 AND (uid='$setarr[uid]' OR lastactivity<'".($_SGLOBAL['timestamp']-259200)."')");
 
 	//Ìí¼ÓÔÚÏß
 	$ip = getonlineip(1);
