@@ -192,7 +192,7 @@ font-family:"微软雅黑";
 .leftword{float:left; width:120px; height:30px; line-height:30px; overflow:hidden; background:url(../image/org_img/black.png); text-align:center;}
 .rightword{float:right; width:120px; height:30px; line-height:30px; overflow:hidden; background:url(../image/org_img/black.png); text-align:center;}
 .lefthand{width:77px;float:left; color:#DA5252; font-size:25px; font-family:"微软雅黑";}
-.midhand{float:left; width:140px; height:40px; margin-left:43px; background:url(../image/org_img/price.jpg) no-repeat; text-align:center; line-height:40px; font-family:"微软雅黑"; font-size:25px;}
+.midhand{float:left; width:140px; height:40px; margin-left:42px; background:url(../image/org_img/price.jpg) no-repeat; text-align:center; line-height:40px; font-family:"微软雅黑"; font-size:25px;}
 .righthand{float:right; color:#DA5252; font-size:25px; font-family:"微软雅黑";}
 
 
