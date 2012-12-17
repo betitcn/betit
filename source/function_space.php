@@ -84,7 +84,7 @@ function space_open($uid, $username, $gid=0, $email='') {
 }
 
 //添加session
-function insertsession($setarr, $client=0) {
+function insertsession($setarr) {
 	global $_SGLOBAL, $_SCONFIG;
 
 	$_SCONFIG['onlinehold'] = intval($_SCONFIG['onlinehold']);
@@ -95,7 +95,7 @@ function insertsession($setarr, $client=0) {
 	$ip = getonlineip(1);
 	$setarr['lastactivity'] = $_SGLOBAL['timestamp'];
 	$setarr['ip'] = $ip;
-	$setarr['client'] = $client;
+	$setarr['client'] = $_SGLOBAL['mobile'];
 
 	//检查是否使用了道具隐身草
 	if($_SGLOBAL['magic']['invisible']) {
