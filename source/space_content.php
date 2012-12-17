@@ -8,7 +8,7 @@
 if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
-$minhot = $_SCONFIG['feedhotmin']<1?3:$_SCONFIG['feedhotmin'];
+
 $csql = $cid?"cid='$cid' AND":'';
 $page =$_GET['Page'];
 
@@ -19,7 +19,9 @@ $page =$_GET['Page'];
 
 
 	
-	$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT JOIN ".tname('quiz')." bf ON bf.quizid=b.id WHERE bf.endtime>='$_SGLOBAL[timestamp]' AND  b.hot>='$minhot' ORDER BY b.dateline DESC LIMIT $start,$perpage");
+		$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM  ".tname('quiz')." p USE INDEX (voternum)
+					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
+					ORDER BY p.voternum DESC LIMIT $start,$perpage");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		if(ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
 			realname_set($value['uid'], $value['username']);
