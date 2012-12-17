@@ -336,7 +336,7 @@ if($_GET['op'] == 'delete') {
 			updatetable('quiz', $quizarr, array('quizid'=>$quizid));
 			
 			if ($keyid==3){
-				//打赌流失
+				//竞猜流失
 				$query = $_SGLOBAL['db']->query("SELECT uid, count(*)*$quiz[joincost] as credit FROM ".tname('quizuser')." WHERE quizid='$quizid'  group by uid");
 				while( $value = $_SGLOBAL['db']->fetch_array($query))
 				{
