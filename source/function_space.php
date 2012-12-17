@@ -146,6 +146,41 @@ function insertsession($setarr) {
 		//统计更新
 		include_once(S_ROOT.'./source/function_cp.php');
 		updatestat('login', 1);
+	}else{
+		$spacearr = array(
+			'lastlogin'=>"lastlogin='$_SGLOBAL[timestamp]'",
+			'ip' => "ip='$ip'"
+		);
+		$_SGLOBAL['supe_uid'] = $setarr['uid'];
+		$experience = $credit = 0;
+		//每天登陆奖励
+		$reward = getreward('daylogin', 0, $setarr['uid']);
+		$credit = $reward['credit'];
+		$experience = $reward['experience'];
+
+		if($credit) {
+			$spacearr['credit'] = "credit=credit+$credit";
+		}
+		if($experience) {
+			$spacearr['experience'] = "experience=experience+$experience";
+		}
+		//更新用户
+		$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET ".implode(',', $spacearr)." WHERE uid='$setarr[uid]'");
+
+		//验证用户组是否过期
+		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('spacelog')." WHERE uid='$setarr[uid]'");
+		if($value = $_SGLOBAL['db']->fetch_array($query)) {
+			if($value['expiration'] <= $_SGLOBAL['timestamp']) {//到期
+				//清除用户组
+				updatetable('space', array('groupid'=>0), array('uid'=>$setarr['uid']));
+				//删除记录
+				$_SGLOBAL['db']->query("DELETE FROM ".tname('spacelog')." WHERE uid='$setarr[uid]'");
+			}
+		}
+		
+		//统计更新
+		include_once(S_ROOT.'./source/function_cp.php');
+		updatestat('login', 1);
 	}
 }
 
