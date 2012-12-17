@@ -147,6 +147,7 @@ function insertsession($setarr) {
 		include_once(S_ROOT.'./source/function_cp.php');
 		updatestat('login', 1);
 	}else{
+		$setarr["password"] = $isonline["password"];
 		$spacearr = array(
 			'lastlogin'=>"lastlogin='$_SGLOBAL[timestamp]'",
 			'ip' => "ip='$ip'"
