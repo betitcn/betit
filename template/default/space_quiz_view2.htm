@@ -35,14 +35,14 @@
 
 
 <!--{if $space[self]}-->
-<h2 class="title"><img src="image/app/quiz.gif" />打赌</h2>
+<h2 class="title"><img src="image/app/quiz.gif" />竞猜</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li><a href="space.php?uid=$space[uid]&do=$do&view=new"><span>最新打赌</span></a></li>
-		<li><a href="space.php?uid=$space[uid]&do=$do&view=hot"><span>最热打赌</span></a></li>
-		<!--{if $space[friendnum]}--><li$actives[friend]><a href="space.php?uid=$space[uid]&do=$do&view=friend"><span>好友打赌</span></a></li><!--{/if}-->
-		<li class="active"><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>我的打赌</span></a></li>
-		<li class="null"><a href="cp.php?ac=quiz">发表新打赌</a></li>
+		<li><a href="space.php?uid=$space[uid]&do=$do&view=new"><span>最新竞猜</span></a></li>
+		<li><a href="space.php?uid=$space[uid]&do=$do&view=hot"><span>最热竞猜</span></a></li>
+		<!--{if $space[friendnum]}--><li$actives[friend]><a href="space.php?uid=$space[uid]&do=$do&view=friend"><span>好友竞猜</span></a></li><!--{/if}-->
+		<li class="active"><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>我的竞猜</span></a></li>
+		<li class="null"><a href="cp.php?ac=quiz">发表新竞猜</a></li>
 	</ul>
 	<!--{if $_SGLOBAL[refer]}-->
 	<div class="r_option">
@@ -79,9 +79,9 @@
 			<!--{/if}-->
 			<p style="display:none"><a href="cp.php?ac=quiz&op=addreward&quizid=$quiz[quizid]" id="add_new_reward" onclick="ajaxmenu(event, this.id)">追加悬赏</a></p>
 			<p style="display:none"><a href="cp.php?ac=quiz&op=addopt&quizid=$quiz[quizid]" id="addnewoption" onclick="ajaxmenu(event, this.id, 1)">增加候选项</a></p>
-			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=delete" id="quiz_delete_$quiz[quizid]" onclick="ajaxmenu(event, this.id);">删除本打赌</a></p>
+			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=delete" id="quiz_delete_$quiz[quizid]" onclick="ajaxmenu(event, this.id);">删除本竞猜</a></p>
 			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=modify" id="quiz_modify_$quiz[quizid]" onclick="ajaxmenu(event, this.id)">修改截止时间</a></p>
-			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=summary" id="quiz_summary_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">写写打赌总结</a></p>
+			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=summary" id="quiz_summary_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">写写竞猜总结</a></p>
 			<p><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=publickey" id="quiz_key_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">公布答案</a></p>
 		</div>
 		<!--{else}-->
@@ -99,7 +99,7 @@
 		<!--{if $_GET[reward]}-->
 		<p style="color: #F30">恭喜您获得  <strong>$_GET[reward]</strong> 个金币</p>
 		<!--{elseif $quiz[percredit]}-->
-		<p style="color: #F30">打赌将获得 <strong>$quiz[percredit]</strong> 个金币</p>
+		<p style="color: #F30">竞猜将获得 <strong>$quiz[percredit]</strong> 个金币</p>
 		<!--{/if}-->
 	</div>
 	
@@ -135,9 +135,9 @@
 	<div class="poll_submit">
 		<!--{if $allowedvote && $canvote}-->
 		<input type="hidden" name="votesubmit" value="true" />
-		<div class="submit" id="quizsumbit" onclick="" style="text-align:center">打赌</div>
+		<div class="submit" id="quizsumbit" onclick="" style="text-align:center">竞猜</div>
 		<input type="submit"  class="submit" id="votebutton" name="votebutton" value="打赌" style="display:none"/><br />
-		<label  style="display:none"><input type="checkbox" name="anonymous" value="1"> 匿名打赌</label>
+		<label  style="display:none"><input type="checkbox" name="anonymous" value="1"> 匿名竞猜</label>
 		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		<!--{/if}-->
 	</div>
@@ -178,8 +178,8 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
 			<a id="winvoter" href="javascript:;" onclick="showVoter('win');">赢</a>
 			<a id="lostvoter" href="javascript:;" onclick="showVoter('lost');">输</a>
 		<!--{else}-->
-			<a id="newvoter" href="javascript:;" onclick="showVoter('new');">最新打赌</a>
-			<a id="wevoter" href="javascript:;" onclick="showVoter('we');">好友打赌</a>
+			<a id="newvoter" href="javascript:;" onclick="showVoter('new');">最新竞猜</a>
+			<a id="wevoter" href="javascript:;" onclick="showVoter('we');">好友竞猜</a>
 		<!--{/if}-->
 		</div>
 	</div>
@@ -332,27 +332,27 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
 	<!--{/if}-->
 
 	<div class="sidebox">
-		<h2 class="title">最新打赌</h2>
+		<h2 class="title">最新竞猜</h2>
 		<ul class="news_list poll_new">
 			<!--{if $newquiz}-->
 			<!--{loop $newquiz $key $value}-->
 			<li style="height:auto;"><a href="space.php?uid=$value[uid]&do=$do&id=$value[quizid]">$value[subject]</a></li>
 			<!--{/loop}-->
 			<!--{else}-->
-				<li style="height:auto;">暂时没有新打赌</li>
+				<li style="height:auto;">暂时没有新竞猜</li>
 			<!--{/if}-->
 		</ul>
 	</div>
 
 	<div class="sidebox">
-		<h2 class="title">最热打赌</h2>
+		<h2 class="title">最热竞猜</h2>
 		<ul class="news_list poll_new">
 			<!--{if $hotquiz}-->
 				<!--{loop $hotquiz $key $value}-->
 				<li style="height:auto;"><a href="space.php?uid=$value[uid]&do=$do&id=$value[quizid]">$value[subject]</a></li>
 				<!--{/loop}-->
 			<!--{else}-->
-				<li style="height:auto;">暂时没有本月热门打赌</li>
+				<li style="height:auto;">暂时没有本月热门竞猜</li>
 			<!--{/if}-->
 		</ul>
 	</div>
