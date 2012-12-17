@@ -176,7 +176,7 @@ font-family:"微软雅黑";
 
 
 }
-.twoword{width:379px;margin-top:-32px; position:absolute; padding: 0px 24px 0px 17px; font-family:"微软雅黑"; color:white;}
+.twoword{width:379px;margin-top:-32px; position:absolute; padding: 0px 24px 0px 16px; font-family:"微软雅黑"; color:white;}
 
 .twopic a img.summaryimg:hover { border: 1px solid white; }
 .twopic a img.summaryimg { float: left; margin: 10px 0px 10px 13px; padding: 2px; border: 1px solid white; width:120px; height:120px;}
@@ -191,8 +191,8 @@ font-family:"微软雅黑";
 .outdiv{width:100%;overflow:hidden;}
 .leftword{float:left; width:120px; height:30px; line-height:30px; overflow:hidden; background:url(../image/org_img/black.png); text-align:center;}
 .rightword{float:right; width:120px; height:30px; line-height:30px; overflow:hidden; background:url(../image/org_img/black.png); text-align:center;}
-.lefthand{float:left; color:#DA5252; font-size:25px; font-family:"微软雅黑";}
-.midhand{float:left; width:140px; height:40px; margin-left:74px; background:url(../image/org_img/price.jpg) no-repeat; text-align:center; line-height:40px; font-family:"微软雅黑"; font-size:25px;}
+.lefthand{width:77px;float:left; color:#DA5252; font-size:25px; font-family:"微软雅黑";}
+.midhand{float:left; width:140px; height:40px; margin-left:43px; background:url(../image/org_img/price.jpg) no-repeat; text-align:center; line-height:40px; font-family:"微软雅黑"; font-size:25px;}
 .righthand{float:right; color:#DA5252; font-size:25px; font-family:"微软雅黑";}
 
 
