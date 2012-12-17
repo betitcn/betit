@@ -150,7 +150,7 @@ body { background: #FFF; }
       .app_more a.off { background-position: 0 50%; }
       .app_more a.on { background-position: -100px 50%; }
   #app_sidebar .t_input{ width: 110px; }
-  #mainarea { float: left; width: 810px; overflow: hidden; }
+  #mainarea { float: left; width: 810px; overflow: hidden; margin-left: 100px;}
 
   .chostlp img{ float: right; padding: 5px; border: 1px solid #FFF; border-top: none; vertical-align: middle; }
      .chostlp img.hover{ background: #FFF; border-color: #CCC;  }
