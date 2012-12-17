@@ -106,7 +106,7 @@ function insertsession($setarr) {
 		}
 	}
 
-	$_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE client=1 AND uid='$setarr[uid]' ");
+	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE client=1 AND uid='$setarr[uid]' ");
 
 	if(!$isonline = $_SGLOBAL['db']->fetch_array($query)) {
 
