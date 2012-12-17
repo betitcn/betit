@@ -59,6 +59,8 @@
 ">
 <!--{if $value['image_1']}-->
 			<a href="$value[image_1_link]"{$value[target]}><img src="$value[image_1]" class="summaryimg" /></a>
+			<!--{else}-->
+			<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"{$value[target]}><img src="image/org_img/nopicA.png" class="summaryimg" /></a>
 			<!--{/if}-->
 	<!--{if $value['image_3']}-->
 			<a href="$value[image_3_link]"{$value[target]}><img src="$value[image_3]" class="summaryimg" /></a>
@@ -91,6 +93,8 @@ font-family:'微软雅黑';
 ">
 <!--{if $value['image_2']}-->
 			<a href="$value[image_2_link]"{$value[target]}><img src="$value[image_2]" class="summaryimg" /></a>
+			<!--{else}-->
+			<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"{$value[target]}><img src="image/org_img/nopicB.png" class="summaryimg" /></a>
 			<!--{/if}-->
 <!--{if $value['image_4']}-->
 			<a href="$value[image_4_link]"{$value[target]}><img src="$value[image_4]" class="summaryimg" /></a>

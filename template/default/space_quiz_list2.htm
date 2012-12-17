@@ -30,7 +30,11 @@
     height: 140px;
     float: left;
 ">
-<a href="$value[image_1_link]" target="_blank"><img src="$value[image_1]" class="summaryimg"></a>
+            <!--{if $value['image_1']}-->
+			<a href="$value[image_1_link]"{$value[target]}><img src="$value[image_1]" class="summaryimg" /></a>
+			<!--{else}-->
+			<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"{$value[target]}><img src="image/org_img/nopicA.png" class="summaryimg" /></a>
+			<!--{/if}-->
 
 
 </div>
@@ -55,7 +59,12 @@
     width: 140px;
 height:140px;
 ">
-<a href="$value[image_2_link]" target="_blank"><img src="$value[image_2]" class="summaryimg"></a></div>
+                  <!--{if $value['image_2']}-->
+			      <a href="$value[image_2_link]"{$value[target]}><img src="$value[image_2]" class="summaryimg" /></a>
+			      <!--{else}-->
+			      <a href="space.php?uid=$value[uid]&do=quiz&id=$value[qizid]"{$value[target]}><img src="image/org_img/nopicB.png" class="summaryimg" /></a>
+			      <!--{/if}-->
+				  </div>
 
 <div class="clear" style="clear:both;"></div>
 
@@ -209,7 +218,11 @@ height:140px;
     height: 140px;
     float: left;
 ">
-<a href="$value[image_1_link]" target="_blank"><img src="$value[image_1]" class="summaryimg"></a>
+            <!--{if $value['image_1']}-->
+			<a href="$value[image_1_link]"{$value[target]}><img src="$value[image_1]" class="summaryimg" /></a>
+			<!--{else}-->
+			<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"{$value[target]}><img src="image/org_img/nopicA.png" class="summaryimg" /></a>
+			<!--{/if}-->
 
 
 </div>
@@ -235,7 +248,12 @@ font-family:'微软雅黑';
     width: 140px;
 height:140px;
 ">
-<a href="$value[image_2_link]" target="_blank"><img src="$value[image_2]" class="summaryimg"></a></div>
+                  <!--{if $value['image_2']}-->
+			      <a href="$value[image_2_link]"{$value[target]}><img src="$value[image_2]" class="summaryimg" /></a>
+			      <!--{else}-->
+			      <a href="space.php?uid=$value[uid]&do=quiz&id=$value[qizid]"{$value[target]}><img src="image/org_img/nopicB.png" class="summaryimg" /></a>
+			      <!--{/if}-->
+				  </div>
 
 <div class="clear" style="clear:both;"></div>
 
