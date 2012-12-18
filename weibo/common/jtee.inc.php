@@ -24,7 +24,7 @@ function setSession($uid, $username) {
 	);
 	//在线session
 	include_once(S_ROOT.'./source/function_space.php');
-	insertsession($setarr);
+	$setarr = insertsession($setarr);
 	$auth =  authcode("$setarr[password]\t$uid", 'ENCODE');
 	//设置cookie
 	ssetcookie('auth', $auth, 2592000);

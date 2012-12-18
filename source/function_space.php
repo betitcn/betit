@@ -84,18 +84,20 @@ function space_open($uid, $username, $gid=0, $email='') {
 }
 
 //添加session
-function insertsession($setarr, $client=0) {
+function insertsession($setarr) {
 	global $_SGLOBAL, $_SCONFIG;
 
 	$_SCONFIG['onlinehold'] = intval($_SCONFIG['onlinehold']);
 	if($_SCONFIG['onlinehold'] < 300) $_SCONFIG['onlinehold'] = 300;
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE client=0 AND (uid='$setarr[uid]' OR lastactivity<'".($_SGLOBAL['timestamp']-$_SCONFIG['onlinehold'])."')");
 
+	//$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE client=1 AND (uid='$setarr[uid]' OR lastactivity<'".($_SGLOBAL['timestamp']-259200)."')");
+
 	//添加在线
 	$ip = getonlineip(1);
 	$setarr['lastactivity'] = $_SGLOBAL['timestamp'];
 	$setarr['ip'] = $ip;
-	$setarr['client'] = $client;
+	$setarr['client'] = $_SGLOBAL['mobile'];
 
 	//检查是否使用了道具隐身草
 	if($_SGLOBAL['magic']['invisible']) {
@@ -106,42 +108,85 @@ function insertsession($setarr, $client=0) {
 		}
 	}
 
-	inserttable('session', $setarr, 0, true, 1);
+	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE client=1 AND uid='$setarr[uid]' ");
+	$isonline = $_SGLOBAL['db']->fetch_array($query);
+	if(!$isonline) {
 
-	$spacearr = array(
-		'lastlogin'=>"lastlogin='$_SGLOBAL[timestamp]'",
-		'ip' => "ip='$ip'"
-	);
-	$_SGLOBAL['supe_uid'] = $setarr['uid'];
-	$experience = $credit = 0;
-	//每天登陆奖励
-	$reward = getreward('daylogin', 0, $setarr['uid']);
-	$credit = $reward['credit'];
-	$experience = $reward['experience'];
+		inserttable('session', $setarr, 0, true, 1);
 
-	if($credit) {
-		$spacearr['credit'] = "credit=credit+$credit";
-	}
-	if($experience) {
-		$spacearr['experience'] = "experience=experience+$experience";
-	}
-	//更新用户
-	$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET ".implode(',', $spacearr)." WHERE uid='$setarr[uid]'");
+		$spacearr = array(
+			'lastlogin'=>"lastlogin='$_SGLOBAL[timestamp]'",
+			'ip' => "ip='$ip'"
+		);
+		$_SGLOBAL['supe_uid'] = $setarr['uid'];
+		$experience = $credit = 0;
+		//每天登陆奖励
+		$reward = getreward('daylogin', 0, $setarr['uid']);
+		$credit = $reward['credit'];
+		$experience = $reward['experience'];
 
-	//验证用户组是否过期
-	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('spacelog')." WHERE uid='$setarr[uid]'");
-	if($value = $_SGLOBAL['db']->fetch_array($query)) {
-		if($value['expiration'] <= $_SGLOBAL['timestamp']) {//到期
-			//清除用户组
-			updatetable('space', array('groupid'=>0), array('uid'=>$setarr['uid']));
-			//删除记录
-			$_SGLOBAL['db']->query("DELETE FROM ".tname('spacelog')." WHERE uid='$setarr[uid]'");
+		if($credit) {
+			$spacearr['credit'] = "credit=credit+$credit";
 		}
+		if($experience) {
+			$spacearr['experience'] = "experience=experience+$experience";
+		}
+		//更新用户
+		$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET ".implode(',', $spacearr)." WHERE uid='$setarr[uid]'");
+
+		//验证用户组是否过期
+		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('spacelog')." WHERE uid='$setarr[uid]'");
+		if($value = $_SGLOBAL['db']->fetch_array($query)) {
+			if($value['expiration'] <= $_SGLOBAL['timestamp']) {//到期
+				//清除用户组
+				updatetable('space', array('groupid'=>0), array('uid'=>$setarr['uid']));
+				//删除记录
+				$_SGLOBAL['db']->query("DELETE FROM ".tname('spacelog')." WHERE uid='$setarr[uid]'");
+			}
+		}
+		
+		//统计更新
+		include_once(S_ROOT.'./source/function_cp.php');
+		updatestat('login', 1);
+
+	}else{
+		$setarr["password"] = $isonline["password"];
+		$spacearr = array(
+			'lastlogin'=>"lastlogin='$_SGLOBAL[timestamp]'",
+			'ip' => "ip='$ip'"
+		);
+		$_SGLOBAL['supe_uid'] = $setarr['uid'];
+		$experience = $credit = 0;
+		//每天登陆奖励
+		$reward = getreward('daylogin', 0, $setarr['uid']);
+		$credit = $reward['credit'];
+		$experience = $reward['experience'];
+
+		if($credit) {
+			$spacearr['credit'] = "credit=credit+$credit";
+		}
+		if($experience) {
+			$spacearr['experience'] = "experience=experience+$experience";
+		}
+		//更新用户
+		$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET ".implode(',', $spacearr)." WHERE uid='$setarr[uid]'");
+
+		//验证用户组是否过期
+		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('spacelog')." WHERE uid='$setarr[uid]'");
+		if($value = $_SGLOBAL['db']->fetch_array($query)) {
+			if($value['expiration'] <= $_SGLOBAL['timestamp']) {//到期
+				//清除用户组
+				updatetable('space', array('groupid'=>0), array('uid'=>$setarr['uid']));
+				//删除记录
+				$_SGLOBAL['db']->query("DELETE FROM ".tname('spacelog')." WHERE uid='$setarr[uid]'");
+			}
+		}
+		
+		//统计更新
+		include_once(S_ROOT.'./source/function_cp.php');
+		updatestat('login', 1);
 	}
-	
-	//统计更新
-	include_once(S_ROOT.'./source/function_cp.php');
-	updatestat('login', 1);
+	return $setarr;
 }
 
 //获取任务

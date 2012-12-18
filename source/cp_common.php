@@ -14,18 +14,22 @@ if($op == 'logout') {
 	
 	if($_GET['uhash'] == $_SGLOBAL['uhash']) {
 		//删除session
-		if($_SGLOBAL['supe_uid']) {
-			$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE uid='$_SGLOBAL[supe_uid]'");
-			$_SGLOBAL['db']->query("DELETE FROM ".tname('adminsession')." WHERE uid='$_SGLOBAL[supe_uid]'");//管理平台
+		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE client=1 AND uid='$_SGLOBAL[supe_uid]' ");
+		$isonline = $_SGLOBAL['db']->fetch_array($query);
+
+		if (!$isonline){
+			if($_SGLOBAL['supe_uid']) {
+				$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE uid='$_SGLOBAL[supe_uid]'");
+				$_SGLOBAL['db']->query("DELETE FROM ".tname('adminsession')." WHERE uid='$_SGLOBAL[supe_uid]'");//管理平台
+			}
+		
+			if($_SCONFIG['uc_status']) {
+				include_once S_ROOT.'./uc_client/client.php';
+				$ucsynlogout = uc_user_synlogout();
+			} else {
+				$ucsynlogout = '';
+			}
 		}
-	
-		if($_SCONFIG['uc_status']) {
-			include_once S_ROOT.'./uc_client/client.php';
-			$ucsynlogout = uc_user_synlogout();
-		} else {
-			$ucsynlogout = '';
-		}
-	
 		clearcookie();
 		ssetcookie('_refer', '');
 	}

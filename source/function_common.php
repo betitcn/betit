@@ -171,7 +171,7 @@ function checkauth() {
 						$_SGLOBAL['supe_username'] = addslashes($member['username']);
 						$session = array('uid' => $_SGLOBAL['supe_uid'], 'username' => $_SGLOBAL['supe_username'], 'password' => $password);
 						include_once(S_ROOT.'./source/function_space.php');
-						insertsession($session);//µÇÂ¼
+						$session = insertsession($session);//µÇÂ¼
 					} else {
 						$_SGLOBAL['supe_uid'] = 0;
 					}

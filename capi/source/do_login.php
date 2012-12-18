@@ -106,7 +106,7 @@ if(capi_submitcheck('loginsubmit')) {
 	}
 
 	//清理在线session
-	insertsession($setarr, 1); //客户端登陆
+	$setarr = insertsession($setarr); //客户端登陆
 	$auth = authcode("$setarr[password]\t$setarr[uid]", 'ENCODE');
 	//设置cookie
 	ssetcookie('auth', $auth, $cookietime);
