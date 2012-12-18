@@ -46,6 +46,7 @@ if($op=='download'){
 					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
 					ORDER BY p.voternum DESC LIMIT $start,$perpage");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
+			realname_set($value['uid'], $value['username']); 
 			if(ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
 				realname_set($value['uid'], $value['username']);
 			//if ($value['idtype'] == 'quizid')
@@ -62,7 +63,7 @@ if($op=='download'){
 				$query3 = $_SGLOBAL['db']->query("SELECT uchome_quizfield.option FROM ".tname('quizfield')." WHERE quizid='$value[id]' ORDER BY quizid");
 $value3=array();				
 	while( $value3 = $_SGLOBAL['db']->fetch_array($query3))
-	{
+	{   
 		
 		$value['options'][]=unserialize($value3['option']);
 		
@@ -74,7 +75,6 @@ $value3=array();
 $value3=array();				
 	while( $value4 = $_SGLOBAL['db']->fetch_array($query4))
 	{
-		
 		$value['votenum'][]=unserialize($value4['body_data']);
 		
 
@@ -89,7 +89,7 @@ $value3=array();
 	}
 
 
-
+    realname_get();
 	include_once template("space_hot");
 	}elseif($op=='weibo'){
 		include_once template("space_weibo");
