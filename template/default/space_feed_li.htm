@@ -31,8 +31,9 @@
 				
 			</div>
 			<!--{/if}-->
+			<!--{if $value['body_template']}-->
 				<ul>
-<!--{if $value['body_template']}-->
+
 
 <div style="width:100%;overflow:hidden;margin-left:50px;">
 
@@ -46,9 +47,6 @@
 			<a href="$value[image_1_link]"{$value[target]}><img src="$value[image_1]" class="summaryimg" /></a>
 			<!--{else}-->
 			<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"{$value[target]}><img src="image/org_img/nopicA.png" class="summaryimg" /></a>
-			<!--{/if}-->
-	<!--{if $value['image_3']}-->
-			<a href="$value[image_3_link]"{$value[target]}><img src="$value[image_3]" class="summaryimg" /></a>
 			<!--{/if}-->
 
 </div>
@@ -81,9 +79,6 @@ font-family:'微软雅黑';
 			<!--{else}-->
 			<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"{$value[target]}><img src="image/org_img/nopicB.png" class="summaryimg" /></a>
 			<!--{/if}-->
-<!--{if $value['image_4']}-->
-			<a href="$value[image_4_link]"{$value[target]}><img src="$value[image_4]" class="summaryimg" /></a>
-			<!--{/if}-->
 <div class="clear" style="clear:both;"></div>
 
 </div>
@@ -93,7 +88,7 @@ font-family:'微软雅黑';
 				<!--{loop $list1 $value2}-->
 <div class="leftword" style="float:left;width:200px;">$value2[0]</div>
 <div class="rightword" style="width:186px;text-align:right;float:right;margin-right:14px;">$value2[1]</div>
-  <!--{/loop}-->
+                <!--{/loop}-->
 </div>
 
 <div class="twohand" style="padding-right:120px; ">
