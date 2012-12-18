@@ -432,26 +432,28 @@ if($_REQUEST['op'] == 'delete') {
 
 				$fs['images'] = $fs['image_links'] = array();
 					
-				$fs['title_template'] = cplang('publish_key_in_the_quiz');
-				$fs['title_data'] = array(
-					'url' => "space.php?uid=$quiz[uid]&do=quiz&id=$quiz[quizid]",
-					'subject' => $quiz['subject'],
-					'key'=>$key["option"]
-				);
 				if (count($win)){
-					$fs['body_template'] = '<br>参与人数{attend}人,中奖人数 {win}人，每人获得奖池{precost}金币<br>恭喜{touser}成为本次竞猜的大赢家';
-					$fs['body_data'] = array(
+					$fs['title_template'] = cplang('publish_key_in_the_quiz3');
+					$fs['title_data'] = array(
 						'attend' => $quiz['voternum'],
 						'win' => count($win),
 						'precost' => $credit,
 						'touser' => "<a href='space.php?uid=$winuid'>$_SN[$winuid]<a>",
+						'url' => "space.php?uid=$quiz[uid]&do=quiz&id=$quiz[quizid]",
+					'subject' => $quiz['subject'],
+					'key'=>$key["option"]
 					);
 				}else{
-					$fs['body_template'] = '<br>参与人数{attend}人,很不幸本期没有人获胜，大家要加油哟！';
-					$fs['body_data'] = array(
+					$fs['title_template'] =cplang('publish_key_in_the_quiz4');
+					$fs['title_data'] = array(
 						'attend' => $quiz['voternum'],
+						'url' => "space.php?uid=$quiz[uid]&do=quiz&id=$quiz[quizid]",
+					'subject' => $quiz['subject'],
+					'key'=>$key["option"]
 					);
 				}
+					$fs['body_template'] = "";
+				$fs['body_data'] = array();
 				include_once(S_ROOT.'./source/function_cp.php');
 				feed_add($fs['icon'], $fs['title_template'], $fs['title_data'], $fs['body_template'], $fs['body_data']);
 
