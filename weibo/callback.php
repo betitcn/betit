@@ -35,9 +35,11 @@ if ($token) {
 	}else{
 		 $c = new SaeTClientV2( WB_AKEY , WB_SKEY , $_SESSION['token']['access_token'] );
 		 $profile = $c->show_user_by_id($uid_get['uid']);
-		 $usernameS	= "sina_".$profile['idstr'];
-		 $regEmailS	= "sina_".$profile['idstr']."@betit.cn";
-		 $regPwdS	= "sina_".$profile['idstr'];
+		 $idstr = ($profile['idstr'])?$profile['idstr']:$profile['id'];
+		 $idstr = ($idstr)?$idstr:$_SGLOBAL["timestamp"];
+		 $usernameS	= "sina_".$idstr;
+		 $regEmailS	= "sina_".$idstr."@betit.cn";
+		 $regPwdS	= "sina_".$idstr;
 		 require_once CONNECT_ROOT."/common/siteUserRegister.class.php";
 		 $regClass = new siteUserRegister();
 		$uid = $regClass->reg($usernameS, $regEmailS, $regPwdS);
@@ -81,12 +83,15 @@ if ($token) {
 				
 				$sql = "INSERT INTO " . tname('sina_bind_info') . " (uid,sina_uid,token,tsecret,profile) VALUES ('{$uid}','{$uid_get[uid]}','{$_SESSION[last_key][oauth_token]}','{$_SESSION[last_key][oauth_token_secret]}',' ');";
 				$rst = $_SGLOBAL['db']->query($sql);
+				if ($profile['name'])
+				{
 				//主表实名
-				$setarr = array(
-					'name' => getstr($profile['name'], 30, 1, 1, 1),
-					'namestatus' => $_SCONFIG['namecheck']?0:1
-				);
-				updatetable('space', $setarr, array('uid'=>$uid ));
+					$setarr = array(
+						'name' => getstr($name, 30, 1, 1, 1),
+						'namestatus' => $_SCONFIG['namecheck']?0:1
+					);
+					updatetable('space', $setarr, array('uid'=>$uid ));
+				}
 
 				$setarr = array(
 					'weibo' => 1
