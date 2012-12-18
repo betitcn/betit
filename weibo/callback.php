@@ -83,14 +83,15 @@ if ($token) {
 				
 				$sql = "INSERT INTO " . tname('sina_bind_info') . " (uid,sina_uid,token,tsecret,profile) VALUES ('{$uid}','{$uid_get[uid]}','{$_SESSION[last_key][oauth_token]}','{$_SESSION[last_key][oauth_token_secret]}',' ');";
 				$rst = $_SGLOBAL['db']->query($sql);
-				$name = ($profile['name'])?$profile['name']:$profile['screen_name'];
-				$name = ($name)?$name:'无名氏';
+				if ($profile['name'])
+				{
 				//主表实名
-				$setarr = array(
-					'name' => getstr($name, 30, 1, 1, 1),
-					'namestatus' => $_SCONFIG['namecheck']?0:1
-				);
-				updatetable('space', $setarr, array('uid'=>$uid ));
+					$setarr = array(
+						'name' => getstr($name, 30, 1, 1, 1),
+						'namestatus' => $_SCONFIG['namecheck']?0:1
+					);
+					updatetable('space', $setarr, array('uid'=>$uid ));
+				}
 
 				$setarr = array(
 					'weibo' => 1
