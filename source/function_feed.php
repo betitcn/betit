@@ -112,7 +112,7 @@ function feed_publish($id, $idtype, $add=0) {
 						$setarr['title_template'] = '{actor}:<b>{subject}</b>';
 						$setarr['title_data'] = array('subject' => "<a href=\"$url\">$value[subject]</a>");
 						
-						$setarr['body_template'] = '<b>{subject}</b><br>{option}{totalcost}';
+						$setarr['body_template'] = 'quiz';
 						$setarr['body_data'] = array(
 							
 							'option' =>$optionstr,
