@@ -255,8 +255,8 @@ $_SGLOBAL['cplang'] = array(
 	'magicunit' => '个',
 	'magic_note_wall' => '在留言板上给你<a href="\\1" target="_blank">留言</a>',
 	'magic_call' => '在\\1中点了你的名，<a href="\\2" target="_blank">快去看看吧</a>',
-	'magicuse_thunder_announce_title' => '<strong>{username} 发出了“雷鸣之声”</strong>:<strong> 大家好，我上线啦</strong><br><a href="space.php?uid={uid}" target="_blank">欢迎来我家串个门</a>',
-	'magicuse_thunder_announce_body' => '',
+	'magicuse_thunder_announce_title' => '<strong>{username} 发出了“雷鸣之声”</strong>',
+	'magicuse_thunder_announce_body' => '大家好，我上线啦<br><a href="space.php?uid={uid}" target="_blank">欢迎来我家串个门</a>',
 	'magic_present_note' => '送给你一个道具 \\1, <a href="\\2">赶快去看看吧</a>',
 	//用户组升级获赠道具
 	'upgrade_magic_award' => '恭喜你等级提升为 \\1，并获赠以下道具：\\2',
