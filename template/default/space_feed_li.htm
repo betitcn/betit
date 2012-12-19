@@ -31,7 +31,7 @@
 				
 			</div>
 			<!--{/if}-->
-			<!--{if $value['body_template']}-->
+			<!--{if $value['body_template']=='quiz'}-->
 				<ul>
 
 
@@ -53,11 +53,11 @@
 
 <div class="middle" style="
    	text-align: center;
-width: 120px;
-float: left;
-font-size: 20px;
-font-weight: bold;
-font-family:'微软雅黑';
+    width: 120px;
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+    font-family:'微软雅黑';
 
 
 ">
@@ -106,7 +106,8 @@ font-family:'微软雅黑';
 
 
 </ul>
-
+<!--{else}-->
+$value[body_template]
 <!--{/if}-->
 			<!--{if $value['thisapp'] && !empty($value['body_data']['flashvar'])}-->
 			<div class="media">
