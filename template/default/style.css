@@ -75,10 +75,10 @@ a.c_link { background-position: 0 -64px; }
 
 .float_cancel,
 .float_delete,
-.float_more{ float: right; margin: 0 10px 0 0; padding: 0; width: 16px; height: 16px; background: url(image/settingicon.gif) no-repeat; color: #DABAA9; line-height: 200px; overflow: hidden; display: block; }
+.float_more{ display: none;float: right; margin: 0 10px 0 0; padding: 0; width: 16px; height: 16px; background: url(image/settingicon.gif) no-repeat; color: #DABAA9; line-height: 200px; overflow: hidden; display: block; }
   .float_cancel { background-position: 0 -14px; }
   .float_delete { background-position: 0 -31px; }
-  .float_more { position: absolute; margin: 5px 0 0 505px; background: url(image/feedmoreicon.gif) no-repeat 0 0; color: #DABAA9; }
+  .float_more { position: absolute; margin: 5px 0 0 505px; background: url(image/feedmoreicon.gif) no-repeat 0 0; color: #DABAA9;}
 
 /*avatar bg*/
 .ar_r_t,
@@ -519,7 +519,7 @@ a.button { padding: 5px; }
     .feed a img.summaryimg { float: left; margin: 10px 10px 10px 0; padding: 2px; border: 1px solid #DDD; }
       .feed a img.summaryimg:hover { border-color: #DDD; }
 
-     .hotspot{ float: right; margin: 10px 0 0 30px; width: 55px; height: 50px; }
+     .hotspot{ float: right; margin: -10px 0 0 30px; width: 55px; height: 50px; }
      .hotspot a{ display: block; padding: 0 0 20px; height: 30px; text-align: center; line-height: 30px; background: url('image/hotspot.gif'); font-size: 16px; color: #3B5998;}
 
 .feedread { color: #CCC; }
