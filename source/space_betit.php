@@ -59,7 +59,7 @@ if($op=='download'){
 					$value["comments"][] = $value2;
 				
 				//}
-			}
+			     }
 				$query3 = $_SGLOBAL['db']->query("SELECT uchome_quizfield.option FROM ".tname('quizfield')." WHERE quizid='$value[id]' ORDER BY quizid");
 $value3=array();				
 	while( $value3 = $_SGLOBAL['db']->fetch_array($query3))
