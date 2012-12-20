@@ -27,9 +27,11 @@
 			<div class="hotspot"><a href="cp.php?ac=feed&feedid=$value[feedid]">$value[hot]</a></div>
 			<!--{/if}-->			
 		<!--{if $value['body_template']}-->
-			
+			<div class="detail"<!--{if $value['image_3']}--> style="clear: both;"<!--{/if}-->>
+				
+			</div>
 			<!--{/if}-->
-			<!--{if $value['body_template']}-->
+			<!--{if $value['body_template']=='quiz'}-->
 				<ul>
 
 
@@ -104,7 +106,8 @@ font-family:'微软雅黑';
 
 
 </ul>
-
+<!--{else}-->
+$value[body_template]
 <!--{/if}-->
 			<!--{if $value['thisapp'] && !empty($value['body_data']['flashvar'])}-->
 			<div class="media">
