@@ -32,7 +32,6 @@
 			<!--{if $value['body_template']}-->
 				<ul>
 
-
 <div style="width:100%;margin-left:50px;">
 
 	
@@ -105,7 +104,8 @@ font-family:'微软雅黑';
 
 
 </ul>
-
+<!--{else}-->
+$value[body_template]
 <!--{/if}-->
 			<!--{if $value['thisapp'] && !empty($value['body_data']['flashvar'])}-->
 			<div class="media">
