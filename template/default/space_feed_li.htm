@@ -27,15 +27,13 @@
 			<div class="hotspot"><a href="cp.php?ac=feed&feedid=$value[feedid]">$value[hot]</a></div>
 			<!--{/if}-->			
 		<!--{if $value['body_template']}-->
-			<div class="detail"<!--{if $value['image_3']}--> style="clear: both;"<!--{/if}-->>
-				
-			</div>
+			
 			<!--{/if}-->
-			<!--{if $value['body_template']=='quiz'}-->
+			<!--{if $value['body_template']}-->
 				<ul>
 
 
-<div style="width:100%;overflow:hidden;margin-left:50px;">
+<div style="width:100%;margin-left:50px;">
 
 	
 <div class="twopic" style="padding-right: 100px;">
@@ -53,11 +51,11 @@
 
 <div class="middle" style="
    	text-align: center;
-    width: 120px;
-    float: left;
-    font-size: 20px;
-    font-weight: bold;
-    font-family:'微软雅黑';
+width: 120px;
+float: left;
+font-size: 20px;
+font-weight: bold;
+font-family:'微软雅黑';
 
 
 ">
@@ -71,7 +69,7 @@
 
 <div class="pictwo" style="
     float: left;
-    width: 140px;
+    
 	height:140px;
 ">
 <!--{if $value['image_2']}-->
@@ -106,8 +104,7 @@
 
 
 </ul>
-<!--{else}-->
-$value[body_template]
+
 <!--{/if}-->
 			<!--{if $value['thisapp'] && !empty($value['body_data']['flashvar'])}-->
 			<div class="media">
