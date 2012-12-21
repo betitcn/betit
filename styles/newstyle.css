@@ -377,12 +377,13 @@ font-family:"微软雅黑";
 /*首页浮动广告*/
 
 #TopTipHolder{height:0; overflow:hidden;position:relative; background:#CDCDCD;}
-#TopTip{height:685px; font-weight:100px; font-size:56px; text-align:center; background:url(../image/org_img/endpic.jpg) no-repeat;}
+#TopTip{height:685px; font-weight:100px; font-size:56px; text-align:center; background:url(../image/org_img/endpic.jpg) no-repeat;margin: 0 auto;
+width: 1250px;}
 #TopTip li{list-style:none; display:none;}
 
-#linkto{width:70px; height:30px; background:#FF0000; position:absolute; left:500px; top:500px; padding:15px;}
+#linkto{width:70px; height:30px; background:#FF0000; position:absolute; left:540px; top:500px; padding:15px;}
 #linkto a{color:#FFFFFF; font-weight:100px;}
-#TopTipClose{width:70px; height:30px; background:#FF0000; position:absolute; left:700px; top:500px; padding:15px; }
+#TopTipClose{width:70px; height:30px; background:#FF0000; position:absolute; left:750px; top:500px; padding:15px; }
 #TopTipClose a{color:#FFFFFF; font-weight:100px;}
 .tomorrow{color:#FFFFFF;}
 	
