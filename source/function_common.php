@@ -2197,7 +2197,7 @@ function ckspacelog() {
 }
 
 
-function apple_push($token,$msg, $userinfo='', $debug=1){
+function apple_push($token,$msg, $userinfo='', $debug=0){
 
 	/*include_once S_ROOT.'./source/APN/APNSBase.php';
 	include_once S_ROOT.'./source/APN/APNotification.php';
