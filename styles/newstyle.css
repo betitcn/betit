@@ -340,3 +340,51 @@ font-family:"微软雅黑";
 	/*add*/
 	  .quote { padding: 10px;margin-top:18px; border: 1px solid #EBE6C9; background: #FCF9E6 none repeat scroll 0 0; font-size: 12px; }
        .quote .q { background: none; }
+
+	   /*三个页脚部分*/
+	.helpandcontact{ position:relative; width:960px; height:1250px; background:none; margin:0 auto; }
+	.contact_right{width:680px; float:right; }
+	.contact_left{width:200px; margin-left:30px;}
+	.contact_nav{list-style:none; margin:0px; padding:0px; width:200px; position:absolute; top:50px; }
+	
+	
+	
+	.contact_nav li{line-height:30px; margin-bottom:10px; background:#666666;}
+	
+	.contact_nav li a{display:block; padding:8px 40px; border:1px solid #e5e5e5; color:#FFFFFF; }
+	.contact_nav li a:hover{ background:#FF0000;}
+	#about{ display:block; padding-top:30px;}
+	#coor{ display:none; padding-top:30px;}
+	#help{ display:none; padding-top:30px;}
+	
+	.aboutusone{list-style:none; margin:0px; padding:0px 15px 0px 0px; margin-bottom:30px;}
+	.aboutusone li{ line-height: 1.5;}
+	
+	.aboutustwo{list-style:none; margin:0px; padding:0px;}
+	.aboutustwo li{line-height: 1.5;}
+	.us{font-weight:200; margin-bottom:5px;}
+	.career{ padding-left:48px;}
+	
+	
+	.coorleft{float:left; width:200px; height:60px; border:1px solid #000; text-align:center; padding-top:40px;}
+	.coorright{float:left; margin-left:30px; padding-top:20px;}
+	.clear{clear:both;}
+	.example{ margin-top:30px;}
+	.twoma{width:80px; height:80px; background:#000000; margin-left:100px; margin-top:-15px;}
+	.twoma img{height:200px; height:200px; display:block;}
+	
+
+/*首页浮动广告*/
+
+#TopTipHolder{height:0; overflow:hidden;position:relative; background:#CDCDCD;}
+#TopTip{height:685px; font-weight:100px; font-size:56px; text-align:center; background:url(../image/org_img/endpic.jpg) no-repeat;margin: 0 auto;
+width: 1250px;}
+#TopTip li{list-style:none; display:none;}
+
+#linkto{width:70px; height:30px; background:#FF0000; position:absolute; left:540px; top:500px; padding:15px;}
+#linkto a{color:#FFFFFF; font-weight:100px;}
+#TopTipClose{width:70px; height:30px; background:#FF0000; position:absolute; left:750px; top:500px; padding:15px; }
+#TopTipClose a{color:#FFFFFF; font-weight:100px;}
+.tomorrow{color:#FFFFFF;}
+	
+	

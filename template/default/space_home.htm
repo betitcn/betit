@@ -9,6 +9,79 @@
 </head>
 
 <body onload="shoppingcat()">
+<div id="TopTipHolder"><div id="TopTip"><li class="tomorrowone">第二天，你会 &nbsp;&nbsp;. . . </li><li class="tomorrowtwo">醒来&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;死去&nbsp;?</li></div><div id="TopTipClose" title="关闭"><a href="#">关闭广告</a></div>
+<div id="linkto"><a href="space.php?uid=1&do=quiz&id=468">马上竞猜</a></div>
+
+</div>
+
+<script>
+/* 
+ * 页面顶部提示栏效果(TopTipEffect)
+ *  
+ * author: 爱微网
+ * version: 1.0.0
+ * @param {string}    id           tip提示标签id
+ * @param {string}    holderId     父标签
+ * @param {bool}      expand       展开/收起
+ * @param {string}    step         每次移动步长
+ * @param {object}    speed        移动速度
+ */
+var TopTipEffect = function(id, holderId, expand, step, speed){
+    this.obj = document.getElementById(id);
+    this.holder = document.getElementById(holderId);
+    this.step = step;
+    this.speed = speed;
+    this.expand = expand;
+    this.maxH = this.obj.offsetHeight;
+    this.moveT = null;
+    this.moving = false;
+    this.tempH = expand ? 0 : this.maxH;
+}
+TopTipEffect.prototype = {
+    play : function(){
+        if(this.moving) return;
+        if(this.holder.offsetHeight > this.maxH) return;
+        var _this = this;
+        this.moveT = setInterval(function(){_this.move()}, _this.speed);
+    },
+    move : function(){
+        this.moving = true;
+        if(this.expand){
+            this.tempH += this.step;
+            if(this.tempH > this.maxH){
+                if((this.tempH - this.maxH) >= this.step){
+                    this.expand = false;
+                    this.moving = false;
+                    clearInterval(this.moveT);
+                    return;
+                }else{
+                    this.tempH = this.maxH;
+                }
+            }
+        }else{
+            this.tempH -= this.step;
+            if(this.tempH < 0){
+                if(-this.tempH >= this.step){
+                    this.expand = true;
+                    this.moving = false;
+                    clearInterval(this.moveT);
+                    return;
+                }else{
+                    this.tempH = 0;
+                }
+            }
+        }
+        this.holder.style.height = this.tempH + "px";
+        this.holder.scrollTop = this.maxH - this.tempH;
+    }
+}
+var mytip = new TopTipEffect("TopTip", "TopTipHolder", true, 10, 5);
+mytip.play();
+//右上角关闭按钮点击
+document.getElementById("TopTipClose").onclick = function(){
+    mytip.play();
+}
+</script>
              <div id="header">
                         <div class="nav">
                                      <div class="navleft"><a href="space.php?do=betit"><img src="image/org_img/logo.jpg" /></a></div>
@@ -69,7 +142,7 @@
                           
                           <ul class="u4">
                                                       
-                             <li><a href="#">关于我们</a>&nbsp;&nbsp;&nbsp;  |   &nbsp;&nbsp;&nbsp;   <a href="#">媒体合作</a> &nbsp;&nbsp;&nbsp; |  &nbsp;&nbsp;&nbsp; <a href="#">使用帮助</a>   </li>
+                             <li><a href="../betit/template/default/contact.htm">关于我们</a>&nbsp;&nbsp;&nbsp;  |   &nbsp;&nbsp;&nbsp;   <a href="../betit/template/default/contact.htm">媒体合作</a> &nbsp;&nbsp;&nbsp; |  &nbsp;&nbsp;&nbsp; <a href="../betit/template/default/contact.htm">使用帮助</a>   </li>
                              
                         
                         

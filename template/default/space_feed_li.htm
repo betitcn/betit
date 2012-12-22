@@ -24,20 +24,22 @@
 		<div class="feed_content">
 		
 			<!--{if empty($_TPL[hidden_hot]) && $value[hot]}-->
-			<div class="hotspot"><a href="cp.php?ac=feed&feedid=$value[feedid]">$value[hot]</a></div>
+			<div class="hotspot0" style=""><a href="cp.php?ac=feed&feedid=$value[feedid] ">$value[hot]</a></div>
 			<!--{/if}-->			
 		<!--{if $value['body_template']}-->
-			
+			<div class="detail"<!--{if $value['image_3']}--> style="clear: both;"<!--{/if}-->>
+				
+			</div>
 			<!--{/if}-->
-			<!--{if $value['body_template']}-->
+			<!--{if $value['body_template']=='quiz'}-->
 				<ul>
-
 
 <div style="width:100%;margin-left:50px;">
 
 	
 <div class="twopic" style="padding-right: 100px;">
 <div class="picone" style="
+    display:block;
     width: 140px;
     height: 140px;
     float: left;">
@@ -56,7 +58,6 @@ float: left;
 font-size: 20px;
 font-weight: bold;
 font-family:'微软雅黑';
-
 
 ">
 <br>
@@ -104,7 +105,8 @@ font-family:'微软雅黑';
 
 
 </ul>
-
+<!--{else}-->
+$value[body_template]
 <!--{/if}-->
 			<!--{if $value['thisapp'] && !empty($value['body_data']['flashvar'])}-->
 			<div class="media">

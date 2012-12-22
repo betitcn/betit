@@ -519,8 +519,9 @@ a.button { padding: 5px; }
     .feed a img.summaryimg { float: left;  padding: 2px; border: 1px solid #DDD; }
       .feed a img.summaryimg:hover { border-color: #DDD; }
 
-     .hotspot{ float: right; margin: 0px 0 0 30px; width: 55px; height: 50px; }
-     .hotspot a{ display: block; padding: 0 0 20px; height: 30px; text-align: center; line-height: 30px; background: url('image/hotspot.gif'); font-size: 16px; color: #3B5998;}
+     .hotspot{ float: right; margin: 0px 0 0 0px; width: 55px;background:url('image/hotspot.gif') no-repeat; }
+     .hotspot0{ position: absolute; left:780px;margin: 5px 0 0 0px; width: 55px;background:url('image/hotspot.gif') no-repeat;height: 50px; text-align: center;}
+     .hotspot a{ display: block; padding: 0 0 20px; height: 30px; text-align: center; line-height: 30px; font-size: 16px; color: #3B5998;}
 
 .feedread { color: #CCC; }
 	.feedread * { color: #CCC; }

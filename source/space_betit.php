@@ -42,9 +42,7 @@ if($op=='download'){
 		
 
   
-	$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM  ".tname('quiz')." p USE INDEX (voternum)
-					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
-					ORDER BY p.voternum DESC LIMIT $start,$perpage");
+	$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT JOIN ".tname('quiz')." bf ON bf.quizid=b.id WHERE bf.endtime>0 AND bf.endtime>='$_SGLOBAL[timestamp]' AND icon='quiz' ORDER BY b.hot DESC LIMIT $start,$perpage");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			realname_set($value['uid'], $value['username']); 
 			if(ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
@@ -59,7 +57,7 @@ if($op=='download'){
 					$value["comments"][] = $value2;
 				
 				//}
-			}
+			     }
 				$query3 = $_SGLOBAL['db']->query("SELECT uchome_quizfield.option FROM ".tname('quizfield')." WHERE quizid='$value[id]' ORDER BY quizid");
 $value3=array();				
 	while( $value3 = $_SGLOBAL['db']->fetch_array($query3))
