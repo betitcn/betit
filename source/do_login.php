@@ -101,7 +101,7 @@ if(submitcheck('loginsubmit')) {
 	}
 
 	//清理在线session
-	$setarr = insertsession($setarr);
+	insertsession($setarr);
 	
 	//设置cookie
 	ssetcookie('auth', authcode("$setarr[password]\t$setarr[uid]", 'ENCODE'), $cookietime);
