@@ -156,7 +156,7 @@ function checkauth() {
 		$_SGLOBAL['supe_uid'] = intval($uid);
 		
 		if($password && $_SGLOBAL['supe_uid']) {
-			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE uid='$_SGLOBAL[supe_uid]'");
+			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE uid='$_SGLOBAL[supe_uid]' AND client='$_SGLOBAL[mobile]'");
 			if($member = $_SGLOBAL['db']->fetch_array($query)) {
 				if($member['password'] == $password) {
 					$_SGLOBAL['supe_username'] = addslashes($member['username']);
@@ -2197,7 +2197,7 @@ function ckspacelog() {
 }
 
 
-function apple_push($token,$msg, $userinfo='', $debug=1){
+function apple_push($token,$msg, $userinfo='', $debug=0){
 
 	/*include_once S_ROOT.'./source/APN/APNSBase.php';
 	include_once S_ROOT.'./source/APN/APNotification.php';

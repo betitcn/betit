@@ -15,8 +15,8 @@ if($op == 'logout') {
 	//if($_REQUEST['uhash'] == $_SGLOBAL['uhash']) {
 		//删除session
 		if($_SGLOBAL['supe_uid']) {
-			$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE uid='$_SGLOBAL[supe_uid]'");
-			$_SGLOBAL['db']->query("DELETE FROM ".tname('adminsession')." WHERE uid='$_SGLOBAL[supe_uid]'");//管理平台
+			$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE uid='$_SGLOBAL[supe_uid]' AND client='$_SGLOBAL[mobile]'");
+			//$_SGLOBAL['db']->query("DELETE FROM ".tname('adminsession')." WHERE uid='$_SGLOBAL[supe_uid]'");//管理平台
 		}
 	
 		if($_SCONFIG['uc_status']) {
