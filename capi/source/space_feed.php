@@ -404,7 +404,7 @@ if($_REQUEST['view'] == 'hot') {
 			$value["body_data"]["totalcost"] = $quiz["totalcost"];
 			$value["username"] = capi_realname($value["uid"],$tmpspace);
 			$value["title_data"]["actor"] = $value["username"];
-			$value["title_data"]["subject"] = strip_tags($value["title_data"]["subject"]);
+			$value["title_data"]["subject"] = strip_tags($quiz["subject"]);
 
 		}elseif ($value["icon"] =="click"){
 			$dom = new DomDocument();
@@ -554,7 +554,7 @@ if($_REQUEST['view'] == 'hot') {
 			}
 			$value["username"] = capi_realname($value["uid"],$tmpspace);
 			$value["title_data"]["actor"] = $value["username"];
-			$value["title_data"]["subject"] = strip_tags($value["title_data"]["subject"]);
+			$value["title_data"]["subject"] = strip_tags($quiz["subject"]);
 		}elseif ($value["icon"] =="click"){
 			$dom = new DomDocument();
 			@$dom->loadHTML($value["title_data"]["touser"]);
@@ -723,7 +723,7 @@ if($_REQUEST['view'] == 'hot') {
 			}
 			$value["username"] = capi_realname($value["uid"],$tmpspace);
 			$value["title_data"]["actor"] = $value["username"];
-			$value["title_data"]["subject"] = strip_tags($value["title_data"]["subject"]);
+			$value["title_data"]["subject"] = strip_tags($quiz["subject"]);
 		}elseif ($value["icon"] =="click"){
 			$dom = new DomDocument();
 			@$dom->loadHTML($value["title_data"]["touser"]);
