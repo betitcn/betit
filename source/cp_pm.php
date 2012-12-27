@@ -87,7 +87,7 @@ if($_GET['op'] == 'checknewpm') {
 			if ($tospace["iostoken"])
 				apple_push($tospace["iostoken"],$_SN[$space['uid']].": ".$message);
 
-			andriod_push($tospace["username"],$_SN[$space['uid']].": ".$message);
+			andriod_push($tospace["uid"],$_SN[$space['uid']].": ".$message);
 
 		} elseif($username) {
 			$newusers = array();
@@ -108,7 +108,7 @@ if($_GET['op'] == 'checknewpm') {
 					if ($value["iostoken"])
 						apple_push($value["iostoken"],$_SN[$space['uid']].": ".$message );
 
-					andriod_push($value["username"],$_SN[$space['uid']].": ".$message );
+					andriod_push($value["uid"],$_SN[$space['uid']].": ".$message );
 				}
 			}
 

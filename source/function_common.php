@@ -2196,7 +2196,7 @@ function ckspacelog() {
 	}
 }
 
-function andriod_push($username, $msg, $title=''){
+function andriod_push($uid, $msg, $title=''){
 	global $_SGLOBAL;
 
 	require_once S_ROOT.'./source/jpush.php';
@@ -2207,7 +2207,7 @@ function andriod_push($username, $msg, $title=''){
 
 	$sendno = $_SGLOBAL['timestamp'];
 
-	$receiver_value = $username;		
+	$receiver_value = $uid;		
 	$msg_content = json_encode(array('n_builder_id'=>0, 'n_title'=>$title, 'n_content'=>$msg));
 	$platform = 'android';
 

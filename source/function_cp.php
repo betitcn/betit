@@ -634,9 +634,9 @@ function notification_add_push($uid, $note, $authorid=0, $setarr=""){
 
 	if ($authorid){
 		$realname = capi_realname($authorid);
-		andriod_push($tospace["username"], $realname.":".strip_tags($note),$setarr);
+		andriod_push($uid, $realname.":".strip_tags($note),$setarr);
 	}else{
-		andriod_push($tospace["username"], strip_tags($note),$setarr);
+		andriod_push($uid, strip_tags($note),$setarr);
 	}
 }
 
