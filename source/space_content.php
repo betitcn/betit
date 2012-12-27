@@ -23,6 +23,7 @@ $page =$_GET['Page'];
 					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
 					ORDER BY p.voternum DESC LIMIT $start,$perpage");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
+		realname_set($value['uid'], $value['username']);
 		if(ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
 			realname_set($value['uid'], $value['username']);
 			//if ($value['idtype'] == 'quizid')
@@ -70,6 +71,6 @@ while ($value1 = $_SGLOBAL['db']->fetch_array($query1)) {
 						}
 
 	*/
-
+ realname_get();
 include_once template("space_content");
 ?>
