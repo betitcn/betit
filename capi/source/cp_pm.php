@@ -90,7 +90,11 @@ if($_REQUEST['op'] == 'checknewpm') {
 				$realname = capi_realname($space['uid'], $space);
 				apple_push($tospace["iostoken"],$realname.": ".$message);
 			}
-			andriod_push($tospace["uid"],$realname.": ".$message);
+
+			if ($tospace["isandriod"]){
+				$realname = capi_realname($space['uid'], $space);
+				andriod_push($tospace["uid"],$realname.": ".$message);
+			}
 
 		} elseif($username) {
 			$newusers = array();
@@ -110,7 +114,10 @@ if($_REQUEST['op'] == 'checknewpm') {
 						
 						apple_push($value["iostoken"],$realname.": ".$message );
 					}
-					andriod_push($value["uid"], $realname.": ".$message );
+					if ($value["isandriod"]){
+						
+						andriod_push($value["uid"], $realname.": ".$message );
+					}
 				}
 			}
 
