@@ -90,6 +90,7 @@ if($_REQUEST['op'] == 'checknewpm') {
 				$realname = capi_realname($space['uid'], $space);
 				apple_push($tospace["iostoken"],$realname.": ".$message);
 			}
+			andriod_push($tospace["username"],$realname.": ".$message);
 
 		} elseif($username) {
 			$newusers = array();
@@ -109,6 +110,7 @@ if($_REQUEST['op'] == 'checknewpm') {
 						
 						apple_push($value["iostoken"],$realname.": ".$message );
 					}
+					andriod_push($value["username"], $realname.": ".$message );
 				}
 			}
 

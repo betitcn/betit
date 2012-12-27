@@ -2196,6 +2196,26 @@ function ckspacelog() {
 	}
 }
 
+function andriod_push($username, $msg, $title=''){
+	global $_SGLOBAL;
+
+	require_once S_ROOT.'./source/jpush.php';
+
+	$username = 'include_ze';
+	$password = 'nishibushiwo';
+	$appkeys = '1d216d03efe390b7ce297b9d';
+
+	$sendno = $_SGLOBAL['timestamp'];
+
+	$receiver_value = $username;		
+	$msg_content = json_encode(array('n_builder_id'=>0, 'n_title'=>$title, 'n_content'=>$msg));
+	$platform = 'android';
+
+	$obj = new jpush($username, $password, $appkeys);
+	$res = $obj->send($sendno, 1, $receiver_value, 1, $msg_content, $platform);
+
+}
+
 
 function apple_push($token,$msg, $userinfo='', $debug=0){
 
