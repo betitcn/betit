@@ -110,7 +110,7 @@ if($_REQUEST['op'] == 'checknewpm') {
 						
 						apple_push($value["iostoken"],$realname.": ".$message );
 					}
-					andriod_push($value["$uid"], $realname.": ".$message );
+					andriod_push($value["uid"], $realname.": ".$message );
 				}
 			}
 
