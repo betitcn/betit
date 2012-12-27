@@ -2212,7 +2212,7 @@ function andriod_push($uid, $msg, $title=''){
 	$platform = 'android';
 
 	$obj = new jpush($username, $password, $appkeys);
-	$res = $obj->send($sendno, 1, $receiver_value, 1, $msg_content, $platform);
+	$res = $obj->send($sendno, 3, $receiver_value, 1, $msg_content, $platform);
 
 }
 
