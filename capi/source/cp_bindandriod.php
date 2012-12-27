@@ -4,7 +4,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-$bind = empty($_REQUEST['bind'])?1:0;
+$bind = empty($_REQUEST['bind'])?1:$_REQUEST['bind'];
 
 if ($bind){
 	updatetable('space', array('isandriod'=>1), array('uid'=>$_SGLOBAL['supe_uid']));
