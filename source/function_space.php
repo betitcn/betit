@@ -230,6 +230,8 @@ function insertsession($setarr) {
 		//统计更新
 		include_once(S_ROOT.'./source/function_cp.php');
 		updatestat('login', 1);
+
+		return $setarr;
 	}
 }
 

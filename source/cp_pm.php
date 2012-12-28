@@ -86,6 +86,8 @@ if($_GET['op'] == 'checknewpm') {
 			$tospace = getspace($touid);
 			if ($tospace["iostoken"])
 				apple_push($tospace["iostoken"],$_SN[$space['uid']].": ".$message);
+			if ($tospace["isandriod"])
+				andriod_push($tospace["uid"],$_SN[$space['uid']].": ".$message);
 
 		} elseif($username) {
 			$newusers = array();
@@ -105,6 +107,8 @@ if($_GET['op'] == 'checknewpm') {
 				while($value = $_SGLOBAL['db']->fetch_array($query)) {
 					if ($value["iostoken"])
 						apple_push($value["iostoken"],$_SN[$space['uid']].": ".$message );
+					if ($value["isandriod"])
+						andriod_push($value["uid"],$_SN[$space['uid']].": ".$message );
 				}
 			}
 

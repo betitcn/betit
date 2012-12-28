@@ -14,7 +14,7 @@ $acs = array('space', 'doing', 'upload', 'comment', 'blog', 'album', 'relatekw',
 	'swfupload', 'thread', 'mtag', 'poke', 'friend',
 	'avatar', 'profile', 'theme', 'import', 'feed', 'privacy', 'pm', 'share', 'advance', 'invite','sendmail',
 	'userapp', 'task', 'credit', 'password', 'domain', 'event', 'poll', 'topic',
-	'click','magic', 'top', 'videophoto', 'quiz', 'devtoken');
+	'click','magic', 'top', 'videophoto', 'quiz', 'devtoken', 'bindandriod');
 $ac = (empty($_REQUEST['ac']) || !in_array($_REQUEST['ac'], $acs))?'profile':$_REQUEST['ac'];
 $op = empty($_REQUEST['op'])?'':$_REQUEST['op'];
 

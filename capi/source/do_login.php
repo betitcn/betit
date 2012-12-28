@@ -11,7 +11,7 @@ if(!defined('IN_UCHOME')) {
 include_once(S_ROOT.'./source/function_cp.php');
 
 if($_SGLOBAL['supe_uid']) {
-	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE username='$_REQUEST[username]'");
+	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE username='$_REQUEST[username]' and client='1' ");
 	if($member = $_SGLOBAL['db']->fetch_array($query)) {
 		$auth = authcode("$member[password]\t$member[uid]", 'ENCODE');
 	}
