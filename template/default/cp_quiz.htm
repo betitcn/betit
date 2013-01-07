@@ -1,6 +1,9 @@
 <!--{template header}-->
 
+
+
 <!--{if $_GET[op] == 'delete'}-->
+
 
 <h1>删除竞猜</h1>
 <a href="javascript:hideMenu();" class="float_del" title="关闭">关闭</a>
@@ -205,9 +208,32 @@
 	<style type="text/css">
 		.userData {behavior:url(#default#userdata);}
 	</style>
-
-
+	<style type="text/css">
+.tips {
+font-size:12px;}
+.list_box {
+position:relative;
+width:378px;
+margin-left:64px;
+background:#f3f3f3;
+border:1px solid #CCC;
+}
+.keywords_list {
+margin:0;
+padding:0;
+list-style:none;
+}
+.hover {
+background:#33CCFF;
+color:#333333;
+}
+</style>
+	<!--{if $fquizid}-->
+	<form method="post" action="cp.php?ac=quiz&fquizid=$quiz[quizid]" enctype="multipart/form-data">
+	<!--{else}-->
 	<form method="post" action="cp.php?ac=quiz&quizid=$quiz[quizid]" enctype="multipart/form-data">
+	<!--{/if}-->
+
 		<table cellspacing="4" cellpadding="4" width="100%" class="infotable">
 			<tr>
 				<td>
@@ -223,7 +249,11 @@
 						<!--{if !$quiz['uid'] || $quiz['uid']==$_SGLOBAL['supe_uid']}--><option value="addoption" style="color:red;">+新建分类</option><!--{/if}-->
 					</select>
 					<input type="text" class="t_input" id="subject" name="subject" value="$quiz[subject]" size="60" onblur="relatekw();" />
+	                <div class="list_box">
+					<div class="keywords_list"></div>
+					</div>
 					<a href="javascript:;" onclick="toggleMessageEditor()" style="display:none"><span id="introtip">添加竞猜详细说明</span><span id="introtip2" style="display:none">隐藏竞猜详细说明</span></a>
+						
 				</td>
 			</tr>
 			<tr>
@@ -243,7 +273,7 @@
 				<div style=" float:left;width:100px;"><input type="file" name="attach_<!--{eval echo $key+1; }-->" value="上传图片" class="button" id="fileinput_<!--{eval echo $key+1; }-->" >
 				<div><img src="$value[pic]" id="optionimga_<!--{eval echo $key+1; }-->" style="display:none"/><!--{if $value[picid]}--><a href="do.php?ac=ajax&picid=$value[picid]&op=deletepic" id="pic_delete_$value[picid]" onclick="ajaxmenu(event, this.id,1000); deletepic(<!--{eval echo $key+1; }-->)">删除</a><!--{/if}--></div></div></div>
 				</td>
-				
+
 			<script>
 			jquery(document).ready(function() {
 				　　jquery('#fileinput_<!--{eval echo $key+1; }-->').uploadify({
@@ -497,6 +527,10 @@
 	</tr>
 	</table>
 </div>
-
+			
 <!--{/if}-->
 <!--{template footer}-->
+
+
+
+
