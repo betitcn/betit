@@ -478,7 +478,7 @@ if($_GET['op'] == 'delete') {
 							if (strcmp(trim(implode(',', $setarr)),"")!=0){
 								$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET ".implode(',', $setarr)." WHERE uid='$value[uid]'");	
 							}
-							runlog("zhong","UPDATE ".tname('space')." SET ".implode(',', $setarr)." WHERE uid='$value[uid]'");
+							
 					}
 				}
 				
@@ -679,7 +679,7 @@ if($_GET['op'] == 'delete') {
 				
 				if ($fitcount){
 					$query4 = $_SGLOBAL['db']->query("SELECT uid, username, count(*)*$credit as credit FROM ".tname('quizuser')." WHERE quizid='$quizid' and oid='$keyid' group by uid ");
-					runlog("zhongwei","SELECT uid, username, count(*)*$credit as credit FROM ".tname('quizuser')." WHERE quizid='$quizid' and oid='$keyid' group by uid");
+					
 					while( $value = $_SGLOBAL['db']->fetch_array($query4))
 					{
 							$reward = array(
