@@ -19,9 +19,7 @@ $page =$_GET['Page'];
 
 
 	
-		$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM  ".tname('quiz')." p USE INDEX (voternum)
-					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
-					ORDER BY p.voternum DESC LIMIT $start,$perpage");
+		$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT JOIN ".tname('quiz')." bf ON bf.quizid=b.id WHERE bf.endtime>0 AND bf.endtime>='$_SGLOBAL[timestamp]' AND icon='quiz' ORDER BY b.hot DESC LIMIT $start,$perpage");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		realname_set($value['uid'], $value['username']);
 		if(ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
@@ -29,7 +27,7 @@ $page =$_GET['Page'];
 			//if ($value['idtype'] == 'quizid')
 			//{
 				$value["commentnum"] =  $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('comment')." WHERE id='$value[quizid]'  "),0);
-				$query2 = $_SGLOBAL['db']->query("SELECT * FROM ".tname('comment')." WHERE id='$value[quizid]'  ORDER BY dateline LIMIT 0,3");
+				$query2 = $_SGLOBAL['db']->query("SELECT * FROM ".tname('comment')." WHERE id='$value[id]'  ORDER BY dateline DESC LIMIT 0,3");
 				while ($value2 = $_SGLOBAL['db']->fetch_array($query2)) {
 					realname_set($value2['authorid'], $value2['author']);//สตร๛
 					
