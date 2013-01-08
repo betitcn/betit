@@ -126,11 +126,13 @@ if(submitcheck('quizsubmit')) {
 			showmessage('time_expired_error');
 		}
 	}
-
+	
 	include_once(S_ROOT.'./source/function_quiz.php');
 	if($fquizid){
-		if($_SGLOBAL['timestamp']>$quiz['endtime']){
+	if($quiz){
+	if($_SGLOBAL['timestamp']>$quiz['endtime']){
 		showmessage("亲！你知道吗！该竞猜已过期，不允许编辑！");
+		}
 	}
 	if($newquiz = quiz_post($_POST)) {
 		if(empty($quiz) && $newquiz['topicid']) {
@@ -156,8 +158,10 @@ if(submitcheck('quizsubmit')) {
 	}
   }
 else{
-		if($_SGLOBAL['timestamp']>$quiz['endtime']){
+	if($quiz){
+	if($_SGLOBAL['timestamp']>$quiz['endtime']){
 		showmessage("亲！你知道吗！该竞猜已过期，不允许编辑！");
+		}
 	}
 	if($newquiz = quiz_post($_POST, $quiz)) {
 		if(empty($quiz) && $newquiz['topicid']) {
