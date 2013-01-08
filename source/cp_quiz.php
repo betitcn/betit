@@ -17,6 +17,9 @@ $fquizid = empty($_GET['fquizid'])?0:intval($_GET['fquizid']);
 $op = empty($_GET['op'])?'':$_GET['op'];
 $quiz = array();
 if($fquizid) {
+	if($_SGLOBAL['timestamp']>$quiz['endtime']){
+		showmessage("亲！你知道吗！该竞猜已过期，不允许编辑！");
+	}
 	$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b 
 		LEFT JOIN ".tname('quizfield')." bf ON bf.quizid=b.quizid 
 		WHERE b.quizid='$fquizid'");
@@ -42,6 +45,9 @@ if($fquizid) {
 }
 
 if($quizid) {
+	if($_SGLOBAL['timestamp']>$quiz['endtime']){
+		showmessage("亲！你知道吗！该竞猜已过期，不允许编辑！");
+	}
 	$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b 
 		LEFT JOIN ".tname('quizfield')." bf ON bf.quizid=b.quizid 
 		WHERE b.quizid='$quizid'");
