@@ -83,7 +83,9 @@
 			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=modify" id="quiz_modify_$quiz[quizid]" onclick="ajaxmenu(event, this.id)">修改截止时间</a></p>
 			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=summary" id="quiz_summary_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">写写竞猜总结</a></p>
 			<!--{if !$expiration}-->
-			<p><a href="cp.php?uid=$space[uid]&ac=quiz&quizid=$quiz[quizid]">编辑</a> | <a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=publickey" id="quiz_key_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">公布答案</a></p>
+			<p><a href="cp.php?uid=$space[uid]&ac=quiz&quizid=$quiz[quizid]">编辑</a>
+			<!--{/if}-->
+			<!--{if $_SGLOBAL['timestamp']>$quiz[endtime]&&$_SGLOBAL['timestamp']<$quiz[resulttime]+$_SGLOBAL['quiz']['resulttime']}--> <a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=publickey" id="quiz_key_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">公布答案</a></p>
 			<!--{/if}-->
 		</div>
 		<!--{else}-->
