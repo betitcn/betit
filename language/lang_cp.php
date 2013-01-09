@@ -57,7 +57,7 @@ $_SGLOBAL['cplang'] = array(
 	'note_quiz_join' => '我参与了 <a href="\\1" target="_blank">《\\2》</a>的\\3竞猜，你也快来吧',
 	'note_quiz_win' => '恭喜你在 <a href="\\1" target="_blank">《\\2》</a>的\\3竞猜中得胜，获得金币\\4。',
 	'note_quiz_invalid' => '由于你参加的 <a href="\\1" target="_blank">《\\2》</a>\\3竞猜没有正确答案，返还金币\\4。',
-	'note_quiz_lost' => '很不幸你在 <a href="\\1" target="_blank">《\\2》</a>的\\3竞猜中没有获胜，输了竞猜\\4，请继续努力o~下次得奖的就是你！',
+	'note_quiz_lost' => '很不幸你在 <a href="\\1" target="_blank">《\\2》</a>的\\3竞猜中没有获胜，输了金币\\4，请继续努力o~下次得奖的就是你！',
 	'note_quiz_remind' => '温馨提示：你的<a href="\\1" target="_blank">《\\2》</a>的竞猜将在1小时后到期，请及时公布答案.',
 	'note_quiz_exceed' => '由于你的<a href="\\1" target="_blank">《\\2》</a>竞猜由于超期没有公布答案，已被取消并扣除你的信用\\3。',
 	'note_quiz_exceed2' => '你所参与的<a href="\\1" target="_blank">《\\2》</a>竞猜由于超期没有公布答案，已被取消并返还你的投注金币\\3。',
