@@ -264,15 +264,15 @@ font-family:"微软雅黑";
 	height: 50px;
 	width: 163px;
 	position: relative;
-	top: -200px;
+	top: -190px;
 	left: 510px;
 }
 .huoqukuang{
 	background:url(../image/org_img/huoqukuang.jpg) no-repeat;
-	height: 150px;
-	width: 146px;
+	height: 260px;
+	width: 150px;
 	position: relative;
-	top: -255px;
+	top: -275px;
 	left: 675px;
 }
 .huoqukuang ul{list-style: none;}
