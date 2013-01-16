@@ -67,7 +67,10 @@ if($quizid) {
 }
 	//权限检查
 if(empty($quiz)) {
-	
+	if(!checkperm('allowquiz')) {
+		ckspacelog();
+		showmessage('no_authority_to_add_bet');
+	}
 
 	
 	//实名认证
@@ -89,12 +92,7 @@ if(empty($quiz)) {
 	$quiz['subject'] = empty($_GET['subject'])?'':getstr($_GET['subject'], 80, 1, 0);
 	$quiz['message'] = empty($_GET['message'])?'':getstr($_GET['message'], 5000, 1, 0);
 	
-} //else {
-	
-	//if(!in_array($op, array('vote', 'get', 'invite', 'publickey')) && $_SGLOBAL['supe_uid'] != $quiz['uid']  && !checkperm('managequiz')) {
-	//	showmessage('no_authority_operation_of_the_log');
-	//}
-//}
+}
 
 
 //添加编辑操作
@@ -131,7 +129,7 @@ if(submitcheck('quizsubmit')) {
 	if($fquizid){
 	if($quiz){
 	if($_SGLOBAL['timestamp']>$quiz['endtime']){
-		showmessage("亲！你知道吗！该竞猜已过期，不允许编辑！");
+		showmessage("亲！你知道吗！该竞猜已过期，不允许编辑或转发！");
 		}
 	}
 	if($newquiz = quiz_post($_POST)) {
@@ -160,7 +158,7 @@ if(submitcheck('quizsubmit')) {
 else{
 	if($quiz){
 	if($_SGLOBAL['timestamp']>$quiz['endtime']){
-		showmessage("亲！你知道吗！该竞猜已过期，不允许编辑！");
+		showmessage("亲！你知道吗！该竞猜已过期，不允许编辑或转发！");
 		}
 	}
 	if($newquiz = quiz_post($_POST, $quiz)) {
@@ -601,9 +599,10 @@ if($_GET['op'] == 'delete') {
 			if ($keyid==3){
 				//竞猜流失
 
-			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE fquizid='$quizid' or quizid='$quizid'");
+			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE fquizid='$quizid' or quizid='$quizid' order by quizid DESC");
 			while($fffkey = $_SGLOBAL['db']->fetch_array($query)){
 			$quizid=$fffkey['quizid'];
+			$uid=$fffkey['uid'];
 			$query2 = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quizoptions')." WHERE oid='$keyid'");
 			$key = $_SGLOBAL['db']->fetch_array($query2);
 			$quizarr = array(
@@ -631,7 +630,7 @@ if($_GET['op'] == 'delete') {
 					
 					$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET ".implode(',', $setarr)." WHERE uid='$value[uid]'");
 
-					$note = cplang('note_quiz_invalid', array("space.php?uid=$quiz[uid]&do=quiz&id=$quizid", $quiz['subject'], $quiz['joincost']?cplang('reward'):'', $value["credit"]));
+					$note = cplang('note_quiz_invalid', array("space.php?uid=$uid&do=quiz&id=$quizid", $quiz['subject'], $quiz['joincost']?cplang('reward'):'', $value["credit"]));
 				
 					notification_add($value['uid'], 'quizinvalid', $note);
 					notification_add_push($value['uid'], $note, $_SGLOBAL['supe_uid']);

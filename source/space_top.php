@@ -61,8 +61,14 @@ if ($_GET['view'] == 'show') {
 		$count = 100;
 		$cache_file = S_ROOT.'./data/cache_top_mm.txt';
 	}
+	$query2 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid!=1");
+		while($value2 = $_SGLOBAL['db']->fetch_array($query2)){
+		foreach($value2 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+		}
 	$sql = "SELECT main.*, field.* FROM ".tname('space')." main, ".tname('spacefield')." field
-		WHERE field.sex='2' AND field.uid=main.uid
+		WHERE field.sex='2' AND field.uid=main.uid AND main.uid IN('".implode("','",  $searcharr)."')
 		ORDER BY main.viewnum DESC";
 
 	//我的位置
@@ -87,8 +93,14 @@ if ($_GET['view'] == 'show') {
 		$count = 100;
 		$cache_file = S_ROOT.'./data/cache_top_gg.txt';
 	}
+	$query2 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid!=1");
+		while($value2 = $_SGLOBAL['db']->fetch_array($query2)){
+		foreach($value2 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+		}
 	$sql = "SELECT main.*, field.* FROM ".tname('space')." main, ".tname('spacefield')." field
-		WHERE field.sex='1' AND field.uid=main.uid
+		WHERE field.sex='1' AND field.uid=main.uid AND main.uid IN('".implode("','",  $searcharr)."')
 		ORDER BY main.viewnum DESC";
 
 	//我的位置
@@ -113,8 +125,14 @@ if ($_GET['view'] == 'show') {
 		$count = 100;
 		$cache_file = S_ROOT.'./data/cache_top_credit.txt';
 	}
+	$query2 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid!=1");
+		while($value2 = $_SGLOBAL['db']->fetch_array($query2)){
+		foreach($value2 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+		}
 	$sql = "SELECT main.*, field.* FROM ".tname('space')." main
-		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid
+		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid where main.uid IN('".implode("','",  $searcharr)."')
 		ORDER BY main.credit DESC";
 
 	//我的位置
@@ -135,10 +153,15 @@ if ($_GET['view'] == 'show') {
 		$count = 100;
 		$cache_file = S_ROOT.'./data/cache_top_experience.txt';
 	}
+	$query2 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid!=1");
+		while($value2 = $_SGLOBAL['db']->fetch_array($query2)){
+		foreach($value2 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+		}
 	$sql = "SELECT main.*, field.* FROM ".tname('space')." main
-		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid
+		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid where main.uid IN('".implode("','",  $searcharr)."') 
 		ORDER BY main.experience DESC";
-
 	//我的位置
 	$cookie_name = 'space_top_'.$_GET['view'];
 	if($_SCOOKIE[$cookie_name]) {
@@ -157,8 +180,15 @@ if ($_GET['view'] == 'show') {
 		$count = 100;
 		$cache_file = S_ROOT.'./data/cache_top_friendnum.txt';
 	}
+	$query2 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid!=1");
+		while($value2 = $_SGLOBAL['db']->fetch_array($query2)){
+		foreach($value2 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+		}
+
 	$sql = "SELECT main.*, field.* FROM ".tname('space')." main
-		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid
+		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid where main.uid IN('".implode("','",  $searcharr)."') 
 		ORDER BY main.friendnum DESC";
 
 	//我的位置
@@ -179,8 +209,14 @@ if ($_GET['view'] == 'show') {
 		$count = 100;
 		$cache_file = S_ROOT.'./data/cache_top_viewnum.txt';
 	}
+	$query2 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid!=1");
+		while($value2 = $_SGLOBAL['db']->fetch_array($query2)){
+		foreach($value2 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+		}
 	$sql = "SELECT main.*, field.* FROM ".tname('space')." main
-		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid
+		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid where main.uid IN('".implode("','",  $searcharr)."')
 		ORDER BY main.viewnum DESC";
 
 	//我的位置
@@ -195,17 +231,31 @@ if ($_GET['view'] == 'show') {
 	}
 
 } elseif ($_GET['view'] == 'online') {
+	$query2 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid!=1");
+		while($value2 = $_SGLOBAL['db']->fetch_array($query2)){
+		foreach($value2 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+		}
 	$c_sql = "SELECT COUNT(*) FROM ".tname('session');
 	$sql = "SELECT field.*, space.*, main.*
 		FROM ".tname('session')." main USE INDEX (lastactivity)
 		LEFT JOIN ".tname('space')." space ON space.uid=main.uid
-		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid
+		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid where main.uid IN('".implode("','",  $searcharr)."')
 		ORDER BY main.lastactivity DESC";
+		
+		
 	$now_pos = -1;
 } elseif ($_GET['view'] == 'updatetime') {
+		$query2 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid!=1");
+		while($value2 = $_SGLOBAL['db']->fetch_array($query2)){
+		foreach($value2 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+		}
 	$c_sql = "SELECT COUNT(*) FROM ".tname('space');
 	$sql = "SELECT main.*, field.* FROM ".tname('space')." main USE INDEX (updatetime)
-		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid
+		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid where main.uid IN('".implode("','",  $searcharr)."')
 		ORDER BY main.updatetime DESC";
 	$now_pos = -1;
 }
@@ -228,6 +278,7 @@ if(empty($count)) {
 }
 if($count && empty($list)) {
 	$query = $_SGLOBAL['db']->query("$sql LIMIT $start,$perpage");
+	
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$list[$value['uid']] = $value;
 	}

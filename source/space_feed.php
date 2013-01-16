@@ -52,7 +52,15 @@ if($_GET['view'] == 'all') {
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=hot";
 	$f_index = '';
 
-} else {
+} elseif($_GET['view'] == 'open') {
+	$dateline = $_SGLOBAL['timestamp'] + 86400;
+	$dateline1 = $_SGLOBAL['timestamp'];
+    $wheresql = "bf.endtime<='$dateline'&&bf.endtime>=$dateline1";
+	$ordersql = "b.dateline DESC";
+	$theurl = "space.php?uid=$space[uid]&do=$do&view=open";
+	$f_index = '';
+
+	}else {
 
 	if(empty($space['feedfriend'])) $_GET['view'] = 'me';
 	
@@ -242,6 +250,23 @@ if($space['self'] && empty($start)) {
 			}
 		}
 	}
+	//在线用户推荐
+	$sql = "SELECT field.*, space.*, main.*
+		FROM ".tname('session')." main USE INDEX (lastactivity)
+		LEFT JOIN ".tname('space')." space ON space.uid=main.uid
+		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid where main.uid!=$space[uid]
+		ORDER BY main.lastactivity DESC";
+		$list2 = array();
+	$query2 = $_SGLOBAL['db']->query("$sql LIMIT $start,$perpage");
+	while ($value = $_SGLOBAL['db']->fetch_array($query2)) {
+		$list2[$value['uid']] = $value;
+	}
+	foreach($list2 as $key => $value) {
+	$value['isfriend'] = ($value['uid']==$space['uid'] || ($space['friends'] && in_array($value['uid'], $space['friends'])))?1:0;
+	realname_set($value['uid'], $value['username'], $value['name'], $value['namestatus']);
+	$fuids[] = $value['uid'];
+	$list2[$key] = $value;
+}
 
 	$oluids = array();
 	$olfcount = 0;
@@ -458,7 +483,7 @@ $_TPL['default_template'] = $default_template;
 
 //标签激活
 $my_actives = array(in_array($_GET['filter'], array('site','myapp'))?$_GET['filter']:'all' => ' class="active"');
-$actives = array(in_array($_GET['view'], array('me','all','hot'))?$_GET['view']:'we' => ' class="active"');
+$actives = array(in_array($_GET['view'], array('me','all','hot','open'))?$_GET['view']:'we' => ' class="active"');
 
 if(empty($cp_mode)) include_once template("space_feed");
 

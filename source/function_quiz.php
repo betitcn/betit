@@ -117,7 +117,7 @@ function quiz_post($POST, $olds=array()) {
 		'joincost' => intval($POST['joincost']),
 		'portion' => intval($POST['portion']),
 		'endtime' => intval($POST['endtime']),
-		'resulttime' => intval($POST['resulttime'])
+		'resulttime' => intval($POST['endtime']+86400)
 		
 	);
 
@@ -189,6 +189,7 @@ function quiz_post($POST, $olds=array()) {
 		$quizarr['hot'] = intval($POST['hot']);
 	}
 	
+	
 	if($olds['quizid']) {
 		//¸üĞÂ
 		$quizid = $olds['quizid'];
@@ -206,10 +207,16 @@ function quiz_post($POST, $olds=array()) {
 		$quizarr['username'] = $_SGLOBAL['supe_username'];
 		$quizarr['dateline'] = empty($POST['dateline'])?$_SGLOBAL['timestamp']:$POST['dateline'];
 		$quizid = inserttable('quiz', $quizarr, 1);
+
 	}
 	
 	$quizarr['quizid'] = $quizid;
-	
+	$fquizidarr = array(
+		'fquizid' => $POST['fquizid']
+	);
+	if ($POST['fquizid']){
+		updatetable('quiz', $fquizidarr, array('quizid'=>$quizid));
+		}
 	//¸½±í	
 	$fieldarr = array(
 		'message' => $message,

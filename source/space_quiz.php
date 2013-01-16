@@ -512,7 +512,6 @@ if($id) {
 	$counttable = tname('quiz').' p ';
 	
 	if($_GET['view'] == 'new') {
-		
 		$indexsql = 'USE INDEX (dateline)';
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=new";
 		
@@ -567,9 +566,17 @@ if($id) {
 	
 	//搜索
 	if($searchkey = stripsearchkey($_GET['searchkey'])) {
-		$wherearr[] = "p.subject LIKE '%$searchkey%'";
+		$query3 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid=1");
+		while($value3 = $_SGLOBAL['db']->fetch_array($query3)){
+		foreach($value3 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+        }
+		$wherearr[] = "p.subject LIKE '%$searchkey%'&&p.uid IN('".implode("','",  $searcharr)."')";
 		$theurl .= "&searchkey=$_GET[searchkey]";
 		cksearch($theurl);
+		
+
 	}
 		
 	if($wherearr) {
@@ -577,7 +584,7 @@ if($id) {
 		
 	}
 	$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM $counttable $wheresql"),0);
-
+    
 	//更新统计
 	if($wheresql == "p.uid='$space[uid]'" && $space['quiznum'] != $count) {
 		updatetable('space', array('quiznum' => $count), array('uid'=>$space['uid']));
@@ -586,8 +593,15 @@ if($id) {
 	if($count) {
 		if($_GET['filtrate'] == 'expiration') {
 			$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM ".tname('quizuser')." pu, ".tname('quiz')." p,".tname('feed')." pf $wheresql AND p.quizid=pf.id	ORDER BY $ordersql DESC LIMIT $start,$perpage");
-		} else {
+		} 
+		elseif($_GET['searchkey']){
+		$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM ".tname('quiz')." p, ".tname('feed')." pf $wheresql  AND p.quizid=pf.id ORDER BY $ordersql DESC LIMIT $start,$perpage");
+		}else {
 			$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM $leftsql ".tname('quiz')." p $indexsql
+					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
+					$wheresql
+					ORDER BY $ordersql DESC LIMIT $start,$perpage");
+					runlog("1231","SELECT p.*,pf.* FROM $leftsql ".tname('quiz')." p $indexsql
 					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
 					$wheresql
 					ORDER BY $ordersql DESC LIMIT $start,$perpage");

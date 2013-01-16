@@ -1365,28 +1365,40 @@ function getstar($experience) {
 	global $_SCONFIG;
 
 	$starimg = '';
-	if($_SCONFIG['starcredit'] > 1) {
-		//计算星星数
-		$starnum = intval($experience/$_SCONFIG['starcredit']) + 1;
-		if($_SCONFIG['starlevelnum'] < 2) {
-			if($starnum > 10) $starnum = 10;
-			for($i = 0; $i < $starnum; $i++) {
-				$starimg .= '<img src="image/star_level10.gif" align="absmiddle" />';
-			}
-		} else {
-			//计算等级(10个)
-			for($i = 10; $i > 0; $i--) {
-				$numlevel = intval($starnum / pow($_SCONFIG['starlevelnum'], ($i - 1)));
-				if($numlevel > 10) $numlevel = 10;
-				if($numlevel) {
-					for($j = 0; $j < $numlevel; $j++) {
-						$starimg .= '<img src="image/star_level'.$i.'.gif" align="absmiddle" />';
-					}
-					break;
-				}
-			}
+	if($experience>=0&&$experience<399){
+		$starimg .= '<img src="image/star_level1.gif" align="absmiddle" />';
 		}
-	}
+		elseif($experience>=400&&$experience<799){
+		$starimg .= '<img src="image/star_level2.gif" align="absmiddle" />';
+		}
+		elseif($experience>=800&&$experience<1599){
+		$starimg .= '<img src="image/star_level3.gif" align="absmiddle" />';
+		}
+		elseif($experience>=1600&&$experience<3199){
+		$starimg .= '<img src="image/star_level4.gif" align="absmiddle" />';
+		}
+		elseif($experience>=3200&&$experience<6399){
+		$starimg .= '<img src="image/star_level5.gif" align="absmiddle" />';
+		}
+		elseif($experience>=6400&&$experience<9999){
+		$starimg .= '<img src="image/star_level6.gif" align="absmiddle" />';
+		}
+		elseif($experience>=10000&&$experience<19999){
+		$starimg .= '<img src="image/star_level7.gif" align="absmiddle" />';
+		}
+		elseif($experience>=20000&&$experience<37999){
+		$starimg .= '<img src="image/star_level8.gif" align="absmiddle" />';
+		}
+		elseif($experience>=38000&&$experience<49999){
+		$starimg .= '<img src="image/star_level9.gif" align="absmiddle" />';
+		}
+		elseif($experience>=50000&&$experience<79999){
+		$starimg .= '<img src="image/star_level0.gif" align="absmiddle" />';
+		}
+		elseif($experience>=80000){
+		$starimg .= '<img src="image/star_level1.gif" align="absmiddle" />';
+		}
+	
 	if(empty($starimg)) $starimg = '<img src="image/credit.gif" alt="'.$experience.'" align="absmiddle" alt="'.$experience.'" title="'.$experience.'" />';
 	return $starimg;
 }
