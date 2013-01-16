@@ -70,6 +70,9 @@
 			<p>剩余悬赏: <strong>$quiz[credit]</strong></p>
 			<!--{/if}-->
 			<!--{if $quiz[endtime]}--><p>截止时间: <!--{date('Y-m-d',$quiz[endtime])}--></p><!--{/if}-->
+			<!--{if $quiz[keyoption]}-->竞猜答案: <font color="red">$quiz[keyoption]</font><!--{/if}-->
+			<!--{if $quiz[keyoid]==3}-->竞猜答案: <font color="red">本竞猜流失</font><!--{/if}-->
+			<!--{if $_SGLOBAL['timestamp']>$quiz[resulttime]+86400&&$quiz[keyoid]==0}-->竞猜答案: <font color="red">本竞猜已过期未公布答案,积分已返还。</font><!--{/if}-->
 		</div>
 		<!--{if $space[self]}-->
 		<div class="floatright">
@@ -82,10 +85,20 @@
 			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=delete" id="quiz_delete_$quiz[quizid]" onclick="ajaxmenu(event, this.id);">删除本竞猜</a></p>
 			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=modify" id="quiz_modify_$quiz[quizid]" onclick="ajaxmenu(event, this.id)">修改截止时间</a></p>
 			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=summary" id="quiz_summary_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">写写竞猜总结</a></p>
+			
 			<!--{if !$expiration}-->
-			<p><a href="cp.php?uid=$space[uid]&ac=quiz&quizid=$quiz[quizid]">编辑</a>
+			
+			<p><!--{if $quiz[voternum]==0}-->
+			<a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=delete" id="quiz_key_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">删除 <span class="pipe">|</span></a>
+			<!--{/if}--><!--{if $quiz[fquizid]==0}--><a href="cp.php?uid=$space[uid]&ac=quiz&quizid=$quiz[quizid]">编辑</a>
 			<!--{/if}-->
-			<!--{if $_SGLOBAL['timestamp']>$quiz[endtime]&&$_SGLOBAL['timestamp']<$quiz[resulttime]+$_SGLOBAL['quiz']['resulttime']}--> <a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=publickey" id="quiz_key_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">公布答案</a></p>
+			<!--{/if}-->
+			<!--{if empty($quiz[keyoption])}-->
+			<!--{if $_SGLOBAL['timestamp']>$quiz[endtime]&&$_SGLOBAL['timestamp']<$quiz[resulttime]+86400}-->
+			<!--{if $quiz[fquizid]==0&&$quiz[keyoid]!=3}-->
+			<a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=publickey" id="quiz_key_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">公布答案</a></p>
+			<!--{/if}-->
+			<!--{/if}-->
 			<!--{/if}-->
 		</div>
 		<!--{else}-->
@@ -103,7 +116,7 @@
 		<!--{elseif $expiration}-->
 		<div class="print overtime">[过期]</div>
 		<!--{/if}-->
-		<!--{if $quiz[hot]}--><span class="hot"><em>热</em>$quiz[hot]</span><!--{/if}--><h3><img src="image/quiz_icon.gif" /> $quiz[subject]</h3><!--{if $quiz['sex'] && $quiz['sex'] != $_SGLOBAL['member']['sex'] || $quiz[multiple]}--> (<!--{if $quiz['sex'] && $quiz['sex'] != $_SGLOBAL['member']['sex']}-->仅限<strong><!--{if $quiz['sex']==1}-->男<!--{else}-->女<!--{/if}--></strong>性参与 <!--{/if}--><!--{if $quiz[multiple]}-->最多可选{$quiz[maxchoice]}项<!--{/if}-->) <!--{/if}-->
+		<!--{if $quiz[hot]}--><span class="hot"><em>热</em>$quiz[hot]</span><!--{/if}--><h3><img src="image/quiz_icon.gif" /> $quiz[subject]</h3><!--{if $quiz[fquizid]==0}--><p>[原创竞猜]</p><!--{else}--><p>[转发竞猜]</p><!--{/if}--><!--{if $quiz['sex'] && $quiz['sex'] != $_SGLOBAL['member']['sex'] || $quiz[multiple]}--> (<!--{if $quiz['sex'] && $quiz['sex'] != $_SGLOBAL['member']['sex']}-->仅限<strong><!--{if $quiz['sex']==1}-->男<!--{else}-->女<!--{/if}--></strong>性参与 <!--{/if}--><!--{if $quiz[multiple]}-->最多可选{$quiz[maxchoice]}项<!--{/if}-->) <!--{/if}-->
 		<!--{if $_GET[reward]}-->
 		<p style="color: #F30">恭喜您获得  <strong>$_GET[reward]</strong> 个金币</p>
 		<!--{elseif $quiz[percredit]}-->

@@ -123,7 +123,7 @@
 					<a href="cp.php?ac=common&op=ignore&authorid=$value[authorid]&type=$value[type]" id="a_note_$value[id]" onclick="ajaxmenu(event, this.id)" class="float_cancel">屏蔽</a>
 
 					<div style="padding:10px 0 5px 0;$value[style]">
-						<!--{if $value[authorid]}-->
+						<!--{if $value[author]}-->
 						<a href="space.php?uid=$value[authorid]">{$_SN[$value[authorid]]}</a>
 						<!--{/if}-->
 						$value[note]

@@ -107,6 +107,7 @@
 		<ul class="tabs">
 			<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?do=feed&view=we"><span>好友动态</span></a></li><!--{/if}-->
 			<li$actives[hot]><a href="space.php?do=feed&view=hot"><span>热门推荐</span></a></li>
+			<li$actives[open]><a href="space.php?do=feed&view=open"><span>即将开奖</span></a></li>
 			<li$actives[me]><a href="space.php?do=feed&view=me"><span>我的动态</span></a></li>
 			<li$actives[all]><a href="space.php?do=feed&view=all"><span>全站动态</span></a></li>
 		</ul>
@@ -233,6 +234,25 @@
 				<div class="avatar48"><a href="space.php?uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></div>
 				<p<!--{if $ols[$value[uid]]}--> class="online_icon_p" title="在线"<!--{/if}-->><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
 				<p class="gray"><!--{date('n月j日',$value[dateline],1)}--></p>
+			</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+	<!--{/if}-->
+		<!--{if $list2}-->
+	<div class="sidebox">
+		<h2 class="title">
+			<p class="r_option">
+				<a href="space.php?do=top&view=online">更多</a>
+			</p>
+			用户推荐
+		</h2>
+		<ul class="avatar_list">
+			<!--{loop $list2 $key $value}-->
+			<li>
+				<div class="avatar48"><a href="space.php?uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></div>
+				<p<!--{if $ols[$value[uid]]}--> class="online_icon_p" title="在线"<!--{/if}-->><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
+				<p class="gray"><!--{date('n月j日',$value[lastactivity],1)}--></p>
 			</li>
 			<!--{/loop}-->
 		</ul>

@@ -163,7 +163,99 @@
 <script language="javascript" src="swfupload/jquery.uploadify-3.1.min.js"></script>
 <link href="swfupload/uploadify.css" rel="stylesheet" type="text/css">
 <script language="javascript">var jquery = jQuery.noConflict(); </script>
-<script language="javascript">
+<!--{if !$quizid&&!$fquizid}-->
+<script type="text/javascript">
+
+jquery(document).ready(function() {
+ 
+ jquery('.list_box').hide();
+ jquery('#subject').keyup(function(){
+  var keywords = jquery('#subject').val();
+  
+  jquery.ajax({
+   type:"POST",
+   url:"space.php?do=ajax",
+   data:{keywords:keywords},
+   success:function(html) {
+    
+    jquery('.list_box').show();
+    jquery('.keywords_list').html(html);
+    jquery('li').hover(function(){
+     jquery(this).addClass('ahover');
+    },function(){
+     jquery(this).removeClass('ahover');
+    });
+	 
+    jquery('li').click(function(){
+	jquery('.list_box').hide();
+    var update = new Array(); 
+   
+    update = jquery(this).text().split('|');
+     jquery('#subject').val(update[1]);
+                    jquery('.list_box').hide();
+    jquery.ajax({
+                    type: 'POST',
+                    url: "space.php?do=ajax1",
+                    data: {id:update[0]},
+                    success: function(msg){
+     var obj = eval('(' + msg + ')'); 
+	 jquery('#fquizid').val(obj.quizid);
+	 jquery('#options_1_input').val(obj.options[0].option);
+     jquery('#options_2_input').val(obj.options[1].option);
+	 jquery('#options_1_input').attr("readOnly",true);
+	 jquery('#options_2_input').attr("readOnly",true);
+	 jquery("#optionimga_1").attr("src",obj.options[0].pic);
+	 jquery("#optionimga_2").attr("src",obj.options[1].pic);
+	 jquery("#optionimga_1").show();
+	  jquery("#optionimga_2").show();
+	 jquery("#pics_1").val(obj.options[0].picid);
+	 jquery("#pics_2").val(obj.options[1].picid);
+	 var astr1 = '<div id="cancel1"><a href="do.php?ac=ajax&picid='+obj.options[0].picid+'&op=deletepic" id="pic_delete_'+obj.options[0].picid+'" onclick="ajaxmenu(event, this.id,1000); deletepic(1)">删除</a></div>';
+	  var astr2 = '<div id="cancel2"><a href="do.php?ac=ajax&picid='+obj.options[1].picid+'&op=deletepic" id="pic_delete_'+obj.options[1].picid+'" onclick="ajaxmenu(event, this.id,1000); deletepic(2)">删除</a></div>';
+	jquery("#optionimga_1").parent().append(astr1);
+	jquery("#optionimga_2").parent().append(astr2);
+	jquery('#fileinput_1').hide();	
+	jquery('#fileinput_2').hide();	
+				 　
+	 
+     //jquery('#image').val(obj.options[0].pic);
+     //jquery('img#optionimga_2').val(obj.options[1].pic);
+    
+     }
+                 
+});
+ jquery('#subject').change(function(){
+	    jquery('#fileinput_1').show();
+		jquery('#fileinput_2').show();
+		jquery('#fquizid').val("0");
+		jquery('#options_1_input').val("");
+		jquery('#options_2_input').val("");
+		 jquery('#options_1_input').attr("readOnly",false);
+	 jquery('#options_2_input').attr("readOnly",false);
+		jquery("#optionimga_1").attr("src"," ");
+		jquery("#optionimga_2").attr("src"," ");
+		jquery("#optionimga_1").hide();
+		jquery("#optionimga_2").hide();
+		jquery("#pics_1").val("");
+		jquery("#pics_2").val("");
+		jquery("#cancel1").remove();
+		jquery("#cancel2").remove();
+});
+jquery('#subject').one("blur",function(){
+	  jquery('.list_box').hide();
+});
+    });
+   
+   }
+
+  });
+  return false;
+ });
+
+}); 
+</script>
+<!--{/if}-->
+<script type="text/javascript">
 	function toggleMessageEditor()
 	{
 		jQuery('#uchome-ifrHtmlEditor').toggle();
@@ -183,10 +275,11 @@
 		var s4 = '#pics_'+key;
 		jquery(s4).val("");
 	}
+
 	
-	
-　　</script>
+　
 </script>
+
 <!--{if $topic}-->
 	<!--{template cp_topic_menu}-->
 <!--{else}-->
@@ -202,32 +295,32 @@
 		</ul>
 	</div>
 <!--{/if}-->
-
+<!--{if !$quizid&&!$fquizid}-->
 <div class="c_form">
 
 	<style type="text/css">
 		.userData {behavior:url(#default#userdata);}
+		.tips {
+			font-size:12px;}
+		.list_box {
+			position:relative;
+			width:378px;
+			margin-left:64px;
+			background:#f3f3f3;
+			border:1px solid #CCC;
+			}
+		.keywords_list {
+			margin:0;
+			padding:0;
+			list-style:none;
+			}
+		.ahover {
+			background:#33CCFF;
+			color:#333333;
+			}
 	</style>
-<!--	<style type="text/css">
-.tips {
-font-size:12px;}
-.list_box {
-position:relative;
-width:378px;
-margin-left:64px;
-background:#f3f3f3;
-border:1px solid #CCC;
-}
-.keywords_list {
-margin:0;
-padding:0;
-list-style:none;
-}
-.hover {
-background:#33CCFF;
-color:#333333;
-}
-</style>-->
+<!--{/if}-->
+	
 	<!--{if $fquizid}-->
 	<form method="post" action="cp.php?ac=quiz&fquizid=$quiz[quizid]" enctype="multipart/form-data">
 	<!--{else}-->
@@ -248,7 +341,11 @@ color:#333333;
 						<!--{/loop}-->
 						<!--{if !$quiz['uid'] || $quiz['uid']==$_SGLOBAL['supe_uid']}--><option value="addoption" style="color:red;">+新建分类</option><!--{/if}-->
 					</select>
-					<input type="text" class="t_input" id="subject" name="subject" value="$quiz[subject]" size="60" onblur="relatekw();" />
+					<!--{if $fquizid}-->
+					<input type="text" class="t_input" id="subject" name="subject" readonly value="$quiz[subject]" size="60" onblur="relatekw();"  />
+					<!--{else}-->
+					<input type="text" class="t_input" id="subject" name="subject" value="$quiz[subject]" size="60" onblur="relatekw();"  />
+					<!--{/if}-->
 	                <div class="list_box">
 					<div class="keywords_list"></div>
 					</div>
@@ -268,7 +365,12 @@ color:#333333;
 			</tr>
 			<!--{loop $quiz[options] $key $value}-->
 			<tr>
-				<td><div style="width:600px; margin:0 auto;"><div style=" float:left;width:350px;"><span style="color: #999;margin-right: 16px;"><!--{eval echo $oindex[$key+1]; }-->：</span><input id="options_<!--{eval echo $key+1; }-->_input" name="options[<!--{eval echo $key+1; }-->]" type="text" value="$value[option]" size="40" class="t_input">
+				<td><div style="width:600px; margin:0 auto;"><div style=" float:left;width:350px;"><span style="color: #999;margin-right: 16px;"><!--{eval echo $oindex[$key+1]; }-->：</span>
+					<!--{if $fquizid}-->
+				<input id="options_<!--{eval echo $key+1; }-->_input" name="options[<!--{eval echo $key+1; }-->]" type="text"   readonly value="$value[option]" size="40" class="t_input">
+					<!--{else}-->
+					<input id="options_<!--{eval echo $key+1; }-->_input" name="options[<!--{eval echo $key+1; }-->]" type="text" value="$value[option]" size="40" class="t_input">
+					<!--{/if}-->
 				<input name="pics[<!--{eval echo $key+1; }-->]" id="pics_<!--{eval echo $key+1; }-->" type="hidden" value="$value[picid]" ></div>
 				<div style=" float:left;width:100px;"><input type="file" name="attach_<!--{eval echo $key+1; }-->" value="上传图片" class="button" id="fileinput_<!--{eval echo $key+1; }-->" >
 				<div><img src="$value[pic]" id="optionimga_<!--{eval echo $key+1; }-->" style="display:none"/><!--{if $value[picid]}--><a href="do.php?ac=ajax&picid=$value[picid]&op=deletepic" id="pic_delete_$value[picid]" onclick="ajaxmenu(event, this.id,1000); deletepic(<!--{eval echo $key+1; }-->)">删除</a><!--{/if}--></div></div></div>
@@ -323,6 +425,7 @@ color:#333333;
 </script>
 			</tr>
 			<!--{/loop}-->
+
 		
 		</table>
 		<table cellspacing="4" cellpadding="4" width="100%" class="infotable">
@@ -341,7 +444,7 @@ color:#333333;
 			</tr>
 			<tr>
 				<th width="100">预计公布结果：</th>
-				<td><input type="text" class="t_input" size="40" id="resulttime"  name="resulttime" readonly value="<!--{date('Y-m-d H:i:s', $quiz[resulttime]?$quiz[resulttime]:$_SGLOBAL[timestamp]+$_SGLOBAL['quiz']['resulttime'])}-->" onclick="showcalendar(event, this, 1, '2012-07-22')"></td>
+				<td>竞猜截止时间至竞猜截止时间后一天</td>
 			</tr>
 		</table>
 		
@@ -427,6 +530,9 @@ color:#333333;
 			</tr>			
 		</table>
 		<input type="hidden" name="quizsubmit" value="true" />
+		<!--{if empty($_GET['fquizid'])&&empty($_GET['quizid'])}-->
+		<input type="hidden" name="fquizid" id="fquizid" value="0" />
+		<!--{/if}-->
 		<input type="button" id="quizbutton" name="quizbutton" value="提交发布" onclick="validate(this);" style="display: none;" />
 		<input type="hidden" name="topicid" value="$_GET[topicid]" />
 		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
@@ -517,6 +623,9 @@ color:#333333;
 									<span id="localfile"></span>
 									<input type="hidden" name="uploadsubmit2" id="uploadsubmit2" value="true" />
 									<input type="hidden" name="albumid" id="albumid" value="0" />
+									
+									
+									
 									<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 									<input type="button" id="uploadsubmit_btn" name="uploadsubmit_btn" class="submit" value="图片上传" onclick="ajaxpost('ajaxupload', 'showPic')" />
 								</form>
