@@ -254,10 +254,10 @@ if($space['self'] && empty($start)) {
 	$sql = "SELECT field.*, space.*, main.*
 		FROM ".tname('session')." main USE INDEX (lastactivity)
 		LEFT JOIN ".tname('space')." space ON space.uid=main.uid
-		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid where main.uid!=$space[uid]
-		ORDER BY main.lastactivity DESC";
+		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid where main.uid!=$space[uid] 
+		ORDER BY main.lastactivity DESC ";
 		$list2 = array();
-	$query2 = $_SGLOBAL['db']->query("$sql LIMIT $start,$perpage");
+	$query2 = $_SGLOBAL['db']->query("$sql LIMIT 0,6");
 	while ($value = $_SGLOBAL['db']->fetch_array($query2)) {
 		$list2[$value['uid']] = $value;
 	}
