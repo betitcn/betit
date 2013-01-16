@@ -53,7 +53,8 @@ if(submitcheck('adsubmit')) {
 			$adcodes['imagealt'] = getstr($_POST['adcode']['imagealt'], 200, 1, 1);
 			$width = empty($adcodes['imagewidth'])?'':'width="'.$adcodes['imagewidth'].'"';
 			$height = empty($adcodes['imageheight'])?'':'height="'.$adcodes['imageheight'].'"';
-			$html  = '<a href="'.$adcodes['imageurl'].'" target="_blank"><img src="'.stripslashes($_POST['adcode']['imagesrc']).'" '.$width.' '.$height.' border="0" alt="'.$adcodes['imagealt'].'"></a>';
+			$html  = '<a href="'.$adcodes['imageurl'].'" target="_blank"><img src="'.stripslashes($_POST['adcode']['imagesrc']).'" '.$width.' '.$height.' border="0" alt="'.$adcodes['imagealt'].'"></a>
+			';
 			break;
 		case 'text':
 			$adcodes['textcontent'] = getstr($_POST['adcode']['textcontent'], 0, 1, 1);
@@ -61,6 +62,97 @@ if(submitcheck('adsubmit')) {
 			$adcodes['textsize'] = floatval($_POST['adcode']['textsize']);
 			$size = empty($adcodes['textsize'])?'':'style="font-size:'.$adcodes['textsize'].'px;"';
 			$html  = '<span style="padding:0.8em"><a href="'.stripslashes($_POST['adcode']['texturl']).'" target="_blank" '.$size.'>'.$adcodes['textcontent'].'</a></span>';
+			break;
+		default:
+			break;
+		case 'home':
+			$adcodes['homesrc'] = $_POST['adcode']['homesrc'];
+			$adcodes['homeurl'] = $_POST['adcode']['homeurl'];
+			$html  = '<span style="padding:0.8em"><a href="'.stripslashes($_POST['adcode']['texturl']).'" target="_blank" '.$size.'>'.$adcodes['textcontent'].'</a></span>
+			<div id="TopTipHolder"><div id="TopTip"><li class="tomorrowone">第二天，你会 &nbsp;&nbsp;. . . </li><li class="tomorrowtwo">醒来&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;死去&nbsp;?</li></div><div id="TopTipClose" title="关闭"><a href="#">关闭广告</a></div>
+			<div id="linkto"><a href="'.stripslashes($_POST['adcode']['homeurl']).'">马上竞猜</a></div>
+
+			</div>
+			<style type="text/css">
+			#TopTipHolder{height:0; overflow:hidden;position:relative; background:#CDCDCD;}
+			#TopTip{height:685px; font-weight:100px; font-size:56px; text-align:center; background:url('.$adcodes['homesrc'].') no-repeat;margin: 0 auto;
+			width: 1250px;}
+			#TopTip li{list-style:none; display:none;}
+
+			#linkto{width:70px; height:30px; background:#FF0000; position:absolute; left:540px; top:500px; padding:15px;}
+			#linkto a{color:#FFFFFF; font-weight:100px;}
+			#TopTipClose{width:70px; height:30px; background:#FF0000; position:absolute; left:750px; top:500px; padding:15px; }
+			#TopTipClose a{color:#FFFFFF; font-weight:100px;}
+			.tomorrow{color:#FFFFFF;}
+			</style>
+			<script>
+/* 
+ * 页面顶部提示栏效果(TopTipEffect)
+ *  
+ * author: 爱微网
+ * version: 1.0.0
+ * @param {string}    id           tip提示标签id
+ * @param {string}    holderId     父标签
+ * @param {bool}      expand       展开/收起
+ * @param {string}    step         每次移动步长
+ * @param {object}    speed        移动速度
+ */
+var TopTipEffect = function(id, holderId, expand, step, speed){
+    this.obj = document.getElementById(id);
+    this.holder = document.getElementById(holderId);
+    this.step = step;
+    this.speed = speed;
+    this.expand = expand;
+    this.maxH = this.obj.offsetHeight;
+    this.moveT = null;
+    this.moving = false;
+    this.tempH = expand ? 0 : this.maxH;
+}
+TopTipEffect.prototype = {
+    play : function(){
+        if(this.moving) return;
+        if(this.holder.offsetHeight > this.maxH) return;
+        var _this = this;
+        this.moveT = setInterval(function(){_this.move()}, _this.speed);
+    },
+    move : function(){
+        this.moving = true;
+        if(this.expand){
+            this.tempH += this.step;
+            if(this.tempH > this.maxH){
+                if((this.tempH - this.maxH) >= this.step){
+                    this.expand = false;
+                    this.moving = false;
+                    clearInterval(this.moveT);
+                    return;
+                }else{
+                    this.tempH = this.maxH;
+                }
+            }
+        }else{
+            this.tempH -= this.step;
+            if(this.tempH < 0){
+                if(-this.tempH >= this.step){
+                    this.expand = true;
+                    this.moving = false;
+                    clearInterval(this.moveT);
+                    return;
+                }else{
+                    this.tempH = 0;
+                }
+            }
+        }
+        this.holder.style.height = this.tempH + "px";
+        this.holder.scrollTop = this.maxH - this.tempH;
+    }
+}
+var mytip = new TopTipEffect("TopTip", "TopTipHolder", true, 10, 5);
+mytip.play();
+//右上角关闭按钮点击
+document.getElementById("TopTipClose").onclick = function(){
+    mytip.play();
+}
+</script>';
 			break;
 		default:
 			break;
