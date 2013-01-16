@@ -251,7 +251,7 @@
 			<!--{loop $list2 $key $value}-->
 			<li>
 				<div class="avatar48"><a href="space.php?uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></div>
-				<p<!--{if $ols[$value[uid]]}--> class="online_icon_p" title="在线"<!--{/if}-->><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
+				<p class="online_icon_p" title="在线"><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
 				<p class="gray"><!--{date('n月j日',$value[lastactivity],1)}--></p>
 			</li>
 			<!--{/loop}-->
