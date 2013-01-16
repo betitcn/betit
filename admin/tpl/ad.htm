@@ -78,7 +78,7 @@
 	<script type="text/JavaScript">
 	function style_show(theobj) {
 		var styles,key;
-		styles = new Array('html','flash','image','text');
+		styles = new Array('html','flash','image','text','home');
 		for(key in styles){
 			var obj=$('style_'+styles[key]);
 			obj.style.display = styles[key]==theobj.options[theobj.selectedIndex].value?'':'none';
@@ -112,6 +112,7 @@
 		<option value="rightside"{$pagetypes[rightside]}>日志(话题)内容区域 (宽300px)</option>
 		<option value="couplet"{$pagetypes[couplet]}>对联广告 (宽90px)</option>
 		<option value="feedbox"{$pagetypes[feedbox]}>动态顶部 (宽500px)</option>
+		<option value="home"{$pagetypes[home]}>首页专题</option>
 		</select>
 		</td>
 		</tr>
@@ -129,6 +130,8 @@
 		<option value="flash" $adcodes[flash]>Flash</option>
 		<option value="image" $adcodes[image]>Image</option>
 		<option value="text" $adcodes[text]>文本</option>
+		<option value="home" $adcodes[home]>首页专题</option>
+
 		</select>
 		</td></tr>
 		<tbody id="style_html" style="display:<!--{if $advalue['adcode']['type']!='html'}-->none<!--{/if}-->">
@@ -189,6 +192,18 @@
 		<th>文字大小(选填)</th>
 		<td><input name="adcode[textsize]" value="$advalue[adcode][textsize]" size="5"> px</td>
 		</tr>
+		</tbody>
+		<tbody id="style_home" style="display:<!--{if $advalue['adcode']['type']!='home'}-->none<!--{/if}-->">
+		<tr>
+		<th>图片地址(必填)</th>
+		<td><input name="adcode[homesrc]" value="$advalue[adcode][homesrc]" size="50"></td>
+		</tr>
+		<tr>
+		<tr>
+		<th>马上链接(必填)</th>
+		<td><input name="adcode[homeurl]" value="$advalue[adcode][homeurl]" size="50"></td>
+		</tr>
+		
 		</tbody>
 		</table>
 	</div>
