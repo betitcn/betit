@@ -58,9 +58,12 @@ $_SGLOBAL['cplang'] = array(
 	'note_quiz_win' => '恭喜你在 <a href="\\1" target="_blank">《\\2》</a>的\\3竞猜中得胜，获得金币\\4。',
 	'note_quiz_invalid' => '由于你参加的 <a href="\\1" target="_blank">《\\2》</a>\\3竞猜没有正确答案，返还金币\\4。',
 	'note_quiz_lost' => '很不幸你在 <a href="\\1" target="_blank">《\\2》</a>的\\3竞猜中没有获胜，输了金币\\4，请继续努力o~下次得奖的就是你！',
-	'note_quiz_remind' => '温馨提示：你的<a href="\\1" target="_blank">《\\2》</a>的竞猜将在1小时后到期，请及时公布答案.',
+	'note_quiz_remind' => '温馨提示：你的<a href="\\1" target="_blank">《\\2》</a>的竞猜已经过期，请在一天内及时公布答案.',
+	'note_quiz_remind2' => '温馨提示：你所转发的<a href="\\1" target="_blank">《\\2》</a>的竞猜已经过期，请随时留意<a href="\\3" target="_blank">原竞猜</a>的公布答案情况。',
+	'note_quiz_exceed3' => '你所转发的<a href="\\1" target="_blank">《\\2》</a>竞猜由于<a href="\\3" target="_blank">原竞猜</a>超期没有公布答案，已被取消并返还你的投注金币。',
 	'note_quiz_exceed' => '由于你的<a href="\\1" target="_blank">《\\2》</a>竞猜由于超期没有公布答案，已被取消并扣除你的信用\\3。',
 	'note_quiz_exceed2' => '你所参与的<a href="\\1" target="_blank">《\\2》</a>竞猜由于超期没有公布答案，已被取消并返还你的投注金币\\3。',
+
 	'reward' => '悬赏',
 	'reward_info' => '参与投票可获得  \\1 竞猜',
 	'poll_separator' => '"、"',

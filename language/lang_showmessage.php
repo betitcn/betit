@@ -58,6 +58,7 @@ $_SGLOBAL['msglang'] = array(
 	'no_authority_expiration_date' => '您当前权限已被管理员暂时限制，恢复的时间为：\\1',
 	'no_authority_expiration' => '您当前权限已被管理员限制，请理解我们的管理',
 	'no_authority_to_add_log' => '您目前没有权限添加日志',
+	'no_authority_to_add_bet' => '您目前没有权限发布竞猜',
 	'no_authority_operation_of_the_log' => '您没有权限操作该日志',
 	'that_should_at_least_write_things' => '至少应该写一点东西',
 	'failed_to_delete_operation' => '删除失败，请检查操作',
