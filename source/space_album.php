@@ -459,6 +459,27 @@ if($id) {
 			$wheresql .= " AND albumname LIKE '%$searchkey%'";
 			$theurl .= "&searchkey=$_GET[searchkey]";
 			cksearch($theurl);
+			
+			$count1 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('quizoptions')." WHERE uchome_quizoptions.option LIKE '%$searchkey%'"),0);
+			if($count1) {
+				$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT JOIN ".tname('quizoptions')." bf ON bf.quizid=b.id WHERE bf.option LIKE '%$searchkey%' ORDER BY b.dateline DESC LIMIT $start,$perpage");
+				runlog("123456754","SELECT bf.*, b.* FROM ".tname('feed')." b LEFT JOIN ".tname('quizoptions')." bf ON bf.quizid=b.id WHERE bf.option LIKE '%$searchkey%' ORDER BY b.dateline DESC LIMIT $start,$perpage");
+			while ($value1 = $_SGLOBAL['db']->fetch_array($query)) {
+				realname_set($value1['uid'], $value1['username']);
+				if($value) {
+					$value['pic1'] = $value1['image_1'];
+					$value['pic2'] = $value1['image_2'];
+					$value['pic1link'] = $value1['image_1_link'];
+					$value['pic2link'] = $value1['image_2_link'];
+					$value['option'] = $value1['option'];
+					$value['updatetime']=$value1['dateline'];
+				} else {
+					$value['pic1'] = 'image/nopublish.jpg';
+				}
+				$list1[] = $value;
+			}
+		}
+$multi1 = multi($count1, $perpage, $page, $theurl);
 		}
 		
 		$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('album')." WHERE $wheresql"),0);
