@@ -240,12 +240,15 @@ jquery(document).ready(function() {
 		jquery("#pics_2").val("");
 		jquery("#cancel1").remove();
 		jquery("#cancel2").remove();
+	
 });
 jquery('#subject').one("blur",function(){
 	  jquery('.list_box').hide();
 });
+
+
     });
-   
+  
    }
 
   });
@@ -378,6 +381,7 @@ jquery('#subject').one("blur",function(){
 
 			<script>
 			jquery(document).ready(function() {
+			  
 				　　jquery('#fileinput_<!--{eval echo $key+1; }-->').uploadify({
 				 　　//以下参数均是可选
 				 　　'swf' : 'uploadify.swf', //指定上传控件的主体文件，默认'uploader.swf'
@@ -422,6 +426,7 @@ jquery('#subject').one("blur",function(){
 					jquery('#fileinput_<!--{eval echo $key+1; }-->').hide();
 				  	<!--{/if}-->
 　　});
+
 </script>
 			</tr>
 			<!--{/loop}-->
@@ -444,7 +449,7 @@ jquery('#subject').one("blur",function(){
 			</tr>
 			<tr>
 				<th width="100">预计公布结果：</th>
-				<td>竞猜截止时间至竞猜截止时间后一天</td>
+				<td><input type="text" class="t_input" size="40" id="resulttime"  name="resulttime" readonly value="<!--{date('Y-m-d H:i:s', $quiz[resulttime]?$quiz[resulttime]:$_SGLOBAL[timestamp]+691200)}-->"></td>
 			</tr>
 		</table>
 		
