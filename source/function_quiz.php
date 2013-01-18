@@ -117,7 +117,7 @@ function quiz_post($POST, $olds=array()) {
 		'joincost' => intval($POST['joincost']),
 		'portion' => intval($POST['portion']),
 		'endtime' => intval($POST['endtime']),
-		'resulttime' => intval($POST['endtime']+86400)
+		'resulttime' => intval($POST['resulttime'])
 		
 	);
 
