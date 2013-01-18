@@ -23,8 +23,9 @@ if($op=='download'){
 }elseif($op=='team'){
 	include_once template("space_team");
 	}elseif($op=='hot'){
-	$query2 = $_SGLOBAL['db']->query("SELECT distinct b.tagid,bf.tagname,sum(b.tagid) as gp FROM ".tname('tagquiz')." b LEFT JOIN ".tname('tag')." bf ON bf.tagid=b.tagid where length(bf.tagname)>2 group by b.tagid order by gp desc limit 0,8");
+	$query2 = $_SGLOBAL['db']->query("SELECT distinct b.tagid,bf.tagname,sum(b.tagid) as gp FROM ".tname('tagquiz')." b LEFT JOIN ".tname('tag')." bf ON bf.tagid=b.tagid where length(bf.tagname)>4 group by b.tagid order by gp desc limit 0,8");
 			while ($value2 = $_SGLOBAL['db']->fetch_array($query2)) {
+			
 				$view[] = $value2;
 		}
 		
