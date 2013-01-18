@@ -601,10 +601,6 @@ if($id) {
 					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
 					$wheresql
 					ORDER BY $ordersql DESC LIMIT $start,$perpage");
-					runlog("1231","SELECT p.*,pf.* FROM $leftsql ".tname('quiz')." p $indexsql
-					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
-					$wheresql
-					ORDER BY $ordersql DESC LIMIT $start,$perpage");
 		}
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			$query3 = $_SGLOBAL['db']->query("SELECT uchome_quizfield.option FROM ".tname('quizfield')." WHERE quizid='$value[id]' ORDER BY quizid");
