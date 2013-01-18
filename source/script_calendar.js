@@ -100,6 +100,8 @@ function parsedate(s) {
 function settime(d) {
 	$('calendar').style.display = 'none';
 	$('calendar_month').style.display = 'none';
+	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+	
 	if(is_ie && is_ie < 7) {
 		$('calendariframe').style.display = 'none';
 	}
@@ -131,6 +133,7 @@ function showcalendar(event, controlid1, addtime1, startdate1, enddate1) {
 	$('calendar_year_' + currday.getFullYear()).className = 'calendar_checked';
 	$('calendar_month_' + (currday.getMonth() + 1)).className = 'calendar_checked';
 	$('hourminute').style.display = addtime ? '' : 'none';
+	
 	lastcheckedyear = currday.getFullYear();
 	lastcheckedmonth = currday.getMonth() + 1;
 	if(is_ie && is_ie < 7) {
@@ -140,6 +143,7 @@ function showcalendar(event, controlid1, addtime1, startdate1, enddate1) {
 		$('calendariframe').style.height = $('calendar').offsetHeight;
 		$('calendariframe').style.display = 'block';
 	}
+
 }
 
 function refreshcalendar(y, m) {
@@ -160,7 +164,7 @@ function refreshcalendar(y, m) {
 
 	while(x.getMonth() == mm) {
 		dd = $("d" + (d + mv));
-		dd.innerHTML = '<a href="###" onclick="settime(' + d + ');return false">' + d + '</a>';
+		dd.innerHTML = '<a href="###" onchange="abc()"; onclick="settime(' + d + ');return false">' + d + '</a>';
 		if((enddate && x.getTime() > enddate.getTime()) || (startdate && x.getTime() < startdate.getTime())) {
 			dd.className = 'calendar_expire';
 		} else {
