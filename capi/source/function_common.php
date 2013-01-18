@@ -1326,7 +1326,7 @@ function pic_cover_get($pic, $picflag) {
 }
 
 //处理积分星星
-function getstar($experience) {
+/*function getstar($experience) {
 	global $_SCONFIG;
 
 	$starimg = '';
@@ -1352,6 +1352,48 @@ function getstar($experience) {
 			}
 		}
 	}
+	if(empty($starimg)) $starimg = '<img src="image/credit.gif" alt="'.$experience.'" align="absmiddle" alt="'.$experience.'" title="'.$experience.'" />';
+	return $starimg;
+}*/
+//处理积分星星
+function getstar($experience) {
+	global $_SCONFIG;
+
+	$starimg = '';
+	if($experience>=0&&$experience<399){
+		$starimg .= '<img src="image/star_level1.gif" align="absmiddle" />';
+		}
+		elseif($experience>=400&&$experience<799){
+		$starimg .= '<img src="image/star_level2.gif" align="absmiddle" />';
+		}
+		elseif($experience>=800&&$experience<1599){
+		$starimg .= '<img src="image/star_level3.gif" align="absmiddle" />';
+		}
+		elseif($experience>=1600&&$experience<3199){
+		$starimg .= '<img src="image/star_level4.gif" align="absmiddle" />';
+		}
+		elseif($experience>=3200&&$experience<6399){
+		$starimg .= '<img src="image/star_level5.gif" align="absmiddle" />';
+		}
+		elseif($experience>=6400&&$experience<9999){
+		$starimg .= '<img src="image/star_level6.gif" align="absmiddle" />';
+		}
+		elseif($experience>=10000&&$experience<19999){
+		$starimg .= '<img src="image/star_level7.gif" align="absmiddle" />';
+		}
+		elseif($experience>=20000&&$experience<37999){
+		$starimg .= '<img src="image/star_level8.gif" align="absmiddle" />';
+		}
+		elseif($experience>=38000&&$experience<49999){
+		$starimg .= '<img src="image/star_level9.gif" align="absmiddle" />';
+		}
+		elseif($experience>=50000&&$experience<79999){
+		$starimg .= '<img src="image/star_level0.gif" align="absmiddle" />';
+		}
+		elseif($experience>=80000){
+		$starimg .= '<img src="image/star_level1.gif" align="absmiddle" />';
+		}
+	
 	if(empty($starimg)) $starimg = '<img src="image/credit.gif" alt="'.$experience.'" align="absmiddle" alt="'.$experience.'" title="'.$experience.'" />';
 	return $starimg;
 }
