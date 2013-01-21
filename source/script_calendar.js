@@ -100,8 +100,61 @@ function parsedate(s) {
 function settime(d) {
 	$('calendar').style.display = 'none';
 	$('calendar_month').style.display = 'none';
+	if(zerofill(mm+1)==1 || zerofill(mm+1)==3 || zerofill(mm+1)==5 || zerofill(mm+1)==7 || zerofill(mm+1)==8 || zerofill(mm+1)==10 || zerofill(mm+1)==12){
+	if(zerofill(d+1)==32){
+	$('resulttime').value=yy + "-" + zerofill(mm + 2) + "-" + 1 + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+		}else{
 	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
-	
+	}
+	}else if(zerofill(mm+1)==4 || zerofill(mm+1)==6 || zerofill(mm+1)==9 || zerofill(mm+1)==11){
+		if(zerofill(d+1)==31){
+	$('resulttime').value=yy + "-" + zerofill(mm + 2) + "-" + 1 + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+		}else{
+	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+	}
+	}else if (yy % 4 == 0 && yy % 100 != 0) {
+  if(zerofill(mm+1)==2){
+	  if(zerofill(d+1)==30){
+  $('resulttime').value=yy + "-" + zerofill(mm + 2) + "-" + 1 + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+				}else{
+	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+	}
+		 }else{
+	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+	}
+	}else if (yy % 400 == 0) {
+  if(zerofill(mm+1)==2){
+	  if(zerofill(d+1)==30){
+  $('resulttime').value=yy + "-" + zerofill(mm + 2) + "-" + 1 + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+				}else{
+	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+	}
+		 }else{
+	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+	}
+	}else if(yy % 4 != 0 && yy % 100 == 0) {
+  if(zerofill(mm+1)==2){
+	  if(zerofill(d+1)==29){
+  $('resulttime').value=yy + "-" + zerofill(mm + 2) + "-" + 1 + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+				}else{
+	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+	}
+		 }else{
+	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+	}
+	}else if (yy % 400 != 0) {
+		if(zerofill(mm+1)==2){
+	  if(zerofill(d+1)==29){
+	$('resulttime').value=yy + "-" + zerofill(mm + 2) + "-" + 1 + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+				}else{
+	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+	}
+		 }else{
+	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+	}
+	}else{
+	$('resulttime').value=yy + "-" + zerofill(mm + 1) + "-" + zerofill(d+1) + (addtime ? ' ' + zerofill($('hour').value) + ':' + zerofill($('minute').value) : '');;
+	}
 	if(is_ie && is_ie < 7) {
 		$('calendariframe').style.display = 'none';
 	}
