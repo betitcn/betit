@@ -28,7 +28,7 @@ if($_SCONFIG['allowrewrite'] && isset($_REQUEST['rewrite'])) {
 }
 
 //允许动作
-$dos = array('feed', 'doing', 'mood', 'blog', 'album', 'thread', 'mtag', 'friend', 'wall', 'tag', 'notice', 'share', 'topic', 'home', 'pm', 'event', 'poll', 'top', 'info', 'videophoto', /* chenler add */ 'quiz','stat', 'isonline', 'task');
+$dos = array('feed', 'doing', 'mood', 'blog', 'album', 'thread', 'mtag', 'friend', 'wall', 'tag', 'notice', 'share', 'topic', 'home', 'pm', 'event', 'poll', 'top', 'info', 'videophoto', /* chenler add */ 'quiz','stat', 'isonline', 'task','ajax');
 
 //获取变量
 $isinvite = 0;
