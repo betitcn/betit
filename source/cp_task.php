@@ -12,6 +12,13 @@ if(!defined('IN_UCHOME')) {
 
 $taskid = empty($_GET['taskid'])?0:intval($_GET['taskid']);
 
+$zhong = $_SGLOBAL['db']->query("SELECT * FROM ".tname('usertask')." WHERE uid='$_SGLOBAL[supe_uid]' AND taskid='7'");
+if($wei = $_SGLOBAL['db']->fetch_array($zhong)){
+	$weitime = $wei['dateline'];
+if(sgmdate('Ymd', $_SGLOBAL['timestamp']) != sgmdate('Ymd', $weitime)) {
+		$_SGLOBAL['db']->query("DELETE FROM ".tname('usertask')." WHERE uid='$_SGLOBAL[supe_uid]' AND taskid='7'");
+	}
+}
 if($taskid) {
 
 	$query = $_SGLOBAL['db']->query('SELECT * FROM '.tname('task')." WHERE taskid='$taskid'");
