@@ -86,9 +86,9 @@ if(empty($op)) {
 		$_POST['email'] = "$username@betit.cn";
 		
 		$email = isemail($_POST['email'])?$_POST['email']:'';
-		if(empty($email)) {
-			showmessage('email_format_is_wrong');
-		}
+		//if(empty($email)) {
+		//	showmessage('email_format_is_wrong');
+		//}
 		//¼ì²éÓÊ¼þ
 		if($_SCONFIG['checkemail']) {
 			if($count = getcount('spacefield', array('email'=>$email))) {
