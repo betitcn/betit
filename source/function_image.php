@@ -16,7 +16,7 @@ function makethumb($srcfile) {
 	if (!file_exists($srcfile)) {
 		return '';
 	}
-	$dstfile = $srcfile.'.thumb.jpg';
+	$dstfile = $srcfile.!webthumb;
 	
 	include_once(S_ROOT.'./data/data_setting.php');
 
