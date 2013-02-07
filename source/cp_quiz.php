@@ -176,15 +176,18 @@ else{
 if($_GET['op'] == 'delete') {
 	//删除
 	if(submitcheck('deletesubmit')) {
-		include_once(S_ROOT.'./source/function_delete.php');
-		if(deletequizs(array($quizid))) {
+		//include_once(S_ROOT.'./source/function_delete.php');
+		$setarr = array(
+			'id' => '1',
+			'endtime' =>'1',
+			'resulttime' =>'1'
+		);
+		    updatetable('quiz',$setarr,array('quizid'=>$quizid));
 			showmessage('do_success', "space.php?uid=$quiz[uid]&do=quiz&view=me");
-		} else {
-			showmessage('failed_to_delete_operation');
-		}
-	}
+		} 
 	
-} elseif($_GET['op'] == 'goto') {
+	
+}elseif($_GET['op'] == 'goto') {
 	
 	$id = intval($_GET['id']);
 	$uid = $id?getcount('quiz', array('quizid'=>$id), 'uid'):0;
@@ -926,7 +929,7 @@ if($_GET['op'] == 'delete') {
 				$_SGLOBAL['db']->query("UPDATE ".tname('quizfield')." SET invite='".implode(',', $newinvite)."' WHERE quizid='$quizid'");
 			}
 			//通知
-			$note = cplang('note_quiz_invite', array("space.php?uid=$quiz[uid]&do=quiz&quizid=$quiz[quizid]", $quiz['subject'], $quiz['joincost']?cplang('reward'):''));
+			$note = cplang('note_quiz_invite', array("space.php?uid=$quiz[uid]&do=quiz&id=$quiz[quizid]", $quiz['subject'], $quiz['joincost']?cplang('reward'):''));
 			foreach($ids as $key => $uid) {
 				if($uid && $uid != $_SGLOBAL['supe_uid']) {
 					notification_add($uid, 'quizinvite', $note);
