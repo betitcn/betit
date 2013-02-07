@@ -15,25 +15,25 @@ if($page<1) $page=1;
 $id = empty($_GET['id'])?0:intval($_GET['id']);
 $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 
-//±íÌ¬·ÖÀà
+//è¡¨æ€åˆ†ç±»
 @include_once(S_ROOT.'./data/data_click.php');
 $clicks = empty($_SGLOBAL['click']['quizid'])?array():$_SGLOBAL['click']['quizid'];
 
 if($id) {
-	//¶ÁÈ¡ÈÕÖ¾
+	//è¯»å–æ—¥å¿—
 	$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b LEFT JOIN ".tname('quizfield')." bf ON bf.quizid=b.quizid WHERE b.quizid='$id' AND b.uid='$space[uid]'");
 	$quiz = $_SGLOBAL['db']->fetch_array($query);
-	//ÈÕÖ¾²»´æÔÚ
+	//æ—¥å¿—ä¸å­˜åœ¨
 	if(empty($quiz)) {
 		showmessage('view_to_info_did_not_exist');
 	}
-	//¼ì²éºÃÓÑÈ¨ÏŞ
+	//æ£€æŸ¥å¥½å‹æƒé™
 	if(!ckfriend($quiz['uid'], $quiz['friend'], $quiz['target_ids'])) {
-		//Ã»ÓĞÈ¨ÏŞ
+		//æ²¡æœ‰æƒé™
 		include template('space_privacy');
 		exit();
 	} elseif(!$space['self'] && $quiz['friend'] == 4) {
-		//ÃÜÂëÊäÈëÎÊÌâ // mask
+		//å¯†ç è¾“å…¥é—®é¢˜ // mask
 		$cookiename = "view_pwd_quiz_$quiz[quizid]";
 		$cookievalue = empty($_SCOOKIE[$cookiename])?'':$_SCOOKIE[$cookiename];
 		if($cookievalue != md5(md5($quiz['password']))) {
@@ -43,16 +43,20 @@ if($id) {
 		}
 	}
 
-	//ÕûÀí
+	//æ•´ç†
 	$quiz['tag'] = empty($quiz['tag'])?array():unserialize($quiz['tag']);
 
-	//´¦ÀíÊÓÆµ±êÇ©
+	//å¤„ç†è§†é¢‘æ ‡ç­¾
 	include_once(S_ROOT.'./source/function_quiz.php');
 	$quiz['message'] = quiz_bbcode($quiz['message']);
 
 	$otherlist = $newlist = array();
+	//ç«çŒœåˆ é™¤æé†’
 
-	//ÓĞĞ§ÆÚ
+	if($quiz['id']==1){
+	showmessage("æ­¤ç«çŒœå·²è¢«å‘èµ·è€…åˆ é™¤","space.php?do=quiz");
+	}
+	//æœ‰æ•ˆæœŸ
 	if($_SCONFIG['uc_tagrelatedtime'] && ($_SGLOBAL['timestamp'] - $quiz['relatedtime'] > $_SCONFIG['uc_tagrelatedtime'])) {
 		$quiz['related'] = array();
 	}
@@ -73,7 +77,7 @@ if($id) {
 				$quiz['related'] = uc_tag_get($b_tags[$tag_index], $_SGLOBAL['tagtpl']['limit']);
 			}
 		} else {
-			//×ÔÉíTAG
+			//è‡ªèº«TAG
 			$tag_quizids = array();
 			$query = $_SGLOBAL['db']->query("SELECT DISTINCT quizid FROM ".tname('tagquiz')." WHERE tagid IN (".simplode($b_tagids).") AND quizid<>'$quiz[quizid]' ORDER BY quizid DESC LIMIT 0,10");
 			while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -82,7 +86,7 @@ if($id) {
 			if($tag_quizids) {
 				$query = $_SGLOBAL['db']->query("SELECT uid,username,subject,quizid FROM ".tname('quiz')." WHERE quizid IN (".simplode($tag_quizids).")");
 				while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-					realname_set($value['uid'], $value['username']);//ÊµÃû
+					realname_set($value['uid'], $value['username']);//å®å
 					$value['url'] = "space.php?uid=$value[uid]&do=quiz&id=$value[quizid]";
 					$quiz['related'][UC_APPID]['data'][] = $value;
 				}
@@ -112,23 +116,23 @@ if($id) {
 				}
 			}
 		}
-		updatetable('quizfield', array('related'=>addslashes(serialize(sstripslashes($quiz['related']))), 'relatedtime'=>$_SGLOBAL['timestamp']), array('quizid'=>$quiz['quizid']));//¸üĞÂ
+		updatetable('quizfield', array('related'=>addslashes(serialize(sstripslashes($quiz['related']))), 'relatedtime'=>$_SGLOBAL['timestamp']), array('quizid'=>$quiz['quizid']));//æ›´æ–°
 	} else {
 		$quiz['related'] = empty($quiz['related'])?array():unserialize($quiz['related']);
 	}
 
-	//×÷ÕßµÄÆäËû×îĞÂÈÕÖ¾
+	//ä½œè€…çš„å…¶ä»–æœ€æ–°æ—¥å¿—
 	$otherlist = array();
-	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE uid='$space[uid]' ORDER BY dateline DESC LIMIT 0,6");
+	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE uid='$space[uid]' and id!=1 ORDER BY dateline DESC LIMIT 0,6");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		if($value['quizid'] != $quiz['quizid'] && empty($value['friend'])) {
 			$otherlist[] = $value;
 		}
 	}
 
-	//×îĞÂµÄÈÕÖ¾
+	//æœ€æ–°çš„æ—¥å¿—
 	$newlist = array();
-	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE hot>=3 ORDER BY dateline DESC LIMIT 0,6");
+	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE hot>=3 and id!=1 ORDER BY dateline DESC LIMIT 0,6");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		if($value['quizid'] != $quiz['quizid'] && empty($value['friend'])) {
 			realname_set($value['uid'], $value['username']);
@@ -136,13 +140,13 @@ if($id) {
 		}
 	}
 
-	//ÆÀÂÛ
+	//è¯„è®º
 	$perpage = 30;
 	$perpage = mob_perpage($perpage);
 	
 	$start = ($page-1)*$perpage;
 
-	//¼ì²é¿ªÊ¼Êı
+	//æ£€æŸ¥å¼€å§‹æ•°
 	ckstart($start, $perpage);
 
 	$count = $quiz['replynum'];
@@ -154,22 +158,22 @@ if($id) {
 
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('comment')." WHERE $csql id='$id' AND idtype='quizid' ORDER BY dateline LIMIT $start,$perpage");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-			realname_set($value['authorid'], $value['author']);//ÊµÃû
+			realname_set($value['authorid'], $value['author']);//å®å
 			$list[] = $value;
 		}
 	}
 
-	//·ÖÒ³
+	//åˆ†é¡µ
 	$multi = multi($count, $perpage, $page, "space.php?uid=$quiz[uid]&do=$do&id=$id", '', 'content');
 
-	//·ÃÎÊÍ³¼Æ
+	//è®¿é—®ç»Ÿè®¡
 	if(!$space['self'] && $_SCOOKIE['view_quizid'] != $quiz['quizid']) {
 		$_SGLOBAL['db']->query("UPDATE ".tname('quiz')." SET viewnum=viewnum+1 WHERE quizid='$quiz[quizid]'");
-		inserttable('log', array('id'=>$space['uid'], 'idtype'=>'uid'));//ÑÓ³Ù¸üĞÂ
+		inserttable('log', array('id'=>$space['uid'], 'idtype'=>'uid'));//å»¶è¿Ÿæ›´æ–°
 		ssetcookie('view_quizid', $quiz['quizid']);
 	}
 
-	//±íÌ¬
+	//è¡¨æ€
 	$hash = md5($quiz['uid']."\t".$quiz['dateline']);
 	$id = $quiz['quizid'];
 	$idtype = 'quizid';
@@ -181,36 +185,36 @@ if($id) {
 		$clicks[$key] = $value;
 	}
 
-	//µãÆÀ
+	//ç‚¹è¯„
 	$clickuserlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('clickuser')."
 		WHERE id='$id' AND idtype='$idtype'
 		ORDER BY dateline DESC
 		LIMIT 0,18");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		realname_set($value['uid'], $value['username']);//ÊµÃû
+		realname_set($value['uid'], $value['username']);//å®å
 		$value['clickname'] = $clicks[$value['clickid']]['name'];
 		$clickuserlist[] = $value;
 	}
 
-	//ÈÈµã
+	//çƒ­ç‚¹
 	$topic = topic_get($quiz['topicid']);
 
-	//ÊµÃû
+	//å®å
 	realname_get();
 
 	$_TPL['css'] = 'poll'; // mask
 	
-	//ÏŞÖÆÍ¶Æ±
+	//é™åˆ¶æŠ•ç¥¨
 	$allowedvote = true;
 	
-	//ÏŞÖÆĞÔ±ğ
+	//é™åˆ¶æ€§åˆ«
 	//if(!empty($quiz['sex']) && $poll['sex'] != $_SGLOBAL['member']['sex']) {
 	//	$allowedvote = false;
 	//}
 	$expiration = false;
 	
-	//¹ıÆÚÍ¬Ñù½ûÖ¹Í¶Æ±
+	//è¿‡æœŸåŒæ ·ç¦æ­¢æŠ•ç¥¨
 	if($quiz['endtime'] && $quiz['endtime'] < $_SGLOBAL['timestamp']) {
 		$allowedvote = false;
 		$expiration = true;
@@ -237,7 +241,7 @@ if($id) {
 		$canvote = 0;
 	}
 	
-	//×ÜÍ¶Æ±Êı
+	//æ€»æŠ•ç¥¨æ•°
 	$allvote = 0;
 	
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quizoptions')." WHERE quizid='$id' ORDER BY oid");
@@ -253,7 +257,7 @@ if($id) {
 	
 	}
 	
-	//¼ÆËã°Ù·Ö±È
+	//è®¡ç®—ç™¾åˆ†æ¯”
 	foreach($quiz['options'] as $key => $value) {
 		if($value['votenum'] && $allvote) {
 			$value['percent'] = round($value['votenum']/$allvote, 2);
@@ -267,47 +271,47 @@ if($id) {
 	
 	$isfriend = 1;
 	if($quiz['noreply']) {
-		//ÊÇ·ñºÃÓÑ
+		//æ˜¯å¦å¥½å‹
 		$isfriend = $space['self'];
 		if($space['friends'] && in_array($_SGLOBAL['supe_uid'], $space['friends'])) {
-			$isfriend = 1;//ÊÇºÃÓÑ
+			$isfriend = 1;//æ˜¯å¥½å‹
 		}
 	}
 	
-		//È¡³ö×îĞÂÍ¶Æ±
-	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." ORDER BY dateline DESC LIMIT 0, 10");
+		//å–å‡ºæœ€æ–°æŠ•ç¥¨
+	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." where id!=1 ORDER BY dateline DESC LIMIT 0, 10");
 	while($value = $_SGLOBAL['db']->fetch_array($query)) {
-		realname_set($value['uid'], $value['username']);//ÊµÃû
+		realname_set($value['uid'], $value['username']);//å®å
 		$newquiz[] = $value;
 	}
 	
-	//È¡³ö×îÈÈµÄÍ¶Æ±
+	//å–å‡ºæœ€çƒ­çš„æŠ•ç¥¨
 	$timerange = $_SGLOBAL['timestamp']-2592000;
-	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE lastvote >= '$timerange' ORDER BY voternum DESC LIMIT 0, 10");
+	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE lastvote >= '$timerange' and id!=1 ORDER BY voternum DESC LIMIT 0, 10");
 	while($value = $_SGLOBAL['db']->fetch_array($query)) {
-		realname_set($value['uid'], $value['username']);//ÊµÃû
+		realname_set($value['uid'], $value['username']);//å®å
 		$hotquiz[] = $value;
 	}
 	
-	//Ïà¹ØÈÈµã
+	//ç›¸å…³çƒ­ç‚¹
 	$topic = topic_get($quiz['topicid']);
 	
-	//ÊµÃû
+	//å®å
 	realname_get();
 	
 	include_once template("space_quiz_view2");
 
 } else {
-	//·ÖÒ³
+	//åˆ†é¡µ
 	/*$perpage = 10;
 	$perpage = mob_perpage($perpage);
 	
 	$start = ($page-1)*$perpage;
 
-	//¼ì²é¿ªÊ¼Êı
+	//æ£€æŸ¥å¼€å§‹æ•°
 	ckstart($start, $perpage);
 
-	//ÕªÒª½ØÈ¡
+	//æ‘˜è¦æˆªå–
 	$summarylen = 300;
 
 	$classarr = array();
@@ -318,13 +322,13 @@ if($id) {
 	$ordersql = 'b.dateline';
 
 	if(empty($_GET['view']) && ($space['friendnum']<$_SCONFIG['showallfriendnum'])) {
-		$_GET['view'] = 'all';//Ä¬ÈÏÏÔÊ¾
+		$_GET['view'] = 'all';//é»˜è®¤æ˜¾ç¤º
 	}
 
-	//´¦Àí²éÑ¯
+	//å¤„ç†æŸ¥è¯¢
 	$f_index = '';
 	if($_GET['view'] == 'click') {
-		//²È¹ıµÄÈÕÖ¾
+		//è¸©è¿‡çš„æ—¥å¿—
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=click";
 		$actives = array('click'=>' class="active"');
 
@@ -349,19 +353,19 @@ if($id) {
 	} else {
 		
 		if($_GET['view'] == 'all') {
-			//´ó¼ÒµÄÈÕÖ¾
+			//å¤§å®¶çš„æ—¥å¿—
 			$wheresql = '1';
 
 			$actives = array('all'=>' class="active"');
 
-			//ÅÅĞò
+			//æ’åº
 			$orderarr = array('dateline','replynum','viewnum','hot');
 			foreach ($clicks as $value) {
 				$orderarr[] = "click_$value[clickid]";
 			}
 			if(!in_array($_GET['orderby'], $orderarr)) $_GET['orderby'] = '';
 
-			//Ê±¼ä
+			//æ—¶é—´
 			$_GET['day'] = intval($_GET['day']);
 			$_GET['hotday'] = 7;
 
@@ -396,11 +400,11 @@ if($id) {
 			if(empty($space['feedfriend']) || $classid) $_GET['view'] = 'me';
 			
 			if($_GET['view'] == 'me') {
-				//²é¿´¸öÈËµÄ
+				//æŸ¥çœ‹ä¸ªäººçš„
 				$wheresql = "b.uid='$space[uid]'";
 				$theurl = "space.php?uid=$space[uid]&do=$do&view=me";
 				$actives = array('me'=>' class="active"');
-				//ÈÕÖ¾·ÖÀà
+				//æ—¥å¿—åˆ†ç±»
 				$query = $_SGLOBAL['db']->query("SELECT classid, classname FROM ".tname('class')." WHERE uid='$space[uid]'");
 				while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 					$classarr[$value['classid']] = $value['classname'];
@@ -412,7 +416,7 @@ if($id) {
 	
 				$fuid_actives = array();
 	
-				//²é¿´Ö¸¶¨ºÃÓÑµÄ
+				//æŸ¥çœ‹æŒ‡å®šå¥½å‹çš„
 				$fusername = trim($_GET['fusername']);
 				$fuid = intval($_GET['fuid']);
 				if($fusername) {
@@ -427,7 +431,7 @@ if($id) {
 	
 				$actives = array('we'=>' class="active"');
 	
-				//ºÃÓÑÁĞ±í
+				//å¥½å‹åˆ—è¡¨
 				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('friend')." WHERE uid='$space[uid]' AND status='1' ORDER BY num DESC, dateline DESC LIMIT 0,500");
 				while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 					realname_set($value['fuid'], $value['fusername']);
@@ -436,20 +440,20 @@ if($id) {
 			}
 		}
 
-		//·ÖÀà
+		//åˆ†ç±»
 		if($classid) {
 			$wheresql .= " AND b.classid='$classid'";
 			$theurl .= "&classid=$classid";
 		}
 
-		//ÉèÖÃÈ¨ÏŞ
+		//è®¾ç½®æƒé™
 		$_GET['friend'] = intval($_GET['friend']);
 		if($_GET['friend']) {
 			$wheresql .= " AND b.friend='$_GET[friend]'";
 			$theurl .= "&friend=$_GET[friend]";
 		}
 
-		//ËÑË÷
+		//æœç´¢
 		if($searchkey = stripsearchkey($_GET['searchkey'])) {
 			$wheresql .= " AND b.subject LIKE '%$searchkey%'";
 			$theurl .= "&searchkey=$_GET[searchkey]";
@@ -457,7 +461,7 @@ if($id) {
 		}
 		
 		$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('quiz')." b WHERE $wheresql"),0);
-		//¸üĞÂÍ³¼Æ
+		//æ›´æ–°ç»Ÿè®¡
 		if($wheresql == "b.uid='$space[uid]'" && $space['quiznum'] != $count) {
 			updatetable('space', array('quiznum' => $count), array('uid'=>$space['uid']));
 		}
@@ -486,10 +490,10 @@ if($id) {
 		}
 	}
 
-	//·ÖÒ³
+	//åˆ†é¡µ
 	$multi = multi($count, $perpage, $page, $theurl);
 
-	//ÊµÃû
+	//å®å
 	realname_get();
 
 	$_TPL['css'] = 'blog';
@@ -497,11 +501,11 @@ if($id) {
 
 	$_GET['view'] = $_GET['view'] ? trim($_GET['view']) : 'new';
 	if($_GET['view'] == 'all') $_GET['view'] = 'new';
-	//·ÖÒ³
+	//åˆ†é¡µ
 	$perpage = 30;
 	$start = ($page-1)*$perpage;
 	
-	//¼ì²é¿ªÊ¼Êı
+	//æ£€æŸ¥å¼€å§‹æ•°
 
 	
 	$wherearr = $list = array();
@@ -514,9 +518,9 @@ if($id) {
 	if($_GET['view'] == 'new') {
 		$indexsql = 'USE INDEX (dateline)';
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=new";
-		
+		$wherearr[] = "p.id!=1";
 	} elseif($_GET['view'] == 'hot') {
-		
+		$wherearr[] = "p.id!=1";
 		$_GET['filtrate'] = empty($_GET['filtrate']) ? 'all' : trim($_GET['filtrate']);
 		$indexsql = 'USE INDEX (voternum)';
 		$ordersql = 'p.voternum';
@@ -535,7 +539,7 @@ if($id) {
 	} elseif($_GET['view'] == 'friend') {
 		
 		$indexsql = 'USE INDEX (dateline)';
-		$wherearr[] = "p.uid IN ($space[feedfriend])";
+		$wherearr[] = "p.uid IN ($space[feedfriend]) AND p.id!=1";
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=friend";
 		
 	} else {
@@ -547,16 +551,16 @@ if($id) {
 			
 			$indexsql = ' ON p.quizid=pu.quizid ';
 			
-			$wherearr[] = "pu.uid='$space[uid]'";
+			$wherearr[] = "pu.uid='$space[uid]' and p.id!=1";
 			$ordersql = 'p.dateline';
-			$counttable = tname('quizuser').' pu ';
+			$counttable = tname('quizuser').' pu, '.tname('quiz').' p';
 
 		} elseif($_GET['filtrate'] == 'expiration') {
 			$counttable = tname('quizuser').' pu, '.tname('quiz').' p';
 			$ordersql = 'p.dateline';
 			$wherearr[] = "p.uid='$space[uid]' AND pu.quizid=p.quizid  AND p.endtime>0 AND p.endtime<='$_SGLOBAL[timestamp]'";
 		} else {
-			$wherearr[] = "p.uid='$space[uid]'";
+			$wherearr[] = "p.uid='$space[uid]' and p.id!=1";
 		}
 		
 		$filtrate = array($_GET['filtrate']=>' class="active"');
@@ -564,7 +568,7 @@ if($id) {
 		
 	}
 	
-	//ËÑË÷
+	//æœç´¢
 	if($searchkey = stripsearchkey($_GET['searchkey'])) {
 		$query3 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid=1");
 		while($value3 = $_SGLOBAL['db']->fetch_array($query3)){
@@ -585,21 +589,21 @@ if($id) {
 	}
 	$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM $counttable $wheresql"),0);
     
-	//¸üĞÂÍ³¼Æ
+	//æ›´æ–°ç»Ÿè®¡
 	if($wheresql == "p.uid='$space[uid]'" && $space['quiznum'] != $count) {
 		updatetable('space', array('quiznum' => $count), array('uid'=>$space['uid']));
 	}
 		
 	if($count) {
 		if($_GET['filtrate'] == 'expiration') {
-			$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM ".tname('quizuser')." pu, ".tname('quiz')." p,".tname('feed')." pf $wheresql AND p.quizid=pf.id	ORDER BY $ordersql DESC LIMIT $start,$perpage");
+			$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM ".tname('quizuser')." pu, ".tname('quiz')." p,".tname('feed')." pf $wheresql AND p.quizid=pf.id AND p.id!=1	ORDER BY $ordersql DESC LIMIT $start,$perpage");
 		} 
 		elseif($_GET['searchkey']){
-		$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM ".tname('quiz')." p, ".tname('feed')." pf $wheresql  AND p.quizid=pf.id ORDER BY $ordersql DESC LIMIT $start,$perpage");
+		$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM ".tname('quiz')." p, ".tname('feed')." pf $wheresql  AND p.quizid=pf.id  AND p.id!=1 ORDER BY $ordersql DESC LIMIT $start,$perpage");
 		}else {
 			$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM $leftsql ".tname('quiz')." p $indexsql
 					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
-					$wheresql
+					$wheresql 
 					ORDER BY $ordersql DESC LIMIT $start,$perpage");
 		}
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -641,10 +645,10 @@ $value3=array();
 		}
 	}
 	
-	//·ÖÒ³
+	//åˆ†é¡µ
 	$multi = multi($count, $perpage, $page, $theurl);
 
-	//ÊµÃû
+	//å®å
 	realname_get();
 	
 	$actives = array($_GET['view']=>' class="active"');
