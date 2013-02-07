@@ -44,10 +44,9 @@ if($_GET['subop'] == 'view') {
 	if($page<1) $page = 1;
 	
 	$result = uc_pm_list($_SGLOBAL['supe_uid'], $page, $perpage, 'inbox', $filter, 100);
-	
 	$count = $result['count'];
 	$list = $result['data'];
-
+	
 	$multi = multi($count, $perpage, $page, "space.php?do=pm&filter=$filter");
 	
 	if($_SGLOBAL['member']['newpm']) {
