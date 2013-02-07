@@ -87,13 +87,13 @@
 </div>
 <!--{/if}-->
 	
-	
+	<!--{if empty($_GET[searchkey])}-->	
 <!--{if $picmode}-->
 
 	<!--{if $pricount}-->
 	<div class="h_status">本页有 $pricount 张图片因作者的隐私设置而隐藏</div>
 	<!--{/if}-->
-	
+
 	<!--{if $count}-->
 	<table cellspacing="0" cellpadding="0" width="100%" class="pic_list">
 		<tr>
@@ -114,37 +114,6 @@
 	
 <!--{else}-->
 
-	<!--{if $searchkey}-->
-	<div class="h_status">以下是搜索相册 <span style="color:red;font-weight:bold;">$searchkey</span> 结果列表</div>
-	<!--{/if}-->
-	<!--{if $count1}-->
-	<table class="album_list" cellspacing="0" cellpadding="0" width="100%">
-	<tr>
-		<!--{loop $list1 $key $value}-->
-		<td style="padding-bottom: 20px;">
-			<div class="album_bg"><a href="$value[pic1link]"><!--{if $value[pic1]}--><img src="$value[pic1]"  /><!--{else}--><img src="image/nopublish.jpg"  /><!--{/if}--></a></div>
-			<p>选项:<a href="$value[pic1link]"><!--{if $value[option]}-->$value[option]<!--{else}-->无选项<!--{/if}--></a> <!--{if $value[pic1]}--><br/>图片链接:<span class="gray">$value[pic1]</span><!--{/if}--></p>
-			<div class="album_bg"><a href="$value[pic1link]"><!--{if $value[pic2]}--><img src="$value[pic2]"  /><!--{else}--><img src="image/nopublish.jpg"  /><!--{/if}--></a></div>
-			<p> <!--{if $value[pic1]}-->图片链接:<span class="gray">$value[pic2]</span><!--{/if}--></p>
-			发布时间:<p class="gray"> <!--{date('m-d H:i', $value[updatetime], 1)}--></p>
-<hr/>
-		</td>
-	
-		
-		<!--{if $key%4==3}--></tr><tr><!--{/if}-->
-
-		<!--{/loop}-->
-		</tr>
-	</table>
-	<div class="page">$multi1</div>
-	<!--{else}-->
-	<div class="c_form">没有可浏览的列表。</div>
-	<!--{/if}-->
-	
-
-
-
-	
 	<!--{if $pricount}-->
 	<div class="h_status">提示：本页有 $pricount 个相册因作者的隐私设置而隐藏</div>
 	<!--{/if}-->
@@ -168,11 +137,30 @@
 	<!--{else}-->
 	<div class="c_form">没有可浏览的列表。</div>
 	<!--{/if}-->
-	
+		<!--{/if}-->
 <!--{/if}-->
 
-</div>
+	<!--{if $_GET[searchkey]}-->
+	<div class="h_status">以下是搜索图片 <span style="color:red;font-weight:bold;">$searchkey</span> 结果列表</div>
+	<!--{/if}-->
+	<!--{if $count1}-->
+	<table class="album_list" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		<!--{loop $list1 $key $value}-->
+		<td style="padding-bottom: 20px;">
+		<div class="album_bg"><a href="space.php?uid=$value[uid]&do=$do&picid=$value[picid]"><img src="$value[pic]" alt="$value[albumname]" /></a></div>
+		</td>
+	
+		
+		<!--{if $key%4==3}--></tr><tr><!--{/if}-->
 
+		<!--{/loop}-->
+		</tr>
+	</table>
+	<div class="page">$multi1</div>
+	<!--{/if}-->
+</div>
+<!--{if !$_GET[searchkey]}-->
 <!--{if $_GET['view'] != 'me'}-->
 <div id="sidebar" style="width:150px;">
 	
@@ -192,7 +180,7 @@
 	</ul>
 	</div>
 <!--{/if}-->
-
+<!--{/if}-->
 <!--{if $_GET['view'] == 'click'}-->
 	<div class="cat">
 	<h3>表态动作</h3>
