@@ -35,6 +35,16 @@
 					</select>
 				</td>
 			</tr>
+				<tr>
+				<th>删除打赌</th>
+				<td colspan="3">
+					<select name="id">
+						<option value="">不限</option>
+						<option value="0"<!--{if $_GET[id] == '0'}--> selected<!--{/if}-->>未删除</option>
+						<option value="1"<!--{if $_GET[id] == '1'}--> selected<!--{/if}-->>已删除</option>
+					</select>
+				</td>
+			</tr>
 			
 			<tr><th>参与人数</th><td colspan="3">
 				<input type="text" name="voternum1" value="$_GET[voternum1]" size="10"> ~
@@ -103,7 +113,7 @@
 					<input type="<!--{if $allowbatch}-->checkbox<!--{else}-->radio<!--{/if}-->" name="ids[]" value="$value[quizid]">
 				</td>
 				<td>
-					<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]" target="_blank"><strong><!--{if $value[credit]}-->[悬赏:{$value[credit]}]<!--{/if}--><!--{if $value[isexpired]}-->[已过期]<!--{/if}--></strong>$value[subject]</a>
+					<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]" target="_blank"><strong><!--{if $value[credit]}-->[悬赏:{$value[credit]}]<!--{/if}--><!--{if $value[id]}-->[已删除]<!--{/if}--><!--{if $value[isexpired]}-->[已过期]<!--{/if}--></strong>$value[subject]</a>
 					<!--{if $value[hot]}--><span style="color:red;">热度($value[hot])</span><!--{/if}-->
 					<!--{if $value[friend]}-->[<a href="admincp.php?ac=blog&friend=$value[friend]">$value[friend]</a>]<!--{/if}-->
 				</td>
