@@ -783,7 +783,7 @@ function multi($num, $perpage, $curpage, $mpurl, $ajaxdiv='', $todiv='') {
 				} else {
 					$multipage .= "href=\"{$mpurl}page=$i{$urlplus}\"";
 				}
-				$multipage .= ">$i</a>";
+				$multipage .= "><font color='blue'>$i</font></a>";
 			}
 		}
 		if($curpage < $pages) {
@@ -1610,13 +1610,19 @@ function ckstart($start, $perpage) {
 
 //处理头像
 function avatar($uid, $size='small', $returnsrc = FALSE) {
-	global $_SCONFIG, $_SN;
+	global $_SCONFIG, $_SN, $_SGLOBAL;
 	
 	$size = in_array($size, array('big', 'middle', 'small')) ? $size : 'small';
 	$avatarfile = avatar_file($uid, $size);
-	return $returnsrc ? UC_API.'/data/avatar/'.$avatarfile : '<img src="'.UC_API.'/data/avatar/'.$avatarfile.'" onerror="this.onerror=null;this.src=\''.UC_API.'/images/noavatar_'.$size.'.gif\'">';
+    $query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('space')." WHERE uid='$uid'");
+	$value = $_SGLOBAL['db']->fetch_array($query);
+	$value1=$value['avatar'];
+	if($value1==1){
+	return $returnsrc ? UC_API.'/data/avatar/'.$avatarfile : '<img src="'.UC_API.'/data/avatar/'.$avatarfile.'">' ;
+	}else{
+		return $returnsrc ? UC_API.'/data/avatar/'.$avatarfile : '<img src="'.UC_API.'/images/noavatar_'.$size.'.gif">';
+	}
 }
-
 //得到头像
 function avatar_file($uid, $size) {
 	global $_SGLOBAL, $_SCONFIG;
