@@ -38,7 +38,7 @@ if($op == 'delete') {
 		$val = $_GET['endtime'] == 1 ? 1 : 2;
 		$_GET['endtime'.$val] = $_SGLOBAL['timestamp'];
 	}
-	$intkeys = array('uid', 'noreply', 'quizid', 'sex');
+	$intkeys = array('uid', 'noreply', 'quizid', 'sex','id');
 	$strkeys = array('username');
 	$randkeys = array(array('sstrtotime','dateline'), array('intval','voternum'), array('intval','replynum'), array('intval','percredit'), array('intval','endtime'), array('intval','hot'));
 	$likekeys = array('subject');
