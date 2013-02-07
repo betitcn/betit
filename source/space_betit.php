@@ -29,17 +29,17 @@ if($op=='download'){
 				$view[] = $value2;
 		}
 		
-		 $count1 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>0 and experience<399"),0);
-		 $count2 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=400 and experience<799"),0);
-		 $count3 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=800 and experience<1599"),0);
-		 $count4 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=1600 and experience<3199"),0);
-		 $count5 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=3200 and experience<6399"),0);
-		 $count6 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=6400 and experience<9999"),0);
-		 $count7 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=10000 and experience<19999"),0);
-		 $count8 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=20000 and experience<37999"),0);
-		 $count9 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=38000 and experience<49999"),0);
-		  $count10 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=50000 and experience<79999"),0);
-		  $count11 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=80000"),0);
+		 $count1 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>0 and experience<399 and groupid!=1"),0);
+		 $count2 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=400 and experience<799 and groupid!=1"),0);
+		 $count3 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=800 and experience<1599 and groupid!=1"),0);
+		 $count4 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=1600 and experience<3199 and groupid!=1"),0);
+		 $count5 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=3200 and experience<6399 and groupid!=1"),0);
+		 $count6 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=6400 and experience<9999 and groupid!=1"),0);
+		 $count7 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=10000 and experience<19999 and groupid!=1"),0);
+		 $count8 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=20000 and experience<37999 and groupid!=1"),0);
+		 $count9 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=38000 and experience<49999 and groupid!=1"),0);
+		  $count10 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=50000 and experience<79999 and groupid!=1"),0);
+		  $count11 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('space')." WHERE experience>=80000 and groupid!=1"),0);
 		
 
   
