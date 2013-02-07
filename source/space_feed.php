@@ -53,10 +53,9 @@ if($_GET['view'] == 'all') {
 	$f_index = '';
 
 } elseif($_GET['view'] == 'open') {
-	$dateline = $_SGLOBAL['timestamp'] + 86400;
-	$dateline1 = $_SGLOBAL['timestamp'];
-    $wheresql = "bf.endtime<='$dateline'&&bf.endtime>=$dateline1";
-	$ordersql = "b.dateline DESC";
+	$dateline = $_SGLOBAL['timestamp'];
+    $wheresql = "bf.endtime>=$dateline";
+	$ordersql = "bf.endtime DESC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=open";
 	$f_index = '';
 
@@ -84,23 +83,23 @@ if($_GET['view'] == 'all') {
 //¹ýÂË
 $appid = empty($_GET['appid'])?0:intval($_GET['appid']);
 if($appid) {
-	$wheresql .= " AND appid='$appid'";
+	$wheresql .= " AND b.appid='$appid'";
 }
 $icon = empty($_GET['icon'])?'':trim($_GET['icon']);
 if($icon) {
-	$wheresql .= " AND icon='$icon'";
+	$wheresql .= " AND b.icon='$icon'";
 }
 $filter = empty($_GET['filter'])?'':trim($_GET['filter']);
 if($filter == 'site') {
-	$wheresql .= " AND appid>0";
+	$wheresql .= " AND b.appid>0";
 } elseif($filter == 'myapp') {
-	$wheresql .= " AND appid='0'";
+	$wheresql .= " AND b.appid='0'";
 }
 
 $feed_list = $appfeed_list = $hiddenfeed_list = $filter_list = $hiddenfeed_num = $icon_num = array();
 $count = $filtercount = 0;
 $query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT JOIN ".tname('quiz')." bf ON bf.quizid=b.id $f_index
-	WHERE $wheresql
+	WHERE $wheresql AND bf.id!=1
 	ORDER BY $ordersql
 	LIMIT $start,$perpage");
 
