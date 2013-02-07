@@ -11,11 +11,36 @@ if(!defined('IN_UCHOME')) {
 
 	
 
-
 //检查信息
 $quizid = empty($_REQUEST['quizid'])?0:intval($_REQUEST['quizid']);
+$fquizid = empty($_GET['fquizid'])?0:intval($_GET['fquizid']);
 $op = empty($_REQUEST['op'])?'':$_REQUEST['op'];
+$quiz = array();
+if($fquizid) {
+	
+	$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b 
+		LEFT JOIN ".tname('quizfield')." bf ON bf.quizid=b.quizid 
+		WHERE b.quizid='$fquizid'");
+	$quiz = $_SGLOBAL['db']->fetch_array($query);
+	
+	//选项
+	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quizoptions')." WHERE quizid='$fquizid'");
+	while( $value = $_SGLOBAL['db']->fetch_array($query))
+	{
+		if ($value['picid']){
+			$query2 = $_SGLOBAL['db']->query("SELECT * FROM ".tname('pic')." WHERE picid='$value[picid]'");
+			$value2 = $_SGLOBAL['db']->fetch_array($query2);
+			$value['pic'] = pic_get($value2['filepath'], $value2['thumb'], $value2['remote']);
+		}
+		$quiz['options'][] = $value;
+	}
+	if ($op!="key"){
+		while(count($quiz['options'])<2){
+			$quiz['options'][] = "";
+		}
+	}
 
+}
 
 $quiz = array();
 if($quizid) {
@@ -46,7 +71,7 @@ if($quizid) {
 if(empty($quiz)) {
 	if(!checkperm('allowquiz')) {
 		ckspacelog();
-		capi_showmessage_by_data('no_authority_to_add_log');
+		capi_showmessage_by_data('no_authority_to_add_bet');
 	}
 	
 	//实名认证
@@ -68,11 +93,8 @@ if(empty($quiz)) {
 	$quiz['subject'] = empty($_REQUEST['subject'])?'':getstr($_REQUEST['subject'], 80, 1, 0);
 	$quiz['message'] = empty($_REQUEST['message'])?'':getstr($_REQUEST['message'], 5000, 1, 0);
 	
-} else {
-	
-	if(!in_array($op, array('vote', 'get', 'invite', 'publickey')) && $_SGLOBAL['supe_uid'] != $quiz['uid']  && !checkperm('managequiz')) {
-		capi_showmessage_by_data('no_authority_operation_of_the_log');
-	}
+
+
 }
 
 //添加编辑操作
@@ -93,6 +115,45 @@ if(capi_submitcheck('quizsubmit')) {
 	//}
 	
 	include_once(S_ROOT.'./source/function_quiz.php');
+	if($fquizid){
+	if($quiz){
+	if($_SGLOBAL['timestamp']>$quiz['endtime']){
+		capi_showmessage_by_data("亲！你知道吗！该竞猜已过期，不允许编辑或转发！");
+		}
+	}
+	if($newquiz = quiz_post($_REQUEST)) {
+		if(empty($quiz) && $newquiz['topicid']) {
+			$url = 'space.php?do=topic&topicid='.$newquiz['topicid'].'&view=quiz';
+		} else {
+			$url = 'space.php?uid='.$newquiz['uid'].'&do=quiz&id='.$newquiz['quizid'];
+		}
+	
+		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE quizid='$fquizid'");
+		$fkey = $_SGLOBAL['db']->fetch_array($query);
+		$newfquizid=$fkey['fquizid'];
+		if($newfquizid!=0){
+		updatetable('quiz', array('fquizid'=>$newfquizid), array('quizid'=>$newquiz['quizid']));
+		$reward = getreward('publishquiz', 0); 
+		$newquiz["reward"] = $reward;
+		capi_showmessage_by_data('do_success', 0, array('quiz'=>$newquiz));
+			}else{
+        updatetable('quiz', array('fquizid'=>$fquizid),array('quizid'=>$newquiz['quizid']));
+		$reward = getreward('publishquiz', 0); 
+		$newquiz["reward"] = $reward;		$newquiz["fquizid"] = $fquizid;
+		capi_showmessage_by_data('do_success', 0, array('quiz'=>$newquiz));
+			}
+		
+	
+	} else {
+		capi_showmessage_by_data('that_should_at_least_write_things');
+	}
+  }
+else{
+	if($quiz){
+	if($_SGLOBAL['timestamp']>$quiz['endtime']){
+		capi_showmessage_by_data("亲！你知道吗！该竞猜已过期，不允许编辑或转发！");
+		}
+	}
 	if($newquiz = quiz_post($_REQUEST, $quiz)) {
 		if(empty($quiz) && $newquiz['topicid']) {
 			$url = 'space.php?do=topic&topicid='.$newquiz['topicid'].'&view=quiz';
@@ -105,25 +166,27 @@ if(capi_submitcheck('quizsubmit')) {
 	} else {
 		capi_showmessage_by_data('that_should_at_least_write_things');
 	}
+  }
 }
-
 if($_REQUEST['op'] == 'delete') {
 	//删除
 	if(capi_submitcheck('deletesubmit')) {
-		include_once(S_ROOT.'./source/function_delete.php');
-		if(deletequizs(array($quizid))) {
-			capi_showmessage_by_data('do_success', "space.php?uid=$quiz[uid]&do=quiz&view=me");
-		} else {
-			capi_showmessage_by_data('failed_to_delete_operation');
-		}
-	}
+		//include_once(S_ROOT.'./source/function_delete.php');
+		$setarr = array(
+			'id' => '1',
+			'endtime' =>'1',
+			'resulttime' =>'1'
+		);
+		    updatetable('quiz',$setarr,array('quizid'=>$quizid));
+			capi_showmessage_by_data('do_success',0, "space.php?uid=$quiz[uid]&do=quiz&view=me");
+		} 
 	
 } elseif($_REQUEST['op'] == 'goto') {
 	
 	$id = intval($_REQUEST['id']);
 	$uid = $id?getcount('quiz', array('quizid'=>$id), 'uid'):0;
 
-	capi_showmessage_by_data('do_success', "space.php?uid=$uid&do=quiz&id=$id", 0);
+	capi_showmessage_by_data('do_success',0, "space.php?uid=$uid&do=quiz&id=$id");
 	
 } elseif($_REQUEST['op'] == 'edithot') {
 	//权限
@@ -297,12 +360,27 @@ if($_REQUEST['op'] == 'delete') {
 	
 } elseif($op == 'publickey'){
 	//公布结果
-	
+	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE quizid='$quizid'");
+			$fkey = $_SGLOBAL['db']->fetch_array($query);
+			$endtime=$fkey['endtime'];
+			$resulttime=$fkey['resulttime']+86400;
+			if($_SGLOBAL['timestamp']<$endtime||$_SGLOBAL['timestamp']>$resulttime){
+				capi_showmessage_by_data("此时段不允许公布答案！");
+				}
+			$newfquizid=$fkey['fquizid'];
+			
+			if($newfquizid==0){
+				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE fquizid='$quizid'");
+				$ffkey = $_SGLOBAL['db']->fetch_array($query);
+				if(!$ffkey){
+					
 	if(capi_submitcheck('keysubmit')) {
 		
 		$keyid = empty($_REQUEST['keyid'])?0:intval($_REQUEST['keyid']);
+		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quizoptions')." WHERE oid='$keyid'");
 		
-		if ($keyid){
+			
+		    if ($keyid){
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quizoptions')." WHERE oid='$keyid'");
 			$key = $_SGLOBAL['db']->fetch_array($query);
 			$quizarr = array(
@@ -363,7 +441,7 @@ if($_REQUEST['op'] == 'delete') {
 				$lost = array();
 				$resultarr = array();
 				$fitcount = getcount("quizuser",  array("quizid"=>$quizid, "oid"=>$keyid));
-				$credit = intval(intval($quiz['totalcost'])/intval($fitcount)-$quiz['joincost']);
+				$credit = intval(intval($quiz['totalcost'])/intval($fitcount));
 				$winuid = '';
 				$wincredit = 0;
 				
@@ -391,7 +469,8 @@ if($_REQUEST['op'] == 'delete') {
 							$win[$value["uid"]] = $value["credit"];
 							$resultarr[$value["uid"]]["totalwin"] = $value["credit"];
 							$resultarr[$value["uid"]]["username"] = $value["username"];
-							if (!strcmp(trim(implode(',', $setarr)),"")){
+                       
+							if (strcmp(trim(implode(',', $setarr)),"")!=0){
 								$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET ".implode(',', $setarr)." WHERE uid='$value[uid]'");	
 							}
 					}
@@ -492,7 +571,244 @@ if($_REQUEST['op'] == 'delete') {
 			
 		}
 		
-		capi_showmessage_by_data('do_success', 0, array('quiz'=>$quiz));
+		capi_showmessage_by_data('do_success', "space.php?uid=$quiz[uid]&do=quiz&id=$quizid");
+				}
+
+			}else{
+				if(submitcheck('keysubmit')) {
+			$keyid = empty($_POST['keyid'])?0:intval($_POST['keyid']);
+			
+					
+			if ($keyid==3){
+				//竞猜流失
+
+			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE fquizid='$quizid' or quizid='$quizid' order by quizid DESC");
+			while($fffkey = $_SGLOBAL['db']->fetch_array($query)){
+			$quizid=$fffkey['quizid'];
+			$uid=$fffkey['uid'];
+			$query2 = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quizoptions')." WHERE oid='$keyid'");
+			$key = $_SGLOBAL['db']->fetch_array($query2);
+			$quizarr = array(
+				"keyoid"=>$keyid,
+				"keyoption"=>$key["option"],
+				"endtime"=>$_SGLOBAL["timestamp"]
+			);
+			updatetable('quiz', $quizarr, array('quizid'=>$quizid));
+				$query3 = $_SGLOBAL['db']->query("SELECT uid, count(*)*$quiz[joincost] as credit FROM ".tname('quizuser')." WHERE quizid='$quizid'  group by uid");
+				while( $value = $_SGLOBAL['db']->fetch_array($query3))
+				{
+					$reward = array(
+							'credit' => 0,
+							'experience' => 0
+							);
+					$reward['credit'] = "$value[credit]";
+					$setarr = array();
+					if($reward['credit']) {
+						$setarr['credit'] = "credit=credit+$reward[credit]";
+					}
+					if($reward['experience']) {
+						$setarr['experience'] = "experience=experience+$reward[experience]";
+					}
+					
+					
+					$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET ".implode(',', $setarr)." WHERE uid='$value[uid]'");
+
+					$note = cplang('note_quiz_invalid', array("space.php?uid=$uid&do=quiz&id=$quizid", $quiz['subject'], $quiz['joincost']?cplang('reward'):'', $value["credit"]));
+				
+					notification_add($value['uid'], 'quizinvalid', $note);
+					notification_add_push($value['uid'], $note, $_SGLOBAL['supe_uid']);
+				}
+
+				$fs = array();
+				$fs['icon'] = 'quiz';
+
+				$fs['images'] = $fs['image_links'] = array();
+					
+				$fs['title_template'] = cplang('publish_key_in_the_quiz2');
+				$fs['title_data'] = array(
+					'url' => "space.php?uid=$quiz[uid]&do=quiz&id=$quiz[quizid]",
+					'subject' => $quiz['subject'],
+					'key'=>$key["option"]
+				);
+				$fs['body_template'] = "";
+				$fs['body_data'] = array();
+				
+				include_once(S_ROOT.'./source/function_cp.php');
+				feed_add($fs['icon'], $fs['title_template'], $fs['title_data'], $fs['body_template'], $fs['body_data']);
+			}
+			}else{
+				//给分
+				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quizoptions')." WHERE oid='$keyid'");
+			$ke = $_SGLOBAL['db']->fetch_array($query);
+			$option=$ke['option'];
+		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE fquizid='$quizid' or quizid='$quizid' order by quizid DESC");
+
+			while($fffkey = $_SGLOBAL['db']->fetch_array($query)){
+			$quizid=$fffkey['quizid'];
+			$query8 = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b 
+		    LEFT JOIN ".tname('quizfield')." bf ON bf.quizid=b.quizid 
+		    WHERE b.quizid='$quizid'");
+			$quiz = $_SGLOBAL['db']->fetch_array($query8);
+			$query1 = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quizoptions')." WHERE uchome_quizoptions.option='$option' and quizid='$quizid'");
+			$ke1 = $_SGLOBAL['db']->fetch_array($query1);
+			$keyid=$ke1['oid'];
+			 
+		    if ($keyid){
+			$query2 = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quizoptions')." WHERE oid='$keyid'");
+			$key = $_SGLOBAL['db']->fetch_array($query2);
+			$quizarr = array(
+				"keyoid"=>$keyid,
+				"keyoption"=>$key["option"],
+				"endtime"=>$_SGLOBAL["timestamp"]
+			);
+			updatetable('quiz', $quizarr, array('quizid'=>$quizid));
+			}
+				$win = array();
+				$lost = array();
+				$resultarr = array();
+				$fitcount = getcount("quizuser",  array("quizid"=>$quizid, "oid"=>$keyid));
+				$credit = intval(intval($quiz['totalcost'])/intval($fitcount));
+				$winuid = '';
+				$wincredit = 0;
+				
+				if ($fitcount){
+					$query4 = $_SGLOBAL['db']->query("SELECT uid, username, count(*)*$credit as credit FROM ".tname('quizuser')." WHERE quizid='$quizid' and oid='$keyid' group by uid ");
+					
+					while( $value = $_SGLOBAL['db']->fetch_array($query4))
+					{
+							$reward = array(
+							'credit' => 0,
+							'experience' => 0
+							);
+							$reward['credit'] = "$value[credit]";
+							$A=$reward['credit'];
+							
+							$setarr = array();
+							if($reward['credit']) {
+								$setarr['credit'] = "credit=credit+$reward[credit]";
+							}
+							if($reward['experience']) {
+								$setarr['experience'] = "experience=experience+$reward[experience]";
+							}
+							if ($value["credit"]>$wincredit){
+								$winuid = $value["uid"];
+								$wincredit = $value["credit"];
+							}
+							realname_set($value['uid'], $value['username']);//实名
+							$win[$value["uid"]] = $value["credit"];
+							$resultarr[$value["uid"]]["totalwin"] = $value["credit"];
+							$resultarr[$value["uid"]]["username"] = $value["username"];
+                       
+							if (strcmp(trim(implode(',', $setarr)),"")!=0){
+								$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET ".implode(',', $setarr)." WHERE uid='$value[uid]'");	
+							}
+					}
+				}
+				
+				
+
+				$query5 = $_SGLOBAL['db']->query("SELECT uid, username, count(*)*$quiz[joincost] as credit FROM ".tname('quizuser')." WHERE quizid='$quizid' and oid<>'$keyid'  group by uid ");
+				while( $value = $_SGLOBAL['db']->fetch_array($query5))
+				{
+					$resultarr[$value["uid"]]["totalcost"] = $value["credit"];
+					$resultarr[$value["uid"]]["username"] = $value["username"];
+					if ($win[$value["uid"]])
+					{	
+						if (($win[$value["uid"]]-$value["credit"])<0){
+							$lost[$value["uid"]] = $value["credit"]-$win[$value["uid"]];
+							$resultarr[$value["uid"]]["winflag"] = 0;
+							unset($win[$value["uid"]]);
+						}elseif(($win[$value["uid"]]-$value["credit"])>0)
+						{
+							$win[$value["uid"]] = $win[$value["uid"]]-$value["credit"];
+							$resultarr[$value["uid"]]["winflag"] = 1;
+						}else
+						{
+							unset($win[$value["uid"]]);
+							$resultarr[$value["uid"]]["winflag"] = 2;
+						}
+					}else{
+						$lost[$value["uid"]] = $value["credit"];
+						$resultarr[$value["uid"]]["winflag"] = 0;
+					}
+				}
+
+				//实名
+				realname_get();
+				$fs = array();
+				$fs['icon'] = 'quiz';
+
+				$fs['images'] = $fs['image_links'] = array();
+					
+				if (count($win)){
+					$fs['title_template'] = cplang('publish_key_in_the_quiz3');
+					$fs['title_data'] = array(
+						'attend' => $quiz['voternum'],
+						'win' => count($win),
+						'precost' => $credit,
+						'touser' => "<a href='space.php?uid=$winuid'>$_SN[$winuid]<a>",
+						'url' => "space.php?uid=$quiz[uid]&do=quiz&id=$quiz[quizid]",
+					'subject' => $quiz['subject'],
+					'key'=>$key["option"]
+					);
+				}else{
+					$fs['title_template'] =cplang('publish_key_in_the_quiz4');
+					$fs['title_data'] = array(
+						'attend' => $quiz['voternum'],
+						'url' => "space.php?uid=$quiz[uid]&do=quiz&id=$quiz[quizid]",
+					'subject' => $quiz['subject'],
+					'key'=>$key["option"]
+					);
+				}
+					$fs['body_template'] = "";
+				$fs['body_data'] = array();
+				include_once(S_ROOT.'./source/function_cp.php');
+				feed_add($fs['icon'], $fs['title_template'], $fs['title_data'], $fs['body_template'], $fs['body_data']);
+
+				
+
+				//发送通知
+				foreach($win as $uid => $value) {
+					// if($uid && $uid != $_SGLOBAL['supe_uid']) {
+						$note = cplang('note_quiz_win', array("space.php?uid=$quiz[uid]&do=quiz&id=$quizid", $quiz['subject'], $quiz['joincost']?cplang('reward'):'',$value));
+						
+						notification_add($uid, 'quizwin', $note);
+						notification_add_push($uid, $note, $_SGLOBAL['supe_uid']);
+						$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET winnum=winnum+1 WHERE uid='$uid'");
+					//}
+				}
+
+				//发送通知
+				foreach($lost as $uid => $value) {
+					// if($uid && $uid != $_SGLOBAL['supe_uid']) {
+						$note = cplang('note_quiz_lost', array("space.php?uid=$quiz[uid]&do=quiz&id=$quizid", $quiz['subject'], $quiz['joincost']?cplang('reward'):'',$value));
+						
+						notification_add($uid, 'quizlost', $note);
+						notification_add_push($uid, $note, $_SGLOBAL['supe_uid']);
+						$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET lostnum=lostnum+1 WHERE uid='$uid'");
+					//}
+				}
+				$dateline = $_SGLOBAL["timestamp"];
+				foreach($resultarr as $uid=> $value){
+					$value["uid"] = $uid;
+					$value["quizid"] = $quizid;
+					$value["dateline"] = $dateline;
+					inserttable('quizresult', $value);
+				}
+			}
+			
+			
+					}
+			
+				capi_showmessage_by_data('do_success', "space.php?uid=$quiz[uid]&do=quiz&id=$quizid");	
+				}
+				
+			
+			
+				
+				}
+}else if($newfquizid!==0){
+			capi_showmessage_by_data('不好意思，此竞猜为转发，须原发布者公布答案！');
 	}
 	
 	
@@ -601,7 +917,7 @@ if($_REQUEST['op'] == 'delete') {
 				}
 			}
 		}
-		capi_showmessage_by_data('do_success', 0);
+		capi_showmessage_by_data('do_success', 0,'space.php?uid='.$quiz['uid'].'&do=quiz&id='.$quizid);
 	}
 	
 	//分页

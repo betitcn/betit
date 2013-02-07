@@ -13,7 +13,7 @@ $_SGLOBAL['member']['allnotenum'] = $newnum;
 
 $data = array();
 $data['allnotenum'] = $_SGLOBAL['member']['allnotenum'];
-$data['newpm'] = $space["newpm"];
+$data['newpm'] = $_SGLOBAL['member']['newpm'];
 $data['addfriendnum'] = $space['addfriendnum'];
 
 capi_showmessage_by_data('rest_success',  0, $data);

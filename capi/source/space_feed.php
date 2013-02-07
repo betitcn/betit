@@ -38,6 +38,7 @@ if ($dateline){
 	$queryop = empty($_REQUEST['queryop'])?'up':'down';
 }
 
+
 ckstart($start, $perpage);
 
 //今天时间开始线
@@ -50,81 +51,92 @@ $_SGLOBAL['gift_appid'] = '1027468';
 if($_REQUEST['view'] == 'all') {
 
 	$wheresql = "1";//没有隐私
-	$ordersql = "dateline DESC";
+	$ordersql = "b.dateline DESC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=all";
 	$f_index = '';
 
 }if($_REQUEST['view'] == 'quiz') {
 
-	$wheresql = "idtype='quizid'";//没有隐私
+	$wheresql = "b.idtype='quizid'";//没有隐私
 	
-	$ordersql = "dateline DESC";
+	$ordersql = "b.dateline DESC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=quiz";
 	$f_index = '';
 
 }elseif($_REQUEST['view'] == 'quizhot') {
-
-	$wheresql = "idtype='quizid'";//没有隐私
-	$ordersql = "hot DESC";
+	$dateline = $_SGLOBAL['timestamp'];
+	$wheresql = "b.idtype='quizid' and bf.endtime>=$dateline";//没有隐私
+	$ordersql = "b.hot DESC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=quizhot";
 	$f_index = '';
 
 }elseif($_REQUEST['view'] == 'hot') {
 
-	$wheresql = "hot>='$minhot'";
-	$ordersql = "dateline DESC";
+	$wheresql = "b.hot>='$minhot'";
+	$ordersql = "b.dateline DESC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=hot";
 	$f_index = '';
+
+} elseif($_GET['view'] == 'open') {
+	$dateline = $_SGLOBAL['timestamp'];
+    $wheresql = "bf.endtime>=$dateline";
+	$ordersql = "bf.endtime DESC";
+	$theurl = "space.php?uid=$space[uid]&do=$do&view=open";
+	$f_index = '';
+
 
 } else {
 
 	if(empty($space['feedfriend'])) $_REQUEST['view'] = 'me';
 	
 	if( $_REQUEST['view'] == 'me') {
-		$wheresql = "uid='$space[uid]'  AND (idtype<>'' OR icon<>'quiz') ";
-		$ordersql = "dateline DESC";
+		$wheresql = "b.uid='$space[uid]'";
+		$ordersql = "b.dateline DESC";
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=me";
 		$f_index = '';
 		
 	} else {
-		$space["feedfriend"] .= ",".$space["uid"];
-
-		$wheresql = "uid IN ('0',$space[feedfriend]) AND (idtype<>'' OR icon<>'quiz')";
-		$ordersql = "dateline DESC";
+		$wheresql = "b.uid IN ('0',$space[feedfriend])";
+		$ordersql = "b.dateline DESC";
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=we";
-		$f_index = 'USE INDEX(dateline)';
+		$f_index = '';
 		$_REQUEST['view'] = 'we';
 		//不显示时间
 		$_TPL['hidden_time'] = 1;
 	}
 }
 
-if ($queryop=='up'){
-	$wheresql .= " AND dateline > ".$dateline." ";
-}elseif($queryop=='down'){
-	$wheresql .= " AND dateline < ".$dateline." ";
-}
+
+	if ($dateline){
+		if ($_REQUEST['queryop'] == "up"){
+			$wheresql .= " AND b.dateline > '$dateline'";
+		}else{
+			$wheresql .= " AND b.dateline < '$dateline'";
+		}
+
+	}
+
 
 //过滤
 $appid = empty($_REQUEST['appid'])?0:intval($_REQUEST['appid']);
 if($appid) {
-	$wheresql .= " AND appid='$appid'";
+	$wheresql .= " AND b.appid='$appid'";
 }
 $icon = empty($_REQUEST['icon'])?'':trim($_REQUEST['icon']);
 if($icon) {
-	$wheresql .= " AND icon='$icon'";
+	$wheresql .= " AND b.icon='$icon'";
 }
 $filter = empty($_REQUEST['filter'])?'':trim($_REQUEST['filter']);
 if($filter == 'site') {
-	$wheresql .= " AND appid>0";
+	$wheresql .= " AND b.appid>0";
 } elseif($filter == 'myapp') {
-	$wheresql .= " AND appid='0'";
+	$wheresql .= " AND b.appid='0'";
 }
 
 $feed_list = $appfeed_list = $hiddenfeed_list = $filter_list = $hiddenfeed_num = $icon_num = array();
 $count = $filtercount = 0;
-$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('feed')." $f_index
-	WHERE $wheresql
+$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT JOIN ".tname('quiz')." $f_index bf  ON bf.quizid=b.id 
+	WHERE $wheresql AND bf.id!=1
 	ORDER BY $ordersql
 	LIMIT $start,$perpage");
 
@@ -243,6 +255,23 @@ if($space['self'] && empty($start)) {
 			}
 		}
 	}
+	//在线用户推荐
+	$sql = "SELECT field.*, space.*, main.*
+		FROM ".tname('session')." main USE INDEX (lastactivity)
+		LEFT JOIN ".tname('space')." space ON space.uid=main.uid
+		LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid where main.uid!=$space[uid] 
+		ORDER BY main.lastactivity DESC ";
+		$list2 = array();
+	$query2 = $_SGLOBAL['db']->query("$sql LIMIT 0,6");
+	while ($value = $_SGLOBAL['db']->fetch_array($query2)) {
+		$list2[$value['uid']] = $value;
+	}
+	foreach($list2 as $key => $value) {
+	$value['isfriend'] = ($value['uid']==$space['uid'] || ($space['friends'] && in_array($value['uid'], $space['friends'])))?1:0;
+	realname_set($value['uid'], $value['username'], $value['name'], $value['namestatus']);
+	$fuids[] = $value['uid'];
+	$list2[$key] = $value;
+}
 
 	$oluids = array();
 	$olfcount = 0;

@@ -1332,24 +1332,18 @@ function pic_cover_get($pic, $picflag) {
 	$starimg = '';
 	if($_SCONFIG['starcredit'] > 1) {
 		//计算星星数
-		$starnum = intval($experience/$_SCONFIG['starcredit']) + 1;
-		if($_SCONFIG['starlevelnum'] < 2) {
-			if($starnum > 10) $starnum = 10;
-			for($i = 0; $i < $starnum; $i++) {
-				$starimg .= '<img src="image/star_level10.gif" align="absmiddle" />';
-			}
-		} else {
+		
 			//计算等级(10个)
-			for($i = 10; $i > 0; $i--) {
-				$numlevel = intval($starnum / pow($_SCONFIG['starlevelnum'], ($i - 1)));
-				if($numlevel > 10) $numlevel = 10;
-				if($numlevel) {
-					for($j = 0; $j < $numlevel; $j++) {
-						$starimg .= '<img src="image/star_level'.$i.'.gif" align="absmiddle" />';
-					}
-					break;
-				}
-			}
+			
+				$starnum = intval($experience/$_SCONFIG['starcredit']) + 1;
+				if($starnum > 10) $starnum = 10;
+				if($starnum) {
+				
+						$starimg .= '<img src="image/star_level'.$starnum.'.gif" align="absmiddle" />';
+					
+				
+			
+			
 		}
 	}
 	if(empty($starimg)) $starimg = '<img src="image/credit.gif" alt="'.$experience.'" align="absmiddle" alt="'.$experience.'" title="'.$experience.'" />';

@@ -110,7 +110,7 @@ foreach ($list as $key => $value) {
 }
 
 
-capi_showmessage_by_data("rest_success", 0, array('pms'=>$plist, 'count'=>count($plist), 'newpm'=> $_SGLOBAL['member']['newpm']));
+capi_showmessage_by_data("rest_success", 0, array('pms'=>$plist, 'count'=>count($plist), 'newpm'=> count($plist)));
 
 
 ?>

@@ -12,6 +12,13 @@ if(!defined('IN_UCHOME')) {
 
 $taskid = empty($_REQUEST['taskid'])?0:intval($_REQUEST['taskid']);
 
+$zhong = $_SGLOBAL['db']->query("SELECT * FROM ".tname('usertask')." WHERE uid='$_SGLOBAL[supe_uid]' AND taskid='7'");
+if($wei = $_SGLOBAL['db']->fetch_array($zhong)){
+	$weitime = $wei['dateline'];
+if(sgmdate('Ymd', $_SGLOBAL['timestamp']) != sgmdate('Ymd', $weitime)) {
+		$_SGLOBAL['db']->query("DELETE FROM ".tname('usertask')." WHERE uid='$_SGLOBAL[supe_uid]' AND taskid='7'");
+	}
+}
 if ($_REQUEST["op"]=="check")
 {
 	$query = $_SGLOBAL['db']->query('SELECT * FROM '.tname('task')." WHERE taskid='$taskid'");
@@ -180,6 +187,7 @@ if($taskid) {
 				$lasttime = $usertask['dateline'];
 				if($task['nexttype'] == 'day') {
 					if(sgmdate('Ymd', $_SGLOBAL['timestamp']) != sgmdate('Ymd', $lasttime)) {
+						
 						$allownext = 1;
 					}
 				} elseif ($task['nexttype'] == 'hour') {
@@ -372,6 +380,7 @@ if($taskid) {
 		}
 		$done_per = empty($all_num)?100:intval(($all_num-$todo_num)*100/$all_num);
 	}
+
 	
 	//刚刚参与任务
 	$taskspacelist = array();
