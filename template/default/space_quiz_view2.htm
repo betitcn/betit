@@ -99,14 +99,19 @@
 			<a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=publickey" id="quiz_key_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">公布答案</a></p>
 			<!--{/if}-->
 			<!--{/if}-->
+			
 			<!--{/if}-->
 		</div>
+	
 		<!--{else}-->
+			
 		<div class="floatright">
 		<!--{if !$expiration}-->
 			<p><a href="cp.php?uid=$space[uid]&ac=quiz&fquizid=$quiz[quizid]">转发</a></p>
 			<!--{/if}-->
+		
 			</div>
+	
 		<!--{/if}-->
 	</div>
 
@@ -387,5 +392,5 @@ for(var i=0; i<elems.length; i++){
 	magicColor(elems[i]);
 }
 </script>
-<script type="text/javascript" src="jia.js" charset=utf-8></script>
+
 <!--{template footer}-->
