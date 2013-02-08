@@ -488,7 +488,7 @@ $multi1 = multi($count1, $perpage, $page, $theurl);
 			while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 				realname_set($value['uid'], $value['username']);
 				if($value['friend'] != 4 && ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
-					//$value['pic'] = pic_cover_get($value['pic'], $value['picflag']);
+					$value['pic'] = pic_cover_get($value['pic'], $value['picflag']);
 				} else {
 					$value['pic'] = 'image/nopublish.jpg';
 				}
