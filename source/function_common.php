@@ -1304,7 +1304,7 @@ function pic_get($filepath, $thumb, $remote, $return_thumb=1) {
 			if($remote) {
 				$url .= '!210x210';
 			}else{
-				$url .= '.thumb.jpg';
+				$url .= ' ';
 			}
 		}
 		if($remote) {
