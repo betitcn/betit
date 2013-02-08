@@ -55,7 +55,7 @@ if($_GET['view'] == 'all') {
 } elseif($_GET['view'] == 'open') {
 	$dateline = $_SGLOBAL['timestamp'];
     $wheresql = "bf.endtime>=$dateline";
-	$ordersql = "bf.endtime DESC";
+	$ordersql = "bf.endtime ASC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=open";
 	$f_index = '';
 
