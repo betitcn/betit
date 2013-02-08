@@ -191,7 +191,7 @@ function pic_save($FILE, $albumid, $title, $topicid=0) {
 
 	//Ïà²á¸üÐÂ
 	if($albumid) {
-		$file = $filepath.($thumb?'.thumb.jpg':'');
+		$file = $filepath;
 		$_SGLOBAL['db']->query("UPDATE ".tname('album')."
 			SET picnum=picnum+1, updatetime='$_SGLOBAL[timestamp]', pic='$file', picflag='$album_picflag'
 			WHERE albumid='$albumid'");
