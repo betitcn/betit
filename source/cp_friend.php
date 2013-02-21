@@ -91,7 +91,7 @@ if($op == 'add') {
 					//增加对方好友申请数
 					$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET addfriendnum=addfriendnum+1 WHERE uid='$uid'");
 
-					notification_add_push($uid, cplang('friend_subject',array($_SN[$space['uid']], getsiteurl().'cp.php?ac=friend&amp;op=request')));
+					//notification_add_push($uid, cplang('friend_subject',array($_SN[$space['uid']], getsiteurl().'cp.php?ac=friend&amp;op=request')));
 					
 					showmessage('request_has_been_sent');
 				} else {
