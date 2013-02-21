@@ -910,7 +910,7 @@ if($_REQUEST['op'] == 'delete') {
 				$_SGLOBAL['db']->query("UPDATE ".tname('quizfield')." SET invite='".implode(',', $newinvite)."' WHERE quizid='$quizid'");
 			}
 			//通知
-			$note = cplang('note_quiz_invite', array("space.php?uid=$quiz[uid]&do=quiz&quizid=$quiz[quizid]", $quiz['subject'], $quiz['joincost']?cplang('reward'):''));
+			$note = cplang('note_quiz_invite', array("space.php?uid=$quiz[uid]&do=quiz&id=$quiz[quizid]", $quiz['subject'], $quiz['joincost']?cplang('reward'):''));
 			foreach($ids as $key => $uid) {
 				if($uid && $uid != $_SGLOBAL['supe_uid']) {
 					notification_add($uid, 'quizinvite', $note);
