@@ -35,6 +35,6 @@ $query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b
  $b[]=$quiz;
 
  }
-capi_showmessage_by_data('rest_success',0,'feeds'=>$b); 
+capi_showmessage_by_data('rest_success',0,array("feeds"=>$b)); 
 }
 ?>
