@@ -585,7 +585,15 @@ if($id) {
 			$counttable = tname('quizuser').' pu, '.tname('quiz').' p';
 			$ordersql = 'pu.dateline';
 			$wherearr[] = "pu.uid='$space[uid]' AND pu.quizid=p.quizid  AND p.endtime>0 AND p.endtime<='$_SGLOBAL[timestamp]'";
-		} else {
+		}elseif($_REQUEST['type'] == 'other'){
+			$query3 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid=1");
+			while($value3 = $_SGLOBAL['db']->fetch_array($query3)){
+			foreach($value3 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+        }
+			$wherearr[] = "p.uid NOT IN('".implode("','",  $searcharr)."') and p.id!=1";
+		}else {
 			$wherearr[] = "p.uid='$space[uid]' and p.id!=1";
 		}
 		
@@ -619,9 +627,10 @@ if($id) {
 	$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM $counttable $wheresql"),0);
 
 	//更新统计
-	if($wheresql == "p.uid='$space[uid]'" && $space['quiznum'] != $count) {
+	if($wheresql == "p.uid='$space[uid]'and p.id!=1" && $space['quiznum'] != $count) {
 		updatetable('space', array('quiznum' => $count), array('uid'=>$space['uid']));
 	}
+	
 if ($dateline){
 		if ($_REQUEST['queryop'] == "up"){
 			$wheresql .= " AND p.dateline > '$dateline'";

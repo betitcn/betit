@@ -10,7 +10,7 @@ if($keywords){
 			}
 		}
 $query4 = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM  ".tname('quiz')." p USE INDEX (voternum)  LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
-     where `subject` like '$keywords%' AND p.uid IN('".implode("','",  $searcharr)."') AND p.id!=1 limit $start,$perpage;"); 
+     where p.subject like '%$keywords%' AND p.uid IN('".implode("','",  $searcharr)."') AND p.id!=1 limit $start,$perpage;"); 
 	
 while($value4 = $_SGLOBAL['db']->fetch_array($query4))
  { 
@@ -35,6 +35,6 @@ $query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b
  $b[]=$quiz;
 
  }
-capi_showmessage_by_data('rest_success',0,$b); 
+capi_showmessage_by_data('rest_success',0,'feeds'=>$b); 
 }
 ?>

@@ -473,6 +473,7 @@ if($id) {
 				realname_set($value1['uid'], $value1['username']);
 				$value['username'] = capi_realname($value['uid']);
 				if($value1) {
+					$value2['uid']=$value1['uid'];
 					$value2['picid'] = $value1['picid'];
 					$value2['albumid'] = $value1['albumid'];
 					$value2['pic'] = pic_cover_get($value1['filepath'], 2);

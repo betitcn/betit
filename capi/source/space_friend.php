@@ -196,11 +196,17 @@ if($_REQUEST['view'] == 'online') {
 				WHERE main.uid='$space[uid]' AND main.status='1' $wheresql
 				ORDER BY main.num DESC, main.dateline DESC
 				LIMIT $start,$perpage");*/
+			$query2 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid!=1");
+		while($value2 = $_SGLOBAL['db']->fetch_array($query2)){
+		foreach($value2 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+		}
 			$query = $_SGLOBAL['db']->query("SELECT s.*, f.resideprovince, f.residecity, f.note, f.spacenote, f.sex, main.gid, main.num, (SELECT COUNT(credit) FROM ".tname('space')." WHERE credit>s.credit)+1 as creditrank, (SELECT COUNT(experience) FROM ".tname('space')." WHERE experience>s.experience)+1 as experiencerank
 				FROM ".tname('friend')." main
 				LEFT JOIN ".tname('space')." s ON s.uid=main.fuid
 				LEFT JOIN ".tname('spacefield')." f ON f.uid=main.fuid
-				WHERE main.uid='$space[uid]' AND main.status='1' $wheresql $querysql
+				WHERE main.uid='$space[uid]' AND s.uid IN('".implode("','",  $searcharr)."')  AND main.status='1' $wheresql $querysql
 				$ordersql
 				LIMIT $start,$perpage");
 			while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -225,6 +231,7 @@ if($_REQUEST['view'] == 'online') {
 		$multi = multi($count, $perpage, $page, $theurl);
 		$friends = array();
 		//取100好友用户名
+
 		$query = $_SGLOBAL['db']->query("SELECT f.fusername, s.name, s.namestatus, s.groupid, f.dateline FROM ".tname('friend')." f
 			LEFT JOIN ".tname('space')." s ON s.uid=f.fuid
 			WHERE f.uid=$_SGLOBAL[supe_uid] AND f.status='1' ".$querysql."  ORDER BY f.num DESC, f.dateline DESC LIMIT 0,100");

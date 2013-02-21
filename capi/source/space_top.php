@@ -280,13 +280,15 @@ if($count && empty($list)) {
 	$query = $_SGLOBAL['db']->query("$sql LIMIT $start,$perpage");
 	
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		$list[$value['uid']] = $value;
+		$list[] = $value;
+		
 	}
 	if($cache_mode && $cache_file) {
 		swritefile($cache_file, serialize($list));
 	}
 }
 capi_showmessage_by_data("rest_success", 0, array('top'=>$list));
+
 foreach($list as $key => $value) {
 	$value['isfriend'] = ($value['uid']==$space['uid'] || ($space['friends'] && in_array($value['uid'], $space['friends'])))?1:0;
 	realname_set($value['uid'], $value['username'], $value['name'], $value['namestatus']);

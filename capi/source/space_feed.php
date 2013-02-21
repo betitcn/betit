@@ -64,8 +64,8 @@ if($_REQUEST['view'] == 'all') {
 	$f_index = '';
 
 }elseif($_REQUEST['view'] == 'quizhot') {
-	$dateline = $_SGLOBAL['timestamp'];
-	$wheresql = "b.idtype='quizid' and bf.endtime>=$dateline";//没有隐私
+	$dateline1 = $_SGLOBAL['timestamp'];
+	$wheresql = "b.idtype='quizid' and bf.endtime>=$dateline1";//没有隐私
 	$ordersql = "b.hot DESC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=quizhot";
 	$f_index = '';
@@ -78,9 +78,9 @@ if($_REQUEST['view'] == 'all') {
 	$f_index = '';
 
 } elseif($_GET['view'] == 'open') {
-	$dateline = $_SGLOBAL['timestamp'];
-    $wheresql = "bf.endtime>=$dateline";
-	$ordersql = "bf.endtime DESC";
+	$dateline1 = $_SGLOBAL['timestamp'];
+    $wheresql = "bf.endtime>=$dateline1";
+	$ordersql = "bf.endtime ASC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=open";
 	$f_index = '';
 

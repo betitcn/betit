@@ -178,6 +178,7 @@ if($_REQUEST['op'] == 'delete') {
 			'resulttime' =>'1'
 		);
 		    updatetable('quiz',$setarr,array('quizid'=>$quizid));
+			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET quiznum=quiznum-1 WHERE uid='$_SGLOBAL[supe_uid]'");
 			capi_showmessage_by_data('do_success',0, "space.php?uid=$quiz[uid]&do=quiz&view=me");
 		} 
 	
