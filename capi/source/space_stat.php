@@ -5,7 +5,7 @@ if(!defined('IN_UCHOME')) {
 }
 
 $newnum = 0;
-foreach (array('notenum','pokenum','addfriendnum','mtaginvitenum','eventinvitenum','myinvitenum') as $value) {
+foreach (array('notenum','pokenum','mtaginvitenum','eventinvitenum','myinvitenum') as $value) {
 		$newnum = $newnum + $space[$value];
 }
 	

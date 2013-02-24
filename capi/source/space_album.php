@@ -465,7 +465,6 @@ if($id) {
 		if($searchkey = stripsearchkey($_REQUEST['searchkey'])) {
 			$theurl .= "&searchkey=$_REQUEST[searchkey]";
 			$count1 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('pic')." WHERE title LIKE '%$searchkey%'"),0);
-			$count1 = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('quizoptions')." WHERE uchome_quizoptions.option LIKE '%$searchkey%'"),0);
 		
 			if($count1) {
 				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('pic')."  WHERE  title LIKE '%$searchkey%' ORDER BY dateline DESC LIMIT $start,$perpage");
