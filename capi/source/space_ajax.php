@@ -31,7 +31,7 @@ $query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b
 		}
   $quiz['options'][] = $value;
   $quiz['avatar'] = capi_avatar($value["uid"]);
-	 $quiz["title_data"]["actor"] = $quiz["username"];
+	 $quiz["title_data"]["actor"] = capi_realname($quiz["uid"]);
 	$quiz["title_data"]["subject"] = strip_tags($quiz["subject"]);
 	}
 }
