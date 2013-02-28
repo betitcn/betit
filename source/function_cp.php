@@ -779,6 +779,13 @@ function friend_cache($uid) {
 				$i++;
 			}
 			$count++;
+			$query2 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid!=1");
+		while($value2 = $_SGLOBAL['db']->fetch_array($query2)){
+		foreach($value2 as $key => $val) {
+			$searcharr[] = intval($val);
+			}
+		}
+			$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('friend')." where  status='1' AND uid NOT IN('".implode("','",  $searcharr)."')"), 0);
 		}
 	}
 	if($count > 50000) {
