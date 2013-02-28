@@ -148,7 +148,7 @@ if ($_REQUEST['view'] == 'show') {
 
 } elseif ($_REQUEST['view'] == 'experience') {
 	if($multi_mode) {
-		$c_sql = "SELECT COUNT(*) FROM ".tname('space');
+		$c_sql = "SELECT COUNT(*) FROM " .tname('space');
 	} else {
 		$count = 100;
 		$cache_file = S_ROOT.'./data/cache_top_experience.txt';
@@ -268,26 +268,31 @@ if(empty($count)) {
 } else {
 	$cache_mode = true;
 	$multi = '';
-	$start = 0;
-	$perpage = $count;
+	if($page<1) $page=1;
+	$start = ($page-1)*$perpage;
+	if(empty($_SCONFIG['networkpage'])) $start = 0;
+	$page = empty($_REQUEST['page'])?1:intval($_REQUEST['page']);
+	$perpage = $_REQUEST['perpage']?$_REQUEST['perpage']:20;
 
 	if($cache_file && file_exists($cache_file) && $_SGLOBAL['timestamp'] - @filemtime($cache_file) < $cache_time*60) {
 		$list_cache = sreadfile($cache_file);
 		$list = unserialize($list_cache);
 	}
 }
-if($count && empty($list)) {
-	$query = $_SGLOBAL['db']->query("$sql LIMIT $start,$perpage");
+	@include_once(S_ROOT.'./data/data_usergroup.php');
+	$query1 = $_SGLOBAL['db']->query("$sql LIMIT $start,$perpage");
 	
-	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		$list[] = $value;
+	while ($value = $_SGLOBAL['db']->fetch_array($query1)) {
 		
+		$value["avatar"] = capi_avatar($value["uid"]);
+		$value["grouptitle"] = $_SGLOBAL["grouptitle"][$value["groupid"]]["grouptitle"];
+		$list1[] = $value;
 	}
 	if($cache_mode && $cache_file) {
 		swritefile($cache_file, serialize($list));
 	}
-}
-capi_showmessage_by_data("rest_success", 0, array('top'=>$list));
+
+capi_showmessage_by_data("rest_success", 0, array('top'=>$list1));
 
 foreach($list as $key => $value) {
 	$value['isfriend'] = ($value['uid']==$space['uid'] || ($space['friends'] && in_array($value['uid'], $space['friends'])))?1:0;

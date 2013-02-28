@@ -460,7 +460,9 @@ if($id) {
 			$wheresql .= " AND friend='$_REQUEST[friend]'";
 			$theurl .= "&friend=$_REQUEST[friend]";
 		}
-		
+		if(empty($_REQUEST['searchkey'])||$_REQUEST['searchkey']=" "){
+		capi_showmessage_by_data("searchkey is empty!",1);
+		}
 		//ËÑË÷
 		if($searchkey = stripsearchkey($_REQUEST['searchkey'])) {
 			$theurl .= "&searchkey=$_REQUEST[searchkey]";

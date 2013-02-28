@@ -30,9 +30,13 @@ $query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b
    $value['pic'] = pic_get($value2['filepath'], $value2['thumb'], $value2['remote']);
 		}
   $quiz['options'][] = $value;
+  $quiz['avatar'] = capi_avatar($value["uid"]);
+	 $quiz["title_data"]["actor"] = $quiz["username"];
+	$quiz["title_data"]["subject"] = strip_tags($quiz["subject"]);
 	}
 }
  $b[]=$quiz;
+
 
  }
 capi_showmessage_by_data('rest_success',0,array("feeds"=>$b)); 

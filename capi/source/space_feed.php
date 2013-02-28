@@ -140,7 +140,7 @@ $query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT 
 	ORDER BY $ordersql
 	LIMIT $start,$perpage");
 
-if($_REQUEST['view'] == 'me' || $_REQUEST['view'] == 'hot' || $_REQUEST['view'] == 'quiz' || $_REQUEST['view'] == 'we') {
+if($_REQUEST['view'] == 'me' || $_REQUEST['view'] == 'hot' || $_REQUEST['view'] == 'quiz' || $_REQUEST['view'] == 'we'|| $_REQUEST['view'] == 'open'|| $_REQUEST['view'] == 'quizhot') {
 	//个人动态
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		if(ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
