@@ -48,6 +48,10 @@ if($op == 'comment') {
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$u = getspace($value["uid"]);
 		$value["username"] = $u["username"];
+		$uid1=$value['quizid'];
+		$query1 = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')."  WHERE quizid=$uid1");
+		$value1= $_SGLOBAL['db']->fetch_array($query1);
+		$value['joincost']=$value1['joincost'];
 		$value["avatar"] = capi_avatar($value["uid"]);
 		realname_set($value['uid'], $value['username']);//สตร๛
 		$value["username"] = capi_realname($value['uid']);

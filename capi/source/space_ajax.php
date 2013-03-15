@@ -9,8 +9,9 @@ if($keywords){
 			$searcharr[] = intval($val);
 			}
 		}
-$query4 = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM  ".tname('quiz')." p USE INDEX (voternum)  LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
-     where p.subject like '%$keywords%' AND p.uid IN('".implode("','",  $searcharr)."') AND p.id!=1 limit $start,$perpage;"); 
+		$time=$_SGLOBAL['timestamp'];
+		$query4 = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM  ".tname('quiz')." p USE INDEX (voternum)  LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
+		where p.subject like '%$keywords%' AND p.uid IN('".implode("','",  $searcharr)."') AND p.id!=1 AND p.endtime >$time  AND p.keyoid=0 limit $start,$perpage;"); 
 	
 while($value4 = $_SGLOBAL['db']->fetch_array($query4))
  { 
