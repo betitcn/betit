@@ -19,7 +19,7 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 if ($_GET["op"]=="add"){
 
 	include_once S_ROOT.'./uc_client/client.php';
-	include_once( 'weibo/callback.php' );
+	//include_once( 'weibo/callback.php' );
 
 	
 	
@@ -27,7 +27,7 @@ if ($_GET["op"]=="add"){
 	
 
 	// 同步登陆
-	$jsonurl = "http://www.betit.cn/capi/connect.php?site=weibo&sinauid='".$uid_get['uid']."'&username=2236&name=you&oauth_token=23432432&oauth_token_secret=32423423";
+	$jsonurl = "http://www.betit.cn/capi/connect.php?site=weibo&sinauid='".$uid_get['uid']."'";
 	$json = file_get_contents($jsonurl,0,null,null);
 	
 	$json_output = json_decode($json);
