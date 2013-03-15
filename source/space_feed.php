@@ -99,7 +99,7 @@ if($filter == 'site') {
 $feed_list = $appfeed_list = $hiddenfeed_list = $filter_list = $hiddenfeed_num = $icon_num = array();
 $count = $filtercount = 0;
 $query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT JOIN ".tname('quiz')." bf ON bf.quizid=b.id $f_index
-	WHERE $wheresql AND bf.id!=1
+	WHERE $wheresql AND b.qid!=1
 	ORDER BY $ordersql
 	LIMIT $start,$perpage");
 

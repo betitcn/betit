@@ -7,8 +7,9 @@ if($keywords){
 			$searcharr[] = intval($val);
 			}
 		}
+		$time=$_SGLOBAL['timestamp'];
 $query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM  ".tname('quiz')." p USE INDEX (voternum)  LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
-     where p.subject like '%$keywords%' AND p.uid IN('".implode("','",  $searcharr)."') AND p.id!=1 limit 0,10;"); 
+     where p.subject like '%$keywords%' AND p.uid IN('".implode("','",  $searcharr)."') AND p.id!=1 AND p.endtime >$time  AND p.keyoid=0  limit 0,10;"); 
 	
 while($value = $_SGLOBAL['db']->fetch_array($query))
  { 

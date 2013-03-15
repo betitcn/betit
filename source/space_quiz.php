@@ -84,7 +84,7 @@ if($id) {
 				$tag_quizids[] = $value['quizid'];
 			}
 			if($tag_quizids) {
-				$query = $_SGLOBAL['db']->query("SELECT uid,username,subject,quizid FROM ".tname('quiz')." WHERE quizid IN (".simplode($tag_quizids).")");
+				$query = $_SGLOBAL['db']->query("SELECT uid,username,subject,quizid FROM ".tname('quiz')." WHERE quizid IN (".simplode($tag_quizids).") and id!=1");
 				while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 					realname_set($value['uid'], $value['username']);//实名
 					$value['url'] = "space.php?uid=$value[uid]&do=quiz&id=$value[quizid]";
@@ -603,7 +603,7 @@ if($id) {
 		}else {
 			$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM $leftsql ".tname('quiz')." p $indexsql
 					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
-					$wheresql 
+					$wheresql AND p.id!=1
 					ORDER BY $ordersql DESC LIMIT $start,$perpage");
 		}
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {

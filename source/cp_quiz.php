@@ -182,7 +182,12 @@ if($_GET['op'] == 'delete') {
 			'endtime' =>'1',
 			'resulttime' =>'1'
 		);
+		$setarr1=array(
+			'qid'=>'1'
+		
+		);
 		    updatetable('quiz',$setarr,array('quizid'=>$quizid));
+			updatetable('feed',$setarr1,array('id'=>$quizid));
 			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET quiznum=quiznum-1 WHERE uid='$_SGLOBAL[supe_uid]'");
 			showmessage('do_success', "space.php?uid=$quiz[uid]&do=quiz&view=me");
 		} 
