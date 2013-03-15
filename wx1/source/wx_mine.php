@@ -29,7 +29,7 @@ if ($_GET["op"]=="add"){
 	// 同步登陆
 	$jsonurl = "http://www.betit.cn/capi/connect.php?site=weibo&sinauid='".$uid_get['uid']."'";
 	$json = file_get_contents($jsonurl,0,null,null);
-	
+	wxshowmessage($jsonurl);
 	$json_output = json_decode($json);
 	$loginusername=$json_output->data->space->name;
 	$credit=$json_output->data->space->credit;
