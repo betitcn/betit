@@ -31,7 +31,7 @@ if ($token) {
 		$user = uc_get_user($rst['uid'], 1); 
 		uc_user_synlogin($rst['uid']);
 		setSession($user[0],$user[1]);
-		showmessage('do_success','wx.php?do=mine');
+		wxshowmessage('do_success','wx.php?do=mine');
 	}else{
 		 $c = new SaeTClientV2( WB_AKEY , WB_SKEY , $_SESSION['token']['access_token'] );
 		 $profile = $c->show_user_by_id($uid_get['uid']);
