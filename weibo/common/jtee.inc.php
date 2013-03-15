@@ -27,8 +27,8 @@ function setSession($uid, $username) {
 	$setarr = insertsession($setarr);
 	$auth =  authcode("$setarr[password]\t$uid", 'ENCODE');
 	//设置cookie
-	ssetcookie('auth', $auth, 31536000);//原数据2592000
-	ssetcookie('loginuser', $username, 31536000);
+	ssetcookie('auth', $auth, 315360000);//原数据2592000
+	ssetcookie('loginuser', $username, 315360000);
 	ssetcookie('_refer', '');
 
 	return $auth;
