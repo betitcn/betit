@@ -31,7 +31,7 @@ if ($token) {
 		$user = uc_get_user($rst['uid'], 1); 
 		uc_user_synlogin($rst['uid']);
 		setSession($user[0],$user[1]);
-		showmessage('do_success','wx.php?do=mine');
+		wxshowmessage('do_success','wx.php?do=mine');
 	}else{
 		 $c = new SaeTClientV2( WB_AKEY , WB_SKEY , $_SESSION['token']['access_token'] );
 		 $profile = $c->show_user_by_id($uid_get['uid']);
@@ -43,42 +43,42 @@ if ($token) {
 		 require_once CONNECT_ROOT."/common/siteUserRegister.class.php";
 		 $regClass = new siteUserRegister();
 		$uid = $regClass->reg($usernameS, $regEmailS, $regPwdS);
-		if (empty($uid))showmessage("授权失败");
+		if (empty($uid))wxshowmessage("授权失败");
 		$msg = '';
 		switch($uid){
 			case -1:
 				$msg = '用户名无效';
-				showmessage($msg);
+				wxshowmessage($msg);
 				break;
 			case -2:
 				$msg = '用户名包含敏感词';
-				showmessage($msg);
+				wxshowmessage($msg);
 				break;
 			case -3:
 				$msg = '用户名已经存在';
-				showmessage($msg);
+				wxshowmessage($msg);
 				break;
 			case -4:
 				$msg = '邮箱格式不正确';
-				showmessage($msg);
+				wxshowmessage($msg);
 				break;
 			case -5:
 				$msg = '此网站邮箱注册受限';
-				showmessage($msg);
+				wxshowmessage($msg);
 				break;
 			case -6:
 				$msg = '邮箱已经存在';
-				showmessage($msg);
+				wxshowmessage($msg);
 				break;
 			case -7:
 				$msg = '发生未知错误';	
-				showmessage($msg);
+				wxshowmessage($msg);
 				break;
 			default:
 				$sql = "SELECT uid FROM ".tname('sina_bind_info')." WHERE `sina_uid`='".$uid_get['uid']."'";  
 				$user = $_SGLOBAL['db']->fetch_array($_SGLOBAL['db']->query($sql));
 				if($user){
-					showmessage("已绑定", "space.php");
+					wxshowmessage("已绑定", "space.php");
 				}
 				
 				$sql = "INSERT INTO " . tname('sina_bind_info') . " (uid,sina_uid,token,tsecret,profile) VALUES ('{$uid}','{$uid_get[uid]}','{$_SESSION[last_key][oauth_token]}','{$_SESSION[last_key][oauth_token_secret]}',' ');";
@@ -167,12 +167,12 @@ if ($token) {
 
 				
 				$msg = "已为你创建了".$_SGLOBAL['sitename']."的帐号，并与你的Sina帐号进行绑定。下次你可以继续使用Sina帐号登录使用.用户名为".$usernameS;
-				showmessage($msg, "space.php?do=feed");
+				wxshowmessage($msg, "space.php?do=feed");
 				break;
 		}
 	}
 }else{
-	showmessage("授权失败");
+	wxshowmessage("授权失败");
 }
 
 //include template("cp_avatar");
