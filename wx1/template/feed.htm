@@ -1,0 +1,180 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+   <meta name="viewport" content="width=device-width,initial-scale=1" />  
+   <meta http-equiv="content-type"content="text/html; charset=UTF-8"/>  
+   <title>feed_detail</title> 
+   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+   <link rel="stylesheet" href="template/css/jquery-mobile-fluid960.min.css">
+    <link rel="stylesheet" type="text/css" href="template/css/www.css">
+ 
+ 
+   <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+   <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+   <script src="template/js/js/jquery.query.js" type="text/javascript"></script>
+    <script type="text/javascript" src="template/js/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="template/js/feed.js"></script>
+    <style type="text/css">
+       .editor{display:-webkit-box;display:-moz-box;display:box;-webkit-box-orient:horizontal;-moz-box-orient:horizontal;box-orient:horizontal;-webkit-box-pack:end;-moz-box-pack:end;box-pack:end;-webkit-box-align:end;-moz-box-align:end;box-align:end;margin-top:1.5625%;clear:both;overflow:hidden;background-color:#fff;margin-top:0;}
+.editor .textarea{width:80%;padding-bottom:1000px;margin-bottom:-1000px;}
+.editor .textarea textarea{font-size:13px;color:#999;height:40px;width:90%;border-color:#ccc;border-style:solid;-webkit-border-radius:0;border-radius:0;margin:0;background:white;box-shadow:none;-webkit-box-shadow:none;-moz-box-shadow:none;margin-left:10px;}
+.editor .textarea .ui-body-a,.detail-review .editor .textarea .ui-overlay-a{border:1px solid #cccccc;}
+.editor .publish-btn{font-family:'Microsoft YaHei';background-color:#999;margin-left:3.3333333333333335%;width:13.333333333333334%;height:40px;text-align:center;margin-top:0;margin-right:10px;}
+.editor .publish-btn a{text-shadow:normal;padding-bottom:1000px;margin-bottom:-1000px;line-height:40px;color:white;font-size:.9375em;font-family:'lthj';}
+.editor .publish-btn .ui-btn-up-a{background-color:#999;}
+.editor .publish-btn .ui-btn-hover-a{background:#968899;text-decoration:none;}
+.editor .publish-btn .ui-btn-down-a{position:relative;top:1px;}
+.editor .publish-btn .ui-btn-inner{padding:0;color:white;font-size:.9375em;font-family:'lthj';} 
+   </style>
+    
+		<script id="detailTemplate" type="text/x-jquery-tmpl">
+		
+ 
+      
+
+      
+
+             <div class="feed">
+
+            <div class="feed_title">
+                <div class="title">
+                  <a href="#">
+                     <img src="{{= quiz.avatar}}" class="avatar">
+                  </a>
+                 
+                  <div class="username">{{= quiz.username}}:<span class="bet_title">{{= quiz.subject}}</span><br/><span class="bet_time">{{= quiz.dateline}}</span>
+                  </div>
+                 </div>
+                <div class="feed_bg_middle">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+              </div>
+              </div>
+             
+
+              <div class="feed_content">
+                <ul class="ui-grid-b" style="text-align:center;padding:0;">
+                   <li class="ui-block-a" style="margin-top:20px;"><img src="{{= quiz.options[0].pic}}!105x105"></li>
+                   <li class="ui-block-b" style="margin-top:20px;">
+                      <span style="margin-top:30px;display:block;">{{= quiz.totalcost}}</span><img src="template/css/images/img/vs.png"></li>
+                 
+                   <li class="ui-block-c" style="margin-top:20px;"><img src="{{= quiz.options[1].pic}}!105x105"></li>
+                </ul>
+                 
+                <ul class="ui-grid-b" style="text-align:center;padding:0;position:relative;top:-33px;color:white;" >
+                  <li class="ui-block-a"class="bet_bg"><div class="bet_option_bg">{{= quiz.options[0].option}}</div></li>
+                  <li class="ui-block-b" style="margin:0 auto;"></li>
+                  <li class="ui-block-c"class="bet_bg"><div class="bet_option_bg">{{= quiz.options[1].option}}</div></li>
+                </ul>
+                 
+                <ul class="ui-grid-b" style="text-align:center;padding:0;position:relative;top:-33px;color:white;" >
+                  <li class="ui-block-a"class="bet_bg">
+                    <div style="width:100px;margin:5px auto 0;text-align:left;color:black;"><img src="template/css/images/img/left_hand.png"><span style="color:red;">{{= quiz.options[0].votenum}}</span>
+                    </div></li>
+                  <li class="ui-block-b" style="margin:0 auto;"></li>
+                  <li class="ui-block-c"class="bet_bg"><div style="width:100px;margin:5px auto 0;text-align:right;color:red;">{{= quiz.options[1].votenum}}<img src="template/css/images/img/right_hand.png"></div></li>
+                </ul>
+           
+              </div>
+
+               <div class="feed_bg_middle" style="margin-top:-20px;">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+              </div>
+              
+              <div class="ui-grid-a feed_content" style="height:50px;">
+                <div class="ui-block-a"><a href="javascript:;" onclick="vote($('#option0').val(),$('#quizid').val());"><img src="template/css/images/img/support_a.png" ></a></div>
+                <div class="ui-block-b"><a href="javascript:;" onclick="vote($('#option1').val(),$('#quizid').val());"><img src="template/css/images/img/support_b.png" style="float:right;" ></a></div>
+
+              </div>
+              <div class="ui-grid-a support-avata">
+                    <ul class="ui-block-a">
+                      <li> <img src="template/css/images/img/first_avata.png"></li>
+                    </ul>
+                 
+                  <ul class="ui-block-b" align="right">
+                    <li> <img src="template/css/images/img/first_avata.png"></li>
+                      <li> <img src="template/css/images/img/first_avata.png"></li>
+                      <li> <img src="template/css/images/img/first_avata.png"></li>
+                      <li> <img src="template/css/images/img/first_avata.png"></li>
+                       <li> <img src="template/css/images/img/first_avata.png"></li>
+                  </ul>
+                </div>
+			   <div class="feed_bg_middle" style="margin-top:-20px;">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+              </div>
+		    <div class="biaotai">
+                <table>
+                  <tr>
+                    <td style="vertical-align:middle;height:38px;">300表态</td>
+                     <td><img src="template/css/images/img/luguo1.png" id="luguo"></td>
+                      <td><img src="template/css/images/img/xianhua1.png" id="xianhua"></td>
+                       <td><img src="template/css/images/img/jidan1.png" id="jidan"></td>
+                  </tr>
+                </table>
+              </div>
+		 	 <div class="editor">
+          <div class="textarea" data-enhance="false"><textarea placeholder="写点评论吧..." id="review" data-theme="none" data-enhance="false"></textarea></div>
+          <div class="publish-btn"><a href="javascript:;" id="publishbtn" onclick="cpComment($('#id').val(), $('#review').val(), $('#auth').val());" data-role="button">发布</a></div>
+        </div> 
+		<input type="hidden" id="option0" name="option0" value="{{= quiz.options[0].oid}}"/>
+		<input type="hidden" id="option1" name="option1" value="{{= quiz.options[1].oid}}"/>
+		<input type="hidden" id="quizid" name="quizid" value=" {{= quiz.quizid}}"/>
+		<input type="hidden" id="wxkey" name="wxkey" value="$_GET[wxkey]"/>
+ 		<input type="hidden" id="id" name="id" value="$_GET[id]"/>
+ 		<input type="hidden" id="auth" name="auth" value="$m_auth"/>
+ 		<input type="hidden" id="page" name="page" value="1"/>
+	 	<input type="hidden" id="perpage" name="perpage" value="5"/>
+         
+
+</script>
+<script id="commentTemplate" type="text/x-jquery-tmpl">
+  
+	 <div class="feed_bg_middle" style="margin-top:-20px;">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+              </div>		    
+          
+<div class="feed_bottom">
+                <a href="#">
+                     <img src="{{= authoravatar}}" class="second_avatar">
+                  </a>
+                   <div class="username">{{= author}}:<span style="margin-right:15px;">{{= message}}</span><br/><span style="color:gray;font-size:10px;">{{= dateline}}</span></div><br/><br/>
+              </div>
+        </div> 
+
+
+      
+
+</script>
+</head>
+<body>
+
+				<div data-role="page" data-theme="d" data-fullscreen="true"  class="bet_bg">
+				 <div data-role="header">
+      
+ 
+            <div class="head-nav" data-role="navbar">
+                <ul>
+                  <li><a href="wx.php?do=index" rel="external" data-role="button" class="ui-control-active" ><img src="template/css/images/img/logo.png"></a></li>
+                   <li><a href="wx.php?do=index" rel="external" data-role="button" class="ui-control-inactive"><img src="template/css/images/img/bet2.png"></a></li>
+                   <li><a href="wx.php?do=billboard" rel="external" data-role="button" class="ui-control-inactive"><img src="template/css/images/img/billboard.png"></a></li>
+                   <li><a href="wx.php?do=feed" rel="external" data-role="button" class="ui-control-inactive"><img src="template/css/images/img/feed.png"></a></li>
+                    <li><a href="wx.php?do=mine" rel="external" data-role="button" class="ui-control-active" ><img src="template/css/images/img/mine.png"></a></li>
+      
+                </ul>
+             </div>
+      </div>
+
+          <div data-role="content">
+              <div id="detail-panel">
+               
+              </div>
+
+   </div>
+
+         </div>
+
+ </body>
+</html>  

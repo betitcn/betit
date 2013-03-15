@@ -1,0 +1,187 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+   <meta name="viewport" content="width=device-width,initial-scale=1" />   
+   <meta http-equiv="content-type"content="text/html; charset=UTF-8"/> 
+   <title>betit</title> 
+   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+   <link rel="stylesheet" type="text/css" href="template/css/www.css">
+   <link rel="stylesheet" href="template/css/jquery-mobile-fluid960.min.css">
+   <link href="template/css/style.css" rel="stylesheet" type="text/css" />
+   <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+   <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+   <script type="text/javascript" src="template/js/jquery.js"></script>
+   <script type="text/javascript" src="template/js/slider.js"></script>
+   <style type="text/css">
+        .icon{padding-top: 7px;}
+        body{font-family: Microsoft Yahei !important;}
+   </style>
+</head>
+
+<body id="top">
+	 <div data-role="page" data-theme="a" data-fullscreen="true" class="bet_bg">
+       <div data-role="header">
+
+            <div  data-role="navbar">
+                <ul>
+                   <li class="logo"><a href="wx.php?do=index" rel="external" data-role="button" class="ui-control-inactive"style="height:71px;"><img src="template/css/images/img//logo.png"></a></li>
+                   <li><a href="wx.php?do=index" rel="external" data-role="button"  ><img src="template/css/images/img//bet.png"></a></li>
+                   <li><a href="wx.php?do=billboard" rel="external" data-role="button" class="ui-control-inactive"><img src="template/css/images/img//billboard.png"></a></li>
+                    <li><a href="wx.php?do=mine" rel="external" data-role="button" class="ui-control-inactive"><img src="template/css/images/img//feed.png"></a></li>
+                    <li><div id="button" data-role="button" data-corners="false">
+                        <img src="template/css/images/img/more.png"  class="menu_class" />
+                        </div>
+                          
+                    </li></ul>
+
+                       <div class="the_menu" style="display:none;" data-role="none">
+                         <ul>
+                          <li  style="border:none;"></li>
+                           <li  style="border:none;"></li>
+                          <li  style="border:none;"></li>
+                         <li><a href="wx.php?do=mine" rel="external" data-role="button"  style="background:url(template/css/images/img/btn_bottom.png)bottom repeat-x"><img src="template/css/images/img/mine2.png"></a></li>
+                         <li><a href="billboard.htm" data-role="button" class="ui-control-inactive"><img src="template/css/images/img/notice.png"></a></li>
+                         
+                        </ul>
+                       </div>
+                
+           </div>
+      </div>
+		
+		
+		<!--{if $result==1}-->
+			<!--<div class="tips">您已经成功的将微信和我家的账号绑定了。<br/>
+			你可以：<br/>
+			—快速掌握家人动态<br/>
+			—发布照片、日记跟家人分享<br/>
+			您暂时还不可以（逐渐完善）：<br/>
+			X 整理空间<br/>
+			X 发布视频<br/>
+			X 收藏、转发
+			</div>
+			<div class="publish-btn2"><a href="wx.php?do=feed&wxkey=$_GET[wxkey]" data-ajax="false" data-role="button">看看家人的动态</a></div>-->
+			<!--{if $os=="ios6"}-->
+			<!--<div class="publish-btn2"><a href="wx.php?do=cp&wxkey=$_GET[wxkey]" data-ajax="false" data-role="button">发布照片</a></div>-->
+			<!--{/if}-->
+			 
+
+      <div data-role="content">
+        <div id="user_data">
+  
+         <div class="user_infor container_12">
+             <img src="$avatar" class="ui-block-a">
+             <span class="ui-block-b">
+                <span style="line-height:50px;">$loginusername&nbsp;&nbsp;先知</span><br>
+                <span style="line-height:10px;font-size:12px;">金币：$credit</span><br>
+                <span style="line-height:10px;font-size:12px;">信用：$experience</span>
+             </span>
+         </div>
+         <div class="feed_bg_middle">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+         </div>
+         <div id="uesr_sign"><span><!--{if $note}-->$note<!--{else}-->亲，我要知道你的动态哦！<!--{/if}--></span></div>
+      </div>
+
+      <div class="user_data_head">
+         <div  class="container_12" style="padding:10px;">
+          <div class="grid_9">
+           <img src="template/css/images/img/friends.png">
+           <span>我的朋友:$friendnum</span>
+          </div> 
+          <div class="grid_3" align="center">
+            <img src="template/css/images/img/add.png" class="icon">
+          </div>
+         </div>
+      </div>
+
+      <div class="feed_bg_middle">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+      </div>
+
+       <div class="user_data_body">
+         <div style="padding:10px;">
+           <img src="template/css/images/img/my_bet.png">
+           <span>我的打赌:$quiznum</span>
+           <img src="template/css/images/img/jiantou.png" style="float:right;" class="icon">
+         </div>
+      </div>
+
+
+        <div class="feed_bg_middle">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+        </div>
+   
+        <div class="user_data_body">
+         <div style="padding:10px;">
+           <img src="template/css/images/img/search.png">
+           <span>搜索</span>
+           <img src="template/css/images/img/jiantou.png" style="float:right;" class="icon">
+         </div>
+      </div>
+      
+
+       <div class="user_data_head">
+         <div style="padding:10px;" class="container_12">
+           <div class="grid_6">
+            <img src="template/css/images/img/shezhi.png">
+            <span>帐号管理</span>
+           </div>
+           <div class="grid_2"><img src="template/css/images/img/jiantou.png" class="icon"></div> 
+            <div class="grid_2"><img src="template/css/images/img/sina_icon.png" class="icon"></div> 
+            <div class="grid_2"><img src="template/css/images/img/tengxun_icon.png" class="icon"></div> 
+         </div>
+      </div>
+      
+      <div class="feed_bg_middle">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+        </div>
+
+       <div class="user_data_body">
+         <div style="padding:10px;">
+           <img src="template/css/images/img/yijian.png">
+           <span>意见反馈</span>
+           <img src="template/css/images/img/guanzhu_icon.png" style="float:right;" class="icon">
+         </div>
+      </div>
+
+        <a href="#" data-role="button" data-theme="d" data-rel="back">退出登录</a>
+  </div>
+
+</div>
+
+
+
+
+			     
+		<!--{elseif $result==-1}-->			
+			<div class="tips">未能将您的微信和我家账号实现绑定<br/>
+							原因可能是：<br/>
+							—检查您输入的账号密码是否正确<br/>
+							—您还没有注册我家的账号
+			</div>
+			<div class="publish-btn2"><a href="wx.php?do=mine&wxkey=$_GET[wxkey]" data-ajax="false" data-role="button">重新绑定</a></div>
+			<!--{if $os=="ios6"}-->
+			<div class="publish-btn2"><a href="wx.php?do=reg&wxkey=$_GET[wxkey]" data-ajax="false" data-role="button">注册一个我家的帐号</a></div>
+			<!--{/if}-->
+		<!--{else}-->
+
+			<div class="tips"> 将微信绑定到我家<br/><span class="tips2">通过微信在家庭圈分享</span></div>
+
+			<form action="wx.php?do=mine&op=add&wxkey=$_GET[wxkey]" method="post" data-ajax="false" id="callAjaxForm">
+				<div class="input-field"><input id="username" name="username" placeholder="手机号码" value="" type="text" /></div>
+				<div class="input-field"><input id="password" name="password" placeholder="请输入你在我家的密码" value="" type="password" /></div>
+				<input id="wxkey" type="hidden" name="wxkey" value="$_GET['wxkey']" />
+				<div class="publish-btn"><button type="submit" id="submit" name="submit" value="submit" data-theme="a">确定</button></div>
+			</form>
+
+		<!--{/if}-->
+
+		</div>
+		
+    </div>
+</body>
+</html>

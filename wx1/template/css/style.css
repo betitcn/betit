@@ -1,0 +1,37 @@
+
+
+
+
+#button {
+	
+	margin: auto;
+}
+
+
+.menu_class {
+	max-width: 46px;max-height: 48px;
+}
+
+.the_menu {
+	display:none;
+	background:url(img/notice_bg.png);
+	border: none;
+}
+
+.the_menu li {
+	background-color: #302f2f;
+}
+
+.the_menu li a {
+	color:#FFFFFF; 
+	text-decoration:none; 
+	display: block;
+}
+
+.the_menu li a:hover {
+	
+	font-weight:bold;
+	color: #F00880;
+}
+/* Download by http://www.jb51.net*/
+.ui-bar-a{border:none;}

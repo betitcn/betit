@@ -1,0 +1,392 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+   <meta name="viewport" content="width=device-width,initial-scale=1" />   
+   <meta http-equiv="content-type"content="text/html; charset=UTF-8"/> 
+   <title>性格测试!准确率超过95%！准到你怕！不准的话我赔你250！</title> 
+   <link rel="stylesheet" href="jquery.mobile-1.2.0.min.css" />
+    <link rel="stylesheet" href="jquery.css" />
+ <!--   <link rel="stylesheet" type="text/css" href="ww.css"> -->
+    <link rel="stylesheet" type="text/css" href="fff.css">
+   <link rel="stylesheet" href="jquery-mobile-fluid960.min.css"> 
+   <script src="jquery-1.8.2.min.js"></script>
+   <script src="jquery.mobile-1.2.0.min.js"></script>
+   <script type="text/javascript" src="sharewx_v1.0.0.js" charset="UTF-8"></script>
+
+
+  <!--  <script src="less.js" type="text/javascript"></script> -->
+   <style type="text/css">
+        
+   </style>
+   <script type="text/javascript">
+	
+	
+		var s  = '性格测试!准确率超过95%！准到你怕！不准的话我赔你250！';
+		var imgsrc = 'https://demo-jqmobile.rhcloud.com/family2/images/zhun.jpg';
+		var url = window.location.href;
+		
+		var opt= {
+			"title": encodeURIComponent(s),//此处也可替换成相应的文章标题
+			"imgsrc": imgsrc, //此处替换成相应的文章缩略图地址链接，若省略将显示为无图标链接
+			"url": url, // 此处也可替换成对应网页的链接
+			"appid":"" // 此处替换为你在微信开放平台注册的appid，若省略将显示“来自二维码扫描”
+		  };
+	
+function ShareTofriends(img_url,link,title,desc) {  
+
+  if(window.WeixinJSBridge)
+  {
+    if( typeof(img_url) == 'undefined' || img_url == "")
+    {
+      var img_url = "http://www.sample.com/test.jpg";
+    }
+    if( typeof(link) == 'undefined' || link == "")
+    {
+      var img_url = window.location.href;
+    }
+    if ( typeof(title) == 'undefined' || title == "" ) 
+    {
+      var title = '点开看一下吧!';
+    }
+    if( typeof(desc) == 'undefined' || desc == "")
+    {
+      var desc = "wendoscoo";
+    }
+    WeixinJSBridge.invoke('shareTimeline',{
+      "img_url": img_url,
+      //"img_width": "640",
+      //"img_height": "640",
+      "link": link,
+      "desc": desc,
+      "title": title
+    },function(res){
+            // 返回res.err_msg,取值
+      // share_timeline:cancel 用户取消
+      // share_timeline:fail　发送失败
+      // share_timeline:ok 发送成功
+      WeixinJSBridge.log(res.err_msg);
+        });
+    return false;
+  }
+  else
+  {
+    alert("WeixinJSBridge对象不存在!!");
+  }
+};
+
+   </script>
+</head>
+<body style="background-color:#000;">
+  <div data-role="page" style="background-color:#000;" data-theme="d" id="#home">
+  <div class="container_12 title_head">
+    <div class="grid_5 title "><h2>性格测试</h2></div>
+    <div class="grid_7"><div class="header-logo" onclick="window.location.href = 'http://www.familyday.com.cn/wx/about/family.html';"><div><img class="retina" src="images/logo.jpg" height="26"/></div></div></div>
+  </div>
+
+ <h3>这才是准确率>95%的性格测试</h3>
+ <p style="padding-left:10px;">（根据您的直觉点击最喜欢的图片）</p>
+ <div class="images_all">
+  <div style="background-color:#fff;">
+    <ul class="ui-grid-b iamges">
+      <a href="#image_1"><li class="ui-block-a"><img src="images/image_1.png"></li></a>
+      <a href="#image_2"><li class="ui-block-b"><img src="images/image_2.png"></li></a>
+      <a href="#image_3"><li class="ui-block-c"><img src="images/image_3.png"></li></a>
+    </ul>
+  </div>
+
+   <div>
+    <ul class="ui-grid-b iamges">
+      <a href="#image_4"><li class="ui-block-a"><img src="images/image_4.png"></li></a>
+      <a href="#image_5"><li class="ui-block-b"><img src="images/image_5.png"></li></a>
+      <a href="#image_6"><li class="ui-block-c"><img src="images/image_6.png"></li></a>
+    </ul>
+  </div>
+
+   <div>
+    <ul class="ui-grid-b iamges">
+      <a href="#image_7"><li class="ui-block-a"><img src="images/image_7.png"></li></a>
+      <a href="#image_8"><li class="ui-block-b"><img src="images/image_8.png"></li></a>
+      <a href="#image_9"><li class="ui-block-c"><img src="images/image_9.png"></li></a>
+    </ul>
+  </div>
+</div>
+<div class="produce">
+  <p>&nbsp;&nbsp;这些图片是科学家跟一位心理学家一起合作的成果，这些图片代表了九种不同的性格。就是我们听说的“九型人格” 
+
+在最短时间内选出你喜欢的图片，点击选中的图片就能看到结果，95%的准确率。</p>
+
+ <p>已经有<script src="http://count.knowsky.com/count2/count.asp?id=78509&sx=1&ys=20" language="JavaScript" charset="gb2312"></script>个人玩过这个测试啦</p><br>
+
+<div align="center"><img src="images/zhun.jpg"></div>
+
+<p>微信搜索<span>“myfamilyday”</span>或者扫描二维码，添加关注，回复相应数字也能查看结果啦！</p>
+
+<div align="center"><img src="images/erweima.jpg"></div>
+
+</div>
+<div data-role="button" class="friend_btn" onclick="window.location.href = 'weixin://qr/PHVsY0vErnXRh1oAnyAY'" ><a href="weixin://qr/PHVsY0vErnXRh1oAnyAY">关注家庭圈</a>
+</div>
+<div data-role="button"  onClick="sharewx(opt);" class="friend_btn"><img src="images/friends.png" style="margin-bottom:-7px;">分享到朋友圈</div><br>
+<span style="display:block;margin:0 auto;">或者分享到</span><br>
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+</div>
+
+
+
+<div data-role="page" id="image_1">
+
+ <b>您是1型人：无忧无虑，顽皮，愉快的人
+你喜欢自由自在，无拘无束的生活。</b><br>
+   <div align="center" class="peitu">
+    <img src="images/image_1_1.jpg">
+   </div>
+    <p>
+&nbsp;&nbsp;&nbsp;&nbsp;你的座右铭是：生命只能活一次，因此你尽量享受每一刻。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你好奇心旺盛，对新事物抱有开放的态度；你向往改变，讨厌束缚。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你觉得身边的环境都不断在变，而且经常为你带来惊喜。</p>
+<p>神准吧？快转发给朋友：</p>
+<!-- Baidu Button BEGIN -->
+<div data-role="button" class="friend_btn" onclick="window.location.href = 'weixin://qr/PHVsY0vErnXRh1oAnyAY'"><a href="weixin://qr/PHVsY0vErnXRh1oAnyAY">关注家庭圈</a>
+</div>
+<div data-role="button"  onClick="sharewx(opt);" class="friend_btn"><img src="images/friends.png" style="margin-bottom:-7px;">分享到朋友圈</div><br>
+<span style="display:block;margin:0 auto;">或者分享到</span><br>
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+
+</div>
+
+<div data-role="page" id="image_2">
+   <b>您是2型人：独立，前卫，不受拘束</b><br>
+   <div align="center" class="peitu">
+    <img src="images/image_2_2.jpg">
+   </div>
+   <p>
+     &nbsp;&nbsp;&nbsp;&nbsp;你追求自由及不受拘束，自我的生活。<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;你的工作及消闲活动都与艺术有关。<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;你对于自由的渴求有时候会使你做出令人出人意表的事。<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;你的生活方式极具个人色彩；你永远不会盲目追逐潮流。<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;相反地，你会根据自己的意思和信念去生活，就算是逆流而上也在所不惜。</p>
+      <p>神准吧？快转发给朋友：</p>
+<div data-role="button" class="friend_btn" onclick="window.location.href = 'weixin://qr/PHVsY0vErnXRh1oAnyAY'"><a href="weixin://qr/PHVsY0vErnXRh1oAnyAY">关注家庭圈</a>
+</div>
+<div data-role="button"  onClick="sharewx(opt);" class="friend_btn"><img src="images/friends.png" style="margin-bottom:-7px;">分享到朋友圈</div><br>
+<span style="display:block;margin:0 auto;">或者分享到</span><br>
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+</div>
+
+<div data-role="page" id="image_3">
+
+    <b>您是3型人：时常自我反省，敏感的思想家</b><br>
+   <div align="center" class="peitu">
+    <img src="images/image_3_3.jpg">
+   </div>
+   <p>
+&nbsp;&nbsp;&nbsp;&nbsp;你对于自己及四周的环境能够比一般人控制得更好更彻底。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你讨厌表面化及肤浅的东西；你宁愿独自一人也不愿跟别人闲谈，但你跟朋友的关系却非常深入，这令你的心境保持和谐安逸。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;不介意长时间独自一人，而且绝少会觉得沉闷。</p>
+<p>神准吧？快转发给朋友：</p>
+<!-- Baidu Button BEGIN -->
+<div data-role="button" class="friend_btn" onclick="window.location.href = 'weixin://qr/PHVsY0vErnXRh1oAnyAY'"><a href="weixin://qr/PHVsY0vErnXRh1oAnyAY">关注家庭圈</a>
+</div>
+<div data-role="button"  onClick="sharewx(opt);" class="friend_btn"><img src="images/friends.png" style="margin-bottom:-7px;">分享到朋友圈</div><br>
+<span style="display:block;margin:0 auto;">或者分享到</span><br>
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+</div>
+
+<div data-role="page" id="image_4">
+
+   <b>您是4型人：务实，头脑清醒，和谐</b><br>
+   <div align="center" class="peitu">
+    <img src="images/image_4_4.jpg">
+   </div>
+   <p>
+&nbsp;&nbsp;&nbsp;&nbsp;你作风自然，喜欢简单的东西。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;人们欣赏你脚踏实地，他们觉得你稳重，值得信赖。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你能够给予身边的人安全感，你给人一种亲切，温暖的感觉。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你对于俗气的，花花绿绿的东西都不屑一顾，对时装潮流抱着怀疑的态度；<br>
+&nbsp;&nbsp;&nbsp;&nbsp;对于你来说，衣服必须是实用及大方得体的。</p>
+<p>神准吧？快转发给朋友：</p>
+<!-- Baidu Button BEGIN -->
+<div data-role="button" class="friend_btn" onclick="window.location.href = 'weixin://qr/PHVsY0vErnXRh1oAnyAY'"><a href="weixin://qr/PHVsY0vErnXRh1oAnyAY">关注家庭圈</a>
+</div>
+<div data-role="button"  onClick="sharewx(opt);" class="friend_btn"><img src="images/friends.png" style="margin-bottom:-7px;">分享到朋友圈</div><br>
+<span style="display:block;margin:0 auto;">或者分享到</span><br>
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+</div>
+
+<div data-role="page" id="image_5">
+  <b>您是5型人：专业，实事求事，自信</b><br>
+   <div align="center" class="peitu">
+    <img src="images/image_5_5.jpg">
+   </div>
+   <p>
+&nbsp;&nbsp;&nbsp;&nbsp;你掌管自己的生活，你相信自己的能力多于相信命运的安排。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你以实际，简单的方式去解决问题。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你对日常生活中所遇到的事物抱有现实的睇法，并且能够应付自如。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;人们知道你可担重任，因此都放心把大量工作交给你处理。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你那坚强的意志使你时刻都充满信心。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;未达到自己的目标之前，你绝不罢休。</p>
+<p>神准吧？快转发给朋友：</p>
+<!-- Baidu Button BEGIN -->
+<div data-role="button" class="friend_btn" onclick="window.location.href = 'weixin://qr/PHVsY0vErnXRh1oAnyAY'"><a href="weixin://qr/PHVsY0vErnXRh1oAnyAY">关注家庭圈</a>
+</div>
+<div data-role="button"  onClick="sharewx(opt);" class="friend_btn"><img src="images/friends.png" style="margin-bottom:-7px;">分享到朋友圈</div><br>
+<span style="display:block;margin:0 auto;">或者分享到</span><br>
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+</div>
+
+<div data-role="page" id="image_6">
+   <b>您是6型人：温和，谨慎，无攻击性</b><br>
+   <div align="center" class="peitu">
+    <img src="images/image_6_6.jpg">
+   </div>
+   <p>
+&nbsp;&nbsp;&nbsp;&nbsp;你生性随和，但处事谨慎。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你很容易认识朋友，但同时享受你的私人时间及独立生活。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;有时候，你会从人群中抽身而出，一个人静静地思考生活的意义，并自娱一番。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你需要个人的空间，因此有时会隐匿于美梦当中，但你并不是一个爱孤独的人。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你跟自己及这个世界都能够和睦共处，而你对现状亦非常满意。</p>
+<p>神准吧？快转发给朋友：</p>
+<!-- Baidu Button BEGIN -->
+<div data-role="button" class="friend_btn" onclick="window.location.href = 'weixin://qr/PHVsY0vErnXRh1oAnyAY'"><a href="weixin://qr/PHVsY0vErnXRh1oAnyAY">关注家庭圈</a>
+</div>
+<div data-role="button"  onClick="sharewx(opt);" class="friend_btn"><img src="images/friends.png" style="margin-bottom:-7px;">分享到朋友圈</div><br>
+<span style="display:block;margin:0 auto;">或者分享到</span><br>
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+</div>
+
+<div data-role="page" id="image_7">
+  <b>您是7型人：具分析力，可靠，自信</b><br>
+   <div align="center" class="peitu">
+    <img src="images/image_7_7.jpg">
+   </div>
+   <p>
+&nbsp;&nbsp;&nbsp;&nbsp;你对事物的灵敏度令你可以发现到旁人忽略了的东西。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;这些就是你的宝石，你喜欢发掘这些美好的东西。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你的教养对于你的生活有很特别的影响。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你有自己高雅独特的一套，无视任何时装潮流。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你的理想生活是优雅而愉快的，而你亦希望跟你接触的人们都是高雅而有教养的。</p>
+<p>神准吧？快转发给朋友：</p>
+<!-- Baidu Button BEGIN -->
+<div data-role="button" class="friend_btn" onclick="window.location.href = 'weixin://qr/PHVsY0vErnXRh1oAnyAY'"><a href="weixin://qr/PHVsY0vErnXRh1oAnyAY">关注家庭圈</a>
+</div>
+<div data-role="button"  onClick="sharewx(opt);" class="friend_btn"><img src="images/friends.png" style="margin-bottom:-7px;">分享到朋友圈</div><br>
+<span style="display:block;margin:0 auto;">或者分享到</span><br>
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+</div>
+
+<div data-role="page" id="image_8">
+  <b>您是8型人：浪漫，爱幻想，情绪化</b><br>
+   <div align="center" class="peitu">
+    <img src="images/image_8_8.jpg">
+   </div>
+   <p>
+&nbsp;&nbsp;&nbsp;&nbsp;你是一个感性的人。你拒绝只从一个严肃，理智的角度去理解事物。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你的感觉亦十分重要。事实上，你觉得人生必需要有梦想才叫活得充实。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你不接受那些轻视浪漫主义及被理智牵着鼻子走的人；<br>
+&nbsp;&nbsp;&nbsp;&nbsp;而且不会让任何事物影响到你那丰富的感情及情绪。</p>
+<p>神准吧？快转发给朋友：</p>
+<!-- Baidu Button BEGIN -->
+<div data-role="button" class="friend_btn" onclick="window.location.href = 'weixin://qr/PHVsY0vErnXRh1oAnyAY'"><a href="weixin://qr/PHVsY0vErnXRh1oAnyAY">关注家庭圈</a>
+</div>
+<div data-role="button"  onClick="sharewx(opt);" class="friend_btn"><img src="images/friends.png" style="margin-bottom:-7px;">分享到朋友圈</div><br>
+<span style="display:block;margin:0 auto;">或者分享到</span><br>
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+</div>
+
+
+<div data-role="page" id="image_9">
+  <b>您是9型人：精力充沛，好动，外向</b><br>
+   <div align="center" class="peitu">
+    <img src="images/image_9_9.jpg">
+   </div>
+   <p>
+&nbsp;&nbsp;&nbsp;&nbsp;你不介意冒险，特别喜欢有趣的，多元化的工作。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;相比之下，例行公事及惯例会令你没精打采。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;你最兴奋的是可以积极参与任何比赛活动，因为这样你就可以在众人面前大显身手了。</p>
+<p>神准吧？快转发给朋友：</p>
+<!-- Baidu Button BEGIN -->
+<div data-role="button" class="friend_btn" onclick="window.location.href = 'weixin://qr/PHVsY0vErnXRh1oAnyAY'"><a href="weixin://qr/PHVsY0vErnXRh1oAnyAY">关注家庭圈</a>
+</div>
+<div data-role="button"  onClick="sharewx(opt);" class="friend_btn"><img src="images/friends.png" style="margin-bottom:-7px;">分享到朋友圈</div><br>
+<span style="display:block;margin:0 auto;">或者分享到</span><br>
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6595873" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+   <meta name="viewport" content="width=device-width,initial-scale=1" />  
+   <meta http-equiv="content-type"content="text/html; charset=UTF-8"/>  
+   <title>billboard</title> 
+   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+   <link rel="stylesheet" href="template/css/jquery-mobile-fluid960.min.css">
+    <link rel="stylesheet" type="text/css" href="template/css/www.css">
+   <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+   <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+   <script type="text/javascript" src="template/js/jquery.tmpl.min.js"></script>
+   <script type="text/javascript" src="template/js/billboard.js"></script>
+   <style type="text/css">
+        
+   </style>
+    
+
+<script id="detailTemplate" type="text/x-jquery-tmpl">
+ 
+	<div data-role="content">
+          <div class="container_12" id="first_billboard">
+               <div class="grid_4"><img class="billboard_avata" src="{{= top[0].avatar}}"></div>
+               <div class="grid_6" style=""><h4 style="margin-bottom:5px;font-family:微软雅黑;">{{= top[0].name}}&nbsp;&nbsp;{{= top[0].grouptitle}}</h4>
+                 <span style="font-family:微软雅黑;">{{= top[0].credit}}金币&nbsp;<br>{{= top[0].experience}}信用</span>
+               </div>
+               <div class="grid_2" id="crown"><img src="template/css/images/img/crown.png"></div>
+          </div>
+		  <div class="notice_border"></div> 
+
+          <div class="container_16" id="second_billboard">
+            <div class="grid_7 billboard_li">
+                <ul style="display">
+                  <li class="second_avata"><img src="{{= top[1].avatar}}"></li>
+                  <li><img src="template/css/images/img/num2.png" style="max-height:34px;max-width:34px;"></li>
+                  <li>
+                    <ul style="font-family:microsoft yahei;font-size:10px;">
+                         <li><span><b>{{= top[1].name}}</b></span></li><br>
+                         <li><span>{{= top[1].grouptitle}}</span></li>                         
+                    </ul> 
+                  </li>
+                </ul>
+                  <span style="margin:10px;font-family:微软雅黑;font-size:10px;">{{= top[1].credit}}金币&nbsp;{{= top[1].experience}}信用</span>
+            </div>
+
+              <div class="grid_7 billboard_li" style="float:right;">
+                <ul>
+                  <li class="second_avata"><img src="{{= top[2].avatar}}" ></li>
+                  <li><img src="template/css/images/img/num2.png" style="max-height:34px;max-width:34px;"></li>
+                  <li>
+                    <ul style="font-family:微软雅黑;font-size:10px;">
+                         <li><span><b>{{= top[2].name}}</b></span></li><br>
+                         <li><span>{{= top[2].grouptitle}}</span></li>                         
+                    </ul> 
+                  </li>
+                </ul>
+                <span style="margin:10px;font-family:微软雅黑;font-size:10px;">{{= top[2].credit}}金币&nbsp;{{= top[2].experience}}信用</span>
+            </div>
+
+          </div>
+		  <div class="notice_border"></div> 
+             <div class="container_12 rest_avata" style="background:#f7f7f7;border-radius:5px;font-family:微软雅黑;">
+                <div class="grid_4">
+               <img style="padding:10px;float:left;" src="{{= top[3].avatar}}"></div>
+               <div class="grid_8">
+               <h4><b>{{= top[3].name}}</b>&nbsp;<b>{{= top[3].grouptitle}}</b></h4>
+               {{= top[3].credit}}金币&nbsp;&nbsp;{{= top[3].experience}}信用
+               </div>
+          </div>
+
+            <div class="notice_border"></div> 
+	</div>
+</script>
+
+
+</head>
+<body>
+    <div data-role="page" data-theme="d" data-fullscreen="true"  class="bet_bg">
+      <div data-role="header">
+
+            <div class="head-nav" data-role="navbar">
+               <ul>
+                   <li class="logo"><a href="wx.php?do=index" rel="external" data-role="button" class="ui-control-inactive"style="height:72px;"><img src="template/css/images/img/logo.png"></a></li>
+                   <li><a href="wx.php?do=index" rel="external" data-role="button"><img src="template/css/images/img/bet.png"></a></li>
+                   <li><a href="wx.php?do=billboard" rel="external" data-role="button" class="ui-control-inactive" style="background:url(template/css/images/img/btn_bottom.png)bottom repeat-x"><img src="template/css/images/img/billboard2.png"></a></li>
+                   <li><a href="wx.php?do=mine" rel="external" data-role="button" class="ui-control-inactive"><img src="template/css/images/img/login.png"></a></li>
+                </ul>
+             </div>
+      </div>
+   <div id="detail-panel">
+			 	
+			 </div>
+
+       <div data-role="c​​ontrolgroup" data-type="horizo​​ntal"  style="text-align:center;">
+  
+      <a href="#">使用帮助</a>
+      <a href="#">下载</a>
+      <a href="#">媒体合作</a>
+      <a href="#">关于我们</a>
+      
+  
+  </div>
+
+ 
+  
+ </div>
+</body>
+</html>

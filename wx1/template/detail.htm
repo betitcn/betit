@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<HEAD>
+<TITLE>FamilyDay，让一家人团聚</TITLE>
+<META name=keywords content=main>
+<META name=description content=main>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<META content=no-cache http-equiv=Cache-Control>
+<meta charset="utf-8">
+<meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" href="template/js/jquery.mobile-1.3.0-beta.1.min.css " />
+<link rel="stylesheet" href="template/css/jquery.mobile-1.2.0.min.css" />
+<link rel="stylesheet"  href="template/css/styles.min.css">
+<script type="text/javascript" src="template/js/cls.js"></script>
+<script type="text/javascript">
+
+<!--{DOLLOR_TAG}-->CLS.script("template/js/jquery-1.8.2.min.js").wait()
+      .script("template/js/jquery.mobile-1.3.0-beta.1.min.js")
+      .script("template/js/jquery.retina.js")
+      .wait()
+	  .script("template/js/jquery.touch-gallery-1.0.0.min.js")
+	  .script("template/js/jquery.tmpl.min.js");
+	
+	  
+</script>
+
+<script type="text/javascript" src="template/js/util.min.js"></script>
+<script type="text/javascript" src="template/js/detail.min.js"></script>
+
+<script id="piclistTemplate" type="text/x-jquery-tmpl">
+	<div class="detail-image">
+		<img  src="{{= pic}}" data-large="{{= pic}}"/>
+	</div>
+	<div class="detail-message">
+		<div id="dmessage">{{= title}}</div>
+	</div>
+</script>
+
+<script id="detailTemplate" type="text/x-jquery-tmpl">
+<div class="detail-header">
+	<div class="avatar"><img class="retina" src="<!--{BLOCK_TAG_START}-->if user<!--{BLOCK_TAG_END}-->{{= user.avatar}}<!--{BLOCK_TAG_START}-->else<!--{BLOCK_TAG_END}-->image/nophoto.jpg<!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->"/><span>{{= name}}</span></div>
+	<div class="header-logo" onclick="window.location.href = 'http://www.familyday.com.cn/wx/wx.php?do=feed&wxkey=$_GET[wxkey]';"><a href="javascript:history.back()" data-role="none" style="float: right;color: black;line-height: 40px;font-size: 1.375em;">返回</a>
+		</div>
+</div>
+
+<div class="detail-subject">
+	<div class="subject"><!--{BLOCK_TAG_START}-->if subject<!--{BLOCK_TAG_END}-->{{= subject}}<!--{BLOCK_TAG_START}-->else<!--{BLOCK_TAG_END}-->{{= title}}<!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}--></div>
+</div>
+
+<!--{BLOCK_TAG_START}-->if idtype=="photoid"<!--{BLOCK_TAG_END}-->
+
+<!--{BLOCK_TAG_START}-->if piclist<!--{BLOCK_TAG_END}-->
+		<!--{BLOCK_TAG_START}-->tmpl(piclist) getTemplate("piclist")<!--{BLOCK_TAG_END}-->
+<!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+
+
+
+<!--{BLOCK_TAG_START}-->else idtype=="videoid"<!--{BLOCK_TAG_END}-->
+
+<div class="detail-image">
+	<video width="100%" src="{{= videourl}}" controls></video>
+</div>
+
+<!--{BLOCK_TAG_START}-->else<!--{BLOCK_TAG_END}-->
+
+<!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+
+
+<div class="detail-message">
+	<!--{BLOCK_TAG_START}-->if piclistlen>1<!--{BLOCK_TAG_END}-->
+		<div id="dmessage">{{html message}}</div>
+	<!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+	<div class="time"><img class="retina" src="template/css/images/family/timeico.jpg"/><span>{{= dateline}}</span></div>
+	<div class="buttons" style="display:none">
+		<ul>
+			<li><a href="#"><img class="retina" src="template/css/images/family/reblog.jpg" /></a></li>
+			<li><a href="#"><img class="retina" src="template/css/images/family/like.jpg" /></a></li>
+		</ul>
+	</div>
+</div>
+</script>
+
+<script id="commentTemplate" type="text/x-jquery-tmpl">
+<div class="ui-grid-a review-item">
+	<div class="ui-block-a avatar"><img class="retina" src="{{= avatar}}"/></div>
+	<div class="ui-block-b main">
+		<div class="content"><span class="name">{{= authorname}}</span>：{{html message}}</div>
+		<div class="time"><img class="retina" src="template/css/images/family/timeico.jpg"/><span>{{= dateline}}</span></div>
+	</div>
+</div>
+</script>
+
+
+
+</head>
+<body id="top">
+	<div data-role="page" data-theme="a" data-fullscreen="true" id="main">
+		
+		 <div data-role="content" style="background-color: white;">
+		 	<div id="detail-panel">
+			 	
+			 </div>
+
+		 	<div class="detail-review">
+		 		<div class="banner">评论</div>
+		 		<div class="bb1"><div class="bb11"></div><div class="bb12"></div></div>
+		 		<div class="bb2"><div class="bb21"></div><div class="bb22"></div></div>
+		 		<div class="editor">
+		 			<div class="textarea"><textarea placeholder="写点评论吧..." id="review"></textarea></div>
+		 			<div class="publish-btn"><a href="javascript:;" id="publishbtn" onclick="cpComment($('#idtype').val(), $('#id').val(), $('#review').val(), $('#auth').val());" data-role="button">发布</a></div>
+		 		</div>
+		 	</div>
+
+		 	<div class="review-lists" id="comment-panel">
+		 		
+		 	</div>
+
+		 	<div class="more-btn"><a href="javascript:;" id="morebtn2" onclick="getComment($('#idtype').val(), $('#id').val(), $('#page').val(), $('#perpage').val(), $('#auth').val());" data-role="button">更多</a></div>
+
+		 </div>
+
+		<input type="hidden" id="wxkey" name="wxkey" value="$_GET[wxkey]"/>
+ 		<input type="hidden" id="id" name="id" value="$_GET[id]"/>
+ 		<input type="hidden" id="idtype" name="idtype" value="$_GET[idtype]"/>
+ 		<input type="hidden" id="auth" name="auth" value="$m_auth"/>
+ 		<input type="hidden" id="uid" name="uid" value="$_GET[uid]"/>
+ 		<input type="hidden" id="page" name="page" value="1"/>
+	 	<input type="hidden" id="perpage" name="perpage" value="5"/>
+    </div>
+</body>
+</html>

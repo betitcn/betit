@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+<HEAD>
+<TITLE>FamilyDay，让一家人团聚</TITLE>
+<META name=keywords content=main>
+<META name=description content=main>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<META content=no-cache http-equiv=Cache-Control>
+<meta charset="utf-8">
+<meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" href="template/js/jquery.mobile-1.3.0-beta.1.min.css " />
+<link rel="stylesheet" href="template/css/jquery.mobile-1.2.0.min.css" />
+<link rel="stylesheet"  href="template/css/styles.min.css">
+<script type="text/javascript" src="template/js/cls.js"></script>
+<script type="text/javascript">
+<!--{DOLLOR_TAG}-->CLS.script("template/js/jquery-1.8.2.min.js").wait()
+      .script("template/js/jquery.mobile-1.3.0-beta.1.min.js")
+      .script("template/js/jquery.retina.js")
+      .wait()
+	  .script("template/js/jquery.tmpl.min.js")
+	  .script("template/js/jquery.exif.min.js")
+	  .script("template/js/jquery.canvasResize.min.js")
+	  .wait();
+</script>
+<script type="text/javascript" src="template/js/util.min.js"></script>
+<script type="text/javascript" src="template/js/cp.min.js"></script>
+
+</head>
+<body id="top">
+	<div data-role="page" data-theme="a" data-fullscreen="true" id="main">
+		<div data-role="header">
+			<div class="ui-grid-a header">
+                <!--{if $op=="photo"}-->
+				<div class="ui-block-a header-menu">
+                    <div data-role="fieldcontain" class="title-btn">
+                    <select name="select-choice-2" id="select-choice-2" data-icon="false">
+                       <option value="http://www.familyday.com.cn/wx/wx.php?do=cp&op=photo&wxkey=$_GET[wxkey]">发图片</option>
+                       <option value="http://www.familyday.com.cn/wx/wx.php?do=cp&op=blog&wxkey=$_GET[wxkey]">发日记</option>
+                    </select>
+                    
+                    </div>
+                </div>
+                <!--{elseif $op=="blog"}-->
+                <div class="ui-block-a header-menu">
+                    <div data-role="fieldcontain" class="title-btn">
+                    <select name="select-choice-2" id="select-choice-2" data-icon="false">
+                       <option value="http://www.familyday.com.cn/wx/wx.php?do=cp&op=blog&wxkey=$_GET[wxkey]">发日记</option>
+                       <option value="http://www.familyday.com.cn/wx/wx.php?do=cp&op=photo&wxkey=$_GET[wxkey]">发图片</option>
+                    </select>
+                    
+                    </div>
+                </div>
+                <!--{/if}-->
+				<div class="ui-block-b"><div class="header-logo">
+					<div><a href="javascript:history.back()" data-role="none" style="float: right;color: black;line-height: 40px;">返回</a></div>
+				</div></div>
+				<div class="ui-block-a header-menu-check"><div class="tri-down"></div></div>
+			</div>
+		</div>
+
+		<div data-role="content">
+			<!--{if $op=="photo"}-->
+				<div class="msg-panel">
+					<div class="msg group">
+						<div class="msg-image">
+							<img class="retina" src="image/nopic.gif" id="pic"/>
+							<p><span style="display: block; padding: 2px 0; width: 0; background: #145d32; color:white; text-align: center;" id="pbar"></span></p>
+						</div>
+						<div class="msg-content"><textarea placeholder="写点东东吧..." id="message"></textarea></div>
+					</div>
+				</div>
+           
+                 <!--{if count($taglist)>0}-->
+    				
+                    <div data-role="fieldcontain" class="select-btn">
+                        <div class="btn-icon">
+                            <div class="icon">
+                                <img class="retina" src="template/css/images/family/tag.png"></img>
+                            </div>
+                        </div>
+                        <label for="select-choice-0" class="select"></label>
+                        <select name="select-choice-0" id="select-choice-1" data-icon="false">
+                            <!--{loop $taglist $value}-->
+                                <option value="$value[tagname]">$value[tagname]</option>
+                            <!--{/loop}-->
+                        </select>
+                        <div class="btn-icon2"><div class="icon"><img class="retina" src="template/css/images/family/right.png"></img></div></div>
+                    </div>
+                <!--{/if}-->
+
+				<div class="publish-btn"><a href="javascript:;" data-role="button" onclick="submitPhoto();">确定</a></div>
+                <input type="file" id="Filedata" name="Filedata" accept="image/*" data-role="none" style="height:0;width:0;z-index:-1">
+            <!--{elseif $op=="blog"}-->
+                <div class="msg-panel">
+                    <div class="msg group">
+                        <div class="msg-content2"><input placeholder="标题" id="subject"></input></div>
+                    </div>
+                     <div class="msg group">
+                        <div class="msg-content2"><textarea placeholder="写点东东吧..." id="message"></textarea></div>
+                    </div>
+                </div>
+                <!--{if count($taglist)>0}-->
+                    
+                    <div data-role="fieldcontain" class="select-btn">
+                        <div class="btn-icon">
+                            <div class="icon">
+                                <img class="retina" src="template/css/images/family/tag.png"></img>
+                            </div>
+                        </div>
+                        <label for="select-choice-0" class="select"></label>
+                        <select name="select-choice-0" id="select-choice-1" data-icon="false">
+                            <!--{loop $taglist $value}-->
+                                <option value="$value[tagname]">$value[tagname]</option>
+                            <!--{/loop}-->
+                        </select>
+                        <div class="btn-icon2"><div class="icon"><img class="retina" src="template/css/images/family/right.png"></img></div></div>
+                    </div>
+                <!--{/if}-->
+                <div class="publish-btn"><a href="javascript:;" data-role="button" onclick="submitBlog();">确定</a></div>
+            <!--{/if}-->
+				
+			
+		</div>
+		
+    </div>
+    <input type="hidden" id="wxkey" name="wxkey" value="$_GET[wxkey]"/>
+	<input type="hidden" id="id" name="id" value="$_GET[id]"/>
+	<input type="hidden" id="idtype" name="idtype" value="$_GET[idtype]"/>
+	<input type="hidden" id="auth" name="auth" value="$m_auth"/>
+	<input type="hidden" id="uid" name="uid" value="$_GET[uid]"/>
+	<input type="hidden" id="picid" name="picid" value="0"/>
+    <input type="hidden" id="tags" name="tags" value="$taglist[0][tagname]"/>
+    
+</body>
+</html>

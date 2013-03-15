@@ -1,0 +1,61 @@
+/* ! MIXIN FOR WIDTH */
+.width(@context:100px, @target: 100px){
+	@percent: (@target/@context)*100;
+	width: ~`@{percent} + "%"`;
+}
+
+.max-width(@context:100px, @target: 100px){
+	@percent: (@target/@context)*100;
+	max-width: ~`@{percent} + "%"`;
+}
+
+/* ! MIXIN FOR PADDING, SHORTHAND */
+.padding(@context, @top: 0, @right: 0, @bottom: 0, @left: 0){
+	@top-percent: (@top/@context)*100;
+	@right-percent: (@right/@context)*100;
+	@bottom-percent: (@bottom/@context)*100;
+	@left-percent: (@left/@context)*100;
+	padding: ~`@{top-percent} + "% " + @{right-percent} + "% " + @{bottom-percent} + "% " + @{left-percent} + "%"`;
+}
+/* ! MIXINS FOR PADDING, INDIVIDUAL */
+.padding-top(@context, @top: 0){
+	@percent:(@top/@context)*100;
+	padding-top: ~`@{percent} + "%"`;
+}
+.padding-right(@context, @right: 0){
+	@percent:(@right/@context)*100;
+	padding-right: ~`@{percent} + "%"`;
+}
+.padding-bottom(@context, @bottom: 0){
+	@percent:(@bottom/@context)*100;
+	padding-bottom: ~`@{percent} + "%"`;
+}
+.padding-left(@context, @left: 0){
+	@percent:(@left/@context)*100;
+	padding-left: ~`@{percent} + "%"`;
+}
+/* ! MIXIN FOR MARGIN, SHORTHAND */
+.margin(@context, @top: 0, @right: 0, @bottom: 0, @left: 0){
+	@top-percent: (@top/@context)*100;
+	@right-percent: (@right/@context)*100;
+	@bottom-percent: (@bottom/@context)*100;
+	@left-percent: (@left/@context)*100;
+	margin: ~`@{top-percent} + "% " + @{right-percent} + "% " + @{bottom-percent} + "% " + @{left-percent} + "%"`;
+}
+/* ! MIXINS FOR MARGIN, INDIVIDUAL */
+.margin-top(@context, @top: 0){
+	@percent:(@top/@context)*100;
+	margin-top: ~`@{percent} + "%"`;
+}
+.margin-right(@context, @right: 0){
+	@percent:(@right/@context)*100;
+	margin-right: ~`@{percent} + "%"`;
+}
+.margin-bottom(@context, @bottom: 0){
+	@percent:(@bottom/@context)*100;
+	margin-bottom: ~`@{percent} + "%"`;
+}
+.margin-left(@context, @left: 0){
+	@percent:(@left/@context)*100;
+	margin-left: ~`@{percent} + "%"`;
+}
