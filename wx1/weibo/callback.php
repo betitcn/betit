@@ -43,7 +43,7 @@ if ($token) {
 		 require_once CONNECT_ROOT."/common/siteUserRegister.class.php";
 		 $regClass = new siteUserRegister();
 		$uid = $regClass->reg($usernameS, $regEmailS, $regPwdS);
-		if (empty($uid))wxshowmessage("授权失败");
+		if (empty($uid)) wxshowmessage("授权失败");
 		$msg = '';
 		switch($uid){
 			case -1:
