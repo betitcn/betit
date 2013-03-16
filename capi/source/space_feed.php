@@ -96,7 +96,7 @@ if($_REQUEST['view'] == 'all') {
 		$f_index = '';
 		
 	} else {
-		$wheresql = "b.uid IN ('0',$space[feedfriend])";
+		$wheresql = "b.uid IN ('0',$space[feedfriend]) AND b.qid!=1";
 		$ordersql = "b.dateline DESC";
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=we";
 		$f_index = '';
@@ -136,7 +136,7 @@ if($filter == 'site') {
 $feed_list = $appfeed_list = $hiddenfeed_list = $filter_list = $hiddenfeed_num = $icon_num = array();
 $count = $filtercount = 0;
 $query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT JOIN ".tname('quiz')." bf ON bf.quizid=b.id $f_index
-	WHERE $wheresql AND b.qid!=1
+	WHERE $wheresql AND bf.id!=1
 	ORDER BY $ordersql
 	LIMIT $start,$perpage");
 
