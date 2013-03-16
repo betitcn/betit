@@ -96,7 +96,7 @@ if($_REQUEST['view'] == 'all') {
 		$f_index = '';
 		
 	} else {
-		$wheresql = "b.uid IN ('0',$space[feedfriend]) AND bf.id!=1";
+		$wheresql = "b.uid IN ('0',$space[feedfriend]) AND b.qid!=1";
 		$ordersql = "b.dateline DESC";
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=we";
 		$f_index = '';
@@ -729,6 +729,7 @@ if($_REQUEST['view'] == 'hot') {
 
 		if ($value["icon"] =="quiz")
 		{
+			if($value["idtype"]=="quizid"){
 			$quiz = capi_getquiz($value["id"]);
 			$value["body_data"]["subject"] = strip_tags($quiz["subject"]);
 			$value["body_data"]["option"] = $quiz["options"];
@@ -753,6 +754,34 @@ if($_REQUEST['view'] == 'hot') {
 			$value["username"] = capi_realname($value["uid"],$tmpspace);
 			$value["title_data"]["actor"] = $value["username"];
 			$value["title_data"]["subject"] = strip_tags($quiz["subject"]);
+		}else{
+			$url=$value["title_data"]["url"];
+			preg_match("/(?<=&id=)([^&]*)(?=)/", $url, $a);
+			$quiz = capi_getquiz($a[0]);
+			$value["body_data"]["subject"] = strip_tags($quiz["subject"]);
+			$value["body_data"]["option"] = $quiz["options"];
+			$value["body_data"]["totalcost"] = $quiz["totalcost"];
+			$value["body_data"]["endtime"] = $quiz["endtime"];
+			$value["body_data"]["resulttime"] = $quiz["resulttime"];
+			if($quiz['endtime'] && $quiz['endtime'] < $_SGLOBAL['timestamp']) {
+					if ( intval($quiz["keyoid"]) == 0)
+						$value["body_data"]["hasexceed"] = 1;
+					else
+						$value["body_data"]["hasexceed"] = 0;
+			}else
+			{
+				$value["body_data"]["hasexceed"] = 0;
+			}
+			$value["body_data"]["keyoid"] = $quiz["keyoid"];
+			foreach ($value["body_data"]["option"] as $okey=>$ovalue)
+			{
+					$value["body_data"]["option"][$okey] = capi_data_filter($ovalue, array("option", "votenum", "pic", "oid","relatedtime"));
+
+			}
+			$value["username"] = capi_realname($value["uid"],$tmpspace);
+			$value["title_data"]["actor"] = $value["username"];
+			$value["title_data"]["subject"] = strip_tags($quiz["subject"]);
+		}
 		}elseif ($value["icon"] =="click"){
 			$dom = new DomDocument();
 			@$dom->loadHTML($value["title_data"]["touser"]);
