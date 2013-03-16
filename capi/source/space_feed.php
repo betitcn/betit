@@ -96,7 +96,7 @@ if($_REQUEST['view'] == 'all') {
 		$f_index = '';
 		
 	} else {
-		$wheresql = "b.uid IN ('0',$space[feedfriend]) AND bf.id!=1";
+		$wheresql = "b.uid IN ('0',$space[feedfriend]) AND b.qid!=1";
 		$ordersql = "b.dateline DESC";
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=we";
 		$f_index = '';
@@ -140,7 +140,7 @@ $query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT 
 	ORDER BY $ordersql
 	LIMIT $start,$perpage");
 
-if($_REQUEST['view'] == 'me' || $_REQUEST['view'] == 'hot' || $_REQUEST['view'] == 'quiz' || $_REQUEST['view'] == 'we'|| $_REQUEST['view'] == 'open'|| $_REQUEST['view'] == 'quizhot') {
+if($_REQUEST['view'] == 'me' || $_REQUEST['view'] == 'hot' || $_REQUEST['view'] == 'quiz' || $_REQUEST['view'] == 'we'|| $_REQUEST['view'] == 'open'|| $_REQUEST['view'] == 'quizhot'|| $_REQUEST['view'] == 'friend') {
 	//个人动态
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		if(ckfriend($value['uid'], $value['friend'], $value['target_ids'])) {
@@ -566,6 +566,7 @@ if($_REQUEST['view'] == 'hot') {
 			$value["body_data"]["totalcost"] = $quiz["totalcost"];
 			$value["body_data"]["endtime"] = $quiz["endtime"];
 			$value["body_data"]["resulttime"] = $quiz["resulttime"];
+
 			if($quiz['endtime'] && $quiz['endtime'] < $_SGLOBAL['timestamp']) {
 					if ( intval($quiz["keyoid"]) == 0)
 						$value["body_data"]["hasexceed"] = 1;
@@ -727,7 +728,7 @@ if($_REQUEST['view'] == 'hot') {
 		$tmpspace = getspace($value['uid']);
 		$value["isonline"] = capi_isonline($value["uid"], $tmpspace);
 
-		if ($value["icon"] =="quiz")
+		if ($value["icon"] =="quiz"&&$value['body_template']=="quiz")
 		{
 			$quiz = capi_getquiz($value["id"]);
 			$value["body_data"]["subject"] = strip_tags($quiz["subject"]);
