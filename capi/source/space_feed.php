@@ -96,7 +96,7 @@ if($_REQUEST['view'] == 'all') {
 		$f_index = '';
 		
 	} else {
-		$wheresql = "b.uid IN ('0',$space[feedfriend]) AND b.qid!=1";
+		$wheresql = "b.uid IN ('0',$space[feedfriend]) AND bf.id!=1";
 		$ordersql = "b.dateline DESC";
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=we";
 		$f_index = '';
