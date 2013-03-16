@@ -50,14 +50,14 @@ $_SGLOBAL['gift_appid'] = '1027468';
 
 if($_REQUEST['view'] == 'all') {
 
-	$wheresql = "1";//没有隐私
+	$wheresql = "bf.id!=1";//没有隐私
 	$ordersql = "b.dateline DESC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=all";
 	$f_index = '';
 
 }if($_REQUEST['view'] == 'quiz') {
 
-	$wheresql = "b.idtype='quizid'";//没有隐私
+	$wheresql = "b.idtype='quizid'  AND bf.id!=1";//没有隐私
 	
 	$ordersql = "b.dateline DESC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=quiz";
@@ -65,21 +65,21 @@ if($_REQUEST['view'] == 'all') {
 
 }elseif($_REQUEST['view'] == 'quizhot') {
 	$dateline1 = $_SGLOBAL['timestamp'];
-	$wheresql = "b.idtype='quizid' and bf.endtime>=$dateline1";//没有隐私
+	$wheresql = "b.idtype='quizid' and bf.endtime>=$dateline1  AND bf.id!=1";//没有隐私
 	$ordersql = "b.hot DESC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=quizhot";
 	$f_index = '';
 
 }elseif($_REQUEST['view'] == 'hot') {
 
-	$wheresql = "b.hot>='$minhot'";
+	$wheresql = "b.hot>='$minhot'  AND bf.id!=1";
 	$ordersql = "b.dateline DESC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=hot";
 	$f_index = '';
 
 } elseif($_GET['view'] == 'open') {
 	$dateline1 = $_SGLOBAL['timestamp'];
-    $wheresql = "bf.endtime>=$dateline1";
+    $wheresql = "bf.endtime>=$dateline1  AND bf.id!=1";
 	$ordersql = "bf.endtime ASC";
 	$theurl = "space.php?uid=$space[uid]&do=$do&view=open";
 	$f_index = '';
@@ -90,7 +90,7 @@ if($_REQUEST['view'] == 'all') {
 	if(empty($space['feedfriend'])) $_REQUEST['view'] = 'me';
 	
 	if( $_REQUEST['view'] == 'me') {
-		$wheresql = "b.uid='$space[uid]'";
+		$wheresql = "b.uid='$space[uid]'  AND bf.id!=1";
 		$ordersql = "b.dateline DESC";
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=me";
 		$f_index = '';
@@ -136,7 +136,7 @@ if($filter == 'site') {
 $feed_list = $appfeed_list = $hiddenfeed_list = $filter_list = $hiddenfeed_num = $icon_num = array();
 $count = $filtercount = 0;
 $query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT JOIN ".tname('quiz')." bf ON bf.quizid=b.id $f_index
-	WHERE $wheresql AND bf.id!=1
+	WHERE $wheresql
 	ORDER BY $ordersql
 	LIMIT $start,$perpage");
 
