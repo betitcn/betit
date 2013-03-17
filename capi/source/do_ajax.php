@@ -72,7 +72,9 @@ if($op == 'comment') {
 	ckstart($start, $perpage);
 	@include_once(S_ROOT.'./data/data_usergroup.php');
 	$quizid = empty($_REQUEST['quizid'])?0:intval($_REQUEST['quizid']);
-
+	$newquery=$_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE quizid='$quizid'");
+	$newvalue = $_SGLOBAL['db']->fetch_array($newquery);
+	$clicknum=$newvalue['click_16']*1+$newvalue['click_17']*1+$newvalue['click_18']*1+$newvalue['click_19']*1+$newvalue['click_20']*1;
 	$query = $_SGLOBAL['db']->query("SELECT oid FROM ".tname('quizoptions')."  WHERE quizid='$quizid'  ORDER by oid ASC LIMIT $start,$perpage");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 
@@ -118,7 +120,7 @@ if($op == 'comment') {
 		$value4["grouptitle"] = $_SGLOBAL["grouptitle"][$u["groupid"]]["grouptitle"] ;
 		$list1[] = $value4;
 	}
-		capi_showmessage_by_data("rest_success", 0, array('joinusers'=>$list,'joinusers1'=>$list1));
+		capi_showmessage_by_data("rest_success", 0, array('joinusers'=>$list,'joinusers1'=>$list1,'clicknum'=>$clicknum));
 }elseif($op == 'getcomment') {
 
 	$page = empty($_REQUEST['page'])?1:intval($_REQUEST['page']);
