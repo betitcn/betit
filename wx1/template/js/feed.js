@@ -441,7 +441,7 @@ $.ajax({
         function weiclick(id,clickid,auth){
       $.ajax({
     dataType: "jsonp",
-    url: "http://www.betit.cn/capi/cp.php?ac=click&op=add&clickid=16&idtype=quizid&id="+id+"&m_auth="+ encodeURIComponent(auth),
+    url: "http://www.betit.cn/capi/cp.php?ac=click&op=add&clickid="+clickid+"&idtype=quizid&id="+id+"&m_auth="+ encodeURIComponent(auth),
      
     success: function( data ) {
       /* Get the movies array from the data */
