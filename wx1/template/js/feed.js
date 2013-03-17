@@ -402,7 +402,7 @@ $.ajax({
 	  function cpComment(id, message, auth){
 		  $.ajax({
 		dataType: "jsonp",
-		url: "http://www.betit.cn/capi/cp.php?ac=comment&commentsubmit=true&message=" + message + "&idtype=quizid&id=" + id + "&m_auth=0d33m0bg26a6YAlQHQtkUBfG%2FM5UK3xjhAmMaZkyHiQJtgDYB6FRQpvXRIkJNJvg7Ptbv4TOLIRmopebLCDJ%2BZU",
+		url: "http://www.betit.cn/capi/cp.php?ac=comment&commentsubmit=true&message=" + message + "&idtype=quizid&id=" + id + "&m_auth="+ encodeURIComponent(auth),
 	   
 		success: function( data ) {
 		  /* Get the movies array from the data */
@@ -423,7 +423,7 @@ $.ajax({
 	   function vote(optionid, quizid){
 		  $.ajax({
 		dataType: "jsonp",
-		url: "http://www.betit.cn/capi/cp.php?ac=quiz&op=vote&votesubmit=true&quizid="+quizid+"&option[]="+optionid+"&m_auth=0d33m0bg26a6YAlQHQtkUBfG%2FM5UK3xjhAmMaZkyHiQJtgDYB6FRQpvXRIkJNJvg7Ptbv4TOLIRmopebLCDJ%2BZU",
+		url: "http://www.betit.cn/capi/cp.php?ac=quiz&op=vote&votesubmit=true&quizid="+quizid+"&option[]="+optionid+"&m_auth="+ encodeURIComponent(auth),
 	   
 		success: function( data ) {
 		  /* Get the movies array from the data */
@@ -438,3 +438,21 @@ $.ajax({
 		}
 	  })
 			  }
+        function click(id, clickid){
+      $.ajax({
+    dataType: "jsonp",
+    url: "http://www.betit.cn/capi/cp.php?ac=click&op=add&clickid="+clickid+"&idtype=quizid&id="+id+"&m_auth="+ encodeURIComponent(auth),
+     
+    success: function( data ) {
+      /* Get the movies array from the data */
+
+      if(data.code==0){
+      data = data.data;
+      alert("投票成功");
+      location.reload();
+      }else{
+      alert(data.msg);
+      }
+    }
+    })
+        }

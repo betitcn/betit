@@ -1,6 +1,6 @@
 <?php
 	
-// $m_auth = getAuth();
+ $m_auth = getAuth();
 
 
 
