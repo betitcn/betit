@@ -449,6 +449,8 @@ $.ajax({
       
       alert(data.msg);
       location.reload();
+      }else{
+        alert(url);
       }
     }
     })
