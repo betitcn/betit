@@ -1,7 +1,8 @@
-<?php
-	
-// $m_auth = getAuth();
-$result = 0;
+﻿<?php
+
+
+ $m_auth = getAuth();
+
 
 /*$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('space')." WHERE wxkey='$_GET[wxkey]'");
 
@@ -16,20 +17,18 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 	}
 }*/
 
-if ($_GET["op"]=="add"){
+
 
 	include_once S_ROOT.'./uc_client/client.php';
-	//include_once( 'weibo/callback.php' );
-
-	
 	
 
 	
 
 	// 同步登陆
-	$jsonurl = "http://www.betit.cn/capi/connect.php?site=weibo&sinauid='".$uid_get['uid']."'";
+	$sinauid=$_GET['uid'];
+	$jsonurl = "http://www.betit.cn/capi/connect.php?site=weibo&sinauid=$sinauid";
 	$json = file_get_contents($jsonurl,0,null,null);
-	wxshowmessage($jsonurl);
+	
 	$json_output = json_decode($json);
 	$loginusername=$json_output->data->space->name;
 	$credit=$json_output->data->space->credit;
@@ -53,7 +52,7 @@ if ($_GET["op"]=="add"){
 
 	$result = 1;
 
-}
+
 
 
 

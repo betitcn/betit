@@ -83,28 +83,71 @@
               </div>
               
               <div class="ui-grid-a feed_content" style="height:50px;">
-                <div class="ui-block-a"><a href="javascript:;" onclick="vote($('#option0').val(),$('#quizid').val());"><img src="template/css/images/img/support_a.png" ></a></div>
+                <div class="ui-block-a"><a href="javascript:;" onclick="vote($('#option0').val(),$('#quizid').val());"><img src="template/css/images/img/support_a.png"  ></a></div>
                 <div class="ui-block-b"><a href="javascript:;" onclick="vote($('#option1').val(),$('#quizid').val());"><img src="template/css/images/img/support_b.png" style="float:right;" ></a></div>
 
               </div>
-              <div class="ui-grid-a support-avata">
+            </div> 
+             <input type="hidden" id="option0" name="option0" value="{{= quiz.options[0].oid}}"/>
+              <input type="hidden" id="option1" name="option1" value="{{= quiz.options[1].oid}}"/>
+              <input type="hidden" id="quizid" name="quizid" value=" {{= quiz.quizid}}"/>
+</script>
+<script id="detail1Template" type="text/x-jquery-tmpl">
+<div class="feed">
+<div class="feed_bg_middle" style="margin-top:-20px;">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+              </div>    
+<div class="ui-grid-a support-avata">
                     <ul class="ui-block-a">
-                      <li> <img src="template/css/images/img/first_avata.png"></li>
+                      <!--{BLOCK_TAG_START}-->if joinusers[0]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers[0].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+                      <!--{BLOCK_TAG_START}-->if joinusers[1]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers[1].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+                      <!--{BLOCK_TAG_START}-->if joinusers[2]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers[2].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+                      <!--{BLOCK_TAG_START}-->if joinusers[3]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers[3].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+                      <!--{BLOCK_TAG_START}-->if joinusers[4]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers[4].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+                      <!--{BLOCK_TAG_START}-->if joinusers[5]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers[5].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+
                     </ul>
-                 
+               
                   <ul class="ui-block-b" align="right">
-                    <li> <img src="template/css/images/img/first_avata.png"></li>
-                      <li> <img src="template/css/images/img/first_avata.png"></li>
-                      <li> <img src="template/css/images/img/first_avata.png"></li>
-                      <li> <img src="template/css/images/img/first_avata.png"></li>
-                       <li> <img src="template/css/images/img/first_avata.png"></li>
+                    <!--{BLOCK_TAG_START}-->if joinusers1[0]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers1[0].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+                      <!--{BLOCK_TAG_START}-->if joinusers1[1]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers1[1].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+                      <!--{BLOCK_TAG_START}-->if joinusers1[2]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers1[2].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+                      <!--{BLOCK_TAG_START}-->if joinusers1[3]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers1[3].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+                      <!--{BLOCK_TAG_START}-->if joinusers1[4]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers1[4].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
+                      <!--{BLOCK_TAG_START}-->if joinusers1[5]<!--{BLOCK_TAG_END}-->
+                      <li> <img src="{{= joinusers1[5].avatar}}"></li>
+                      <!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}-->
                   </ul>
                 </div>
-			   <div class="feed_bg_middle" style="margin-top:-20px;">
+            
+         <div class="feed_bg_middle" style="margin-top:-20px;">
                     <div class="feed_bg_left"></div>
                     <div class="feed_bg_right"></div>
               </div>
-		    <div class="biaotai">
+        <div class="biaotai">
                 <table>
                   <tr>
                     <td style="vertical-align:middle;height:38px;">300表态</td>
@@ -114,23 +157,21 @@
                   </tr>
                 </table>
               </div>
-		 	 <div class="editor">
+       <div class="editor">
           <div class="textarea" data-enhance="false"><textarea placeholder="写点评论吧..." id="review" data-theme="none" data-enhance="false"></textarea></div>
           <div class="publish-btn"><a href="javascript:;" id="publishbtn" onclick="cpComment($('#id').val(), $('#review').val(), $('#auth').val());" data-role="button">发布</a></div>
         </div> 
-		<input type="hidden" id="option0" name="option0" value="{{= quiz.options[0].oid}}"/>
-		<input type="hidden" id="option1" name="option1" value="{{= quiz.options[1].oid}}"/>
-		<input type="hidden" id="quizid" name="quizid" value=" {{= quiz.quizid}}"/>
-		<input type="hidden" id="wxkey" name="wxkey" value="$_GET[wxkey]"/>
- 		<input type="hidden" id="id" name="id" value="$_GET[id]"/>
- 		<input type="hidden" id="auth" name="auth" value="$m_auth"/>
- 		<input type="hidden" id="page" name="page" value="1"/>
-	 	<input type="hidden" id="perpage" name="perpage" value="5"/>
-         
-
+    
+    <input type="hidden" id="wxkey" name="wxkey" value="$_GET[wxkey]"/>
+    
+    <input type="hidden" id="id" name="id" value="$_GET[id]"/>
+    <input type="hidden" id="auth" name="auth" value="$m_auth"/>
+    <input type="hidden" id="page" name="page" value="1"/>
+    <input type="hidden" id="perpage" name="perpage" value="5"/>
+     </div>    
 </script>
 <script id="commentTemplate" type="text/x-jquery-tmpl">
-  
+  <div class="feed">
 	 <div class="feed_bg_middle" style="margin-top:-20px;">
                     <div class="feed_bg_left"></div>
                     <div class="feed_bg_right"></div>
@@ -144,7 +185,7 @@
               </div>
         </div> 
 
-
+</div>
       
 
 </script>

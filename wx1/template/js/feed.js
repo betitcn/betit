@@ -333,6 +333,8 @@ $.ajax({
 			  if(data.code==0){
 			  
 					data=data.data;
+          oid1=data.quiz.options[0].oid;
+          oid2=data.quiz.options[1].oid;
 					//data.message = html_entity_decode(data.message);
 					data.quiz.dateline = date('Y-m-d H:i',data.quiz.dateline);
 					//data.user = getUser(data.uid, auth);
@@ -340,22 +342,36 @@ $.ajax({
 					//data.piclistlen = data.piclist.length;
 
 					$("#detailTemplate").tmpl(data ).appendTo('#detail-panel');
-			$.ajax({
-				dataType: "jsonp",
-				url: "http://www.betit.cn/capi/do.php?ac=ajax&op=getcomment&id="+id+"&idtype=quizid&page=0&prepage=3&callback=?",
-				success: function( json ) {
-					if(json.code==0){
-					json=json.data.comments;
-				
-					for (var i = 0, len = json.length; i < len; ++i) {
-				
-					json[i].dateline = date('Y-m-d H:i',json[i].dateline);
-					
-					}
-				$("#commentTemplate").tmpl(json ).appendTo('#detail-panel');
-				}
-				}
-				})
+			 $.ajax({
+        dataType: "jsonp",
+        url: "http://www.betit.cn/capi/do.php?ac=ajax&op=getmorejoinuser&quizid="+id+"&page=0&prepage=6",
+
+        success: function( json ) {
+          if(json.code==0){
+          json=json.data;
+         
+          
+        $("#detail1Template").tmpl(json).appendTo('#detail-panel');
+        }
+        }
+        })
+     
+      $.ajax({
+        dataType: "jsonp",
+        url: "http://www.betit.cn/capi/do.php?ac=ajax&op=getcomment&id="+id+"&idtype=quizid&page=0&prepage=3&callback=?",
+        success: function( json ) {
+          if(json.code==0){
+          json=json.data.comments;
+        
+          for (var i = 0, len = json.length; i < len; ++i) {
+        
+          json[i].dateline = date('Y-m-d H:i',json[i].dateline);
+          
+          }
+        $("#commentTemplate").tmpl(json ).appendTo('#detail-panel');
+        }
+        }
+        })
 			  }else{
 				alert("123");
 			  }

@@ -1,9 +1,9 @@
-<?php
+﻿<?php
 session_start();
 
 include_once( 'weibo/config.php' );
-require_once '../../common.php';
-require_once '../wxcommon.php';
+require_once '../common.php';
+require_once 'wx_common.php';
 include_once( CONNECT_ROOT.'/saetv2.ex.class.php' );
 require_once CONNECT_ROOT."/common/jtee.inc.php";
 require_once CONNECT_ROOT."/common/siteUserRegister.class.php";
@@ -32,7 +32,8 @@ if ($token) {
 		$user = uc_get_user($rst['uid'], 1); 
 		uc_user_synlogin($rst['uid']);
 		setSession($user[0],$user[1]);
-		wxshowmessage('do_success','wx.php?do=mine');
+		$sinauid=$uid_get['uid'];
+		wxshowmessage('do_success',"wx.php?do=mine&uid=$sinauid");
 	}else{
 		 $c = new SaeTClientV2( WB_AKEY , WB_SKEY , $_SESSION['token']['access_token'] );
 		 $profile = $c->show_user_by_id($uid_get['uid']);
