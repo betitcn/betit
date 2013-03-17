@@ -438,7 +438,7 @@ $.ajax({
 		}
 	  })
 			  }
-        function click(id,clickid,auth){
+        function weiclick(id,clickid,auth){
       $.ajax({
     dataType: "jsonp",
     url: "http://www.betit.cn/capi/cp.php?ac=click&op=add&clickid=16&idtype=quizid&id="+id+"&m_auth="+ encodeURIComponent(auth),
