@@ -757,8 +757,10 @@ if($_REQUEST['view'] == 'hot') {
 		}else{
 			$url=$value["title_data"]["url"];
 			preg_match("/(?<=&id=)([^&]*)(?=)/", $url, $a);
+			preg_match("/(?<=uid=)([^&]*)(?=)/", $url, $b);
 			$quiz = capi_getquiz($a[0]);
 			$value["id"] = $a[0];
+			$value["uid"] = $b[0];
 			$value["body_data"]["subject"] = strip_tags($quiz["subject"]);
 			$value["body_data"]["option"] = $quiz["options"];
 			$value["body_data"]["totalcost"] = $quiz["totalcost"];

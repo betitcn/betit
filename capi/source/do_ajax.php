@@ -64,6 +64,61 @@ if($op == 'comment') {
 
 	capi_showmessage_by_data("rest_success", 0, array('joinusers'=>$list, 'count'=>count($list)));
 
+}elseif($op == 'getmorejoinuser'){
+	$page = empty($_REQUEST['page'])?1:intval($_REQUEST['page']);
+	$perpage = empty($_REQUEST['perpage'])?10:intval($_REQUEST['perpage']);
+	$perpage = mob_perpage($perpage);
+	$start = ($page-1)*$perpage;
+	ckstart($start, $perpage);
+	@include_once(S_ROOT.'./data/data_usergroup.php');
+	$quizid = empty($_REQUEST['quizid'])?0:intval($_REQUEST['quizid']);
+
+	$query = $_SGLOBAL['db']->query("SELECT oid FROM ".tname('quizoptions')."  WHERE quizid='$quizid'  ORDER by oid ASC LIMIT $start,$perpage");
+	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
+
+		$oid[] = $value;
+	
+	}
+	$oid1=$oid[0];
+	$oid2=$oid[1];
+	foreach($oid1 as $a=>$b){
+		$newoid1=$b;
+	}
+	foreach($oid2 as $a=>$b){
+		$newoid2=$b;
+	}
+	$query1 = $_SGLOBAL['db']->query("SELECT * , count(*) as joinnum FROM ".tname('quizuser')."  WHERE oid=$newoid1 group BY uid ORDER by joinnum DESC, dateline DESC LIMIT $start,$perpage");
+	
+	//capi_rublog($query1);
+	while ($value2 = $_SGLOBAL['db']->fetch_array($query1)) {
+		$u = getspace($value2["uid"]);
+		$value2["username"] = $u["username"];
+		$uid1=$value2['quizid'];
+		$query2 = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')."  WHERE quizid=$uid1");
+		$value3= $_SGLOBAL['db']->fetch_array($query2);
+		$value2['joincost']=$value3['joincost'];
+		$value2["avatar"] = capi_avatar($value2["uid"]);
+		realname_set($value2['uid'], $value2['username']);//实名
+		$value2["username"] = capi_realname($value2['uid']);
+		$value2["grouptitle"] = $_SGLOBAL["grouptitle"][$u["groupid"]]["grouptitle"] ;
+		$list[] = $value2;
+	}
+	$query3 = $_SGLOBAL['db']->query("SELECT * , count(*) as joinnum FROM ".tname('quizuser')."  WHERE oid=$newoid2 group BY uid ORDER by joinnum DESC, dateline DESC LIMIT $start,$perpage");
+	
+	while ($value4 = $_SGLOBAL['db']->fetch_array($query3)) {
+		$u = getspace($value4["uid"]);
+		$value4["username"] = $u["username"];
+		$uid1=$value4['quizid'];
+		$query5 = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')."  WHERE quizid=$uid1");
+		$value5= $_SGLOBAL['db']->fetch_array($query5);
+		$value4['joincost']=$value5['joincost'];
+		$value4["avatar"] = capi_avatar($value4["uid"]);
+		realname_set($value4['uid'], $value4['username']);//实名
+		$value4["username"] = capi_realname($value4['uid']);
+		$value4["grouptitle"] = $_SGLOBAL["grouptitle"][$u["groupid"]]["grouptitle"] ;
+		$list1[] = $value4;
+	}
+		capi_showmessage_by_data("rest_success", 0, array('joinusers'=>$list,'joinusers1'=>$list1));
 }elseif($op == 'getcomment') {
 
 	$page = empty($_REQUEST['page'])?1:intval($_REQUEST['page']);
