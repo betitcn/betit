@@ -420,7 +420,7 @@ $.ajax({
 
 //投票
 
-	   function vote(optionid, quizid){
+	   function vote(optionid, quizid,auth){
 		  $.ajax({
 		dataType: "jsonp",
 		url: "http://www.betit.cn/capi/cp.php?ac=quiz&op=vote&votesubmit=true&quizid="+quizid+"&option[]="+optionid+"&m_auth="+ encodeURIComponent(auth),
@@ -438,7 +438,7 @@ $.ajax({
 		}
 	  })
 			  }
-        function click(id, clickid){
+        function click(id, clickid,auth){
       $.ajax({
     dataType: "jsonp",
     url: "http://www.betit.cn/capi/cp.php?ac=click&op=add&clickid="+clickid+"&idtype=quizid&id="+id+"&m_auth="+ encodeURIComponent(auth),
@@ -453,3 +453,14 @@ $.ajax({
     }
     })
         }
+
+        $(function(){
+          $('#auth').val(localStorage.getItem('auth'));
+          cpComment($('#id').val(),$('#review').val(),$('#auth').val());
+          vote($('#option0').val(),$('#quizid').val(),$('#auth').val());
+          vote($('#option1').val(),$('#quizid').val(),$('#auth').val());
+          click($('#id').val(),16,$('#auth').val());
+          click($('#id').val(),19,$('#auth').val());
+          click($('#id').val(),20,$('#auth').val());
+          
+          })
