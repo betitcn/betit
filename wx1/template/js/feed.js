@@ -446,13 +446,10 @@ $.ajax({
     success: function( data ) {
       /* Get the movies array from the data */
 
-      if(data.code==0){
-      data = data.data;
-      alert("投票成功");
+      
+      alert("表态成功");
       location.reload();
-      }else{
-      alert(data.msg);
-      }
+      
     }
     })
         }
