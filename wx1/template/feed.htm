@@ -83,8 +83,8 @@
               </div>
               
               <div class="ui-grid-a feed_content" style="height:50px;">
-                <div class="ui-block-a"><a href="javascript:;" onclick="vote($('#option0').val(),$('#quizid').val(),$('#auth').val());"><img src="template/css/images/img/support_a.png"  ></a></div>
-                <div class="ui-block-b"><a href="javascript:;" onclick="vote($('#option1').val(),$('#quizid').val(),$('#auth').val());"><img src="template/css/images/img/support_b.png" style="float:right;" ></a></div>
+                <div class="ui-block-a"><a href="javascript:;" onclick="vote($('#option0').val(),$('#quizid').val(),localStorage.getItem('auth'));"><img src="template/css/images/img/support_a.png"  ></a></div>
+                <div class="ui-block-b"><a href="javascript:;" onclick="vote($('#option1').val(),$('#quizid').val(),localStorage.getItem('auth'));"><img src="template/css/images/img/support_b.png" style="float:right;" ></a></div>
 
               </div>
             </div> 
@@ -152,15 +152,15 @@
                 <table>
                   <tr>
                     <td style="vertical-align:middle;height:38px;">{{= clicknum}}表态</td>
-                     <td><a href="javascript:;" onclick="click($('#id').val(),16,$('#auth').val());"><img src="template/css/images/img/luguo1.png" id="luguo"></a></td>
-                      <td><a href="javascript:;" onclick="click($('#id').val(),19,$('#auth').val());"><img src="template/css/images/img/xianhua1.png" id="xianhua"></a></td>
-                       <td><a href="javascript:;" onclick="click($('#id').val(),20,$('#auth').val());"><img src="template/css/images/img/jidan1.png" id="jidan"></a></td>
+                     <td><a href="javascript:;" onclick="click($('#id').val(),16,localStorage.getItem('auth'));"><img src="template/css/images/img/luguo1.png" id="luguo"></a></td>
+                      <td><a href="javascript:;" onclick="click($('#id').val(),19,localStorage.getItem('auth'));"><img src="template/css/images/img/xianhua1.png" id="xianhua"></a></td>
+                       <td><a href="javascript:;" onclick="click($('#id').val(),20,localStorage.getItem('auth'));"><img src="template/css/images/img/jidan1.png" id="jidan"></a></td>
                   </tr>
                 </table>
               </div>
        <div class="editor">
           <div class="textarea" data-enhance="false"><textarea placeholder="写点评论吧..." id="review" data-theme="none" data-enhance="false"></textarea></div>
-          <div class="publish-btn"><a href="javascript:;" id="publishbtn" onclick="cpComment($('#id').val(), $('#review').val(), $('#auth').val());" data-role="button">发布</a></div>
+          <div class="publish-btn"><a href="javascript:;" id="publishbtn" onclick="cpComment($('#id').val(), $('#review').val(),localStorage.getItem('auth'));" data-role="button">发布</a></div>
         </div> 
     
     <input type="hidden" id="wxkey" name="wxkey" value="$_GET[wxkey]"/>
