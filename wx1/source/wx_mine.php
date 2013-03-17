@@ -28,7 +28,7 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 	$sinauid=$_GET['uid'];
 	$jsonurl = "http://www.betit.cn/capi/connect.php?site=weibo&sinauid=$sinauid";
 	$json = file_get_contents($jsonurl,0,null,null);
-	
+	$os = mobile_user_agent_switch();
 	$json_output = json_decode($json);
 	$loginusername=$json_output->data->space->name;
 	$credit=$json_output->data->space->credit;
@@ -41,7 +41,7 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 	$device = json_encode(array("os"=>$os, "auth"=>$json_output->data->m_auth));
 	// bind
 	
-	updatetable('space', array('wxkey'=>$_POST['wxkey'], 'device'=>$device), array('uid'=>$passport['uid']));
+	updatetable('space', array('wxkey'=>$_POST['wxkey'], 'device'=>$device), array('uid'=>$json_output->data->space->uid));
 	
 	echo "<script>localStorage.removeItem('auth');localStorage.setItem('auth','".$json_output->data->m_auth."');</script>";
 	
