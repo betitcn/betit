@@ -152,9 +152,9 @@
                 <table>
                   <tr>
                     <td style="vertical-align:middle;height:38px;">{{= clicknum}}表态</td>
-                     <td><a href="javascript:;" onclick="click($('#id').val(),16,localStorage.getItem('auth'));"><img src="template/css/images/img/luguo1.png" id="luguo"></a></td>
-                      <td><a href="javascript:;" onclick="click($('#id').val(),19,localStorage.getItem('auth'));"><img src="template/css/images/img/xianhua1.png" id="xianhua"></a></td>
-                       <td><a href="javascript:;" onclick="click($('#id').val(),20,localStorage.getItem('auth'));"><img src="template/css/images/img/jidan1.png" id="jidan"></a></td>
+                     <td><a href="javascript:;" onclick="click($('#id').val(),$('#clickid16').val(),localStorage.getItem('auth'));"><img src="template/css/images/img/luguo1.png" id="luguo"></a></td>
+                      <td><a href="javascript:;" onclick="click($('#id').val(),$('#clickid19').val(),localStorage.getItem('auth'));"><img src="template/css/images/img/xianhua1.png" id="xianhua"></a></td>
+                       <td><a href="javascript:;" onclick="click($('#id').val(),$('#clickid20').val(),localStorage.getItem('auth'));"><img src="template/css/images/img/jidan1.png" id="jidan"></a></td>
                   </tr>
                 </table>
               </div>
@@ -164,7 +164,9 @@
         </div> 
     
     <input type="hidden" id="wxkey" name="wxkey" value="$_GET[wxkey]"/>
-    
+    <input type="hidden" id="clickid16" name="clickid16" value="16"/>
+    <input type="hidden" id="clickid19" name="clickid19" value="19"/>
+    <input type="hidden" id="clickid20" name="clickid20" value="20"/>
     <input type="hidden" id="id" name="id" value="$_GET[id]"/>
     <input type="hidden" id="auth" name="auth" value="$m_auth"/>
     <input type="hidden" id="page" name="page" value="1"/>
