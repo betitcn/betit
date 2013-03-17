@@ -438,18 +438,18 @@ $.ajax({
 		}
 	  })
 			  }
-        function click(id, clickid,auth){
+        function click(id,clickid,auth){
       $.ajax({
     dataType: "jsonp",
     url: "http://www.betit.cn/capi/cp.php?ac=click&op=add&clickid="+clickid+"&idtype=quizid&id="+id+"&m_auth="+ encodeURIComponent(auth),
      
     success: function( data ) {
       /* Get the movies array from the data */
-
+      if(data.code==0){
       
-      alert("表态成功");
+      alert(data.msg);
       location.reload();
-      
+      }
     }
     })
         }
