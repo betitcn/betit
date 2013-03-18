@@ -1,4 +1,4 @@
-function loginout(auth){
+function loginout1(auth){
       $.ajax({
     dataType: "jsonp",
     url: "http://www.betit.cn/capi/cp.php?ac=common&op=logout&m_auth="+ encodeURIComponent(auth),
