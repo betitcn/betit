@@ -80,7 +80,8 @@ if ($token) {
 				$sql = "SELECT uid FROM ".tname('sina_bind_info')." WHERE `sina_uid`='".$uid_get['uid']."'";  
 				$user = $_SGLOBAL['db']->fetch_array($_SGLOBAL['db']->query($sql));
 				if($user){
-					wxshowmessage("已绑定", "space.php");
+					$sinauid=$uid_get['uid'];
+					wxshowmessage("已绑定", "wx.php?do=mine&sinauid=$sinauid");
 				}
 				
 				$sql = "INSERT INTO " . tname('sina_bind_info') . " (uid,sina_uid,token,tsecret,profile) VALUES ('{$uid}','{$uid_get[uid]}','{$_SESSION[last_key][oauth_token]}','{$_SESSION[last_key][oauth_token_secret]}',' ');";
@@ -169,7 +170,7 @@ if ($token) {
 
 				
 				$msg = "已为你创建了".$_SGLOBAL['sitename']."的帐号，并与你的Sina帐号进行绑定。下次你可以继续使用Sina帐号登录使用.用户名为".$usernameS;
-				wxshowmessage($msg, "space.php?do=feed");
+				wxshowmessage($msg, "wx.php?do=index");
 				break;
 		}
 	}
