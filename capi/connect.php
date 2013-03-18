@@ -27,6 +27,8 @@ if($rst){
 	uc_user_synlogin($rst['uid']);
 	$auth = setSession($user[0],$user[1]);
 	$space  = getspace($rst['uid']);
+	@include_once(S_ROOT.'./data/data_usergroup.php');
+	$space["grouptitle"] = $_SGLOBAL["grouptitle"][$space["groupid"]]["grouptitle"];
 	$space["avatar"] = capi_avatar($space["uid"]);
 	capi_showmessage_by_data('login_success',  0, array("space"=>$space, "m_auth"=>rawurlencode($auth)));
 	
