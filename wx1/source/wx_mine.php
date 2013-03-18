@@ -39,6 +39,7 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 	$note=$json_output->data->space->note;
 	$friendnum=$json_output->data->space->friendnum;
 	$quiznum=$json_output->data->space->quiznum;
+	$grouptitle=$json_output->data->space->grouptitle;
 	//$avatar = capi_avatar($value["uid"]);
 	$device = json_encode(array("os"=>$os, "auth"=>$json_output->data->m_auth));
 	// bind
@@ -59,6 +60,7 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 	$note=$json_output->data->space->note;
 	$friendnum=$json_output->data->space->friendnum;
 	$quiznum=$json_output->data->space->quiznum;
+	$grouptitle=$json_output->data->space->grouptitle;
 	//$avatar = capi_avatar($value["uid"]);
 	$device = json_encode(array("os"=>$os, "auth"=>$json_output->data->m_auth));
 	// bind
