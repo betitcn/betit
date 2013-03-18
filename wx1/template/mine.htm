@@ -12,6 +12,7 @@
    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
    <script type="text/javascript" src="template/js/jquery.js"></script>
    <script type="text/javascript" src="template/js/slider.js"></script>
+   <script type="text/javascript" src="template/js/mine.js"></script>
    <style type="text/css">
         .icon{padding-top: 7px;}
         body{font-family: Microsoft Yahei !important;}
@@ -148,7 +149,7 @@
          </div>
       </div>
 
-        <a href="#" data-role="button" data-theme="d" data-rel="back">退出登录</a>
+        <a href="javascript:;" data-role="button" data-theme="d" data-rel="back" onclick="loginout(localStorage.getItem('auth'));">退出登录</a>
   </div>
 
 </div>
