@@ -6,7 +6,8 @@
 error_reporting(0);
 
 include_once( 'weibo/config.php' );
-require_once 'common.php';
+require_once '../common.php';
+require_once 'wx_common.php';
 include_once( CONNECT_ROOT.'/Tencent.php' );
 require_once CONNECT_ROOT."/common/jtee.inc.php";
 require_once CONNECT_ROOT."/common/siteUserRegister.class.php";
