@@ -8,7 +8,7 @@ function loginout1(auth){
       if(data.code==0){
       
       alert(data.msg);
-      location.href("http://www.betit.cn/wx/wx.php");
+      window.location.href("http://www.betit.cn/wx/wx.php");
       }else{
         alert(data.msg);
       }
