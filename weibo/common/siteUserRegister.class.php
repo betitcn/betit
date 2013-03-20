@@ -54,15 +54,15 @@ class siteUserRegister{
 		$this->email = mysql_escape_string(trim($email));
 		$this->password = $pwd ? mysql_escape_string($pwd) : rand(100000,999999);
 		showmessage($this->password);
-		//$result_name = uc_user_checkname($this->username);
-		//if($result_name < 1){  //检测用户名
-		//	return $result_name;
-		//}
+		$result_name = uc_user_checkname($this->username);
+		if($result_name < 1){  //检测用户名
+			return $result_name;
+		}
 		
-		//$result_email = uc_user_checkemail($this->email, $this->username);
-		//if($result_email < 1){  //检测邮箱
-		//	return $result_email;
-		//}
+		$result_email = uc_user_checkemail($this->email, $this->username);
+		if($result_email < 1){  //检测邮箱
+			return $result_email;
+		}
 		
 		$this->uid = (int)uc_user_register($this->username, $this->password, $this->email, $this->questionid, $this->answer);
 		if ($this->uid>0){
@@ -102,10 +102,10 @@ class siteUserRegister{
 					updatetable('spacefield', array('friend'=>$friendstr, 'feedfriend'=>$friendstr), array('uid'=>$newuid));
 
 					//更新默认用户好友缓存
-					include_once(S_ROOT.'./source/function_cp.php');
-					foreach ($fuids as $fuid) {
-						friend_cache($fuid);
-					}
+					//include_once(S_ROOT.'./source/function_cp.php');
+					//foreach ($fuids as $fuid) {
+					//	friend_cache($fuid);
+					//}
 				}
 			}
 
