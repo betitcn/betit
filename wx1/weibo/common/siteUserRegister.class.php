@@ -101,9 +101,9 @@ class siteUserRegister{
 					updatetable('spacefield', array('friend'=>$friendstr, 'feedfriend'=>$friendstr), array('uid'=>$newuid));
 
 					//更新默认用户好友缓存
-					include_once(S_ROOT.'./source/function_cp.php');
-					foreach ($fuids as $fuid) {
-						friend_cache($fuid);
+					//include_once(S_ROOT.'./source/function_cp.php');
+					//foreach ($fuids as $fuid) {
+					//	friend_cache($fuid);
 					}
 				}
 			}
