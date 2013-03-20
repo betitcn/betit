@@ -35,6 +35,8 @@ if ($token) {
 	}else{
 		 $c = new SaeTClientV2( WB_AKEY , WB_SKEY , $_SESSION['token']['access_token'] );
 		 $profile = $c->show_user_by_id($uid_get['uid']);
+		 $a=$profile['idstr'];
+		 showmessage($a);
 		 $idstr = ($profile['idstr'])?$profile['idstr']:$profile['id'];
 		 $idstr = ($idstr)?$idstr:$_SGLOBAL["timestamp"];
 		 $usernameS	= "sina_".$idstr;
