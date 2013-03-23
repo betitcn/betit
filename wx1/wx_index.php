@@ -8,7 +8,7 @@ include_once( 'botutil.php' );
 
 
 //define your token
-define("TOKEN", "family");
+define("TOKEN", "betit");
 $wechatObj = new wechatCallbackapiTest();
 //$wechatObj->valid();
 $wechatObj->responseMsg();
