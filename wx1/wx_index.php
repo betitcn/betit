@@ -66,7 +66,7 @@ class wechatCallbackapiTest
 						$resultStr = makeText($fromUsername, $toUsername, $time, $msgType, $contentStr); 
 					}elseif($keyword == "1"){
 						$msgType = "news";
-						$con = mysql_connect("localhost","familyday","fmd30991261");
+						$con = mysql_connect("localhost","betit","fmd30991261");
 						if (!$con)
 						  {
 						  die('Could not connect: ' . mysql_error());
