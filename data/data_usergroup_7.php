@@ -5,17 +5,17 @@ $_SGLOBAL['usergroup']=Array
 	7 => Array
 		(
 		'gid' => 7,
-		'grouptitle' => '高级会员',
+		'grouptitle' => '方块3',
 		'system' => '0',
 		'banvisit' => '0',
-		'explower' => 1000,
-		'maxfriendnum' => 300,
-		'maxattachsize' => 104857600,
-		'allowhtml' => 1,
+		'explower' => 400,
+		'maxfriendnum' => 50,
+		'maxattachsize' => 10485760,
+		'allowhtml' => '0',
 		'allowcomment' => 1,
-		'searchinterval' => 10,
-		'searchignore' => 1,
-		'postinterval' => 10,
+		'searchinterval' => 60,
+		'searchignore' => '0',
+		'postinterval' => 60,
 		'spamignore' => '0',
 		'videophotoignore' => '0',
 		'allowblog' => 1,
@@ -25,7 +25,7 @@ $_SGLOBAL['usergroup']=Array
 		'allowmtag' => 1,
 		'allowthread' => 1,
 		'allowpost' => 1,
-		'allowcss' => 1,
+		'allowcss' => '0',
 		'allowpoke' => 1,
 		'allowfriend' => 1,
 		'allowpoll' => 1,
@@ -33,14 +33,14 @@ $_SGLOBAL['usergroup']=Array
 		'allowevent' => 1,
 		'allowmagic' => 1,
 		'allowpm' => 1,
-		'allowviewvideopic' => '0',
+		'allowviewvideopic' => 1,
 		'allowmyop' => 1,
 		'allowtopic' => '0',
 		'allowstat' => '0',
 		'magicdiscount' => '0',
 		'verifyevent' => '0',
 		'edittrail' => '0',
-		'domainlength' => 3,
+		'domainlength' => '0',
 		'closeignore' => '0',
 		'seccode' => '0',
 		'color' => '',
@@ -92,8 +92,13 @@ $_SGLOBAL['usergroup']=Array
 		'managespacenote' => '0',
 		'managevideophoto' => '0',
 		'managelog' => '0',
-		'magicaward' => '',
-		'exphigher' => 999999999
+		'magicaward' => Array
+			(
+
+			),
+		'allowquiz' => 1,
+		'managequiz' => '0',
+		'exphigher' => 799
 		)
 	)
 ?>

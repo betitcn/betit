@@ -1,0 +1,84 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+   <meta name="viewport" content="width=device-width,initial-scale=1" />  
+   <meta http-equiv="content-type"content="text/html; charset=UTF-8"/>  
+   <title>billboard</title> 
+   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+   <link rel="stylesheet" href="template/css/jquery-mobile-fluid960.min.css">
+    <link rel="stylesheet" type="text/css" href="template/css/www.css">
+   <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+   <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+     <script type="text/javascript" src="template/js/jquery.tmpl.min.js"></script>
+     <script type="text/javascript" src="template/js/friends.js"></script>
+      <script src="template/js/js/jquery.query.js" type="text/javascript"></script>
+   <style type="text/css">
+        
+   </style>
+  <script id="friendsTemplate" type="text/x-jquery-tmpl">
+    <div>
+             <div class="container_12 rest_avata" style="background:#f7f7f7;border-radius:5px;font-family:微软雅黑;">
+                <div class="grid_4">
+               <img style="padding:10px;float:left;" src="{{= avatar}}"></div>
+               <div class="grid_8">
+               <p><b><!--{BLOCK_TAG_START}-->if name<!--{BLOCK_TAG_END}-->{{= name}}<!--{BLOCK_TAG_START}-->else<!--{BLOCK_TAG_END}-->未实名验证用户<!--{BLOCK_TAG_START}-->/if<!--{BLOCK_TAG_END}--></b>&nbsp;<b>{{= grouptitle}}</b></p>
+               {{= credit}}金币&nbsp;&nbsp;{{= experience}}信用
+               </div>
+          </div>
+
+            <div class="notice_border"></div> 
+        </div>
+
+
+
+       
+   </script>
+</head>
+<body>
+    <div data-role="page" data-theme="d" data-fullscreen="true"  class="bet_bg">
+       <div data-role="header" style="margin-left:10px;">
+         <!--  <div class="ui-grid-c" style="text-align:center;">
+            <div class="ui-block-a" style="margin-top:10px;"><img src="img/logo.png"></div>
+            <div class="ui-block-b"><img src="img/bet2.png"></div>
+            <div class="ui-block-c"><img src="img/billboard.png"></div>
+            <div class="ui-block-d"><img src="img/login.png"></div>
+          </div> -->
+       <!--    <div class="segmented-control ui-bar-d">
+             <div data-role="controlgroup" data-type="horizontal">
+               <a href="#" data-role="button" class="ui-control-active" ><img src="img/logo.png"></a>
+               <a href="#" data-role="button" class="ui-control-inactive"><img src="img/bet2.png"></a>
+               <a href="#" data-role="button" class="ui-control-inactive"><img src="img/billboard.png"></a>
+               <a href="#" data-role="button" class="ui-control-inactive"><img src="img/login.png"></a>
+             </div>
+
+          </div> -->
+
+           <a href="wx.php?do=mine" rel="external" data-role="button" data-theme="c">返回</a>
+      </div>
+      <div data-role="content" style="margin-top:40px;">
+         <div id="detail-panel">
+               
+              </div>
+        
+         
+          
+          
+      <!--   <div class="foot-nav" data-role="navbar" data-theme="d">
+    <ul>
+      <li><a href="#">使用帮助</a></li>
+      <li><a href="#">下载</a></li>
+      <li><a href="#">媒体合作</a></li>
+      <li><a href="#">关于我们</a></li>
+      
+    </ul>
+  </div> -->
+       
+
+     
+
+ 
+  
+ </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+<HEAD>
+<TITLE>FamilyDay，让一家人团聚</TITLE>
+<META name=keywords content=main>
+<META name=description content=main>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<META content=no-cache http-equiv=Cache-Control>
+<meta charset="utf-8">
+<meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" href="template/js/jquery.mobile-1.3.0-beta.1.min.css " />
+<link rel="stylesheet" href="template/css/jquery.mobile-1.2.0.min.css" />
+<link rel="stylesheet"  href="template/css/styles.min.css">
+<script type="text/javascript" src="template/js/cls.js"></script>
+<script type="text/javascript">
+<!--{DOLLOR_TAG}-->CLS.script("template/js/jquery-1.8.2.min.js").wait()
+      .script("template/js/jquery.mobile-1.3.0-beta.1.min.js")
+      .script("template/js/jquery.retina.js");
+</script>
+
+
+
+</head>
+<body id="top">
+	<div data-role="page" data-theme="a" data-fullscreen="true" id="main" style="background-color: #F5F4EF;">
+		<div data-role="header">
+			<div class="ui-grid-a header">
+				<div class="ui-block-a header-menu bk-color2"><p>绑定</p></div>
+				<div class="ui-block-b"><div class="header-logo2"><div><img class="retina" src="template/css/images/family/logo3.jpg" height="26"/></div></div></div>
+			</div>
+		</div>
+		<div data-role="content">
+		
+		<!--{if $result==1}-->
+			<!--<div class="tips">您已经成功的将微信和我家的账号绑定了。<br/>
+			你可以：<br/>
+			—快速掌握家人动态<br/>
+			—发布照片、日记跟家人分享<br/>
+			您暂时还不可以（逐渐完善）：<br/>
+			X 整理空间<br/>
+			X 发布视频<br/>
+			X 收藏、转发
+			</div>
+			<div class="publish-btn2"><a href="wx.php?do=feed&wxkey=$_GET[wxkey]" data-ajax="false" data-role="button">看看家人的动态</a></div>-->
+			<!--{if $os=="ios6"}-->
+			<!--<div class="publish-btn2"><a href="wx.php?do=cp&wxkey=$_GET[wxkey]" data-ajax="false" data-role="button">发布照片</a></div>-->
+			<!--{/if}-->
+			     <div data-role="content">
+        <div id="user_data">
+          <div class="container_12">
+          <div class="grid_3"><img src="img/first_avata.png"></div>
+          <div class="grid_5" id="xxx">
+            <div class="container_12">
+            <ul class="grid_8" style="margin-top:15px;">
+            <li><span>马大宝</span> <span>先知</span> </li>
+             <li>信用 1000</li>
+          </ul>
+          <div class="grid_2" style="padding-top:19px;"><img src="img/jiantou.png"></div>
+           </div>
+          </div>
+          <div class="grid_4"><div style="width:50px;margin:0 auto;height:50px;"><img src="img/crown.png"></div>
+
+        </div>
+        </div>
+         <div class="feed_bg_middle">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+         </div>
+         <div id="uesr_sign"><span>大幅度释放</span></div>
+      </div>
+
+      <div class="user_data_second">
+         <img src="img/friends.png">
+         <span style="padding:10px;">我的朋友 50</span>
+      </div>
+           <div class="feed_bg_middle">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+           </div>
+       <div style="background:#f7f7f7;">
+        <img src="img/friends.png">
+       </div>
+          <div class="feed_bg_middle">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+           </div>
+       <div style="background:#f7f7f7;">
+        <img src="img/friends.png">
+       </div>
+
+        <div class="user_data_second">
+         <img src="img/friends.png">
+         <span style="padding:10px;">我的朋友 50</span>
+      </div>
+
+         <div class="feed_bg_middle">
+                    <div class="feed_bg_left"></div>
+                    <div class="feed_bg_right"></div>
+           </div>
+
+       <div style="background:#f7f7f7;">
+         <img src="img/friends.png" >
+         <span style="padding:10px;">我的朋友 50</span>
+      </div>
+
+        <a href="#" data-role="button" data-theme="d">退出登录</a>
+  </div>
+		<!--{elseif $result==-1}-->			
+			<div class="tips">未能将您的微信和我家账号实现绑定<br/>
+							原因可能是：<br/>
+							—检查您输入的账号密码是否正确<br/>
+							—您还没有注册我家的账号
+			</div>
+			<div class="publish-btn2"><a href="wx.php?do=bind&wxkey=$_GET[wxkey]" data-ajax="false" data-role="button">重新绑定</a></div>
+			<!--{if $os=="ios6"}-->
+			<div class="publish-btn2"><a href="wx.php?do=reg&wxkey=$_GET[wxkey]" data-ajax="false" data-role="button">注册一个我家的帐号</a></div>
+			<!--{/if}-->
+		<!--{else}-->
+
+			<div class="tips"> 将微信绑定到我家<br/><span class="tips2">通过微信在家庭圈分享</span></div>
+
+			<form action="wx.php?do=bind&op=add&wxkey=$_GET[wxkey]" method="post" data-ajax="false" id="callAjaxForm">
+				<div class="input-field"><input id="username" name="username" placeholder="手机号码" value="" type="text" /></div>
+				<div class="input-field"><input id="password" name="password" placeholder="请输入你在我家的密码" value="" type="password" /></div>
+				<input id="wxkey" type="hidden" name="wxkey" value="$_GET['wxkey']" />
+				<div class="publish-btn"><button type="submit" id="submit" name="submit" value="submit" data-theme="a">确定</button></div>
+			</form>
+
+		<!--{/if}-->
+
+		</div>
+		
+    </div>
+</body>
+</html>

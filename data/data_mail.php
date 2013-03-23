@@ -4,6 +4,12 @@ $_SGLOBAL['mail']=Array
 	(
 	'mailsend' => 1,
 	'maildelimiter' => '0',
-	'mailusername' => 1
+	'mailusername' => 1,
+	'server' => '',
+	'port' => '',
+	'auth' => '0',
+	'from' => '',
+	'auth_username' => '',
+	'auth_password' => ''
 	)
 ?>

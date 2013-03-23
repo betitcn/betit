@@ -5,7 +5,7 @@ $_SGLOBAL['usergroup']=Array
 	4 => Array
 		(
 		'gid' => 4,
-		'grouptitle' => '受限会员',
+		'grouptitle' => '白痴',
 		'system' => '0',
 		'banvisit' => '0',
 		'explower' => -999999999,
@@ -92,7 +92,12 @@ $_SGLOBAL['usergroup']=Array
 		'managespacenote' => '0',
 		'managevideophoto' => '0',
 		'managelog' => '0',
-		'magicaward' => '',
+		'magicaward' => Array
+			(
+
+			),
+		'allowquiz' => 1,
+		'managequiz' => '0',
 		'exphigher' => -1
 		)
 	)

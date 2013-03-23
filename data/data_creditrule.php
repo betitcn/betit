@@ -612,6 +612,58 @@ $_SGLOBAL['creditrule']=Array
 		'norepeat' => '0',
 		'credit' => 2,
 		'experience' => 2
+		),
+	'publishquiz' => Array
+		(
+		'rid' => 48,
+		'rulename' => '发表竞猜',
+		'action' => 'publishquiz',
+		'cycletype' => 1,
+		'cycletime' => '0',
+		'rewardnum' => 3,
+		'rewardtype' => 1,
+		'norepeat' => '0',
+		'credit' => 5,
+		'experience' => 5
+		),
+	'delquiz' => Array
+		(
+		'rid' => 49,
+		'rulename' => '竞猜被删除',
+		'action' => 'delquiz',
+		'cycletype' => '0',
+		'cycletime' => '0',
+		'rewardnum' => 1,
+		'rewardtype' => '0',
+		'norepeat' => '0',
+		'credit' => 10,
+		'experience' => 10
+		),
+	'quizimport' => Array
+		(
+		'rid' => 50,
+		'rulename' => '竞猜导入',
+		'action' => 'quizimport',
+		'cycletype' => '0',
+		'cycletime' => '0',
+		'rewardnum' => 1,
+		'rewardtype' => '0',
+		'norepeat' => '0',
+		'credit' => 10,
+		'experience' => '0'
+		),
+	'joinquiz' => Array
+		(
+		'rid' => 51,
+		'rulename' => '参与竞猜',
+		'action' => 'joinquiz',
+		'cycletype' => 1,
+		'cycletime' => '0',
+		'rewardnum' => 10,
+		'rewardtype' => 1,
+		'norepeat' => 1,
+		'credit' => 1,
+		'experience' => 1
 		)
 	)
 ?>

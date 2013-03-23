@@ -1,10 +1,16 @@
-<?php if(!defined('IN_UCHOME')) exit('Access Denied');?><?php subtplcheck('template/default/do_ajax|template/default/header|template/default/space_comment_li|template/default/space_post_li|template/default/space_share_li|template/default/footer', '1342699316', 'template/default/do_ajax');?><?php if(empty($_SGLOBAL['inajax'])) { ?>
+<?php if(!defined('IN_UCHOME')) exit('Access Denied');?><?php subtplcheck('template/default/do_ajax|template/default/header|template/default/space_comment_li|template/default/space_post_li|template/default/space_share_li|template/default/footer', '1363799920', 'template/default/do_ajax');?><?php if(empty($_SGLOBAL['inajax'])) { ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:wb="http://open.weibo.com/wb">
 <head>
+<meta property="wb:webmaster" content="95bc589ca483cacf" />
 <meta http-equiv="content-type" content="text/html; charset=<?=$_SC['charset']?>" />
 <meta http-equiv="x-ua-compatible" content="ie=7" />
-<title><?php if($_TPL['titles']) { ?><?php if(is_array($_TPL['titles'])) { foreach($_TPL['titles'] as $value) { ?><?php if($value) { ?><?=$value?> - <?php } ?><?php } } ?><?php } ?><?php if($_SN[$space['uid']]) { ?><?=$_SN[$space['uid']]?> - <?php } ?><?=$_SCONFIG['sitename']?> - Powered by UCenter Home</title>
+<title><?php if($_TPL['titles']) { ?><?php if(is_array($_TPL['titles'])) { foreach($_TPL['titles'] as $value) { ?><?php if($value) { ?><?=$value?> - <?php } ?><?php } } ?><?php } ?><?php if($_SN[$space['uid']]) { ?><?=$_SN[$space['uid']]?>  <?php } ?>-<?=$_SCONFIG['sitename']?> -  @大赢家官博 -更多请关注 </title>
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=" type="text/javascript" charset="utf-8"></script>
+<script src="http://mat1.gtimg.com/app/openjs/openjs.js#autoboot=no&debug=no"></script>
+<script type="text/javascript" src="source/jquery.js"></script>
+<script type="text/javascript" src="source/scrollpagination.js"></script>
 <script language="javascript" type="text/javascript" src="source/script_cookie.js"></script>
 <script language="javascript" type="text/javascript" src="source/script_common.js"></script>
 <script language="javascript" type="text/javascript" src="source/script_menu.js"></script>
@@ -35,15 +41,25 @@
 <div id="header">
 <?php if($_SGLOBAL['ad']['header']) { ?><div id="ad_header"><?php adshow('header'); ?></div><?php } ?>
 <div class="headerwarp">
-<h1 class="logo"><a href="index.php"><img src="template/<?=$_SCONFIG['template']?>/image/logo.gif" alt="<?=$_SCONFIG['sitename']?>" /></a></h1>
+<h1 class="logo"><a href="space.php?do=betit"><img src="template/<?=$_SCONFIG['template']?>/image/logo.gif" alt="<?=$_SCONFIG['sitename']?>" /></a></h1>
 <ul class="menu">
 <?php if($_SGLOBAL['supe_uid']) { ?>
-<li><a href="space.php?do=home">首页</a></li>
-<li><a href="space.php">个人主页</a></li>
+<li><a href="space.php?do=feed">动态</a></li>
+<!--<li><a href="space.php">个人主页</a></li>
 <li><a href="space.php?do=friend">好友</a></li>
-<li><a href="network.php">随便看看</a></li>
+<li><a href="network.php">随便看看</a></li>-->
+<li><a href="space.php?do=quiz">竟猜</a></li>
+<?php if($space['groupid']==1) { ?>
+<?php if(empty($_GET['id'])) { ?>
+<li><a href="space.php?do=album"><?=$_SGLOBAL['groupid']?>相册</a></li>
+<?php } ?>
+<?php } ?>
+<li><a href="space.php?do=top">排行榜</a></li>
+<li><a href="space.php?do=doing">签名档</a></li>
 <?php } else { ?>
-<li><a href="index.php">首页</a></li>
+<li><a href="space.php?do=feed">首页</a></li>
+<li><a href="space.php?do=quiz">竟猜</a></li>
+<li><a href="space.php?do=doing">心情</a></li>
 <?php } ?>
 
 <?php if($_SGLOBAL['appmenu']) { ?>
@@ -75,16 +91,18 @@
 <?php if(empty($_SCONFIG['closeinvite'])) { ?>
 <a href="cp.php?ac=invite">邀请</a> 
 <?php } ?>
-<a href="cp.php?ac=task">任务</a> 
-<a href="cp.php?ac=magic">道具</a>
+<!--<a href="cp.php?ac=task">任务</a> -->
+<!--<a href="cp.php?ac=magic">道具</a>-->
 <a href="cp.php">设置</a> 
+
 <a href="cp.php?ac=common&op=logout&uhash=<?=$_SGLOBAL['uhash']?>">退出</a>
 <?php } else { ?>
 <a href="do.php?ac=<?=$_SCONFIG['register_action']?>" class="login_thumb"><?php echo avatar($_SGLOBAL[supe_uid]); ?></a>
 欢迎您<br>
-<a href="do.php?ac=<?=$_SCONFIG['login_action']?>">登录</a> | 
-<a href="do.php?ac=<?=$_SCONFIG['register_action']?>">注册</a>
+<a href="space.php?do=betit&op=weibo">登录</a> | 
+
 <?php } ?>
+<a href="space.php?do=betit&op=home">返回官网</a> 
 </div>
 </div>
 </div>
@@ -92,18 +110,19 @@
 <div id="wrap">
 
 <?php if(empty($_TPL['nosidebar'])) { ?>
-<div id="main">
-<div id="app_sidebar">
+<div id="main" style="background:none">
+<div id="app_sidebar" style="display:none">
 <?php if($_SGLOBAL['supe_uid']) { ?>
 <ul class="app_list" id="default_userapp">
-<li><img src="image/app/doing.gif"><a href="space.php?do=doing">记录</a></li>
-<li><img src="image/app/album.gif"><a href="space.php?do=album">相册</a><em><a href="cp.php?ac=upload" class="gray">上传</a></em></li>
+<li><img src="image/app/doing.gif"><a href="space.php?do=doing">心情</a></li>
+<!--<li><img src="image/app/album.gif"><a href="space.php?do=album">相册</a><em><a href="cp.php?ac=upload" class="gray">上传</a></em></li>
 <li><img src="image/app/blog.gif"><a href="space.php?do=blog">日志</a><em><a href="cp.php?ac=blog" class="gray">发表</a></em></li>
 <li><img src="image/app/poll.gif"/><a href="space.php?do=poll">投票</a><em><a href="cp.php?ac=poll" class="gray">发起</a></em></li>
 <li><img src="image/app/mtag.gif"><a href="space.php?do=mtag">群组</a><em><a href="cp.php?ac=thread" class="gray">话题</a></em></li>
 <li><img src="image/app/event.gif"/><a href="space.php?do=event">活动</a><em><a href="cp.php?ac=event" class="gray">发起</a></em></li>
 <li><img src="image/app/share.gif"><a href="space.php?do=share">分享</a></li>
-<li><img src="image/app/topic.gif"><a href="space.php?do=topic">热闹</a></li>
+<li><img src="image/app/topic.gif"><a href="space.php?do=topic">热闹</a></li>-->
+<li><img src="image/app/blog.gif"><a href="space.php?do=quiz">竟猜</a><em><a href="cp.php?ac=quiz" class="gray">发表</a></em></li>
 </ul>
 
 <ul class="app_list topline" id="my_defaultapp">
@@ -154,7 +173,7 @@
 <?php } ?>
 </div>
 
-<div id="mainarea">
+<div id="mainarea" style="<?php if($_SGLOBAL['supe_uid']) { ?>margin-left:100px<?php } ?>">
 
 <?php if($_SGLOBAL['ad']['contenttop']) { ?><div id="ad_contenttop"><?php adshow('contenttop'); ?></div><?php } ?>
 <?php } ?>
@@ -218,6 +237,7 @@
 <div class="detail<?php if($value['magicflicker']) { ?> magicflicker<?php } ?>" id="comment_<?=$value['cid']?>"><?=$value['message']?></div>
 
 <?php if(empty($ajax_edit)) { ?></li><?php } ?>
+
 <?php } } ?>
 
 <?php } elseif($op == 'getfriendgroup') { ?>
@@ -268,6 +288,7 @@
 </li>
 </ul>
 <?php if(empty($ajax_edit)) { ?></div><?php } ?>
+
 <?php } } ?>
 
 <?php } elseif($op == 'share') { ?>
@@ -310,6 +331,7 @@
 </div>
 </div>
 <?php if(empty($ajax_edit)) { ?></li><?php } ?>
+
 <?php } } ?>
 
 <?php } elseif($op == 'album') { ?>
@@ -329,8 +351,8 @@
 <div class="popupmenu_layer">
 <p><?=$rule['rulename']?></p>
 <p class="btn_line">
-<?php if($rule['credit']) { ?>积分 <strong>+<?=$rule['credit']?></strong> <?php } ?>
-<?php if($rule['experience']) { ?>经验 <strong>+<?=$rule['experience']?></strong> <?php } ?>
+<?php if($rule['credit']) { ?>金币 <strong>+<?=$rule['credit']?></strong> <?php } ?>
+<?php if($rule['experience']) { ?>信用 <strong>+<?=$rule['experience']?></strong> <?php } ?>
 </p>
 <?php if($rule['cyclenum']) { ?>
 <p>
@@ -347,20 +369,13 @@
 </div>
 
 <!--/mainarea-->
-<div id="bottom"></div>
+<div id="bottom" style="display:none"></div>
 </div>
 <!--/main-->
 <?php } ?>
 
 <div id="footer">
-<?php if($_TPL['templates']) { ?>
-<div class="chostlp" title="切换风格"><img id="chostlp" src="<?=$_TPL['default_template']['icon']?>" onmouseover="showMenu(this.id)" alt="<?=$_TPL['default_template']['name']?>" /></div>
-<ul id="chostlp_menu" class="chostlp_drop" style="display: none">
-<?php if(is_array($_TPL['templates'])) { foreach($_TPL['templates'] as $value) { ?>
-<li><a href="cp.php?ac=common&op=changetpl&name=<?=$value['name']?>" title="<?=$value['name']?>"><img src="<?=$value['icon']?>" alt="<?=$value['name']?>" /></a></li>
-<?php } } ?>
-</ul>
-<?php } ?>
+
 
 <p class="r_option">
 <a href="javascript:;" onclick="window.scrollTo(0,0);" id="a_top" title="TOP"><img src="image/top.gif" alt="" style="padding: 5px 6px 6px;" /></a>
@@ -381,9 +396,9 @@
 <?php if($_SCONFIG['miibeian']) { ?> - <a  href="http://www.miibeian.gov.cn" target="_blank"><?=$_SCONFIG['miibeian']?></a><?php } ?>
 </p>
 <p>
-Powered by <a  href="http://u.discuz.net" target="_blank"><strong>UCenter Home</strong></a> <span title="<?php echo X_RELEASE; ?>"><?php echo X_VER; ?></span>
+Powered by <a  href="http://u.discuz.net" target="_blank"><strong>广州市宏门网络科技有限公司 </strong></a> <span title="<?php echo X_RELEASE; ?>"><?php echo X_VER; ?></span>
 <?php if(!empty($_SCONFIG['licensed'])) { ?><a  href="http://license.comsenz.com/?pid=7&host=<?=$_SERVER['HTTP_HOST']?>" target="_blank">Licensed</a><?php } ?>
-&copy; 2001-2010 <a  href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>
+&copy; 2001-2012 
 </p>
 <?php if($_SCONFIG['debuginfo']) { ?>
 <p><?php echo debuginfo(); ?></p>
@@ -448,4 +463,6 @@ showreward();
 <?php } ?>
 </body>
 </html>
-<?php } ?><?php ob_out();?>
+<?php } ?>
+
+<?php ob_out();?>

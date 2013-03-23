@@ -1,11 +1,17 @@
-<?php if(!defined('IN_UCHOME')) exit('Access Denied');?><?php subtplcheck('template/default/space_index|template/default/header|template/default/space_status|template/default/space_feed_li|template/default/space_comment_li|template/default/footer', '1342699315', 'template/default/space_index');?><?php $_TPL['nosidebar']=1; ?>
+<?php if(!defined('IN_UCHOME')) exit('Access Denied');?><?php subtplcheck('template/default/space_index|template/default/header|template/default/space_status|template/default/space_feed_li|template/default/space_comment_li|template/default/footer', '1363769933', 'template/default/space_index');?><?php $_TPL['nosidebar']=1; ?>
 <?php if(empty($_SGLOBAL['inajax'])) { ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:wb="http://open.weibo.com/wb">
 <head>
+<meta property="wb:webmaster" content="95bc589ca483cacf" />
 <meta http-equiv="content-type" content="text/html; charset=<?=$_SC['charset']?>" />
 <meta http-equiv="x-ua-compatible" content="ie=7" />
-<title><?php if($_TPL['titles']) { ?><?php if(is_array($_TPL['titles'])) { foreach($_TPL['titles'] as $value) { ?><?php if($value) { ?><?=$value?> - <?php } ?><?php } } ?><?php } ?><?php if($_SN[$space['uid']]) { ?><?=$_SN[$space['uid']]?> - <?php } ?><?=$_SCONFIG['sitename']?> - Powered by UCenter Home</title>
+<title><?php if($_TPL['titles']) { ?><?php if(is_array($_TPL['titles'])) { foreach($_TPL['titles'] as $value) { ?><?php if($value) { ?><?=$value?> - <?php } ?><?php } } ?><?php } ?><?php if($_SN[$space['uid']]) { ?><?=$_SN[$space['uid']]?>  <?php } ?>-<?=$_SCONFIG['sitename']?> -  @大赢家官博 -更多请关注 </title>
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=" type="text/javascript" charset="utf-8"></script>
+<script src="http://mat1.gtimg.com/app/openjs/openjs.js#autoboot=no&debug=no"></script>
+<script type="text/javascript" src="source/jquery.js"></script>
+<script type="text/javascript" src="source/scrollpagination.js"></script>
 <script language="javascript" type="text/javascript" src="source/script_cookie.js"></script>
 <script language="javascript" type="text/javascript" src="source/script_common.js"></script>
 <script language="javascript" type="text/javascript" src="source/script_menu.js"></script>
@@ -36,15 +42,25 @@
 <div id="header">
 <?php if($_SGLOBAL['ad']['header']) { ?><div id="ad_header"><?php adshow('header'); ?></div><?php } ?>
 <div class="headerwarp">
-<h1 class="logo"><a href="index.php"><img src="template/<?=$_SCONFIG['template']?>/image/logo.gif" alt="<?=$_SCONFIG['sitename']?>" /></a></h1>
+<h1 class="logo"><a href="space.php?do=betit"><img src="template/<?=$_SCONFIG['template']?>/image/logo.gif" alt="<?=$_SCONFIG['sitename']?>" /></a></h1>
 <ul class="menu">
 <?php if($_SGLOBAL['supe_uid']) { ?>
-<li><a href="space.php?do=home">首页</a></li>
-<li><a href="space.php">个人主页</a></li>
+<li><a href="space.php?do=feed">动态</a></li>
+<!--<li><a href="space.php">个人主页</a></li>
 <li><a href="space.php?do=friend">好友</a></li>
-<li><a href="network.php">随便看看</a></li>
+<li><a href="network.php">随便看看</a></li>-->
+<li><a href="space.php?do=quiz">竟猜</a></li>
+<?php if($space['groupid']==1) { ?>
+<?php if(empty($_GET['id'])) { ?>
+<li><a href="space.php?do=album"><?=$_SGLOBAL['groupid']?>相册</a></li>
+<?php } ?>
+<?php } ?>
+<li><a href="space.php?do=top">排行榜</a></li>
+<li><a href="space.php?do=doing">签名档</a></li>
 <?php } else { ?>
-<li><a href="index.php">首页</a></li>
+<li><a href="space.php?do=feed">首页</a></li>
+<li><a href="space.php?do=quiz">竟猜</a></li>
+<li><a href="space.php?do=doing">心情</a></li>
 <?php } ?>
 
 <?php if($_SGLOBAL['appmenu']) { ?>
@@ -76,16 +92,18 @@
 <?php if(empty($_SCONFIG['closeinvite'])) { ?>
 <a href="cp.php?ac=invite">邀请</a> 
 <?php } ?>
-<a href="cp.php?ac=task">任务</a> 
-<a href="cp.php?ac=magic">道具</a>
+<!--<a href="cp.php?ac=task">任务</a> -->
+<!--<a href="cp.php?ac=magic">道具</a>-->
 <a href="cp.php">设置</a> 
+
 <a href="cp.php?ac=common&op=logout&uhash=<?=$_SGLOBAL['uhash']?>">退出</a>
 <?php } else { ?>
 <a href="do.php?ac=<?=$_SCONFIG['register_action']?>" class="login_thumb"><?php echo avatar($_SGLOBAL[supe_uid]); ?></a>
 欢迎您<br>
-<a href="do.php?ac=<?=$_SCONFIG['login_action']?>">登录</a> | 
-<a href="do.php?ac=<?=$_SCONFIG['register_action']?>">注册</a>
+<a href="space.php?do=betit&op=weibo">登录</a> | 
+
 <?php } ?>
+<a href="space.php?do=betit&op=home">返回官网</a> 
 </div>
 </div>
 </div>
@@ -93,18 +111,19 @@
 <div id="wrap">
 
 <?php if(empty($_TPL['nosidebar'])) { ?>
-<div id="main">
-<div id="app_sidebar">
+<div id="main" style="background:none">
+<div id="app_sidebar" style="display:none">
 <?php if($_SGLOBAL['supe_uid']) { ?>
 <ul class="app_list" id="default_userapp">
-<li><img src="image/app/doing.gif"><a href="space.php?do=doing">记录</a></li>
-<li><img src="image/app/album.gif"><a href="space.php?do=album">相册</a><em><a href="cp.php?ac=upload" class="gray">上传</a></em></li>
+<li><img src="image/app/doing.gif"><a href="space.php?do=doing">心情</a></li>
+<!--<li><img src="image/app/album.gif"><a href="space.php?do=album">相册</a><em><a href="cp.php?ac=upload" class="gray">上传</a></em></li>
 <li><img src="image/app/blog.gif"><a href="space.php?do=blog">日志</a><em><a href="cp.php?ac=blog" class="gray">发表</a></em></li>
 <li><img src="image/app/poll.gif"/><a href="space.php?do=poll">投票</a><em><a href="cp.php?ac=poll" class="gray">发起</a></em></li>
 <li><img src="image/app/mtag.gif"><a href="space.php?do=mtag">群组</a><em><a href="cp.php?ac=thread" class="gray">话题</a></em></li>
 <li><img src="image/app/event.gif"/><a href="space.php?do=event">活动</a><em><a href="cp.php?ac=event" class="gray">发起</a></em></li>
 <li><img src="image/app/share.gif"><a href="space.php?do=share">分享</a></li>
-<li><img src="image/app/topic.gif"><a href="space.php?do=topic">热闹</a></li>
+<li><img src="image/app/topic.gif"><a href="space.php?do=topic">热闹</a></li>-->
+<li><img src="image/app/blog.gif"><a href="space.php?do=quiz">竟猜</a><em><a href="cp.php?ac=quiz" class="gray">发表</a></em></li>
 </ul>
 
 <ul class="app_list topline" id="my_defaultapp">
@@ -155,7 +174,7 @@
 <?php } ?>
 </div>
 
-<div id="mainarea">
+<div id="mainarea" style="<?php if($_SGLOBAL['supe_uid']) { ?>margin-left:100px<?php } ?>">
 
 <?php if($_SGLOBAL['ad']['contenttop']) { ?><div id="ad_contenttop"><?php adshow('contenttop'); ?></div><?php } ?>
 <?php } ?>
@@ -205,7 +224,7 @@
 <li><a href="cp.php?ac=avatar">我的头像</a></li>
 <li><a href="cp.php?ac=profile">个人资料</a></li>
 <li><a href="cp.php?ac=theme">主页风格</a></li>
-<li><a href="cp.php?ac=credit">我的积分</a></li>
+<li><a href="cp.php?ac=credit">我的金币</a></li>
 <?php if($_SCONFIG['sendmailday']) { ?>
 <li><a href="cp.php?ac=sendmail">邮件提醒</a></li>
 <?php } ?>
@@ -239,36 +258,41 @@
 </li>
 <li>
 <?php if($space['self']) { ?>
-<a href="space.php?do=doing&view=me" class="r_option" target="_blank">记录</a>
+<a href="space.php?do=doing&view=me" class="r_option" target="_blank">心情</a>
 <?php } ?>
-<img src="image/icon/doing.gif"><a href="javascript:;" onclick="getindex('doing');">记录</a><?php if($space['doingnum']) { ?><em>(<?=$space['doingnum']?>)</em><?php } ?>
+<img src="image/icon/doing.gif"><a href="javascript:;" onclick="getindex('doing');">心情</a><?php if($space['doingnum']) { ?><em>(<?=$space['doingnum']?>)</em><?php } ?>
 </li>
 <li>
+<?php if($space['self']) { ?>
+<a href="cp.php?ac=quiz" class="r_option" target="_blank">发表</a>
+<?php } ?>
+<img src="image/icon/quiz.gif"><a href="javascript:;" onclick="getindex('quiz');">竞猜</a><?php if($space['quiznum']) { ?><em>(<?=$space['quiznum']?>)</em><?php } ?></li>
+<li style="display:none">
 <?php if($space['self']) { ?>
 <a href="cp.php?ac=blog" class="r_option" target="_blank">发表</a>
 <?php } ?>
 <img src="image/icon/blog.gif"><a href="javascript:;" onclick="getindex('blog');">日志</a><?php if($space['blognum']) { ?><em>(<?=$space['blognum']?>)</em><?php } ?></li>
-<li><?php if($space['self']) { ?>
+<li style="display:none"><?php if($space['self']) { ?>
 <a href="cp.php?ac=upload" class="r_option" target="_blank">上传</a>
 <?php } ?>
 <img src="image/icon/album.gif"><a href="javascript:;" onclick="getindex('album');">相册</a><?php if($space['albumnum']) { ?><em>(<?=$space['albumnum']?>)</em><?php } ?></li>
-<li><?php if($space['self']) { ?>
+<li style="display:none"><?php if($space['self']) { ?>
 <a href="cp.php?ac=thread" class="r_option" target="_blank">发表</a>
 <?php } ?>
 <img src="image/icon/thread.gif"><a href="javascript:;" onclick="getindex('thread');">话题</a><?php if($space['threadnum']) { ?><em>(<?=$space['threadnum']?>)</em><?php } ?></li>
-<li><?php if($space['self']) { ?>
+<li style="display:none"><?php if($space['self']) { ?>
 <a href="cp.php?ac=poll" class="r_option" target="_blank">发起</a>
 <?php } ?>
 <img src="image/icon/poll.gif"><a href="javascript:;" onclick="getindex('poll');">投票</a><?php if($space['pollnum']) { ?><em>(<?=$space['pollnum']?>)</em><?php } ?></li>
-<li><?php if($space['self']) { ?>
+<li style="display:none"><?php if($space['self']) { ?>
 <a href="cp.php?ac=event" class="r_option" target="_blank">发起</a>
 <?php } ?>
 <img src="image/icon/event.gif"><a href="javascript:;" onclick="getindex('event');">活动</a><?php if($space['eventnum']) { ?><em>(<?=$space['eventnum']?>)</em><?php } ?></li>
-<li><?php if($space['self']) { ?>
+<li style="display:none"><?php if($space['self']) { ?>
 <a href="space.php?do=share&view=me" class="r_option" target="_blank">添加</a>
 <?php } ?>
 <img src="image/icon/share.gif"><a href="javascript:;" onclick="getindex('share');">分享</a><?php if($space['sharenum']) { ?><em>(<?=$space['sharenum']?>)</em><?php } ?></li>
-<li><?php if($space['self']) { ?>
+<li style="display:none"><?php if($space['self']) { ?>
 <a href="cp.php?ac=friend&op=search" class="r_option" target="_blank">寻找</a>
 <?php } ?>
 <img src="image/icon/friend.gif"><a href="javascript:;" onclick="getindex('friend');">好友</a><?php if($space['friendnum']) { ?><em>(<?=$space['friendnum']?>)</em><?php } ?></li>
@@ -276,7 +300,7 @@
 </div>
 
 <?php if($guidelist) { ?>
-<div id="space_app_guide">
+<div id="space_app_guide" style="display:none">
 <h2>应用菜单</h2>
 <ul class="line_list">
 <?php if(is_array($guidelist)) { foreach($guidelist as $value) { ?>
@@ -343,7 +367,8 @@
 <a href="rss.php?uid=<?=$space['uid']?>" id="i_rss" title="订阅 RSS">订阅</a>
 
 <ul class="note_list">
-<li>已有 <?=$space['viewnum']?> 人次访问, <?=$space['credit']?> 个积分, <?=$space['experience']?> 个经验 <?=$space['star']?></li>
+<li>已有 <?=$space['viewnum']?> 人次访问, <?=$space['credit']?> 个金币, <?=$space['experience']?> 个信用 <?=$space['star']?></li>
+<li>发起竞猜 <?=$space['quiznum']?> 次， 参与竞猜 <?=$space['voternum']?> 次， 赢 <?=$space['winnum']?>次， 输 <?=$space['lostnum']?>次</li>
 <li>用户组别：<a href="cp.php?ac=credit&op=usergroup"><?=$_SGLOBAL['grouptitle'][$space['groupid']]['grouptitle']?></a> <?php g_icon($space[groupid]); ?></li>
 <li>主页地址：<a href="<?=$space['domainurl']?>" onclick="javascript:setCopy('<?=$space['domainurl']?>');return false;" class="spacelink domainurl"><?=$space['domainurl']?></a></li>
 
@@ -445,11 +470,12 @@ var x = new Ajax();
 x.get('cp.php?ac=doing&op=getmood', function(s){
 $('mood_mystatus').innerHTML = s;
 });
-//提示获得积分
+//提示获得金币
 showreward();
 hiddenstatus();
 }
 </script>
+
 <?php } ?>
 </div>
 
@@ -523,11 +549,14 @@ hiddenstatus();
 <?php if($value['uid'] && empty($_TPL['hidden_more'])) { ?>
 <a href="cp.php?ac=feed&op=menu&feedid=<?=$value['feedid']?>" class="float_more" id="a_feed_menu_<?=$value['feedid']?>"  onmouseover="feed_menu(<?=$value['feedid']?>,1);" onmouseout="feed_menu(<?=$value['feedid']?>,0);" onclick="ajaxmenu(event, this.id)" title="显示更多选项" style="display:none;">菜单</a>
 <?php } ?>
-<a class="type" href="space.php?uid=<?=$_GET['uid']?>&do=feed&view=<?=$_GET['view']?>&appid=<?=$value['appid']?>&icon=<?=$value['icon']?>" title="只看此类动态"><img src="<?=$value['icon_image']?>" /></a>
-<?=$value['title_template']?> 
+<a class="type"  href="space.php?uid=<?=$value['uid']?>" title="只看此类动态"><img style="width:48px; height:48px;float:left;padding-right: 5px;" <?php echo avatar($value[uid],small); ?> </a>
+
+<!--<?=$value['title_template']?> -->
+
+<a class="newbettitle" target="_blank" href="#"><?=$value['title_template']?></a>
 
 <?php if(empty($_TPL['hidden_time'])) { ?>
-<span class="gray"><?php echo sgmdate('m-d H:i',$value[dateline],1); ?></span>
+<br/><span class="gray" ><?php echo sgmdate('m-d H:i',$value[dateline],1); ?></span>
 <?php } ?>
 
 <?php if(empty($_TPL['hidden_menu'])) { ?>
@@ -541,28 +570,90 @@ hiddenstatus();
 <div class="feed_content">
 
 <?php if(empty($_TPL['hidden_hot']) && $value['hot']) { ?>
-<div class="hotspot"><a href="cp.php?ac=feed&feedid=<?=$value['feedid']?>"><?=$value['hot']?></a></div>
-<?php } ?>	
-
-<?php if($value['image_1']) { ?>
-<a href="<?=$value['image_1_link']?>"<?=$value['target']?>><img src="<?=$value['image_1']?>" class="summaryimg" /></a>
-<?php } ?>
-<?php if($value['image_2']) { ?>
-<a href="<?=$value['image_2_link']?>"<?=$value['target']?>><img src="<?=$value['image_2']?>" class="summaryimg" /></a>
-<?php } ?>
-<?php if($value['image_3']) { ?>
-<a href="<?=$value['image_3_link']?>"<?=$value['target']?>><img src="<?=$value['image_3']?>" class="summaryimg" /></a>
-<?php } ?>
-<?php if($value['image_4']) { ?>
-<a href="<?=$value['image_4_link']?>"<?=$value['target']?>><img src="<?=$value['image_4']?>" class="summaryimg" /></a>
-<?php } ?>
-
+<div class="hotspot0" style=""><a href="cp.php?ac=feed&feedid=<?=$value['feedid']?> "><?=$value['hot']?></a></div>
+<?php } ?>			
 <?php if($value['body_template']) { ?>
 <div class="detail"<?php if($value['image_3']) { ?> style="clear: both;"<?php } ?>>
-<?=$value['body_template']?>
+
 </div>
 <?php } ?>
+<?php if($value['body_template']=='quiz') { ?>
+<ul>
 
+<div style="width:100%;margin-left:50px;">
+
+
+<div class="twopic" style="padding-right: 100px;">
+<div class="picone" style="
+    display:block;
+    width: 140px;
+    height: 140px;
+    float: left;">
+<?php if($value['image_1']) { ?>
+<a href="<?=$value['image_1_link']?>"<?=$value['target']?>><img src="<?=$value['image_1']?>" class="summaryimg" /></a>
+<?php } else { ?>
+<a href="space.php?uid=<?=$value['uid']?>&do=quiz&id=<?=$value['quizid']?>"<?=$value['target']?>><img src="image/org_img/nopicA.png" class="summaryimg" /></a>
+<?php } ?>
+
+</div>
+
+<div class="middle" style="
+   	text-align: center;
+width: 120px;
+float: left;
+font-size: 20px;
+font-weight: bold;
+font-family:'微软雅黑';
+
+">
+<br>
+<img src="image/org_img/gold.jpg" style="max-width:26px;max-height:25px;min-width:26px;min-height:25px"> <?=$value['totalcost']?>&nbsp;&nbsp;<br/>
+
+<img  src="image/org_img/vs_little.jpg" style="max-width:60px;max-height:40px;min-width:60px;min-height:40px">&nbsp;&nbsp;
+
+
+</div>
+
+<div class="pictwo" style="
+    float: left;
+    
+height:140px;
+">
+<?php if($value['image_2']) { ?>
+<a href="<?=$value['image_2_link']?>"<?=$value['target']?>><img src="<?=$value['image_2']?>" class="summaryimg" /></a>
+<?php } else { ?>
+<a href="space.php?uid=<?=$value['uid']?>&do=quiz&id=<?=$value['quizid']?>"<?=$value['target']?>><img src="image/org_img/nopicB.png" class="summaryimg" /></a>
+<?php } ?>
+<div class="clear" style="clear:both;"></div>
+
+</div>
+
+<div class="twoword" style="margin-bottom:30px;">
+ <?php $list1 = $value[options]; ?>
+<?php if(is_array($list1)) { foreach($list1 as $value2) { ?>
+<div class="leftword" style="float:left;width:200px;"><?=$value2['0']?></div>
+<div class="rightword" style="width:186px;text-align:right;float:right;margin-right:14px;"><?=$value2['1']?></div>
+                <?php } } ?>
+</div>
+
+<div class="twohand" style="padding-right:120px; ">
+  <?php $list12 = $value[votenum]; ?>
+<?php if(is_array($list12)) { foreach($list12 as $value8) { ?>
+<div class="lefthand" style="float:left; color:#DA5252; font-size:25px;	margin-top:20px;margin-left:-200px;" ><a href="space.php?uid=<?=$value['uid']?>&do=quiz&id=<?=$value['quizid']?>"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="image/newpeople/lefthand.jpg"></a><?=$value8['option']['0']?></div>
+<div class="righthand" style="position:relative;left:105px;float:right; color:#DA5252; font-size:25px;"><?=$value8['option']['1']?><a href="space.php?uid=<?=$value['uid']?>&do=quiz&id=<?=$value['quizid']?>"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="image/newpeople/righthand.jpg"></a></div>
+  <?php } } ?>
+</div>
+
+</div>
+</div>
+
+
+
+
+</ul>
+<?php } else { ?>
+<?=$value['body_template']?>
+<?php } ?>
 <?php if($value['thisapp'] && !empty($value['body_data']['flashvar'])) { ?>
 <div class="media">
 <img src="image/vd.gif" alt="点击播放" onclick="javascript:showFlash('<?=$value['body_data']['host']?>', '<?=$value['body_data']['flashvar']?>', this, '<?=$value['feedid']?>');" style="cursor:pointer;" />
@@ -625,6 +716,7 @@ hiddenstatus();
 </div>
 <?php } ?>
 </li>
+
 <?php } } ?>
 </ul>
 </div>
@@ -654,7 +746,7 @@ hiddenstatus();
 <?php } ?>
 
 <?php if($bloglist) { ?>
-<div id="space_blog" class="feed">
+<div id="space_blog" class="feed" style="display:none">
 <h3 class="feed_header">
 <a href="space.php?uid=<?=$space['uid']?>&do=blog&view=me" class="r_option">全部</a>
 日志
@@ -775,6 +867,7 @@ hiddenstatus();
 <div class="detail<?php if($value['magicflicker']) { ?> magicflicker<?php } ?>" id="comment_<?=$value['cid']?>"><?=$value['message']?></div>
 
 <?php if(empty($ajax_edit)) { ?></li><?php } ?>
+
 <?php } } ?>
 </ul>
 <?php if($walllist) { ?>
@@ -789,7 +882,7 @@ hiddenstatus();
 
 <?php if($space['magiccredit']) { ?>
 <div class="magichongbao" id="div_magic_gift">
-<a id="a_magic_gift" href="cp.php?&ac=magic&op=receive&uid=<?=$space['uid']?>" onclick="ajaxmenu(event, this.id)">送你 <span><?=$space['magiccredit']?></span> 积分大红包</a>
+<a id="a_magic_gift" href="cp.php?&ac=magic&op=receive&uid=<?=$space['uid']?>" onclick="ajaxmenu(event, this.id)">送你 <span><?=$space['magiccredit']?></span> 金币大红包</a>
 </div>
 <?php } ?>
 
@@ -808,7 +901,7 @@ hiddenstatus();
 <?php if($_SGLOBAL['magic']['gift']) { ?>
 <div class="magichongbao" id="div_magic_gift">				
 <?php if($space['magiccredit']) { ?>
-<a id="a_magic_retrieve" href="cp.php?ac=magic&op=retrieve" onclick="ajaxmenu(event,this.id)">回收埋下的积分</a>
+<a id="a_magic_retrieve" href="cp.php?ac=magic&op=retrieve" onclick="ajaxmenu(event,this.id)">回收埋下的金币</a>
 <?php } else { ?>
 <a id="a_magic_gift" href="magic.php?mid=gift" onclick="ajaxmenu(event,this.id,1)">给来访者埋个红包</a>
 <?php } ?>				
@@ -875,20 +968,13 @@ hiddenstatus();
 </div>
 
 <!--/mainarea-->
-<div id="bottom"></div>
+<div id="bottom" style="display:none"></div>
 </div>
 <!--/main-->
 <?php } ?>
 
 <div id="footer">
-<?php if($_TPL['templates']) { ?>
-<div class="chostlp" title="切换风格"><img id="chostlp" src="<?=$_TPL['default_template']['icon']?>" onmouseover="showMenu(this.id)" alt="<?=$_TPL['default_template']['name']?>" /></div>
-<ul id="chostlp_menu" class="chostlp_drop" style="display: none">
-<?php if(is_array($_TPL['templates'])) { foreach($_TPL['templates'] as $value) { ?>
-<li><a href="cp.php?ac=common&op=changetpl&name=<?=$value['name']?>" title="<?=$value['name']?>"><img src="<?=$value['icon']?>" alt="<?=$value['name']?>" /></a></li>
-<?php } } ?>
-</ul>
-<?php } ?>
+
 
 <p class="r_option">
 <a href="javascript:;" onclick="window.scrollTo(0,0);" id="a_top" title="TOP"><img src="image/top.gif" alt="" style="padding: 5px 6px 6px;" /></a>
@@ -909,9 +995,9 @@ hiddenstatus();
 <?php if($_SCONFIG['miibeian']) { ?> - <a  href="http://www.miibeian.gov.cn" target="_blank"><?=$_SCONFIG['miibeian']?></a><?php } ?>
 </p>
 <p>
-Powered by <a  href="http://u.discuz.net" target="_blank"><strong>UCenter Home</strong></a> <span title="<?php echo X_RELEASE; ?>"><?php echo X_VER; ?></span>
+Powered by <a  href="http://u.discuz.net" target="_blank"><strong>广州市宏门网络科技有限公司 </strong></a> <span title="<?php echo X_RELEASE; ?>"><?php echo X_VER; ?></span>
 <?php if(!empty($_SCONFIG['licensed'])) { ?><a  href="http://license.comsenz.com/?pid=7&host=<?=$_SERVER['HTTP_HOST']?>" target="_blank">Licensed</a><?php } ?>
-&copy; 2001-2010 <a  href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>
+&copy; 2001-2012 
 </p>
 <?php if($_SCONFIG['debuginfo']) { ?>
 <p><?php echo debuginfo(); ?></p>
@@ -978,6 +1064,7 @@ showreward();
 </html>
 <?php } ?>
 
+
 <script>
 function getindex(type) {
 var plus = '';
@@ -991,4 +1078,5 @@ for(var i=0; i<elems.length; i++){
 magicColor(elems[i]);
 }
 
-</script><?php ob_out();?>
+</script>
+<?php ob_out();?>

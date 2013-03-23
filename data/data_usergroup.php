@@ -2,15 +2,63 @@
 if(!defined('IN_UCHOME')) exit('Access Denied');
 $_SGLOBAL['grouptitle']=Array
 	(
-	7 => Array
+	17 => Array
 		(
-		'grouptitle' => '高级会员',
+		'grouptitle' => '先知大王',
+		'color' => '',
+		'icon' => ''
+		),
+	16 => Array
+		(
+		'grouptitle' => '小鬼',
+		'color' => '',
+		'icon' => ''
+		),
+	15 => Array
+		(
+		'grouptitle' => '方块A',
+		'color' => '',
+		'icon' => ''
+		),
+	14 => Array
+		(
+		'grouptitle' => '方块9',
+		'color' => '',
+		'icon' => ''
+		),
+	13 => Array
+		(
+		'grouptitle' => '方块8',
 		'color' => '',
 		'icon' => ''
 		),
 	6 => Array
 		(
-		'grouptitle' => '中级会员',
+		'grouptitle' => '方块7',
+		'color' => '',
+		'icon' => ''
+		),
+	12 => Array
+		(
+		'grouptitle' => '方块6',
+		'color' => '',
+		'icon' => ''
+		),
+	11 => Array
+		(
+		'grouptitle' => '方块5',
+		'color' => '',
+		'icon' => ''
+		),
+	10 => Array
+		(
+		'grouptitle' => '方块4',
+		'color' => '',
+		'icon' => ''
+		),
+	7 => Array
+		(
+		'grouptitle' => '方块3',
 		'color' => '',
 		'icon' => ''
 		),
@@ -34,7 +82,7 @@ $_SGLOBAL['grouptitle']=Array
 		),
 	5 => Array
 		(
-		'grouptitle' => '普通会员',
+		'grouptitle' => '方块2',
 		'color' => '',
 		'icon' => ''
 		),
@@ -52,7 +100,7 @@ $_SGLOBAL['grouptitle']=Array
 		),
 	4 => Array
 		(
-		'grouptitle' => '受限会员',
+		'grouptitle' => '白痴',
 		'color' => '',
 		'icon' => ''
 		)
