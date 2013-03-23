@@ -104,7 +104,7 @@ class siteUserRegister{
 					//include_once(S_ROOT.'./source/function_cp.php');
 					//foreach ($fuids as $fuid) {
 					//	friend_cache($fuid);
-					}
+					//}
 				}
 			}
 
