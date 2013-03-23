@@ -12,6 +12,7 @@ include_once( CONNECT_ROOT.'/Tencent.php' );
 require_once CONNECT_ROOT."/common/jtee.inc.php";
 require_once CONNECT_ROOT."/common/siteUserRegister.class.php";
 
+
 OAuth::init( QQ_AKEY , QQ_SKEY );
 Tencent::$debug = QQ_DEBUG;
 
