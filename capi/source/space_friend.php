@@ -267,7 +267,7 @@ if($fuids) {
 }
 
 realname_get();
-
+ 
 if(empty($_REQUEST['view']) || $_REQUEST['view'] == 'all') $_REQUEST['view'] = 'me';
 $a_actives = array($_REQUEST['view'].$_REQUEST['type'] => ' class="current"');
 $plist = array();
