@@ -53,7 +53,7 @@ class siteUserRegister{
 		$this->username = mysql_escape_string(trim($name));
 		$this->email = mysql_escape_string(trim($email));
 		$this->password = $pwd ? mysql_escape_string($pwd) : rand(100000,999999);
-		showmessage($this->password);
+	
 		$result_name = uc_user_checkname($this->username);
 		if($result_name < 1){  //检测用户名
 			return $result_name;
