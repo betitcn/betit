@@ -7,6 +7,7 @@ include_once('./../common.php');
 include_once( 'botutil.php' );
 
 
+
 //define your token
 define("TOKEN", "betit");
 $wechatObj = new wechatCallbackapiTest();
