@@ -35,13 +35,13 @@ if ($token) {
 	}else{
 		 $c = new SaeTClientV2( WB_AKEY , WB_SKEY , $_SESSION['token']['access_token'] );
 		 $profile = $c->show_user_by_id($uid_get['uid']);
-		 $a=$profile['idstr'];
-		 showmessage($a);
+		 
 		 $idstr = ($profile['idstr'])?$profile['idstr']:$profile['id'];
 		 $idstr = ($idstr)?$idstr:$_SGLOBAL["timestamp"];
 		 $usernameS	= "sina_".$idstr;
 		 $regEmailS	= "sina_".$idstr."@betit.cn";
 		 $regPwdS	= "sina_".$idstr;
+
 		 require_once CONNECT_ROOT."/common/siteUserRegister.class.php";
 		 $regClass = new siteUserRegister();
 		$uid = $regClass->reg($usernameS, $regEmailS, $regPwdS);
