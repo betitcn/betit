@@ -40,6 +40,7 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 	$friendnum=$json_output->data->space->friendnum;
 	$quiznum=$json_output->data->space->quiznum;
 	$grouptitle=$json_output->data->space->grouptitle;
+	$uid=$json_output->data->space->uid;
 	//$avatar = capi_avatar($value["uid"]);
 	$device = json_encode(array("os"=>$os, "auth"=>$json_output->data->m_auth));
 	// bind
