@@ -1,7 +1,5 @@
 <?php
-require_once 'wx_common.php';
 $wxkey=$_GET['wxkey'];
-wxshowmessage($wxkey);
 $site = empty($_GET['site'])?"weibo":$_GET['site'];
 $ac = empty($_GET['ac'])?'':$_GET['ac'];
 
