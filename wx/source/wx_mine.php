@@ -44,6 +44,7 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 	//$avatar = capi_avatar($value["uid"]);
 	$device = json_encode(array("os"=>$os, "auth"=>$json_output->data->m_auth));
 	// bind
+	wxshowmessage($_SCOOKIE["wxkey"]);
 	$wxkey=$_SCOOKIE["wxkey"];
 	updatetable('space', array('wxkey'=>$wxkey, 'device'=>$device), array('uid'=>$json_output->data->space->uid));
 	
