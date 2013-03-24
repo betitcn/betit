@@ -119,7 +119,7 @@ $_SGLOBAL['click']=Array
 			(
 			'clickid' => 19,
 			'name' => '鲜花',
-			'icon' => 'xiahua.gif',
+			'icon' => 'xianhua.gif',
 			'idtype' => 'quizid',
 			'displayorder' => '0'
 			),
