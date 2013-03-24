@@ -11,8 +11,8 @@ if(!defined('IN_UCHOME')) {
 
 include_once(S_ROOT.'./uc_client/client.php');
 
-$list = array();
 
+$list = array();
 $pmid = empty( $_REQUEST['pmid'])?0:floatval( $_REQUEST['pmid']);
 $touid = empty( $_REQUEST['touid'])?0:intval( $_REQUEST['touid']);
 $daterange = empty( $_REQUEST['daterange'])?1:intval( $_REQUEST['daterange']);
