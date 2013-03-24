@@ -6,7 +6,7 @@ $ac = empty($_GET['ac'])?'':$_GET['ac'];
 if ($site == "weibo")
 {
 	if ($ac=="callback"){
-		$wxkey=$_GET['wxkey'];
+		
 		require 'weibo/callback.php';
 	}else{
 		require 'weibo/index.php';
