@@ -5,13 +5,13 @@ $_SGLOBAL['usergroup']=Array
 	5 => Array
 		(
 		'gid' => 5,
-		'grouptitle' => '方块2',
+		'grouptitle' => '方片2',
 		'system' => '0',
 		'banvisit' => '0',
 		'explower' => '0',
 		'maxfriendnum' => 100,
 		'maxattachsize' => 20971520,
-		'allowhtml' => 1,
+		'allowhtml' => '0',
 		'allowcomment' => 1,
 		'searchinterval' => 60,
 		'searchignore' => '0',
@@ -25,7 +25,7 @@ $_SGLOBAL['usergroup']=Array
 		'allowmtag' => 1,
 		'allowthread' => 1,
 		'allowpost' => 1,
-		'allowcss' => 1,
+		'allowcss' => '0',
 		'allowpoke' => 1,
 		'allowfriend' => 1,
 		'allowpoll' => 1,
@@ -35,11 +35,11 @@ $_SGLOBAL['usergroup']=Array
 		'allowpm' => 1,
 		'allowviewvideopic' => '0',
 		'allowmyop' => 1,
-		'allowtopic' => 1,
-		'allowstat' => 1,
+		'allowtopic' => '0',
+		'allowstat' => '0',
 		'magicdiscount' => '0',
 		'verifyevent' => '0',
-		'edittrail' => 1,
+		'edittrail' => '0',
 		'domainlength' => '0',
 		'closeignore' => '0',
 		'seccode' => '0',
@@ -98,7 +98,7 @@ $_SGLOBAL['usergroup']=Array
 			),
 		'allowquiz' => 1,
 		'managequiz' => '0',
-		'exphigher' => 399
+		'exphigher' => 99
 		)
 	)
 ?>

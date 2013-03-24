@@ -5,10 +5,10 @@ $_SGLOBAL['usergroup']=Array
 	10 => Array
 		(
 		'gid' => 10,
-		'grouptitle' => '方块4',
+		'grouptitle' => '方片5',
 		'system' => '0',
 		'banvisit' => '0',
-		'explower' => 800,
+		'explower' => 400,
 		'maxfriendnum' => 50,
 		'maxattachsize' => 10485760,
 		'allowhtml' => '0',
@@ -31,10 +31,10 @@ $_SGLOBAL['usergroup']=Array
 		'allowpoll' => 1,
 		'allowclick' => 1,
 		'allowevent' => 1,
-		'allowmagic' => 1,
+		'allowmagic' => '0',
 		'allowpm' => 1,
-		'allowviewvideopic' => 1,
-		'allowmyop' => 1,
+		'allowviewvideopic' => '0',
+		'allowmyop' => '0',
 		'allowtopic' => '0',
 		'allowstat' => '0',
 		'magicdiscount' => '0',
@@ -98,7 +98,7 @@ $_SGLOBAL['usergroup']=Array
 			),
 		'allowquiz' => 1,
 		'managequiz' => '0',
-		'exphigher' => 1599
+		'exphigher' => 799
 		)
 	)
 ?>

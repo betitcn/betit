@@ -4,7 +4,7 @@ $_SGLOBAL['quiz']=Array
 	(
 	'endtime' => 604800,
 	'resulttime' => 608400,
-	'joincost' => 20,
+	'joincost' => 10,
 	'portion' => 3,
 	'exceedexperience' => 10
 	)

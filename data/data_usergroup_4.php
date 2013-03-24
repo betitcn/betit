@@ -96,7 +96,7 @@ $_SGLOBAL['usergroup']=Array
 			(
 
 			),
-		'allowquiz' => 1,
+		'allowquiz' => '0',
 		'managequiz' => '0',
 		'exphigher' => -1
 		)

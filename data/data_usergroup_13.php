@@ -5,10 +5,10 @@ $_SGLOBAL['usergroup']=Array
 	13 => Array
 		(
 		'gid' => 13,
-		'grouptitle' => '方块8',
+		'grouptitle' => '方片8',
 		'system' => '0',
 		'banvisit' => '0',
-		'explower' => 10000,
+		'explower' => 3200,
 		'maxfriendnum' => 50,
 		'maxattachsize' => 10485760,
 		'allowhtml' => '0',
@@ -98,7 +98,7 @@ $_SGLOBAL['usergroup']=Array
 			),
 		'allowquiz' => '0',
 		'managequiz' => '0',
-		'exphigher' => 19999
+		'exphigher' => 6399
 		)
 	)
 ?>
