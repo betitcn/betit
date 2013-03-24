@@ -5,7 +5,8 @@ require_once "./weibo/common/jtee.inc.php";
 
 $wxkey=$_GET['wxkey'];
 setSession($wxkey,$wxkey);
-wxshowmessage($_COOKIE["loginuser"]);	
+$a=$_COOKIE["loginuser"];
+wxshowmessage($a);	
 
 	include_once template("./wx/template/login");
 ?>
