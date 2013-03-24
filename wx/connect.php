@@ -2,6 +2,7 @@
 
 $site = empty($_GET['site'])?"weibo":$_GET['site'];
 $ac = empty($_GET['ac'])?'':$_GET['ac'];
+$wxkey=$_GET['wxkey'];
 
 if ($site == "weibo")
 {
