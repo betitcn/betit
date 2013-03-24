@@ -88,6 +88,7 @@ $_SGLOBAL['click']=Array
 			'displayorder' => '0'
 			)
 		),
+		
 	'quizid' => Array
 		(
 		16 => Array
