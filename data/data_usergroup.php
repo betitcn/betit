@@ -2,63 +2,87 @@
 if(!defined('IN_UCHOME')) exit('Access Denied');
 $_SGLOBAL['grouptitle']=Array
 	(
-	17 => Array
+	21 => Array
 		(
 		'grouptitle' => '先知大王',
 		'color' => '',
 		'icon' => ''
 		),
-	16 => Array
+	20 => Array
 		(
 		'grouptitle' => '小鬼',
 		'color' => '',
 		'icon' => ''
 		),
+	19 => Array
+		(
+		'grouptitle' => '方片A',
+		'color' => '',
+		'icon' => ''
+		),
+	18 => Array
+		(
+		'grouptitle' => '方片K',
+		'color' => '',
+		'icon' => ''
+		),
+	17 => Array
+		(
+		'grouptitle' => '方片Q',
+		'color' => '',
+		'icon' => ''
+		),
+	16 => Array
+		(
+		'grouptitle' => '方片J',
+		'color' => '',
+		'icon' => ''
+		),
 	15 => Array
 		(
-		'grouptitle' => '方块A',
+		'grouptitle' => '方片10',
 		'color' => '',
 		'icon' => ''
 		),
 	14 => Array
 		(
-		'grouptitle' => '方块9',
+		'grouptitle' => '方片9',
 		'color' => '',
 		'icon' => ''
 		),
 	13 => Array
 		(
-		'grouptitle' => '方块8',
-		'color' => '',
-		'icon' => ''
-		),
-	6 => Array
-		(
-		'grouptitle' => '方块7',
+		'grouptitle' => '方片8',
 		'color' => '',
 		'icon' => ''
 		),
 	12 => Array
 		(
-		'grouptitle' => '方块6',
+		'grouptitle' => '方片7',
 		'color' => '',
 		'icon' => ''
 		),
 	11 => Array
 		(
-		'grouptitle' => '方块5',
+		'grouptitle' => '方片6',
 		'color' => '',
 		'icon' => ''
 		),
 	10 => Array
 		(
-		'grouptitle' => '方块4',
+		'grouptitle' => '方片5',
 		'color' => '',
 		'icon' => ''
 		),
 	7 => Array
 		(
-		'grouptitle' => '方块3',
+		'grouptitle' => '方片4',
+		'color' => '',
+		'icon' => ''
+		),
+	6 => Array
+		(
+		'grouptitle' => '方片3',
 		'color' => '',
 		'icon' => ''
 		),
@@ -82,7 +106,7 @@ $_SGLOBAL['grouptitle']=Array
 		),
 	5 => Array
 		(
-		'grouptitle' => '方块2',
+		'grouptitle' => '方片2',
 		'color' => '',
 		'icon' => ''
 		),
