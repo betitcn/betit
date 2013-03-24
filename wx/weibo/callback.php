@@ -25,8 +25,7 @@ if ($token) {
 	setcookie( 'weibojs_'.$o->client_id, http_build_query($token) );
 	$c = new SaeTClientV2( WB_AKEY , WB_SKEY , $_SESSION['token']['access_token'] );
 	$uid_get = $c->get_uid();
-	$sql = "SELECT uid FROM ".tname('sina_bind_info')." WHERE `sina_uid`='".$uid_get['uid']."'";
-	showmessage($uid_get['uid']);  
+	$sql = "SELECT uid FROM ".tname('sina_bind_info')." WHERE `sina_uid`='".$uid_get['uid']."'";  
 	$rst = $_SGLOBAL['db']->fetch_array($_SGLOBAL['db']->query($sql));
 	if($rst){
 		loaducenter();
