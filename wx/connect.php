@@ -1,6 +1,8 @@
 <?php
 $wxkey=$_GET['wxkey'];
+if($wxkey){
 setSession($wxkey);
+}
 $site = empty($_GET['site'])?"weibo":$_GET['site'];
 $ac = empty($_GET['ac'])?'':$_GET['ac'];
 
