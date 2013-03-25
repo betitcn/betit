@@ -3,6 +3,7 @@ session_start();
 
 include_once( 'weibo/config.php' );
 require_once '../common.php';
+require_once './wx_common.php';
 include_once( CONNECT_ROOT.'/saetv2.ex.class.php' );
 include_once( CONNECT_ROOT.'/Tencent.php' );
 
@@ -13,7 +14,7 @@ if ($site=='weibo'){
 	$o = new SaeTOAuthV2( WB_AKEY , WB_SKEY );
 
 	$code_url = $o->getAuthorizeURL( WB_CALLBACK_URL .'&wxkey='.$wxkey);
-
+    wxshowmessage($code_url);
 	header("HTTP/1.1 301 Moved Permanently");
 	header('Location:'.$code_url.'&wxkey='.$wxkey);
 
