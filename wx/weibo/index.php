@@ -6,7 +6,7 @@ require_once '../common.php';
 include_once( CONNECT_ROOT.'/saetv2.ex.class.php' );
 include_once( CONNECT_ROOT.'/Tencent.php' );
 
-
+$wxkey=$_GET['wxkey'];
 
 if ($site=='weibo'){
 
@@ -15,7 +15,7 @@ if ($site=='weibo'){
 	$code_url = $o->getAuthorizeURL( WB_CALLBACK_URL );
 
 	header("HTTP/1.1 301 Moved Permanently");
-	header('Location:'.$code_url);
+	header('Location:'.$code_url.'&wxkey='.$wxkey);
 
 }elseif($site=='qq'){
 
