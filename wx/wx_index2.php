@@ -135,11 +135,11 @@ class wechatCallbackapiTest
 						if ($json_output->code==0){
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
 								$pic = $json_output->data->friends->avatar;
-							if($json_output->data->friends->name){
+							//if($json_output->data->friends->name){
 								$option="N0.1  ".$json_output->data->friends->name;
-							}else{
-								$option="N0.1  ".$json_output->data->friends->username;
-							}
+							//}else{
+								//$option="N0.1  ".$json_output->data->friends->username;
+							//}
 								$articles[] = makeArticleItem($option, $option, $pic, $url);
 							}
 
