@@ -38,7 +38,7 @@ if ($_SESSION['t_access_token'] || ($_SESSION['t_openid'] && $_SESSION['t_openke
 		setSession($user[0],$user[1]);
 		$qquid=$_GET['openid'];
 		$wxkey=$_GET['wxkey'];
-		wxshowmessage('do_success',"wx.php?do=mine&qquid=$qquid%wxkey=$wxkey");
+		wxshowmessage('do_success',"wx.php?do=mine&qquid=$qquid&wxkey=$wxkey");
 	}else{
 		
 		
