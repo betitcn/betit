@@ -129,10 +129,10 @@ class wechatCallbackapiTest
 						{	
 							$msgType = "news";
 							$uid=$row['uid'];
-							$jsonurl = "http://www.betit.cn/capi/space.php?uid=$uid&do=friend&wxkey=".$fromUsername;
-							$json = file_get_contents($jsonurl,0,null,null);
-							$json_output = json_decode($json);
-						if ($json_output->code==0){
+							//$jsonurl = "http://www.betit.cn/capi/space.php?uid=$uid&do=friend&wxkey=".$fromUsername;
+							//$json = file_get_contents($jsonurl,0,null,null);
+							//$json_output = json_decode($json);
+						//if ($json_output->code==0){
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
 								$pic = "111";
 							//if($json_output->data->friends->name){
@@ -140,8 +140,8 @@ class wechatCallbackapiTest
 							//}else{
 							//	$option="N0.1  ".$json_output->data->friends->username;
 							//}
-								$articles[] = makeArticleItem($option, $option, $pic, $url);
-							}
+								$articles[] = makeArticleItem($uid, $uid, $pic, $url);
+							//}
 
 						}else{
 						
