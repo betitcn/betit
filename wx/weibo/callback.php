@@ -33,10 +33,11 @@ if ($token) {
 		uc_user_synlogin($rst['uid']);
 		setSession($user[0],$user[1]);
 		$sinauid=$uid_get['uid'];
+		$cookie=$_COOKIE['wxkey'];
+		wxshowmessage($cookie);
+		wxshowmessage("wx.php?do=mine&sinauid=$sinauid&wxkey=$cookie");
 		
-		$wxkey= $_SESSION['wxkey'];
-		
-		wxshowmessage('do_success',"wx.php?do=mine&sinauid=$sinauid&wxkey=$wxkey");
+		//wxshowmessage('do_success',"wx.php?do=mine&sinauid=$sinauid&wxkey=$wxkey");
 	}else{
 		 $c = new SaeTClientV2( WB_AKEY , WB_SKEY , $_SESSION['token']['access_token'] );
 		 $profile = $c->show_user_by_id($uid_get['uid']);
