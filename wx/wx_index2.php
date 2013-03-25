@@ -129,7 +129,7 @@ class wechatCallbackapiTest
 						{	
 							$msgType = "news";
 							$uid=$row['uid'];
-							$jsonurl = "www.betit.cn/capi/space.php?uid=$uid&do=friend&wxkey=".$fromUsername;
+							$jsonurl = "http://www.betit.cn/capi/space.php?uid=$uid&do=friend&wxkey=".$fromUsername;
 							$json = file_get_contents($jsonurl,0,null,null);
 							$json_output = json_decode($json);
 						if ($json_output->code==0){
