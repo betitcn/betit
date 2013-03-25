@@ -10,7 +10,7 @@ require_once CONNECT_ROOT."/common/siteUserRegister.class.php";
  $m_auth = getAuth();
 
 $wxkey=$_GET['wxkey'];
-ssetcookie('wxkey', $wxkey, 31536000);
+
 
 	include_once template("./wx/template/login");
 ?>
