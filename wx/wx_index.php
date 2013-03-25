@@ -104,7 +104,7 @@ class wechatCallbackapiTest
 								}
 								$url = "http://www.betit.cn/wx/wx.php?wxkey=".$fromUsername;
 								$pic = "http://www.betit.cn/image/org_img/logo.jpg";
-								$articles[] = makeArticleItem("更多...", "更多...", $pic, $url);
+								$articles[] = makeArticleItem("更多竞猜...", "更多竞猜...", $pic, $url);
 								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家动态",$articles); 
 				}else{
 							mysql_close($con);
@@ -135,11 +135,11 @@ class wechatCallbackapiTest
 						if ($json_output->code==0){
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
 								$pic = $json_output->data->friends->avatar;
-							if($json_output->data->friends->name){
+							//if($json_output->data->friends->name){
 								$option="N0.1  ".$json_output->data->friends->name;
-							}else{
-								$option="N0.1  ".$json_output->data->friends->username;
-							}
+							//}else{
+							//	$option="N0.1  ".$json_output->data->friends->username;
+							//}
 								$articles[] = makeArticleItem($option, $option, $pic, $url);
 							}
 
