@@ -3,7 +3,6 @@ session_start();
 
 include_once( 'weibo/config.php' );
 require_once '../common.php';
-require_once './wx_common.php';
 include_once( CONNECT_ROOT.'/saetv2.ex.class.php' );
 include_once( CONNECT_ROOT.'/Tencent.php' );
 

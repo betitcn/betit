@@ -5,6 +5,7 @@
  */
 error_reporting(0);
 
+
 include_once( 'weibo/config.php' );
 require_once '../common.php';
 require_once 'wx_common.php';
