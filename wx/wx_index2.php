@@ -159,7 +159,7 @@ class wechatCallbackapiTest
 						$url = "http://www.betit.cn/wx/wx.php?do=login&wxkey=".$fromUsername;
 						$pic = "http://www.familyday.com.cn/wx/images/bind.jpg";
 						$articles[] = makeArticleItem("小赢家要通过微博把你的微信号绑定到大赢家", "小赢家要通过新浪微博把你的微信号绑定到大赢家", $pic, $url);
-						$url = "http://www.betit.cn/wx/connect.php?site=weibo&wxkey=".$fromUsername;
+						$url = "http://www.betit.cn/wx/connect.php?site=weibo&ac=index&wxkey=".$fromUsername;
 						$pic = "http://www.familyday.com.cn/wx/images/bind-icon.jpg";
 						$articles[] = makeArticleItem("小赢家新浪微博登陆", "小赢家新浪微博登陆", $pic, $url);
 						$url = "http://www.betit.cn/wx/connect.php?site=qq&wxkey=".$fromUsername;
