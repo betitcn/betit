@@ -178,7 +178,7 @@ if ($token) {
 		}
 	}
 }else{
-	showmessage("授权失败");
+	wxshowmessage("授权失败");
 }
 
 //include template("cp_avatar");
