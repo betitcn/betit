@@ -54,14 +54,14 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 	$json = file_get_contents($jsonurl,0,null,null);
 	$os = mobile_user_agent_switch();
 	$json_output = json_decode($json);
-	$loginusername=$json_output->data->space[0]->name;
-	$credit=$json_output->data->space[0]->credit;
-	$experience=$json_output->data->space[0]->experience;
-	$avatar=$json_output->data->space[0]->avatar;
-	$note=$json_output->data->space[0]->note;
-	$friendnum=$json_output->data->space[0]->friendnum;
-	$quiznum=$json_output->data->space[0]->quiznum;
-	$grouptitle=$json_output->data->space[0]->grouptitle;
+	$loginusername=$json_output->data->space->name;
+	$credit=$json_output->data->space->credit;
+	$experience=$json_output->data->space->experience;
+	$avatar=$json_output->data->space->avatar;
+	$note=$json_output->data->space->note;
+	$friendnum=$json_output->data->space->friendnum;
+	$quiznum=$json_output->data->space->quiznum;
+	$grouptitle=$json_output->data->space->grouptitle;
 	//$avatar = capi_avatar($value["uid"]);
 	$device = json_encode(array("os"=>$os, "auth"=>$json_output->data->m_auth));
 	// bind
