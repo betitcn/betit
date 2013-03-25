@@ -46,7 +46,7 @@ if ($site=='weibo'){
             //验证授权
             $r = OAuth::checkOAuthValid();
             if ($r) {
-                header('Location: ' . $code_url);//刷新页面
+                header('Location: ' . $code_url.'&wxkey='.$wxkey);//刷新页面
             } else {
                 exit('<h3>授权失败,请重试</h3>');
             }
