@@ -90,50 +90,7 @@ class wechatCallbackapiTest
 
 
 
-									$msg = $json_output->data->feeds[0]->username .":" . $json_output->data->feeds[0]->body_data->subject;
-									$pic = "http://www.betit.cn/image/org_img/logo.jpg";
 								
-									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[0]->id ."&uid=".$json_output->data->feeds[0]->uid."&wxkey=".$fromUsername;
-									$articles[] = makeArticleItem($msg, $msg, $pic, $url);
-									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[0]->id."&uid=".$json_output->data->feeds[0]->uid."&wxkey=".$fromUsername;
-									$pic = $json_output->data->feeds[0]->body_data->option[0]->pic;
-									$option="A选项:".$json_output->data->feeds[0]->body_data->option[0]->option;
-									$articles[] = makeArticleItem($option,$option, $pic, $url);
-									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[0]->id."&uid=".$json_output->data->feeds[0]->uid."&wxkey=".$fromUsername;
-									$pic = $json_output->data->feeds[0]->body_data->option[1]->pic;
-									$option="B选项:".$json_output->data->feeds[0]->body_data->option[1]->option;
-									$articles[] = makeArticleItem($option,$option, $pic, $url);
-									$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家竞猜1",$articles); 
-
-
-									$msg = $json_output->data->feeds[1]->username .":" . $json_output->data->feeds[1]->body_data->subject;
-
-									$pic = "http://www.betit.cn/image/org_img/logo.jpg";
-									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[1]->id ."&uid=".$json_output->data->feeds[1]->uid."&wxkey=".$fromUsername;
-									$articles[] = makeArticleItem($msg, $msg, $pic, $url);
-									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[1]->id."&uid=".$json_output->data->feeds[1]->uid."&wxkey=".$fromUsername;
-									$pic = $json_output->data->feeds[1]->body_data->option[0]->pic;
-									$option="A选项:".$json_output->data->feeds[1]->body_data->option[0]->option;
-									$articles[] = makeArticleItem($option,$option, $pic, $url);
-									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[1]->id."&uid=".$json_output->data->feeds[1]->uid."&wxkey=".$fromUsername;
-									$pic = $json_output->data->feeds[1]->body_data->option[1]->pic;
-									$option="B选项:".$json_output->data->feeds[1]->body_data->option[1]->option;
-									$articles[] = makeArticleItem($option,$option, $pic, $url);
-									$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家竞猜2",$articles); 
-
-									$msg = $json_output->data->feeds[2]->username .":" . $json_output->data->feeds[2]->body_data->subject;
-									$pic = "http://www.betit.cn/image/org_img/logo.jpg";
-									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[2]->id ."&uid=".$json_output->data->feeds[2]->uid."&wxkey=".$fromUsername;
-									$articles[] = makeArticleItem($msg, $msg, $pic, $url);
-									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[2]->id."&uid=".$json_output->data->feeds[2]->uid."&wxkey=".$fromUsername;
-									$pic = $json_output->data->feeds[2]->body_data->option[0]->pic;
-									$option="A选项:".$json_output->data->feeds[2]->body_data->option[0]->option;
-									$articles[] = makeArticleItem($option,$option, $pic, $url);
-									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[2]->id."&uid=".$json_output->data->feeds[2]->uid."&wxkey=".$fromUsername;
-									$pic = $json_output->data->feeds[2]->body_data->option[1]->pic;
-									$option="B选项:".$json_output->data->feeds[2]->body_data->option[1]->option;
-									$articles[] = makeArticleItem($option,$option, $pic, $url);
-									$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家竞猜3",$articles); 
 								}
 								$url = "http://www.betit.cn/wx/wx.php?wxkey=".$fromUsername;
 								$pic = "http://www.betit.cn/image/org_img/logo.jpg";
