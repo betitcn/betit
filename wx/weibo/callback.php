@@ -34,7 +34,7 @@ if ($token) {
 		setSession($user[0],$user[1]);
 		$sinauid=$uid_get['uid'];
 		
-		$wxkey=$_cookie["wxkey"];
+		$wxkey=$_SCOOKIE["wxkey"];
 		wxshowmessage($wxkey);
 		//wxshowmessage('do_success',"wx.php?do=mine&sinauid=$sinauid&wxkey=$wxkey");
 	}else{
