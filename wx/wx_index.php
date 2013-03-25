@@ -125,23 +125,24 @@ class wechatCallbackapiTest
 						mysql_select_db("betit", $con);
 						$result = mysql_query("SELECT * FROM uchome_space WHERE wxkey='".$fromUsername."'");
 						$device = "";
-						if(!$row = mysql_fetch_array($result))
+						if($row = mysql_fetch_array($result))
 						{	
 							$msgType = "news";
-							//$uid=$row['uid'];
-							//$jsonurl = "http://www.betit.cn/capi/space.php?uid=$uid&do=friend&wxkey=".$fromUsername;
-							//$json = file_get_contents($jsonurl,0,null,null);
-							//$json_output = json_decode($json);
-						//if ($json_output->code==0){
+							$uid=$row['uid'];
+							$jsonurl = "http://www.betit.cn/capi/space.php?uid=$uid&do=friend&wxkey=".$fromUsername;
+							$json = file_get_contents($jsonurl,0,null,null);
+							$json_output = json_decode($json);
+						if ($json_output->code==0){
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
-								$pic = "111";
-							//if($json_output->data->friends->name){
-								$option1="N0.1";
-							//}else{
-							//	$option="N0.1  ".$json_output->data->friends->username;
-							//}
-								$articles[] = makeArticleItem($option1, $option1, $pic, $url);
-							//}
+								$pic = $json_output->data->friends->avatar;
+							if($json_output->data->friends->name){
+								$option="N0.1  ".$json_output->data->friends->name;
+							}else{
+								$option="N0.1  ".$json_output->data->friends->username;
+							}
+								$articles[] = makeArticleItem($option, $option, $pic, $url);
+								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "好友排行榜",$articles); 
+							}
 
 						}else{
 						
