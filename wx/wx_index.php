@@ -125,7 +125,7 @@ class wechatCallbackapiTest
 						mysql_select_db("betit", $con);
 						$result = mysql_query("SELECT * FROM uchome_space WHERE wxkey='".$fromUsername."'");
 						$device = "";
-						if($row = mysql_fetch_array($result))
+						if(!$row = mysql_fetch_array($result))
 						{	
 							$msgType = "news";
 							//$uid=$row['uid'];
