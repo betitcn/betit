@@ -82,16 +82,17 @@ class wechatCallbackapiTest
 
 							if ($json_output->code==0){
 								$articles = array();
-								
-									$msg = $json_output->data->feeds[0]->username .":" . $json_output->data->feeds[0]->body_data->subject;
+								$msg ="大赢家竞猜";
+								$url = "http://www.betit.cn/wx/wx.php";
+								$articles[] = makeArticleItem($msg, $msg, $pic, $url);
+								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家竞猜1",$articles);	
 
-									if ($json_output->data->feeds[0]->option[0]->pic)
-									{
-										$pic = $json_output->data->feeds[0]->option[0]->pic;
-									}else{
-										$pic = "http://www.familyday.com.cn/wx/image/nopic.gif";
-								}
-								$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[0]->id ."&uid=".$json_output->data->feeds[0]->uid."&wxkey=".$fromUsername;
+
+
+									$msg = $json_output->data->feeds[0]->username .":" . $json_output->data->feeds[0]->body_data->subject;
+									$pic = "";
+								
+									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[0]->id ."&uid=".$json_output->data->feeds[0]->uid."&wxkey=".$fromUsername;
 									$articles[] = makeArticleItem($msg, $msg, $pic, $url);
 									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[0]->id."&uid=".$json_output->data->feeds[0]->uid."&wxkey=".$fromUsername;
 									$pic = $json_output->data->feeds[0]->body_data->option[0]->pic;
@@ -106,13 +107,8 @@ class wechatCallbackapiTest
 
 									$msg = $json_output->data->feeds[1]->username .":" . $json_output->data->feeds[1]->body_data->subject;
 
-									if ($json_output->data->feeds[1]->option[0]->pic)
-									{
-										$pic = $json_output->data->feeds[1]->option[0]->pic;
-									}else{
-										$pic = "http://www.familyday.com.cn/wx/image/nopic.gif";
-								}
-								$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[1]->id ."&uid=".$json_output->data->feeds[1]->uid."&wxkey=".$fromUsername;
+									$pic = "";
+									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[1]->id ."&uid=".$json_output->data->feeds[1]->uid."&wxkey=".$fromUsername;
 									$articles[] = makeArticleItem($msg, $msg, $pic, $url);
 									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[1]->id."&uid=".$json_output->data->feeds[1]->uid."&wxkey=".$fromUsername;
 									$pic = $json_output->data->feeds[1]->body_data->option[0]->pic;
@@ -125,14 +121,8 @@ class wechatCallbackapiTest
 									$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家竞猜2",$articles); 
 
 									$msg = $json_output->data->feeds[2]->username .":" . $json_output->data->feeds[2]->body_data->subject;
-
-									if ($json_output->data->feeds[2]->option[0]->pic)
-									{
-										$pic = $json_output->data->feeds[2]->option[0]->pic;
-									}else{
-										$pic = "http://www.familyday.com.cn/wx/image/nopic.gif";
-								}
-								$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[2]->id ."&uid=".$json_output->data->feeds[2]->uid."&wxkey=".$fromUsername;
+									$pic = "";
+									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[2]->id ."&uid=".$json_output->data->feeds[2]->uid."&wxkey=".$fromUsername;
 									$articles[] = makeArticleItem($msg, $msg, $pic, $url);
 									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[2]->id."&uid=".$json_output->data->feeds[2]->uid."&wxkey=".$fromUsername;
 									$pic = $json_output->data->feeds[2]->body_data->option[0]->pic;
