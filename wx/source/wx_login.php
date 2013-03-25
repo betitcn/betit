@@ -7,7 +7,7 @@ require_once '../common.php';
  $m_auth = getAuth();
 
 $wxkey=$_GET['wxkey'];
-setcookie('wxkey', "$wxkey", 31536000);
+setcookie('wxkey', "123", 31536000);
 
 	include_once template("./wx/template/login");
 ?>
