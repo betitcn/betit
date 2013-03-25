@@ -29,14 +29,14 @@ if ($_SESSION['t_access_token'] || ($_SESSION['t_openid'] && $_SESSION['t_openke
     $uid_get = json_decode($r, true);
 	
 	$sql = "SELECT uid FROM ".tname('qq_bind_info')." WHERE `qq_uid`='".$uid_get['data']['openid']."'";  
-
+	$qquid=$uid_get['data']['openid'];
     $rst = $_SGLOBAL['db']->fetch_array($_SGLOBAL['db']->query($sql));
 	if($rst){
 		loaducenter();
 		$user = uc_get_user($rst['uid'], 1); 
 		uc_user_synlogin($rst['uid']);
 		setSession($user[0],$user[1]);
-		$qquid=$uid_get['data']['openid'];
+		
 		wxshowmessage('do_success',"wx.php?do=mine&qquid=$qquid");
 	}else{
 		
