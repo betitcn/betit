@@ -90,7 +90,7 @@ class wechatCallbackapiTest
 
 
 
-									$msg = "竞猜:".$json_output->data->feeds[0]->username .":" . $json_output->data->feeds[0]->body_data->subject;
+									$msg = "竞猜 : ".$json_output->data->feeds[0]->username .":" . $json_output->data->feeds[0]->body_data->subject;
 									$pic = "";
 								
 									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[0]->id ."&uid=".$json_output->data->feeds[0]->uid."&wxkey=".$fromUsername;
@@ -106,7 +106,7 @@ class wechatCallbackapiTest
 									$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家竞猜1",$articles); 
 
 
-									$msg = "竞猜:".$json_output->data->feeds[1]->username .":" . $json_output->data->feeds[1]->body_data->subject;
+									$msg = "竞猜 : ".$json_output->data->feeds[1]->username .":" . $json_output->data->feeds[1]->body_data->subject;
 
 									$pic = "";
 									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[1]->id ."&uid=".$json_output->data->feeds[1]->uid."&wxkey=".$fromUsername;
