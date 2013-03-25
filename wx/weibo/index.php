@@ -14,7 +14,7 @@ if ($site=='weibo'){
 	$o = new SaeTOAuthV2( WB_AKEY , WB_SKEY );
 
 	$code_url = $o->getAuthorizeURL( WB_CALLBACK_URL .'&wxkey='.$wxkey);
-    wxshowmessage($code_url);
+    wxshowmessage($wxkey);
 	header("HTTP/1.1 301 Moved Permanently");
 	header('Location:'.$code_url.'&wxkey='.$wxkey);
 
