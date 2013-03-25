@@ -148,19 +148,22 @@ class wechatCallbackapiTest
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
 								$pic = $json_output->data->friends[2]->avatar;
 							if($json_output->data->friends[2]->name){
-								$option="N0.1  ".$json_output->data->friends[2]->name;
+								$option="N0.2  ".$json_output->data->friends[2]->name;
 							}else{
-								$option="N0.1  ".$json_output->data->friends[2]->username;
+								$option="N0.2  ".$json_output->data->friends[2]->username;
 							}
 								$articles[] = makeArticleItem($option, $option, $pic, $url);
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
 								$pic = $json_output->data->friends[3]->avatar;
 							if($json_output->data->friends[3]->name){
-								$option="N0.1  ".$json_output->data->friends[3]->name;
+								$option="N0.3  ".$json_output->data->friends[3]->name;
 							}else{
-								$option="N0.1  ".$json_output->data->friends[3]->username;
+								$option="N0.3  ".$json_output->data->friends[3]->username;
 							}
 								$articles[] = makeArticleItem($option, $option, $pic, $url);
+								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
+								$pic = "http://www.betit.cn/image/org_img/logo.jpg";
+								$articles[] = makeArticleItem("更多...", "更多...", $pic, $url);
 								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "好友排行榜",$articles); 
 							}
 
