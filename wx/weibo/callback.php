@@ -33,8 +33,8 @@ if ($token) {
 		uc_user_synlogin($rst['uid']);
 		setSession($user[0],$user[1]);
 		$sinauid=$uid_get['uid'];
-		$cookie=$_COOKIE['wxkey'];
-		wxshowmessage($cookie);
+		$wxkey=$_GET['wxkey'];
+		wxshowmessage($wxkey);
 		wxshowmessage("wx.php?do=mine&sinauid=$sinauid&wxkey=$cookie");
 		
 		//wxshowmessage('do_success',"wx.php?do=mine&sinauid=$sinauid&wxkey=$wxkey");
