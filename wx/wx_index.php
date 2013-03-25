@@ -83,6 +83,7 @@ class wechatCallbackapiTest
 							if ($json_output->code==0){
 								$articles = array();
 								$msg ="大赢家竞猜";
+								$pic = "";
 								$url = "http://www.betit.cn/wx/wx.php";
 								$articles[] = makeArticleItem($msg, $msg, $pic, $url);
 								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家竞猜1",$articles);	
