@@ -76,7 +76,7 @@ class wechatCallbackapiTest
 						if($con)
 						{					
 							mysql_close($con);
-							$jsonurl = "http://www.betit.cn/capi/space.php?do=feed&page=0&perpage=1&view=quiz";
+							$jsonurl = "http://www.betit.cn/capi/space.php?do=feed&page=0&perpage=10&view=quiz";
 							$json = file_get_contents($jsonurl,0,null,null);
 							$json_output = json_decode($json);
 
@@ -101,11 +101,54 @@ class wechatCallbackapiTest
 									$pic = $json_output->data->feeds[0]->body_data->option[1]->pic;
 									$option="B选项:".$json_output->data->feeds[0]->body_data->option[1]->option;
 									$articles[] = makeArticleItem($option,$option, $pic, $url);
+									$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家竞猜1",$articles); 
+
+
+									$msg = $json_output->data->feeds[1]->username .":" . $json_output->data->feeds[1]->body_data->subject;
+
+									if ($json_output->data->feeds[1]->option[0]->pic)
+									{
+										$pic = $json_output->data->feeds[1]->option[0]->pic;
+									}else{
+										$pic = "http://www.familyday.com.cn/wx/image/nopic.gif";
+								}
+								$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[1]->id ."&uid=".$json_output->data->feeds[1]->uid."&wxkey=".$fromUsername;
+									$articles[] = makeArticleItem($msg, $msg, $pic, $url);
+									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[1]->id."&uid=".$json_output->data->feeds[1]->uid."&wxkey=".$fromUsername;
+									$pic = $json_output->data->feeds[1]->body_data->option[0]->pic;
+									$option="A选项:".$json_output->data->feeds[1]->body_data->option[0]->option;
+									$articles[] = makeArticleItem($option,$option, $pic, $url);
+									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[1]->id."&uid=".$json_output->data->feeds[1]->uid."&wxkey=".$fromUsername;
+									$pic = $json_output->data->feeds[1]->body_data->option[1]->pic;
+									$option="B选项:".$json_output->data->feeds[1]->body_data->option[1]->option;
+									$articles[] = makeArticleItem($option,$option, $pic, $url);
+									$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家竞猜2",$articles); 
+
+									$msg = $json_output->data->feeds[2]->username .":" . $json_output->data->feeds[2]->body_data->subject;
+
+									if ($json_output->data->feeds[2]->option[0]->pic)
+									{
+										$pic = $json_output->data->feeds[2]->option[0]->pic;
+									}else{
+										$pic = "http://www.familyday.com.cn/wx/image/nopic.gif";
+								}
+								$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[2]->id ."&uid=".$json_output->data->feeds[2]->uid."&wxkey=".$fromUsername;
+									$articles[] = makeArticleItem($msg, $msg, $pic, $url);
+									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[2]->id."&uid=".$json_output->data->feeds[2]->uid."&wxkey=".$fromUsername;
+									$pic = $json_output->data->feeds[2]->body_data->option[0]->pic;
+									$option="A选项:".$json_output->data->feeds[2]->body_data->option[0]->option;
+									$articles[] = makeArticleItem($option,$option, $pic, $url);
+									$url = "http://www.betit.cn/wx/wx.php?do=feed&id=".$json_output->data->feeds[2]->id."&uid=".$json_output->data->feeds[2]->uid."&wxkey=".$fromUsername;
+									$pic = $json_output->data->feeds[2]->body_data->option[1]->pic;
+									$option="B选项:".$json_output->data->feeds[2]->body_data->option[1]->option;
+									$articles[] = makeArticleItem($option,$option, $pic, $url);
+									$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家竞猜3",$articles); 
 								}
 								$url = "http://www.betit.cn/wx/wx.php?wxkey=".$fromUsername;
 								$pic = "http://www.betit.cn/image/org_img/logo.jpg";
 								$articles[] = makeArticleItem("更多竞猜...", "更多竞猜...", $pic, $url);
 								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "大赢家动态",$articles); 
+
 				}else{
 							mysql_close($con);
 							$url = "http://www.betit.cn/wx/wx.php?do=login&wxkey=".$fromUsername;
