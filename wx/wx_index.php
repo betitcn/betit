@@ -135,10 +135,30 @@ class wechatCallbackapiTest
 						if ($json_output->code==0){
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
 								$pic = $json_output->data->friends[0]->avatar;
-							if($json_output->data->friends[0]->name){
-								$option="N0.1  ".$json_output->data->friends[0]->name;
+								$option="好友排行榜";
+								$articles[] = makeArticleItem($option, $option, $pic, $url);
+								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
+								$pic = $json_output->data->friends[1]->avatar;
+							if($json_output->data->friends[1]->name){
+								$option="N0.1  ".$json_output->data->friends[1]->name;
 							}else{
-								$option="N0.1  ".$json_output->data->friends[0]->username;
+								$option="N0.1  ".$json_output->data->friends[1]->username;
+							}
+								$articles[] = makeArticleItem($option, $option, $pic, $url);
+								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
+								$pic = $json_output->data->friends[2]->avatar;
+							if($json_output->data->friends[2]->name){
+								$option="N0.1  ".$json_output->data->friends[2]->name;
+							}else{
+								$option="N0.1  ".$json_output->data->friends[2]->username;
+							}
+								$articles[] = makeArticleItem($option, $option, $pic, $url);
+								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
+								$pic = $json_output->data->friends[3]->avatar;
+							if($json_output->data->friends[3]->name){
+								$option="N0.1  ".$json_output->data->friends[3]->name;
+							}else{
+								$option="N0.1  ".$json_output->data->friends[3]->username;
 							}
 								$articles[] = makeArticleItem($option, $option, $pic, $url);
 								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "好友排行榜",$articles); 
