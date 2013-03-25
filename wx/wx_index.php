@@ -134,11 +134,11 @@ class wechatCallbackapiTest
 							$json_output = json_decode($json);
 						if ($json_output->code==0){
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
-								$pic = $json_output->data->friends->avatar;
-							if($json_output->data->friends->name){
-								$option="N0.1  ".$json_output->data->friends->name;
+								$pic = $json_output->data->friends[0]->avatar;
+							if($json_output->data->friends[0]->name){
+								$option="N0.1  ".$json_output->data->friends[0]->name;
 							}else{
-								$option="N0.1  ".$json_output->data->friends->username;
+								$option="N0.1  ".$json_output->data->friends[0]->username;
 							}
 								$articles[] = makeArticleItem($option, $option, $pic, $url);
 								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "好友排行榜",$articles); 
@@ -163,7 +163,7 @@ class wechatCallbackapiTest
 						$url = "http://www.betit.cn/wx/connect.php?site=weibo&ac=index&wxkey=".$fromUsername;
 						$pic = "http://www.familyday.com.cn/wx/images/bind-icon.jpg";
 						$articles[] = makeArticleItem("小赢家新浪微博登陆", "小赢家新浪微博登陆", $pic, $url);
-						$url = "http://www.betit.cn/wx/connect.php?site=qq&wxkey=".$fromUsername;
+						$url = "http://www.betit.cn/wx/connect.php?site=qq&ac=index&wxkey=".$fromUsername;
 						$pic = "http://www.familyday.com.cn/wx/images/bind-icon.jpg";
 						$articles[] = makeArticleItem("小赢家腾讯微博登陆", "小赢家腾讯微博登陆", $pic, $url);
 						$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "绑定微信帐号",$articles);
@@ -197,10 +197,7 @@ class wechatCallbackapiTest
 							echo $resultStr;
 						}else{
 							$msgType = "text";
-							$contentStr = "你好！欢迎来到“小赢家”，绑定微信机器人，帮你快速了解最新，最热竞猜，
-
-及时掌握最新最好玩的竞猜并进行有趣的评论！
-
+							$contentStr = "你好！欢迎来到“小赢家”，绑定微信机器人，帮你快速了解最新，最热竞猜，及时掌握最新最好玩的竞猜并进行有趣的评论！
 •回复【1】——查看大赢家竞猜；
 •回复【2】——查看我的好友排行榜；
 •回复【3】——登陆大赢家；
