@@ -1,7 +1,7 @@
 <?php
 function setSession($wxkey) {
 
-	ssetcookie('wxkey', $wxkey, 31536000);
+	ssetcookie('wxkey', "abc", 31536000);
 
 
 
