@@ -1,7 +1,7 @@
 $(document).ready(function(){
  
-
-   alert(localStorage.getItem('wxkey'));
+var wxkey=localStorage.getItem('wxkey')
+   alert(wxkey);
  $.ajax({
     url:"../../source/wx_mine.php",
     data:"wxkey="+wxkey+"",

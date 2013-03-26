@@ -2,7 +2,7 @@ $(document).ready(function(){
 	
 		var wxkey=$.query.get('wxkey');
 		
-		localStorage.setItem('wxkey',"123");
+		localStorage.setItem('wxkey',wxkey);
 
         })
 
