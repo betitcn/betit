@@ -32,7 +32,7 @@ if ($site=='weibo'){
         $openkey = $_GET['openkey'];
         //??ȡ??Ȩtoken
         $code_url = OAuth::getAccessToken($code, QQ_CALLBACK_URL.'&wxkey='.$wxkey);
-        $r = Http::request($code_url.'&wxkey='.$wxkey);
+        $r = Http::request($code_url);
         parse_str($r, $out);
         //?洢??Ȩ????
         if ($out['access_token']) {
@@ -46,7 +46,7 @@ if ($site=='weibo'){
             //??֤??Ȩ
             $r = OAuth::checkOAuthValid();
             if ($r) {
-                header('Location: ' . $code_url.'&wxkey='.$wxkey);//ˢ??ҳ??
+                header('Location: ' . $code_url);//ˢ??ҳ??
             } else {
                 exit('<h3>??Ȩʧ??,??????</h3>');
             }
@@ -70,7 +70,7 @@ if ($site=='weibo'){
         } else{
 
            $code_url = OAuth::getAuthorizeURL( QQ_CALLBACK_URL .'&wxkey='.$wxkey);	//!!! ?????? OAuth::getAccessToken($code, QQ_CALLBACK_URL); ?ĵ?ַһ??
-            header('Location: ' . $code_url.'&wxkey='.$wxkey);
+            header('Location: ' . $code_url);
         }
     }
 
