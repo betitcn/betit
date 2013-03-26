@@ -14,7 +14,7 @@ if(!in_array($_REQUEST['op'], array('base','contact','edu','work','info', 'name'
 
 $theurl = "cp.php?ac=profile&op=$_REQUEST[op]";
 
-
+capi_showmessage_by_data("asdasd");
 
 if($_REQUEST['op'] == 'base') {
 	
