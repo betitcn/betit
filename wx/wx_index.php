@@ -191,7 +191,8 @@ class wechatCallbackapiTest
 								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "好友排行榜",$articles); 
 							}
 
-						}elseif($row1 = mysql_fetch_array($result1))
+						}
+						if($row1 = mysql_fetch_array($result1))
 						{	
 							$msgType = "news";
 							$uid=$row1['uid'];
@@ -233,7 +234,8 @@ class wechatCallbackapiTest
 								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "好友排行榜",$articles); 
 							}
 
-						}else{
+						}
+						if(empty($row)&&empty($row1)){
 						
 						$msgType = "news";
 							$url = "http://www.betit.cn/wx/wx.php?do=login&wxkey=".$fromUsername;
