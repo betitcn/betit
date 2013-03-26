@@ -149,6 +149,11 @@ class wechatCallbackapiTest
 						$result = mysql_query("SELECT * FROM uchome_space WHERE wxkey='0".$fromUsername."'");
 						$result1=mysql_query("SELECT * FROM uchome_space WHERE wxkey='1".$fromUsername."'");
 						$device = "";
+						$msgType = "news";
+						$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
+								$pic = $json_output->data->friends[0]->avatar;
+								$option="好友排行榜";
+								$articles[] = makeArticleItem($option, $option, $pic, $url);
 						if($row = mysql_fetch_array($result))
 						{	
 							$msgType = "news";
