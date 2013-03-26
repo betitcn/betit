@@ -25,11 +25,11 @@ while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			$note = cplang('note_quiz_remind2', array("space.php?uid=$value[uid]&do=quiz&id=$value[quizid]", $value['subject'],"space.php?uid=$value2[uid]&do=quiz&id=$value[fquizid]"));
 			}
 			admin_notification_add($value['uid'], 'quiz', $note);
-			notification_add_push($value['uid'],  $note, 1);
+			
 	$_SGLOBAL['db']->query("UPDATE ".tname('quiz')." SET hasremind='1' WHERE quizid='$value[quizid]'");
 	 
 }
-runlog("145367","123");	
+
 
 
 
