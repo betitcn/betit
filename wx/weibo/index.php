@@ -31,7 +31,7 @@ if ($site=='weibo'){
         $openid = $_GET['openid'];
         $openkey = $_GET['openkey'];
         //??ȡ??Ȩtoken
-        $code_url = OAuth::getAccessToken($code, QQ_CALLBACK_URL.'&wxkey='.$wxkey);
+        $code_url = OAuth::getAccessToken($code, QQ_CALLBACK_URL);
         $r = Http::request($code_url);
         parse_str($r, $out);
         //?洢??Ȩ????
@@ -63,7 +63,7 @@ if ($site=='weibo'){
             //??֤??Ȩ
             $r = OAuth::checkOAuthValid();
             if ($r) {
-                header('Location: ' . QQ_CALLBACK_URL.'&wxkey='.$wxkey);//ˢ??ҳ??
+                header('Location: ' . QQ_CALLBACK_URL);//ˢ??ҳ??
             } else {
                 exit('<h3>??Ȩʧ??,??????</h3>');
             }
