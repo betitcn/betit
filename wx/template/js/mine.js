@@ -1,13 +1,14 @@
 $(document).ready(function(){
  
   var wxkey=localStorage.getItem('wxkey');
+   alert(wxkey);
  $.ajax({
     url:"../../source/wx_mine.php",
     data:"wxkey="+wxkey+"",
     type:"POST",
      success: function( data ) {
       /* Get the movies array from the data */
-     alert(wxkey);
+    
       }
     
     })
