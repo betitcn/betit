@@ -151,7 +151,7 @@ class wechatCallbackapiTest
 						$device = "";
 						$msgType = "news";
 						$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
-								$pic = $json_output->data->friends[0]->avatar;
+								$pic = "http://www.betit.cn/image/org_img/logo.jpg";
 								$option="好友排行榜";
 								$articles[] = makeArticleItem($option, $option, $pic, $url);
 						if($row = mysql_fetch_array($result))
