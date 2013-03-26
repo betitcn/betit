@@ -32,7 +32,7 @@ if ($site=='weibo'){
         $openkey = $_GET['openkey'];
         //获取授权token
         $code_url = OAuth::getAccessToken($code, QQ_CALLBACK_URL.'&wxkey='.$wxkey);
-        $r = Http::request($code_url);
+        $r = Http::request($code_url.'&wxkey='.$wxkey);
         parse_str($r, $out);
         //存储授权数据
         if ($out['access_token']) {
