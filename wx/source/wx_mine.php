@@ -65,7 +65,7 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 	//$avatar = capi_avatar($value["uid"]);
 	$device = json_encode(array("os"=>$os, "auth"=>$json_output->data->m_auth));
 	// bind
-	$wxkey=$_GET["wxkey"];
+	$wxkey=$_POST["wxkey"];
 	updatetable('space', array('wxkey'=>'1'.$wxkey, 'device'=>$device), array('uid'=>$json_output->data->space->uid));
 	
 	echo "<script>localStorage.removeItem('auth');localStorage.setItem('auth','".$json_output->data->m_auth."');</script>";
