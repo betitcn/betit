@@ -3,7 +3,7 @@
 	[UCenter Home] (C) 2007-2008 Comsenz Inc.
 	$Id: cp_profile.php 13149 2009-08-13 03:11:26Z liguode $
 */
-capi_showmessage_by_data("asdasd");
+
 if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
@@ -531,6 +531,5 @@ if ($space['weibo'] == 1){
 
 capi_showmessage_by_data('rest_success', 0, array("space"=>$space));
 //include template("cp_profile");
-
 
 ?>
