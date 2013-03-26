@@ -31,8 +31,8 @@ if ($site=='weibo'){
         $openid = $_GET['openid'];
         $openkey = $_GET['openkey'];
         //获取授权token
-        $code_url = OAuth::getAccessToken($code, QQ_CALLBACK_URL.'&wxkey='.$wxkey);
-        $r = Http::request($code_url.'&wxkey='.$wxkey);
+        $code_url = OAuth::getAccessToken($code, QQ_CALLBACK_URL);
+        $r = Http::request($code_url);
         parse_str($r, $out);
         //存储授权数据
         if ($out['access_token']) {
@@ -69,7 +69,7 @@ if ($site=='weibo'){
             }
         } else{
 
-           $code_url = OAuth::getAuthorizeURL( QQ_CALLBACK_URL .'&wxkey='.$wxkey);	//!!! 必须与 OAuth::getAccessToken($code, QQ_CALLBACK_URL); 的地址一致
+           $code_url = OAuth::getAuthorizeURL( QQ_CALLBACK_URL );	//!!! 必须与 OAuth::getAccessToken($code, QQ_CALLBACK_URL); 的地址一致
             header('Location: ' . $code_url.'&wxkey='.$wxkey);
         }
     }
