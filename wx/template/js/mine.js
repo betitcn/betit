@@ -7,7 +7,7 @@ $(document).ready(function(){
     type:"POST",
      success: function( data ) {
       /* Get the movies array from the data */
-     
+     alert(wxkey);
       }
     
     })
