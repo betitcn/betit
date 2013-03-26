@@ -19,22 +19,22 @@ if ($site=='weibo'){
 
 }elseif($site=='qq'){
 
-	//$callback = 'http://www.betit.cn/connect.php?site=qq';//ªÿµ˜url
+	//$callback = 'http://www.betit.cn/connect.php?site=qq';//?ÿµ?url
 
 	OAuth::init(QQ_AKEY, QQ_SKEY);
 	Tencent::$debug = QQ_DEBUG;
 
 	header('Content-Type: text/html; charset=utf-8');
 
-	if ($_GET['code']) {//“—ªÒµ√code
+	if ($_GET['code']) {//?—ª???code
         $code = $_GET['code'];
         $openid = $_GET['openid'];
         $openkey = $_GET['openkey'];
-        //ªÒ»° ⁄»®token
+        //??»°??»®token
         $code_url = OAuth::getAccessToken($code, QQ_CALLBACK_URL.'&wxkey='.$wxkey);
         $r = Http::request($code_url);
         parse_str($r, $out);
-        //¥Ê¥¢ ⁄»® ˝æ›
+        //?Ê¥¢??»®????
         if ($out['access_token']) {
             $_SESSION['t_access_token'] = $out['access_token'];
             $_SESSION['t_refresh_token'] = $out['refresh_token'];
@@ -43,33 +43,33 @@ if ($site=='weibo'){
             $_SESSION['t_openid'] = $openid;
             $_SESSION['t_openkey'] = $openkey;
             
-            //—È÷§ ⁄»®
+            //??÷§??»®
             $r = OAuth::checkOAuthValid();
             if ($r) {
-                header('Location: ' . $code_url.'&wxkey='.$wxkey);//À¢–¬“≥√Ê
+                header('Location: ' . $code_url.'&wxkey='.$wxkey);//À¢??“≥??
             } else {
-                exit('<h3> ⁄»® ß∞‹,«Î÷ÿ ‘</h3>');
+                exit('<h3>??»® ß??,??????</h3>');
             }
         } else {
             exit($r);
         }
-    } else {//ªÒ»° ⁄»®code
+    } else {//??»°??»®code
 
 		
 
-        if ($_GET['openid'] && $_GET['openkey']){//”¶”√∆µµ¿
+        if ($_GET['openid'] && $_GET['openkey']){//”¶??∆µ??
             $_SESSION['t_openid'] = $_GET['openid'];
             $_SESSION['t_openkey'] = $_GET['openkey'];
-            //—È÷§ ⁄»®
+            //??÷§??»®
             $r = OAuth::checkOAuthValid();
             if ($r) {
-                header('Location: ' . QQ_CALLBACK_URL.'&wxkey='.$wxkey);//À¢–¬“≥√Ê
+                header('Location: ' . QQ_CALLBACK_URL.'&wxkey='.$wxkey);//À¢??“≥??
             } else {
-                exit('<h3> ⁄»® ß∞‹,«Î÷ÿ ‘</h3>');
+                exit('<h3>??»® ß??,??????</h3>');
             }
         } else{
 
-           $code_url = OAuth::getAuthorizeURL( QQ_CALLBACK_URL .'&wxkey='.$wxkey);	//!!! ±ÿ–Î”Î OAuth::getAccessToken($code, QQ_CALLBACK_URL); µƒµÿ÷∑“ª÷¬
+           $code_url = OAuth::getAuthorizeURL( QQ_CALLBACK_URL);	//!!! ?????? OAuth::getAccessToken($code, QQ_CALLBACK_URL); ?ƒµ?÷∑“ª??
             header('Location: ' . $code_url.'&wxkey='.$wxkey);
         }
     }
