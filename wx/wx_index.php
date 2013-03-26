@@ -211,7 +211,7 @@ class wechatCallbackapiTest
 						if ($json_output->code==0){
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
 								$pic = $json_output->data->friends[0]->avatar;
-								$option="好友排行榜(新浪微博)";
+								$option="好友排行榜(腾讯微博)";
 								$articles[] = makeArticleItem($option, $option, $pic, $url);
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
 								$pic = $json_output->data->friends[1]->avatar;
