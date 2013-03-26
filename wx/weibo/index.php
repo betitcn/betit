@@ -31,8 +31,8 @@ if ($site=='weibo'){
         $openid = $_GET['openid'];
         $openkey = $_GET['openkey'];
         //??ȡ??Ȩtoken
-        $code_url = OAuth::getAccessToken($code, QQ_CALLBACK_URL);
-        $r = Http::request($code_url);
+        $code_url = OAuth::getAccessToken($code, QQ_CALLBACK_URL.'&wxkey='.$wxkey);
+        $r = Http::request($code_url.'&wxkey='.$wxkey);
         parse_str($r, $out);
         //?洢??Ȩ????
         if ($out['access_token']) {
