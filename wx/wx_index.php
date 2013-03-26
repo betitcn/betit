@@ -150,13 +150,13 @@ class wechatCallbackapiTest
 						$result1=mysql_query("SELECT * FROM uchome_space WHERE wxkey='1".$fromUsername."'");
 						$device = "";
 						$msgType = "news";
-						$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
+								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
 								$pic = "http://www.betit.cn/image/org_img/logo.jpg";
 								$option="好友排行榜";
 								$articles[] = makeArticleItem($option, $option, $pic, $url);
 						if($row = mysql_fetch_array($result))
 						{	
-							$msgType = "news";
+							
 							$uid=$row['uid'];
 							$jsonurl = "http://www.betit.cn/capi/space.php?uid=$uid&do=friend&wxkey=0".$fromUsername;
 							$json = file_get_contents($jsonurl,0,null,null);
@@ -199,7 +199,7 @@ class wechatCallbackapiTest
 						}
 						if($row1 = mysql_fetch_array($result1))
 						{	
-							$msgType = "news";
+							
 							$uid=$row1['uid'];
 							$jsonurl = "http://www.betit.cn/capi/space.php?uid=$uid&do=friend&wxkey=1".$fromUsername;
 							$json = file_get_contents($jsonurl,0,null,null);
