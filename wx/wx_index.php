@@ -191,17 +191,7 @@ class wechatCallbackapiTest
 								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "好友排行榜",$articles); 
 							}
 
-						}else{
-						
-						$msgType = "news";
-							$url = "http://www.betit.cn/wx/wx.php?do=login&wxkey=".$fromUsername;
-							$pic = "http://www.familyday.com.cn/wx/images/bind.jpg";
-							$articles[] = makeArticleItem("绑定微信帐号", "你还没有绑定微信号，请点击进入微信绑定页", $pic, $url);
-							$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "绑定微信帐号",$articles);
-							mysql_close($con); 
-						
-						}
-						if($row1 = mysql_fetch_array($result1))
+						}elseif($row1 = mysql_fetch_array($result1))
 						{	
 							$msgType = "news";
 							$uid=$row1['uid'];
