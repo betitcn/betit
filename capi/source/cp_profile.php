@@ -3,7 +3,7 @@
 	[UCenter Home] (C) 2007-2008 Comsenz Inc.
 	$Id: cp_profile.php 13149 2009-08-13 03:11:26Z liguode $
 */
-
+capi_showmessage_by_data("asdasd");
 if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
@@ -14,7 +14,7 @@ if(!in_array($_REQUEST['op'], array('base','contact','edu','work','info', 'name'
 
 $theurl = "cp.php?ac=profile&op=$_REQUEST[op]";
 
-capi_showmessage_by_data("asdasd");
+
 
 if($_REQUEST['op'] == 'base') {
 	
