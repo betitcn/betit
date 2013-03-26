@@ -1,8 +1,8 @@
 $(document).ready(function(){
 	
-		var wxkey=$.query.get('wxkey');
+		var wxkey="123";
 		
-		localStorage.setItem('wxkey',""+wxkey+"");
+		localStorage.setItem('wxkey',wxkey);
 
         })
 
