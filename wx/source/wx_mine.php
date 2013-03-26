@@ -45,7 +45,7 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 	$device = json_encode(array("os"=>$os, "auth"=>$json_output->data->m_auth));
 	// bind
 	$wxkey=$_GET["wxkey"];
-	updatetable('space', array('wxkey'=>$wxkey, 'device'=>$device), array('uid'=>$json_output->data->space->uid));
+	updatetable('space', array('wxkey'=>'0'.$wxkey, 'device'=>$device), array('uid'=>$json_output->data->space->uid));
 	
 	echo "<script>localStorage.removeItem('auth');localStorage.setItem('auth','".$json_output->data->m_auth."');</script>";
 	}
@@ -66,7 +66,7 @@ if ($_SGLOBAL['db']->fetch_array($query)){
 	$device = json_encode(array("os"=>$os, "auth"=>$json_output->data->m_auth));
 	// bind
 	$wxkey=$_GET["wxkey"];
-	updatetable('space', array('wxkey'=>$wxkey, 'device'=>$device), array('uid'=>$json_output->data->space->uid));
+	updatetable('space', array('wxkey'=>'1'.$wxkey, 'device'=>$device), array('uid'=>$json_output->data->space->uid));
 	
 	echo "<script>localStorage.removeItem('auth');localStorage.setItem('auth','".$json_output->data->m_auth."');</script>";
 
