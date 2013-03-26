@@ -9,6 +9,7 @@ if(!defined('IN_UCHOME')) {
 }
 
 //更新配置文件
+
 function config_cache($updatedata=true) {
 	global $_SGLOBAL;
 
