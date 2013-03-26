@@ -31,7 +31,7 @@ if ($site=='weibo'){
         $openid = $_GET['openid'];
         $openkey = $_GET['openkey'];
         //»ñÈ¡ÊÚÈ¨token
-        $code_url = OAuth::getAccessToken($code, QQ_CALLBACK_URL.'&wxkey='.$wxkey);
+        $code_url = OAuth::getAccessToken($code, QQ_CALLBACK_URL);
         $r = Http::request($code_url);
         parse_str($r, $out);
         //´æ´¢ÊÚÈ¨Êý¾Ý
@@ -46,7 +46,7 @@ if ($site=='weibo'){
             //ÑéÖ¤ÊÚÈ¨
             $r = OAuth::checkOAuthValid();
             if ($r) {
-                header('Location: ' . $code_url.'&wxkey='.$wxkey);//刷新页面
+                header('Location: ' . $code_url);//刷新页面
             } else {
                 exit('<h3>授权失败,请重试</h3>');
             }
@@ -63,13 +63,13 @@ if ($site=='weibo'){
             //ÑéÖ¤ÊÚÈ¨
             $r = OAuth::checkOAuthValid();
             if ($r) {
-                header('Location: ' . QQ_CALLBACK_URL.'&wxkey='.$wxkey);//刷新页面
+                header('Location: ' . QQ_CALLBACK_URL);//刷新页面
             } else {
                 exit('<h3>授权失败,请重试</h3>');
             }
         } else{
 
-           $code_url = OAuth::getAuthorizeURL( QQ_CALLBACK_URL .'&wxkey='.$wxkey);	//!!! 必须与 OAuth::getAccessToken($code, QQ_CALLBACK_URL); 的地址一致
+           $code_url = OAuth::getAuthorizeURL( QQ_CALLBACK_URL);	//!!! 必须与 OAuth::getAccessToken($code, QQ_CALLBACK_URL); 的地址一致
             header('Location: ' . $code_url.'&wxkey='.$wxkey);
         }
     }
