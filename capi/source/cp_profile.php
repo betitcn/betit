@@ -532,4 +532,5 @@ if ($space['weibo'] == 1){
 capi_showmessage_by_data('rest_success', 0, array("space"=>$space));
 //include template("cp_profile");
 
+
 ?>
