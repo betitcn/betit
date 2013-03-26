@@ -1,13 +1,13 @@
 $(document).ready(function(){
-  alert("asda");
-  var wxkey=localStorage.getItem('auth');
+ 
+  var wxkey=localStorage.getItem('wxkey');
  $.ajax({
     url:"../../source/wx_mine.php",
     data:"wxkey="+wxkey+"",
     type:"POST",
      success: function( data ) {
       /* Get the movies array from the data */
-      window.location.href="http://www.betit.cn/wx/wx.php";
+     
       }
     
     })
