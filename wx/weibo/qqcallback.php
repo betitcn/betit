@@ -37,7 +37,8 @@ if ($_SESSION['t_access_token'] || ($_SESSION['t_openid'] && $_SESSION['t_openke
 		uc_user_synlogin($rst['uid']);
 		setSession($user[0],$user[1]);
 		$qquid=$_GET['openid'];
-		wxshowmessage('do_success',"wx.php?do=mine&qquid=$qquid");
+		$wxkey=$_GET['wxkey'];
+		wxshowmessage('do_success',"wx.php?do=mine&qquid=$qquid&wxkey=$wxkey");
 	}else{
 		
 		
