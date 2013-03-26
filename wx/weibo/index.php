@@ -69,7 +69,7 @@ if ($site=='weibo'){
             }
         } else{
 
-           $code_url = OAuth::getAuthorizeURL( QQ_CALLBACK_URL );	//!!! 必须与 OAuth::getAccessToken($code, QQ_CALLBACK_URL); 的地址一致
+           $code_url = OAuth::getAuthorizeURL( QQ_CALLBACK_URL .'&wxkey='.$wxkey);	//!!! 必须与 OAuth::getAccessToken($code, QQ_CALLBACK_URL); 的地址一致
             header('Location: ' . $code_url.'&wxkey='.$wxkey);
         }
     }
