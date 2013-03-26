@@ -1,6 +1,6 @@
 $(document).ready(function(){
  
-  var wxkey=localStorage.getItem('wxkey');
+  var wxkey=window.localStorage.getItem('wxkey');
    alert(wxkey);
  $.ajax({
     url:"../../source/wx_mine.php",
