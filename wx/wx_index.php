@@ -146,19 +146,72 @@ class wechatCallbackapiTest
 							die('Could not connect: ' . mysql_error());
 						}
 						mysql_select_db("betit", $con);
-						$result = mysql_query("SELECT * FROM uchome_space WHERE wxkey='".$fromUsername."'");
+						$result = mysql_query("SELECT * FROM uchome_space WHERE wxkey=0'".$fromUsername."'");
+						$result1=mysql_query("SELECT * FROM uchome_space WHERE wxkey=1'".$fromUsername."'");
 						$device = "";
 						if($row = mysql_fetch_array($result))
 						{	
 							$msgType = "news";
 							$uid=$row['uid'];
-							$jsonurl = "http://www.betit.cn/capi/space.php?uid=$uid&do=friend&wxkey=".$fromUsername;
+							$jsonurl = "http://www.betit.cn/capi/space.php?uid=$uid&do=friend&wxkey=0".$fromUsername;
 							$json = file_get_contents($jsonurl,0,null,null);
 							$json_output = json_decode($json);
 						if ($json_output->code==0){
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
 								$pic = $json_output->data->friends[0]->avatar;
-								$option="好友排行榜";
+								$option="好友排行榜(新浪微博)";
+								$articles[] = makeArticleItem($option, $option, $pic, $url);
+								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
+								$pic = $json_output->data->friends[1]->avatar;
+							if($json_output->data->friends[1]->name){
+								$option="N0.1  ".$json_output->data->friends[1]->name;
+							}else{
+								$option="N0.1  ".$json_output->data->friends[1]->username;
+							}
+								$articles[] = makeArticleItem($option, $option, $pic, $url);
+								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
+								$pic = $json_output->data->friends[2]->avatar;
+							if($json_output->data->friends[2]->name){
+								$option="N0.2  ".$json_output->data->friends[2]->name;
+							}else{
+								$option="N0.2  ".$json_output->data->friends[2]->username;
+							}
+								$articles[] = makeArticleItem($option, $option, $pic, $url);
+								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
+								$pic = $json_output->data->friends[3]->avatar;
+							if($json_output->data->friends[3]->name){
+								$option="N0.3  ".$json_output->data->friends[3]->name;
+							}else{
+								$option="N0.3  ".$json_output->data->friends[3]->username;
+							}
+								$articles[] = makeArticleItem($option, $option, $pic, $url);
+								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
+								$pic = "http://www.betit.cn/image/org_img/logo.jpg";
+								$articles[] = makeArticleItem("更多...", "更多...", $pic, $url);
+								$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "好友排行榜",$articles); 
+							}
+
+						}else{
+						
+						$msgType = "news";
+							$url = "http://www.betit.cn/wx/wx.php?do=login&wxkey=".$fromUsername;
+							$pic = "http://www.familyday.com.cn/wx/images/bind.jpg";
+							$articles[] = makeArticleItem("绑定微信帐号", "你还没有绑定微信号，请点击进入微信绑定页", $pic, $url);
+							$resultStr = makeArticles($fromUsername, $toUsername, $time, $msgType, "绑定微信帐号",$articles);
+							mysql_close($con); 
+						
+						}
+						if($row1 = mysql_fetch_array($result1))
+						{	
+							$msgType = "news";
+							$uid=$row1['uid'];
+							$jsonurl = "http://www.betit.cn/capi/space.php?uid=$uid&do=friend&wxkey=1".$fromUsername;
+							$json = file_get_contents($jsonurl,0,null,null);
+							$json_output = json_decode($json);
+						if ($json_output->code==0){
+								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
+								$pic = $json_output->data->friends[0]->avatar;
+								$option="好友排行榜(新浪微博)";
 								$articles[] = makeArticleItem($option, $option, $pic, $url);
 								$url = "http://www.betit.cn/wx/wx.php?do=billboard&wxkey=".$fromUsername;
 								$pic = $json_output->data->friends[1]->avatar;
