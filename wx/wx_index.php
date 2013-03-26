@@ -146,8 +146,8 @@ class wechatCallbackapiTest
 							die('Could not connect: ' . mysql_error());
 						}
 						mysql_select_db("betit", $con);
-						$result = mysql_query("SELECT * FROM uchome_space WHERE wxkey=0'".$fromUsername."'");
-						$result1=mysql_query("SELECT * FROM uchome_space WHERE wxkey=1'".$fromUsername."'");
+						$result = mysql_query("SELECT * FROM uchome_space WHERE wxkey='0".$fromUsername."'");
+						$result1=mysql_query("SELECT * FROM uchome_space WHERE wxkey='1".$fromUsername."'");
 						$device = "";
 						if($row = mysql_fetch_array($result))
 						{	
