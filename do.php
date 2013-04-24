@@ -30,7 +30,7 @@ if(empty($ac) || !in_array($ac, $acs)) {
 
 //Á´½Ó
 $theurl = 'do.php?ac='.$ac;
-
+showmessage($theurl);
 include_once(S_ROOT.'./source/do_'.$ac.'.php');
 
 ?>
