@@ -17,7 +17,7 @@ $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 	
 //表态分类
 @include_once(S_ROOT.'./data/data_click.php');
-showmessage("测试");
+
 $clicks = empty($_SGLOBAL['click']['quizid'])?array():$_SGLOBAL['click']['quizid'];
 
 if($id) {
@@ -43,7 +43,7 @@ if($id) {
 			exit();
 		}
 	}
-
+showmessage("测试");
 	//整理
 	$quiz['tag'] = empty($quiz['tag'])?array():unserialize($quiz['tag']);
 
