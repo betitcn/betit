@@ -29,6 +29,7 @@ if($id) {
 	if(empty($quiz)) {
 		showmessage('view_to_info_did_not_exist');
 	}
+	showmessage("adfas");
 	//检查好友权限
 	if(!ckfriend($quiz['uid'], $quiz['friend'], $quiz['target_ids'])) {
 		//没有权限
