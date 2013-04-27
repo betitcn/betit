@@ -267,11 +267,12 @@ height:140px;">
 </div>
 
 
-<div class="twohand" style="padding-right:120px; ">
-	
-<div class="lefthand" style="float:left; color:#DA5252; font-size:25px;	margin-top:20px;margin-left:-200px;" ><a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="image/newpeople/lefthand.jpg"></a>q</div>
-<div class="righthand" style="position:relative;left:105px;float:right; color:#DA5252; font-size:25px;">q<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="image/newpeople/righthand.jpg"></a></div>
-	
+<div class="twohand" style="padding-right: 140px;">
+			  <!--{eval $list12 = $value[votenum];}-->
+<!--{loop $list12 $value8}-->
+$value8[option][0]
+$value8[option][1]
+<!--{/loop}-->
 </div>
 
 </div>
