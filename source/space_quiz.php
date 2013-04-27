@@ -49,7 +49,7 @@ if($id) {
 			exit();
 		}
 	}
-
+showmessage("网站维护中");
 	//整理
 	$quiz['tag'] = empty($quiz['tag'])?array():unserialize($quiz['tag']);
 
@@ -147,7 +147,7 @@ if($id) {
 			$newlist[] = $value;
 		}
 	}
-showmessage("网站维护中");
+
 	//评论
 	$perpage = 30;
 	$perpage = mob_perpage($perpage);
