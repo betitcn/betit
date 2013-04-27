@@ -314,7 +314,7 @@ if($id) {
 	include_once template("space_quiz_view2");
 
 } else {
-	
+
 	//分页
 	/*$perpage = 10;
 	$perpage = mob_perpage($perpage);
@@ -619,7 +619,7 @@ if($id) {
 					$wheresql AND p.id!=1
 					ORDER BY $ordersql DESC LIMIT $start,$perpage");
 		}
-showmessage("网站维护中");
+
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			$query3 = $_SGLOBAL['db']->query("SELECT uchome_quizfield.option FROM ".tname('quizfield')." WHERE quizid='$value[id]' ORDER BY quizid");
 $value3=array();				
@@ -643,6 +643,7 @@ $value3=array();
 
 
 	}	
+	showmessage("网站维护中");
 			if($value['credit'] && $value['percredit'] && $value['credit'] < $value['percredit']) {
 				$value['percredit'] = $value['credit'];
 			}
