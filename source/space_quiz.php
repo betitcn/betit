@@ -7,7 +7,7 @@
 if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
-
+showmessage("测试");
 $minhot = $_SCONFIG['feedhotmin']<1?3:$_SCONFIG['feedhotmin'];
 
 $page = empty($_GET['page'])?1:intval($_GET['page']);
