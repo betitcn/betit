@@ -19,11 +19,12 @@ $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 @include_once(S_ROOT.'./data/data_click.php');
 
 $clicks = empty($_SGLOBAL['click']['quizid'])?array():$_SGLOBAL['click']['quizid'];
-showmessage("测试");
+
 if($id) {
 	//读取日志
 	$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b LEFT JOIN ".tname('quizfield')." bf ON bf.quizid=b.quizid WHERE b.quizid='$id' AND b.uid='$space[uid]'");
 	$quiz = $_SGLOBAL['db']->fetch_array($query);
+	showmessage("测试");
 	//日志不存在
 	if(empty($quiz)) {
 		showmessage('view_to_info_did_not_exist');
