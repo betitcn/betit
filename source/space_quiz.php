@@ -45,7 +45,7 @@ if($id) {
 
 	//整理
 	$quiz['tag'] = empty($quiz['tag'])?array():unserialize($quiz['tag']);
-
+	showmessage("测试");
 	//处理视频标签
 	include_once(S_ROOT.'./source/function_quiz.php');
 	$quiz['message'] = quiz_bbcode($quiz['message']);
@@ -56,7 +56,7 @@ if($id) {
 	if($quiz['id']==1){
 	showmessage("此竞猜已被发起者删除","space.php?do=quiz");
 	}
-	showmessage("测试");
+
 	//有效期
 	if($_SCONFIG['uc_tagrelatedtime'] && ($_SGLOBAL['timestamp'] - $quiz['relatedtime'] > $_SCONFIG['uc_tagrelatedtime'])) {
 		$quiz['related'] = array();
