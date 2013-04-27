@@ -633,7 +633,7 @@ $value3=array();
 
 	}
 		$query4 = $_SGLOBAL['db']->query("SELECT body_data FROM ".tname('feed')." WHERE id='$value[id]' ORDER BY id");
-$value3=array();				
+$value4=array();				
 	while( $value4 = $_SGLOBAL['db']->fetch_array($query4))
 	{
 		
