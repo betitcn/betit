@@ -659,7 +659,7 @@ $value3=array();
 			$userlist[$value['uid']] = $value['username'];
 		}
 	}
-	showmessage("网站维护中");	
+	
 	//分页
 	$multi = multi($count, $perpage, $page, $theurl);
 
@@ -667,7 +667,7 @@ $value3=array();
 	realname_get();
 	
 	$actives = array($_GET['view']=>' class="active"');
-
+showmessage("网站维护中");	
 	$_TPL['css'] = 'poll';
 	include_once template("space_quiz_list2");
 }
