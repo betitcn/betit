@@ -174,7 +174,7 @@ if($id) {
 			$list[] = $value;
 		}
 	}
-showmessage("网站维护中");
+
 	//分页
 	$multi = multi($count, $perpage, $page, "space.php?uid=$quiz[uid]&do=$do&id=$id", '', 'content');
 
@@ -196,7 +196,7 @@ showmessage("网站维护中");
 		if($value['clicknum'] > $maxclicknum) $maxclicknum = $value['clicknum'];
 		$clicks[$key] = $value;
 	}
-
+showmessage("网站维护中");
 	//点评
 	$clickuserlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('clickuser')."
