@@ -311,7 +311,7 @@ if($id) {
 	//实名
 	realname_get();
 	
-	include_once template("space_quiz_view2");
+	include_once template("space_quiz_view");
 
 } else {
 
