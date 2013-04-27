@@ -19,15 +19,42 @@ $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 @include_once(S_ROOT.'./data/data_click.php');
 
 $clicks = empty($_SGLOBAL['click']['quizid'])?array():$_SGLOBAL['click']['quizid'];
+showmessage("网站维护中");
+if($id) {
+	//读取日志
 
+	$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b LEFT JOIN ".tname('quizfield')." bf ON bf.quizid=b.quizid WHERE b.quizid='$id' AND b.uid='$space[uid]'");
 
+	$quiz = $_SGLOBAL['db']->fetch_array($query);
+
+	//日志不存在
+	if(empty($quiz)) {
+		showmessage('view_to_info_did_not_exist');
+	}
+
+	//检查好友权限
+	if(!ckfriend($quiz['uid'], $quiz['friend'], $quiz['target_ids'])) {
+		//没有权限
+		
+		include template('space_privacy');
+		exit();
+	} elseif(!$space['self'] && $quiz['friend'] == 4) {
+		//密码输入问题 // mask
+		
+		$cookiename = "view_pwd_quiz_$quiz[quizid]";
+		$cookievalue = empty($_SCOOKIE[$cookiename])?'':$_SCOOKIE[$cookiename];
+		if($cookievalue != md5(md5($quiz['password']))) {
+			$invalue = $quiz;
+			include template('do_inputpwd');
+			exit();
+		}
+	}
 
 	//整理
 	$quiz['tag'] = empty($quiz['tag'])?array():unserialize($quiz['tag']);
-showmessage("网站维护中");
+
 	//处理视频标签
 	include_once(S_ROOT.'./source/function_quiz.php');
-	
 	$quiz['message'] = quiz_bbcode($quiz['message']);
 
 	$otherlist = $newlist = array();
@@ -101,9 +128,10 @@ showmessage("网站维护中");
 		}
 		updatetable('quizfield', array('related'=>addslashes(serialize(sstripslashes($quiz['related']))), 'relatedtime'=>$_SGLOBAL['timestamp']), array('quizid'=>$quiz['quizid']));//更新
 	} else {
+		showmessage("网站维护中");
 		$quiz['related'] = empty($quiz['related'])?array():unserialize($quiz['related']);
 	}
-showmessage("网站维护中");
+
 	//作者的其他最新日志
 	$otherlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE uid='$space[uid]' and id!=1 ORDER BY dateline DESC LIMIT 0,6");
