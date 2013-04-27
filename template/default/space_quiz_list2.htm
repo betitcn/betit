@@ -244,10 +244,9 @@ height:140px;
                    </div>
 
 <div class="pictwo" style="
-    width: 140px;
-    height: 140px;
     float: left;
-">
+    width: 140px;
+height:140px;">
                   <!--{if $value['image_2']}-->
 			      <a href="$value[image_2_link]"{$value[target]}><img src="$value[image_2]" class="summaryimg" /></a>
 			      <!--{else}-->
@@ -259,7 +258,13 @@ height:140px;
 
 </div>
 
-
+<div class="twoword" style="padding-right: 140px; margin-bottom:30px;">
+ <!--{eval $list1 = $value[options];}-->
+				<!--{loop $list1 $value2}-->
+<div class="leftword" style="float:left; width:200px; overflow:hidden; ">$value2[0]</div>
+<div class="rightword" style="float:right;padding-right:14px;">$value2[1]</div>
+<!--{/loop}-->
+</div>
 
 
 
