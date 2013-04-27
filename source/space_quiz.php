@@ -643,7 +643,7 @@ $value3=array();
 
 
 	}	
-	showmessage("网站维护中");
+	
 			if($value['credit'] && $value['percredit'] && $value['credit'] < $value['percredit']) {
 				$value['percredit'] = $value['credit'];
 			}
@@ -659,7 +659,7 @@ $value3=array();
 			$userlist[$value['uid']] = $value['username'];
 		}
 	}
-		
+	showmessage("网站维护中");	
 	//分页
 	$multi = multi($count, $perpage, $page, $theurl);
 
