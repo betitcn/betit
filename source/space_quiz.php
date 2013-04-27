@@ -130,9 +130,9 @@ if($id) {
 	} else {
 
 		$quiz['related'] = empty($quiz['related'])?array():unserialize($quiz['related']);
-		
+
 	}
-	
+
 	//作者的其他最新日志
 	$otherlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE uid='$space[uid]' and id!=1 ORDER BY dateline DESC LIMIT 0,6");
@@ -579,7 +579,7 @@ if($id) {
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=me&filtrate=".$_GET['filtrate'];
 		
 	}
-	showmessage("网站维护中");
+
 	//搜索
 	if($searchkey = stripsearchkey($_GET['searchkey'])) {
 		$query3 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid=1");
@@ -618,6 +618,7 @@ if($id) {
 					$wheresql AND p.id!=1
 					ORDER BY $ordersql DESC LIMIT $start,$perpage");
 		}
+			showmessage("网站维护中");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			$query3 = $_SGLOBAL['db']->query("SELECT uchome_quizfield.option FROM ".tname('quizfield')." WHERE quizid='$value[id]' ORDER BY quizid");
 $value3=array();				
