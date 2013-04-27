@@ -17,9 +17,9 @@ $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 	
 //表态分类
 @include_once(S_ROOT.'./data/data_click.php');
-showmessage("网站维护中");
-$clicks = empty($_SGLOBAL['click']['quizid'])?array():$_SGLOBAL['click']['quizid'];
 
+$clicks = empty($_SGLOBAL['click']['quizid'])?array():$_SGLOBAL['click']['quizid'];
+showmessage("网站维护中");
 if($id) {
 	//读取日志
 
