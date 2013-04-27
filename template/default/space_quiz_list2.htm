@@ -205,8 +205,27 @@ height:140px;
 
 <div style="width:100%;overflow:hidden;">
 <a  target="_blank" href="space.php?uid=$value[uid]" >{$_SN[$value[uid]]}:</a><a target="_blank" href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]" >$value[subject]</a>
+<span class="gray" style="display:block; "><!--{date('m-d H:i',$value[dateline],1)}--></span>
+<div class="feed_content">
+<!--{if empty($_TPL[hidden_hot]) && $value[hot]}-->
+			<div class="hotspot"><a href="cp.php?ac=feed&feedid=$value[feedid]">$value[hot]</a></div>
+			<!--{/if}-->
+<div class="twopic" style="
+    padding-right: 100px;
+">
 
 
+  
+
+
+
+<div class="clear" style="clear:both;"></div>
+
+</div>
+
+
+
+</div>
 </div>
 
 
