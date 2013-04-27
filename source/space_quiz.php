@@ -56,6 +56,7 @@ if($id) {
 	if($quiz['id']==1){
 	showmessage("此竞猜已被发起者删除","space.php?do=quiz");
 	}
+	showmessage("测试");
 	//有效期
 	if($_SCONFIG['uc_tagrelatedtime'] && ($_SGLOBAL['timestamp'] - $quiz['relatedtime'] > $_SCONFIG['uc_tagrelatedtime'])) {
 		$quiz['related'] = array();
@@ -120,7 +121,7 @@ if($id) {
 	} else {
 		$quiz['related'] = empty($quiz['related'])?array():unserialize($quiz['related']);
 	}
-showmessage("测试");
+
 	//作者的其他最新日志
 	$otherlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE uid='$space[uid]' and id!=1 ORDER BY dateline DESC LIMIT 0,6");
