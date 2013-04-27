@@ -14,7 +14,7 @@ $page = empty($_GET['page'])?1:intval($_GET['page']);
 if($page<1) $page=1;
 $id = empty($_GET['id'])?0:intval($_GET['id']);
 $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
-
+	showmessage("测试");
 //表态分类
 @include_once(S_ROOT.'./data/data_click.php');
 $clicks = empty($_SGLOBAL['click']['quizid'])?array():$_SGLOBAL['click']['quizid'];
@@ -45,7 +45,7 @@ if($id) {
 
 	//整理
 	$quiz['tag'] = empty($quiz['tag'])?array():unserialize($quiz['tag']);
-	showmessage("测试");
+
 	//处理视频标签
 	include_once(S_ROOT.'./source/function_quiz.php');
 	$quiz['message'] = quiz_bbcode($quiz['message']);
