@@ -85,7 +85,7 @@ if($id) {
 				$quiz['related'] = uc_tag_get($b_tags[$tag_index], $_SGLOBAL['tagtpl']['limit']);
 			}
 		} else {
-			showmessage("网站维护中");
+
 			//自身TAG
 			$tag_quizids = array();
 			$query = $_SGLOBAL['db']->query("SELECT DISTINCT quizid FROM ".tname('tagquiz')." WHERE tagid IN (".simplode($b_tagids).") AND quizid<>'$quiz[quizid]' ORDER BY quizid DESC LIMIT 0,10");
@@ -102,6 +102,7 @@ if($id) {
 				$quiz['related'][UC_APPID]['type'] = 'UCHOME';
 			}
 		}
+		showmessage("网站维护中");
 		if(!empty($quiz['related']) && is_array($quiz['related'])) {
 			foreach ($quiz['related'] as $appid => $values) {
 				if(!empty($values['data']) && $_SGLOBAL['tagtpl']['data'][$appid]['template']) {
