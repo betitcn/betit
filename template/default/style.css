@@ -655,3 +655,4 @@ ins.modify { padding-top: 5px; color: #666; text-decoration: none; text-align: r
     .event_cat li { float:left; width: 110px; line-height:180%; }
     .event_cat li.on { padding: 0 0 0 15px;  width: 95px; background:transparent url(image/d.gif) no-repeat scroll 5px 10px; font-weight: bold; }
 
+.lefthand img{min-height:36px; min-width:32px; margin-bottom:-3px; }
