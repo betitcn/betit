@@ -128,8 +128,9 @@ if($id) {
 		}
 		updatetable('quizfield', array('related'=>addslashes(serialize(sstripslashes($quiz['related']))), 'relatedtime'=>$_SGLOBAL['timestamp']), array('quizid'=>$quiz['quizid']));//更新
 	} else {
-		showmessage("网站维护中");
+
 		$quiz['related'] = empty($quiz['related'])?array():unserialize($quiz['related']);
+		showmessage("网站维护中");
 	}
 
 	//作者的其他最新日志
