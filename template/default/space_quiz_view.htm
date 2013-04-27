@@ -1,15 +1,47 @@
-<!--{eval $_TPL['titles'] = array($quiz['subject'], '竞猜');}-->
-<!--{eval $friendsname = array(1 => '仅好友可见',2 => '指定好友可见',3 => '仅自己可见',4 => '凭密码可见');}-->
+<!--{eval $_TPL['titles'] = array($quiz['subject'], '打赌');}-->
 <!--{template header}-->
+<script language="javascript" src="template/default/js/jquery-1.7.2.min.js"></script>
+<script language="javascript" src="template/default/js/jquery-ui-1.8.22.custom.min.js"></script>
+<script language="javascript">var jquery = jQuery.noConflict(); </script>
+<link rel="stylesheet" href="template/default/css/smoothness/jquery-ui-1.8.22.custom.css">
+<script>
+	// increase the default animation speed to exaggerate the effect
+	jquery.fx.speeds._default = 1000;
+	jquery(function() {
+		jquery( "#quizdialog" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			modal: true,
+			height:120,
+			buttons: {
+				"确定": function() {
+					jquery( "#quizform" ).submit();
+				},
+				"取消": function() {
+					jquery( this ).dialog( "close" );
+				}
+			}
+		});
+		jquery( "#quizsumbit" ).click(function() {
+			jquery( "#quizdialog" ).dialog( "open" );
+			return false;
+		});
+		
+		
+	});
+</script>
+
+
 
 <!--{if $space[self]}-->
-<h2 class="title"><img src="image/app/blog.gif" />竞猜</h2>
+<h2 class="title"><img src="image/app/quiz.gif" />竞猜</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=$do&view=we"><span>好友最新竞猜</span></a></li><!--{/if}-->
+		<li><a href="space.php?uid=$space[uid]&do=$do&view=new"><span>最新竞猜</span></a></li>
+		<li><a href="space.php?uid=$space[uid]&do=$do&view=hot"><span>最热竞猜</span></a></li>
+		<!--{if $space[friendnum]}--><li$actives[friend]><a href="space.php?uid=$space[uid]&do=$do&view=friend"><span>好友竞猜</span></a></li><!--{/if}-->
 		<li class="active"><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>我的竞猜</span></a></li>
-		<li><a href="space.php?uid=$space[uid]&do=$do&view=click"><span>我踩过的竞猜</span></a></li>
-		<li><a href="space.php?uid=$space[uid]&do=$do&view=all"><span>大家的竞猜</span></a></li>
 		<li class="null"><a href="cp.php?ac=quiz">发表新竞猜</a></li>
 	</ul>
 	<!--{if $_SGLOBAL[refer]}-->
@@ -20,120 +52,248 @@
 </div>
 <!--{else}-->
 <!--{eval
-	$_TPL['spacetitle'] = "竞猜";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">TA的所有竞猜</a>";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=quiz&id=$quiz[quizid]\">查看竞猜</a>";
+	$_TPL['spacetitle'] = "打赌";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">TA的所有打赌</a>";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=quiz&id=$id\">查看打赌详情</a>";
 }-->
 <!--{template space_menu}-->
 <!--{/if}-->
 
-<script type="text/javascript" charset="$_SC[charset]" src="source/script_calendar.js"></script>
-
-<div class="entry" style="padding:0 0 10px;">
-
-	<div class="title">
-		<h1<!--{if $quiz[magiccolor]}--> class="magiccolor$quiz[magiccolor]"<!--{/if}-->>$quiz[subject]</h1>
-		<!--{if $quiz['friend']}-->
-		<span class="r_option locked gray">{$friendsname[$quiz[friend]]}</span>
-		<!--{/if}-->
-		<!--{if $quiz[hot]}--><span class="hot"><em>热</em>$quiz[hot]</span><!--{/if}-->
-		<!--{if $quiz['friend']}-->
-		<span class="r_option locked gray">
-		<a href="space.php?uid=$space[uid]&do=$do&view=me&friend=$quiz[friend]" class="gray">{$friendsname[$value[friend]]}</a>
-		</span>
-		<!--{/if}-->
-		<!--{if $quiz[viewnum]}--><span class="gray">已有 $quiz[viewnum] 次阅读</span><!--{/if}-->
-		&nbsp; <span class="gray"><!--{date('Y-m-d H:i',$quiz[dateline],1)}--></span>
-		<!--{if $quiz[tag]}-->
-		&nbsp; <a href="space.php?uid=$quiz[uid]&do=tag">标签</a>:&nbsp;
-		<!--{loop $quiz[tag] $tagid $tagname}-->
-		<a href="space.php?uid=$quiz[uid]&do=tag&id=$tagid">$tagname</a>&nbsp;
-		<!--{/loop}-->
+<div id="content">
+	<div class="poll_header">
+		<div class="floatleft">
+			<p>发起时间: <!--{date('Y-m-d H:i',$quiz[dateline],1)}--></p>
+			<p>参与人数: <strong>$quiz[voternum]</strong> 人</p>
+			<p>参与份数: <strong><!--{eval echo $quiz[totalcost]/$quiz[joincost];}--></strong> 份</p>
+			<p>奖    池: <strong>$quiz[totalcost]</strong> 金币</p>
+			<!--{if $space[self] && $quiz[credit]}-->
+			<p>剩余悬赏: <strong>$quiz[credit]</strong></p>
+			<!--{/if}-->
+			<!--{if $quiz[endtime]}--><p>截止时间: <!--{date('Y-m-d',$quiz[endtime])}--></p><!--{/if}-->
+			<!--{if $quiz[keyoption]}-->竞猜答案: <font color="red">$quiz[keyoption]</font><!--{/if}-->
+			<!--{if $quiz[keyoid]==3}-->竞猜答案: <font color="red">本竞猜流失</font><!--{/if}-->
+			<!--{if $_SGLOBAL['timestamp']>$quiz[resulttime]+86400&&$quiz[keyoid]==0}-->竞猜答案: <font color="red">本竞猜已过期未公布答案,积分已返还。</font><!--{/if}-->
+		</div>
+		<!--{if $space[self]}-->
+		<div class="floatright">
+			<script type="text/javascript" src="source/script_calendar.js"></script>
+			<!--{if $quiz[credit]}-->
+			<p style="display:none"><a href="cp.php?ac=quiz&op=endreward&quizid=$quiz[quizid]" id="quiz_reward_$quiz[quizid]" onclick="ajaxmenu(event, this.id)">终止悬赏</a></p>
+			<!--{/if}-->
+			<p style="display:none"><a href="cp.php?ac=quiz&op=addreward&quizid=$quiz[quizid]" id="add_new_reward" onclick="ajaxmenu(event, this.id)">追加悬赏</a></p>
+			<p style="display:none"><a href="cp.php?ac=quiz&op=addopt&quizid=$quiz[quizid]" id="addnewoption" onclick="ajaxmenu(event, this.id, 1)">增加候选项</a></p>
+			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=delete" id="quiz_delete_$quiz[quizid]" onclick="ajaxmenu(event, this.id);">删除本竞猜</a></p>
+			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=modify" id="quiz_modify_$quiz[quizid]" onclick="ajaxmenu(event, this.id)">修改截止时间</a></p>
+			<p style="display:none"><a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=summary" id="quiz_summary_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">写写竞猜总结</a></p>
+			
+			<!--{if !$expiration}-->
+			
+			<p><!--{if $quiz[voternum]==0}-->
+			<a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=delete" id="quiz_key_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">删除 <span class="pipe">|</span></a>
+			<!--{/if}--><!--{if $quiz[fquizid]==0}--><a href="cp.php?uid=$space[uid]&ac=quiz&quizid=$quiz[quizid]">编辑</a>
+			<!--{/if}-->
+			<!--{/if}-->
+			<!--{if empty($quiz[keyoption])}-->
+			<!--{if $_SGLOBAL['timestamp']>$quiz[endtime]&&$_SGLOBAL['timestamp']<$quiz[resulttime]+86400}-->
+			<!--{if $quiz[fquizid]==0&&$quiz[keyoid]!=3}-->
+			<a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=publickey" id="quiz_key_$quiz[quizid]" onclick="ajaxmenu(event, this.id, 1)">公布答案</a></p>
+			<!--{/if}-->
+			<!--{/if}-->
+			
+			<!--{/if}-->
+		</div>
+	
+		<!--{else}-->
+			
+		<div class="floatright">
+		<!--{if !$expiration}-->
+			<p><a href="cp.php?uid=$space[uid]&ac=quiz&fquizid=$quiz[quizid]">转发</a></p>
+			<!--{/if}-->
+		
+			</div>
+	
 		<!--{/if}-->
 	</div>
 
+	<div class="poll_title">
+		<!--{if $quiz[keyoid]}-->
+		<div class="print overtime">[结束]</div>
+		<!--{elseif $expiration}-->
+		<div class="print overtime">[过期]</div>
+		<!--{/if}-->
+		<!--{if $quiz[hot]}--><span class="hot"><em>热</em>$quiz[hot]</span><!--{/if}--><h3><img src="image/quiz_icon.gif" /> $quiz[subject]</h3><!--{if $quiz[fquizid]==0}--><p>[原创竞猜]</p><!--{else}--><p>[转发竞猜]</p><!--{/if}--><!--{if $quiz['sex'] && $quiz['sex'] != $_SGLOBAL['member']['sex'] || $quiz[multiple]}--> (<!--{if $quiz['sex'] && $quiz['sex'] != $_SGLOBAL['member']['sex']}-->仅限<strong><!--{if $quiz['sex']==1}-->男<!--{else}-->女<!--{/if}--></strong>性参与 <!--{/if}--><!--{if $quiz[multiple]}-->最多可选{$quiz[maxchoice]}项<!--{/if}-->) <!--{/if}-->
+		<!--{if $_GET[reward]}-->
+		<p style="color: #F30">恭喜您获得  <strong>$_GET[reward]</strong> 个金币</p>
+		<!--{elseif $quiz[percredit]}-->
+		<p style="color: #F30">竞猜将获得 <strong>$quiz[percredit]</strong> 个金币</p>
+		<!--{/if}-->
+	</div>
+	
 
-	<div id="quiz_article" class="article <!--{if $quiz[magicpaper]}--> magicpaper$quiz[magicpaper]<!--{/if}-->">
-		<div class="resizeimg">
-			<div class="resizeimg2">
-			<div class="resizeimg3">
-			<div class="resizeimg4">
-			<!--{if $_SGLOBAL['ad']['rightside']}-->
-			<div style="float: right; padding:5px;"><!--{ad/rightside}--></div>
+	<form name="quiz" id="quizform" method="post" action="cp.php?ac=quiz&quizid=$quiz[quizid]&op=vote">
+
+	<ol class="poll_item_list">
+		<!--{eval $bcid = rand(0, 19);}-->
+		<!--{loop $quiz['options'] $key $val}-->
+		<li>
+			<label class="poll_item"><!--{if $val[pic]}--><img src="$val[pic]" /><!--{/if}-->$val[option]:</label>
+			<!--{if $bcid>19}-->
+			<!--{eval $bcid=$bcid-19}-->
 			<!--{/if}-->
-			$quiz[message]
+			<div class="bar_bg bc_$bcid">
+				<div class="bar_left"></div>
+				<div class="bar_middle" id="bar_$key" len="{$val[width]}"></div>
+				<div class="bar_right"></div>
 			</div>
+			<!--{eval $bcid++;}-->
+			<div class="poll_percent">$val[votenum] ($val[percent]%)</div>
+			<div class="floatleft">
+				<!--{if $allowedvote && $canvote }-->
+				<input type="<!--{if $quiz[multiple]}-->checkbox<!--{else}-->radio<!--{/if}-->" name="option[]" value="$val[oid]" <!--{if $quiz[multiple]}-->onclick="checkSelect(this.checked)"<!--{/if}-->/>
+				<!--{/if}-->
 			</div>
-			</div>
+		</li>
+		<!--{/loop}-->
+	</ol>
+	<div id="quizdialog" title="确认投注">
+		<p>执行此操作，将扣除你$quiz[joincost]金币</p>
+	</div>
+	<div class="poll_submit">
+		<!--{if $allowedvote && $canvote}-->
+		<input type="hidden" name="votesubmit" value="true" />
+		<div class="submit" id="quizsumbit" onclick="" style="text-align:center">竞猜</div>
+		<input type="submit"  class="submit" id="votebutton" name="votebutton" value="打赌" style="display:none"/><br />
+		<label  style="display:none"><input type="checkbox" name="anonymous" value="1"> 匿名竞猜</label>
+		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+		<!--{/if}-->
+	</div>
+
+	</form>
+
+	
+
+	<div class="poll_htitle">
+
+
+	<div id="a_share">
+	<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+<span class="bds_more">分享到：</span>
+
+</div>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6527127" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+		<div class="r_option">
+			<!--{if $_SGLOBAL[supe_uid] == $quiz[uid] || checkperm('managequiz')}-->
+			<a href="cp.php?ac=topic&op=join&id=$quiz[quizid]&idtype=quizid" id="a_topicjoin_$quiz[quizid]" onclick="ajaxmenu(event, this.id)">凑热闹</a><span class="pipe">|</span>
+			<a href="admincp.php?ac=quiz&quizid=$quiz[quizid]" target="_blank">删除</a><span class="pipe">|</span>
+			<!--{/if}-->
+			<!--{if checkperm('managequiz')}-->
+			<a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=edithot" id="a_hot_$quiz[quizid]" onclick="ajaxmenu(event, this.id)">热度</a><span class="pipe">|</span>
+			<!--{/if}-->
+			<a href="cp.php?ac=common&op=report&idtype=quizid&id=$quiz[quizid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">举报</a><span class="pipe">|</span>
+			<a href="cp.php?uid=$quiz[uid]&ac=quiz&op=invite&quizid=$quiz[quizid]"/>邀请好友</a><span class="pipe">|</span>
+		</div>
+		<div class="custom">
+		<!--{if !empty($quiz[keyoid])}-->
+			<a id="winvoter" href="javascript:;" onclick="showVoter('win');">赢</a>
+			<a id="lostvoter" href="javascript:;" onclick="showVoter('lost');">输</a>
+		<!--{else}-->
+			<a id="newvoter" href="javascript:;" onclick="showVoter('new');">最新竞猜</a>
+			<a id="wevoter" href="javascript:;" onclick="showVoter('we');">好友竞猜</a>
+		<!--{/if}-->
 		</div>
 	</div>
-</div>
-
-<div style="padding:0 0 10px;">
-	<div style="text-align: right; padding-top:10px; ">
-		<a href="cp.php?ac=share&type=quiz&id=$quiz[quizid]" id="a_share" onclick="ajaxmenu(event, this.id, 1)" class="a_share">分享</a>
-
-		<!--{if $_SGLOBAL[supe_uid] == $quiz[uid]}-->
-			<!--{if $_SGLOBAL[magic][bgimage]}-->
-			<img src="image/magic/bgimage.small.gif" class="magicicon">
-				<!--{if $quiz[magicpaper]}-->
-			<a href="cp.php?ac=magic&op=cancelbgimage&idtype=quizid&id=$quiz[quizid]" id="a_magic_bgimage" onclick="ajaxmenu(event,this.id, 1)">取消{$_SGLOBAL[magic][bgimage]}</a>
-				<!--{else}-->
-			<a href="magic.php?mid=bgimage&idtype=quizid&id=$quiz[quizid]" id="a_magic_bgimage" onclick="ajaxmenu(event,this.id, 1)">{$_SGLOBAL[magic][bgimage]}</a>	
-				<!--{/if}-->
-			<!--{/if}-->
-			<!--{if $_SGLOBAL[magic][call]}-->
-			<img src="image/magic/call.small.gif" class="magicicon">
-			<a href="magic.php?mid=call&idtype=quizid&id=$quiz[quizid]" id="a_magic_call" onclick="ajaxmenu(event,this.id, 1)">{$_SGLOBAL[magic][call]}</a>
-			<!--{/if}-->
-			<!--{if $_SGLOBAL[magic][updateline]}-->
-			<img src="image/magic/updateline.small.gif" class="magicicon">
-			<a href="magic.php?mid=updateline&idtype=quizid&id=$quiz[quizid]" id="a_magic_updateline" onclick="ajaxmenu(event,this.id, 1)">{$_SGLOBAL[magic][updateline]}</a>
-			<!--{/if}-->
-			<!--{if $_SGLOBAL[magic][downdateline]}-->
-			<img src="image/magic/downdateline.small.gif" class="magicicon">
-			<a href="magic.php?mid=downdateline&idtype=quizid&id=$quiz[quizid]" id="a_magic_downdateline" onclick="ajaxmenu(event,this.id, 1)">{$_SGLOBAL[magic][downdateline]}</a>
-			<!--{/if}-->
-			<!--{if $_SGLOBAL[magic][color]}-->
-			<img src="image/magic/color.small.gif" class="magicicon">
-				<!--{if $quiz[magiccolor]}-->
-			<a href="cp.php?ac=magic&op=cancelcolor&idtype=quizid&id=$quiz[quizid]" id="a_magic_color" onclick="ajaxmenu(event,this.id)">取消{$_SGLOBAL[magic][color]}</a>
-				<!--{else}-->
-			<a href="magic.php?mid=color&idtype=quizid&id=$quiz[quizid]" id="a_magic_color" onclick="ajaxmenu(event,this.id, 1)">{$_SGLOBAL[magic][color]}</a>
-				<!--{/if}-->
-			<!--{/if}-->
-			<!--{if $_SGLOBAL[magic][hot]}-->
-			<img src="image/magic/hot.small.gif" class="magicicon">
-			<a href="magic.php?mid=hot&idtype=quizid&id=$quiz[quizid]" id="a_magic_hot" onclick="ajaxmenu(event,this.id, 1)">{$_SGLOBAL[magic][hot]}</a>
-			<!--{/if}-->
-			<span class="pipe">|</span>
+	<div id="showvoter" style="display:none;"></div>
+	
+	<script type="text/javascript">
+		<!--{if $canvote}-->
+		var maxSelect = $quiz[maxchoice];
+		var alreadySelect = 0;
+		function checkSelect(sel) {
+			if(sel) {
+				alreadySelect++;
+				if(alreadySelect == maxSelect) {
+					var oObj = document.getElementsByName("option[]");
+					for(i=0; i < oObj.length; i++) {
+						if(!oObj[i].checked) {
+							oObj[i].disabled = true;
+						}
+					}
+				}
+			} else {
+				alreadySelect--;
+				if(alreadySelect < maxSelect) {
+					var oObj = document.getElementsByName("option[]");
+					for(i=0; i < oObj.length; i++) {
+						if(oObj[i].disabled) {
+							oObj[i].disabled = false;
+						}
+					}
+				}
+			}
+		}
 		<!--{/if}-->
 
-		<!--{if $_SGLOBAL[supe_uid] == $quiz[uid] || checkperm('managequiz')}-->
-		<a href="cp.php?ac=topic&op=join&id=$quiz[quizid]&idtype=quizid" id="a_topicjoin_$quiz[quizid]" onclick="ajaxmenu(event, this.id)">凑热闹</a><span class="pipe">|</span>
-		<a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=edit">编辑</a><span class="pipe">|</span>
-		<a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=delete" id="quiz_delete_$quiz[quizid]" onclick="ajaxmenu(event, this.id)">删除</a><span class="pipe">|</span>
+		//效查
+		var optionNum = <!--{eval echo count($quiz[options])}-->;
+		var maxLength = [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16,17,18,19];
+
+		var timer;
+		var length = 0;
+		for(i = 0; i < optionNum; i++) {
+			maxLength[i] = $("bar_" + i).getAttribute('len');
+		}
+		timer = setInterval(function(){
+			setLength();
+		}, 40);
+		function setLength(){
+			for (i = 0; i < optionNum; i++) {
+				if (length - 1 >= maxLength[i]) {
+					$('bar_' + i).style.width = maxLength[i] + "px";
+				} else {
+					$('bar_' + i).style.width = length + "px";
+				}
+				length = length + 1;
+				if (length > 300) {
+					clearInterval(timer);
+				}
+			}
+		}
+		function showVoter(filtrate) {
+		<!--{if !empty($quiz[keyoid])}-->
+			$('winvoter').className = '';
+			$('lostvoter').className = '';
+		<!--{else}-->
+			$('newvoter').className = '';
+			$('wevoter').className = '';
 		<!--{/if}-->
-		<!--{if checkperm('managequiz')}-->
-		<a href="cp.php?ac=quiz&quizid=$quiz[quizid]&op=edithot" id="quiz_hot_$quiz[quizid]" onclick="ajaxmenu(event, this.id)">热度</a><span class="pipe">|</span>
+			$(filtrate+'voter').className = 'active';
+			
+			ajaxget('cp.php?ac=quiz&op=get&quizid=$quiz[quizid]&filtrate='+filtrate, 'showvoter');
+		}
+		
+		
+		<!--{if !empty($quiz[keyoid])}-->
+			showVoter('win');
+		<!--{else}-->
+			showVoter('new');
 		<!--{/if}-->
-		<a href="cp.php?ac=common&op=report&idtype=quizid&id=$quiz[quizid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">举报</a>
-	</div>
-
-</div>
-
-<div id="content">
-
+	</script>
+	
 	<div id="click_div">
 		<!--{template space_click}-->
 	</div>
 
-	<div class="comments" id="div_main_content">
-		<h2>
-			<!--{if !$quiz[noreply]}-->
-			<a href="#quickcommentform_{$id}" class="r_option">发表评论</a>
-			<!--{/if}-->
-			评论 (<span id="comment_replynum">$quiz[replynum]</span> 个评论)</h2>
+	<!--{if $isfriend}-->
+	<div class="comments" id="div_main_content" style="padding: 0 0 20px;">
+
+		<h3 class="feed_header"> <div class="r_option"><span id="comment_replynum">$quiz[replynum]</span> 个评论</div>评论</h3>
 		<div class="page">$multi</div>
 		<div class="comments_list" id="comment">
 			<!--{if $cid}-->
@@ -149,13 +309,19 @@
 		</div>
 		<div class="page">$multi</div>
 
-		<!--{if !$quiz[noreply]}-->
-		<form id="quickcommentform_{$id}" name="quickcommentform_{$id}" action="cp.php?ac=comment" method="post" class="quickpost">
 
+
+
+
+
+
+
+
+		<form id="quickcommentform_{$id}" name="quickcommentform_{$id}" action="cp.php?ac=comment" method="post" class="quickpost">
 			<table cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<a href="###" id="comment_face" title="插入表情" onclick="showFace(this.id, 'comment_message');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
+						<a href="###" id="face" title="插入表情" onclick="showFace(this.id, 'comment_message');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
 						<!--{if $_SGLOBAL['magic']['doodle']}-->
 						<a id="a_magic_doodle" href="magic.php?mid=doodle&showid=comment_doodle&target=comment_message" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />涂鸦板</a>
 						<!--{/if}-->
@@ -170,102 +336,61 @@
 						<input type="hidden" name="idtype" value="quizid">
 						<input type="hidden" name="commentsubmit" value="true" />
 						<input type="button" id="commentsubmit_btn" name="commentsubmit_btn" class="submit" value="评论" onclick="ajaxpost('quickcommentform_{$id}', 'comment_add')" />
-						<div id="__quickcommentform_{$id}"></div>
+						<span id="__quickcommentform_{$id}"></span>
 					</td>
 				</tr>
 			</table>
-		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" /></form>
-		<br />
-		<!--{/if}-->
+			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+		</form><br />
 	</div>
+	<!--{/if}-->
 
 </div>
 
+<div id="sidebar">
 
-<div id="sidebar" style="padding-top:20px;">
 
 	<!--{if $topic}-->
 	<div class="affiche">
 		<img src="image/app/topic.gif" align="absmiddle">
-		<strong>凑个热闹</strong>：
-		<a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a>
+		<strong>凑个热闹</strong>：<a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a>
 	</div>
 	<!--{/if}-->
 
-	<!--{if $otherlist}-->
 	<div class="sidebox">
-		<h2 class="title">
-			<a href="space.php?uid=$quiz[uid]&do=quiz&view=me" class="r_option">全部</a>
-			作者的其他最新竞猜
-		</h2>
-		<ul class="news_list">
-			<!--{loop $otherlist $value}-->
-			<li style="height:auto;"><a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]">$value[subject]</a></li>
+		<h2 class="title">最新竞猜</h2>
+		<ul class="news_list poll_new">
+			<!--{if $newquiz}-->
+			<!--{loop $newquiz $key $value}-->
+			<li style="height:auto;"><a href="space.php?uid=$value[uid]&do=$do&id=$value[quizid]">$value[subject]</a></li>
 			<!--{/loop}-->
+			<!--{else}-->
+				<li style="height:auto;">暂时没有新竞猜</li>
+			<!--{/if}-->
 		</ul>
 	</div>
-	<!--{/if}-->
 
-	<!--{if $newlist}-->
 	<div class="sidebox">
-	<h2 class="title">热门竞猜导读</h2>
-		<ul class="news_list">
-			<!--{loop $newlist $value}-->
-			<li style="height:auto;"><a href="space.php?uid=$value[uid]" style="font-weight:bold;">{$_SN[$value[uid]]}</a>: <a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]">$value[subject]</a></li>
-			<!--{/loop}-->
+		<h2 class="title">最热竞猜</h2>
+		<ul class="news_list poll_new">
+			<!--{if $hotquiz}-->
+				<!--{loop $hotquiz $key $value}-->
+				<li style="height:auto;"><a href="space.php?uid=$value[uid]&do=$do&id=$value[quizid]">$value[subject]</a></li>
+				<!--{/loop}-->
+			<!--{else}-->
+				<li style="height:auto;">暂时没有本月热门竞猜</li>
+			<!--{/if}-->
 		</ul>
 	</div>
-	<!--{/if}-->
 
-	<!--{if $quiz['related']}-->
-	<!--{loop $quiz['related'] $appid $values}-->
-	<div class="sidebox">
-	<h2 class="title">您可能感兴趣的<!--{if $_SGLOBAL[app][$appid][name]}-->({$_SGLOBAL[app][$appid][name]})<!--{/if}--></h2>
-		<ul class="news_list">
-			<!--{loop $values['data'] $value}-->
-			<li style="height:auto;">$value[html]</li>
-			<!--{/loop}-->
-		</ul>
-	</div>
-	<!--{/loop}-->
-	<!--{/if}-->
-	
 </div>
 
-
 <script type="text/javascript">
-<!--
-function closeSide2(oo) {
-	if($('sidebar').style.display == 'none'){
-		$('content').style.cssText = '';
-		$('sidebar').style.display = 'block';
-		oo.innerHTML = '&raquo; 关闭侧边栏';
-	}
-	else{
-		$('content').style.cssText = 'margin: 0pt; width: 810px;';
-		$('sidebar').style.display = 'none';
-		oo.innerHTML = '&laquo; 打开侧边栏';
-	}
-}
-function addFriendCall(){
-	var el = $('friendinput');
-	if(!el || el.value == "")	return;
-	var s = '<input type="checkbox" name="fusername[]" value="'+el.value+'" id="'+el.value+'" checked>';
-	s += '<label for="'+el.value+'">'+el.value+'</label>';
-	s += '<br />';
-	$('friends').innerHTML += s;
-	el.value = '';
-}
-resizeImg('quiz_article','700');
-resizeImg('div_main_content','450');
-
 //彩虹炫
 var elems = selector('div[class~=magicflicker]'); 
 for(var i=0; i<elems.length; i++){
 	magicColor(elems[i]);
 }
-
--->
 </script>
 
 <!--{template footer}-->
