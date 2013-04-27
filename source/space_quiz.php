@@ -141,7 +141,7 @@ if($id) {
 			$otherlist[] = $value;
 		}
 	}
-showmessage("网站维护中");
+
 	//最新的日志
 	$newlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE hot>=3 and id!=1 ORDER BY dateline DESC LIMIT 0,6");
@@ -174,7 +174,7 @@ showmessage("网站维护中");
 			$list[] = $value;
 		}
 	}
-
+showmessage("网站维护中");
 	//分页
 	$multi = multi($count, $perpage, $page, "space.php?uid=$quiz[uid]&do=$do&id=$id", '', 'content');
 
