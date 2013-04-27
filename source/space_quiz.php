@@ -314,6 +314,7 @@ if($id) {
 	include_once template("space_quiz_view2");
 
 } else {
+	showmessage("网站维护中");
 	//分页
 	/*$perpage = 10;
 	$perpage = mob_perpage($perpage);
@@ -657,7 +658,7 @@ $value3=array();
 			$userlist[$value['uid']] = $value['username'];
 		}
 	}
-		showmessage("网站维护中");
+		
 	//分页
 	$multi = multi($count, $perpage, $page, $theurl);
 
