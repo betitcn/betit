@@ -179,7 +179,9 @@ height:140px;
 </div>
 <!--{/if}-->
 
-
+<!--{if $searchkey}-->
+<div class="h_status">以下是搜索竟猜 <span style="color:red;font-weight:bold;">$searchkey</span> 结果列表</div>
+<!--{/if}-->
 	
 <div id="content" style="width:100%;">
 	
@@ -197,10 +199,13 @@ height:140px;
 	</div>
 </div>
 
+<!--{if $searchkey}-->
+<div class="page">$multi</div>
 
+<!--{/if}-->
 	
 
-
+	<div id="ajax_wait"></div>
 	
 
 	<!--{/if}-->
