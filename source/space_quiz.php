@@ -7,7 +7,7 @@
 if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
-showmessage("测试");
+
 $minhot = $_SCONFIG['feedhotmin']<1?3:$_SCONFIG['feedhotmin'];
 
 $page = empty($_GET['page'])?1:intval($_GET['page']);
@@ -120,7 +120,7 @@ if($id) {
 	} else {
 		$quiz['related'] = empty($quiz['related'])?array():unserialize($quiz['related']);
 	}
-
+showmessage("测试");
 	//作者的其他最新日志
 	$otherlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE uid='$space[uid]' and id!=1 ORDER BY dateline DESC LIMIT 0,6");
