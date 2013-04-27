@@ -19,7 +19,7 @@ $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 @include_once(S_ROOT.'./data/data_click.php');
 
 $clicks = empty($_SGLOBAL['click']['quizid'])?array():$_SGLOBAL['click']['quizid'];
-showmessage("网站维护中");
+
 if($id) {
 	//读取日志
 
@@ -618,7 +618,7 @@ if($id) {
 					$wheresql AND p.id!=1
 					ORDER BY $ordersql DESC LIMIT $start,$perpage");
 		}
-			showmessage("网站维护中");
+
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			$query3 = $_SGLOBAL['db']->query("SELECT uchome_quizfield.option FROM ".tname('quizfield')." WHERE quizid='$value[id]' ORDER BY quizid");
 $value3=array();				
@@ -657,7 +657,7 @@ $value3=array();
 			$userlist[$value['uid']] = $value['username'];
 		}
 	}
-	
+		showmessage("网站维护中");
 	//分页
 	$multi = multi($count, $perpage, $page, $theurl);
 
