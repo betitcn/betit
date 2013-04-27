@@ -24,7 +24,7 @@ if($id) {
 	//读取日志
 	$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('quiz')." b LEFT JOIN ".tname('quizfield')." bf ON bf.quizid=b.quizid WHERE b.quizid='$id' AND b.uid='$space[uid]'");
 	$quiz = $_SGLOBAL['db']->fetch_array($query);
-	showmessage("测试");
+
 	//日志不存在
 	if(empty($quiz)) {
 		showmessage('view_to_info_did_not_exist');
@@ -36,6 +36,7 @@ if($id) {
 		exit();
 	} elseif(!$space['self'] && $quiz['friend'] == 4) {
 		//密码输入问题 // mask
+		showmessage("测试");
 		$cookiename = "view_pwd_quiz_$quiz[quizid]";
 		$cookievalue = empty($_SCOOKIE[$cookiename])?'':$_SCOOKIE[$cookiename];
 		if($cookievalue != md5(md5($quiz['password']))) {
