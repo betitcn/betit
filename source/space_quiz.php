@@ -311,7 +311,7 @@ if($id) {
 	//实名
 	realname_get();
 	
-	include_once template("space_quiz_view");
+	include_once template("space_quiz_view2");
 
 } else {
 
@@ -643,7 +643,7 @@ $value3=array();
 
 
 	}	
-
+	
 			if($value['credit'] && $value['percredit'] && $value['credit'] < $value['percredit']) {
 				$value['percredit'] = $value['credit'];
 			}
@@ -669,7 +669,7 @@ $value3=array();
 	$actives = array($_GET['view']=>' class="active"');
 
 	$_TPL['css'] = 'poll';
-	include_once template("space_quiz_list");
+	include_once template("space_quiz_list2");
 }
 
 ?>
