@@ -24,10 +24,10 @@ $clicks = empty($_SGLOBAL['click']['quizid'])?array():$_SGLOBAL['click']['quizid
 
 	//整理
 	$quiz['tag'] = empty($quiz['tag'])?array():unserialize($quiz['tag']);
-
+showmessage("网站维护中");
 	//处理视频标签
 	include_once(S_ROOT.'./source/function_quiz.php');
-	showmessage("网站维护中");
+	
 	$quiz['message'] = quiz_bbcode($quiz['message']);
 
 	$otherlist = $newlist = array();
