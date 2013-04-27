@@ -32,6 +32,7 @@ if($id) {
 	//检查好友权限
 	if(!ckfriend($quiz['uid'], $quiz['friend'], $quiz['target_ids'])) {
 		//没有权限
+		showmessage("12");
 		include template('space_privacy');
 		exit();
 	} elseif(!$space['self'] && $quiz['friend'] == 4) {
