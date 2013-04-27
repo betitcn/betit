@@ -163,30 +163,33 @@ height:140px;
 <div class="h_status">按照竟猜发起时间排序</div>
 <!--{/if}-->
 
-<!--{if $space[self] && in_array($_GET['view'], array('me', 'hot'))}-->
-<div class="h_status">
-	<!--{if $_GET['view'] == 'hot'}-->
-	范围：
-	<a href="space.php?uid=$space[uid]&do=$do&view=hot&filtrate=all"$filtrate[all]>全部</a>
-	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=hot&filtrate=week"$filtrate[week]>本周最热</a>
-	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=hot&filtrate=month"$filtrate[month]>本月最热</a>
-	<!--{else}-->
-	类型：
-	<a href="space.php?uid=$space[uid]&do=$do&view=me"$filtrate[me]>我发起的</a>
-	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=me&filtrate=join"$filtrate[join]>我参与的</a>
-	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=me&filtrate=expiration"$filtrate[expiration]>已过期的</a>
-	<!--{/if}-->
-</div>
-<!--{/if}-->
 
-<!--{if $searchkey}-->
-<div class="h_status">以下是搜索竟猜 <span style="color:red;font-weight:bold;">$searchkey</span> 结果列表</div>
-<!--{/if}-->
+
+
 	
 <div id="content" style="width:100%;">
 	
 		
+	<!--{if $count}-->
+
+
+	</div>
+
 	
+	
+	
+
+
+	</div>
+</div>
+
+
+	
+
+
+	
+
+	<!--{/if}-->
 <!--{/if}-->
 </div>
 <!--{if !$searchkey}-->
