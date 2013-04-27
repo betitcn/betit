@@ -49,7 +49,7 @@ if($id) {
 			exit();
 		}
 	}
-showmessage("网站维护中");
+
 	//整理
 	$quiz['tag'] = empty($quiz['tag'])?array():unserialize($quiz['tag']);
 
@@ -85,6 +85,7 @@ showmessage("网站维护中");
 				$quiz['related'] = uc_tag_get($b_tags[$tag_index], $_SGLOBAL['tagtpl']['limit']);
 			}
 		} else {
+			showmessage("网站维护中");
 			//自身TAG
 			$tag_quizids = array();
 			$query = $_SGLOBAL['db']->query("SELECT DISTINCT quizid FROM ".tname('tagquiz')." WHERE tagid IN (".simplode($b_tagids).") AND quizid<>'$quiz[quizid]' ORDER BY quizid DESC LIMIT 0,10");
