@@ -19,7 +19,7 @@ $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 @include_once(S_ROOT.'./data/data_click.php');
 
 $clicks = empty($_SGLOBAL['click']['quizid'])?array():$_SGLOBAL['click']['quizid'];
-showmessage("网站维护中");
+
 if($id) {
 	//读取日志
 
@@ -35,12 +35,12 @@ if($id) {
 	//检查好友权限
 	if(!ckfriend($quiz['uid'], $quiz['friend'], $quiz['target_ids'])) {
 		//没有权限
-		showmessage("12");
+		
 		include template('space_privacy');
 		exit();
 	} elseif(!$space['self'] && $quiz['friend'] == 4) {
 		//密码输入问题 // mask
-		showmessage("测试");
+		
 		$cookiename = "view_pwd_quiz_$quiz[quizid]";
 		$cookievalue = empty($_SCOOKIE[$cookiename])?'':$_SCOOKIE[$cookiename];
 		if($cookievalue != md5(md5($quiz['password']))) {
@@ -147,7 +147,7 @@ if($id) {
 			$newlist[] = $value;
 		}
 	}
-
+showmessage("网站维护中");
 	//评论
 	$perpage = 30;
 	$perpage = mob_perpage($perpage);
