@@ -633,7 +633,8 @@ $value3=array();
 
 	}
 		$query4 = $_SGLOBAL['db']->query("SELECT body_data FROM ".tname('feed')." WHERE id='$value[id]' ORDER BY id");
-$value4=array();				
+$value4=array();
+if($query4)	{			
 	while( $value4 = $_SGLOBAL['db']->fetch_array($query4))
 	{
 		
@@ -643,7 +644,7 @@ $value4=array();
 
 
 	}	
-	
+	}
 			if($value['credit'] && $value['percredit'] && $value['credit'] < $value['percredit']) {
 				$value['percredit'] = $value['credit'];
 			}
