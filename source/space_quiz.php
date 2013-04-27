@@ -314,7 +314,7 @@ if($id) {
 	include_once template("space_quiz_view2");
 
 } else {
-	showmessage("网站维护中");
+	
 	//分页
 	/*$perpage = 10;
 	$perpage = mob_perpage($perpage);
@@ -580,7 +580,7 @@ if($id) {
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=me&filtrate=".$_GET['filtrate'];
 		
 	}
-
+showmessage("网站维护中");
 	//搜索
 	if($searchkey = stripsearchkey($_GET['searchkey'])) {
 		$query3 = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('space')." where groupid=1");
