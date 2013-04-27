@@ -213,17 +213,67 @@ height:140px;
 <div class="twopic" style="
     padding-right: 100px;
 ">
-
-
-  
-
-
-
+<div class="picone" style="
+    width: 140px;
+    height: 140px;
+    float: left;
+">
+            <!--{if $value['image_1']}-->
+			<a href="$value[image_1_link]"{$value[target]}><img src="$value[image_1]" class="summaryimg" /></a>
+			<!--{else}-->
+			<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"{$value[target]}><img src="image/org_img/nopicA.png" class="summaryimg" /></a>
+			<!--{/if}-->
 
 
 </div>
 
+     <div class="middle"
+				       style="
+                      	text-align: center;
+                        width: 120px;
+                        float: left;
+                        font-size: 20px;
+                        font-weight: bold;
+                        font-family:'微软雅黑';
 
+	                  ">
+                        <br>
+                       <img src="image/org_img/gold.jpg" style="max-width:26px;max-height:25px;min-width:26px;min-height:25px"> $value[totalcost] &nbsp;&nbsp;<br/> 
+	
+                        <img src="image/org_img/vs_little.jpg" style="max-width:60px;max-height:40px;min-width:60px;min-height:40px">&nbsp; &nbsp;
+                   </div>
+
+<div class="pictwo" style="
+    float: left;
+    width: 140px;
+height:140px;">
+                  <!--{if $value['image_2']}-->
+			      <a href="$value[image_2_link]"{$value[target]}><img src="$value[image_2]" class="summaryimg" /></a>
+			      <!--{else}-->
+			      <a href="space.php?uid=$value[uid]&do=quiz&id=$value[qizid]"{$value[target]}><img src="image/org_img/nopicB.png" class="summaryimg" /></a>
+			      <!--{/if}-->
+				  </div>
+
+<div class="clear" style="clear:both;"></div>
+
+</div>
+
+<div class="twoword" style="padding-right: 140px; margin-bottom:30px;">
+ <!--{eval $list1 = $value[options];}-->
+				<!--{loop $list1 $value2}-->
+<div class="leftword" style="float:left; width:200px; overflow:hidden; ">$value2[0]</div>
+<div class="rightword" style="float:right;padding-right:14px;">$value2[1]</div>
+<!--{/loop}-->
+</div>
+
+
+<div class="twohand" style="padding-right: 140px;">
+			  <!--{eval $list12 = $value[votenum];}-->
+<!--{loop $list12 $value8}-->
+<div class="lefthand" style="float:left; color:#DA5252; font-size:25px;"><a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="image/org_img/lefthand.jpg"></a>$value8[option][0]</div>
+<div class="righthand" style="float:right; color:#DA5252; font-size:25px;padding-right:14px; ">$value8[option][1]<a href="space.php?uid=$value[uid]&do=quiz&id=$value[quizid]"><img style="min-height:36px; min-width:32px; margin-bottom:-3px;" src="image/org_img/righthand.jpg"></a></div>
+<!--{/loop}-->
+</div>
 
 </div>
 </div>
@@ -234,7 +284,7 @@ height:140px;
 </ul>
 
 
-<div class="clear" style="clear:both;"></div>
+
 
 
 	</li>
