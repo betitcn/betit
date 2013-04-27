@@ -17,7 +17,7 @@ $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 	
 //表态分类
 @include_once(S_ROOT.'./data/data_click.php');
-
+showmessage("网站维护中");
 $clicks = empty($_SGLOBAL['click']['quizid'])?array():$_SGLOBAL['click']['quizid'];
 
 if($id) {
@@ -102,7 +102,7 @@ if($id) {
 				$quiz['related'][UC_APPID]['type'] = 'UCHOME';
 			}
 		}
-		showmessage("网站维护中");
+		
 		if(!empty($quiz['related']) && is_array($quiz['related'])) {
 			foreach ($quiz['related'] as $appid => $values) {
 				if(!empty($values['data']) && $_SGLOBAL['tagtpl']['data'][$appid]['template']) {
@@ -130,7 +130,7 @@ if($id) {
 	} else {
 		$quiz['related'] = empty($quiz['related'])?array():unserialize($quiz['related']);
 	}
-
+showmessage("网站维护中");
 	//作者的其他最新日志
 	$otherlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('quiz')." WHERE uid='$space[uid]' and id!=1 ORDER BY dateline DESC LIMIT 0,6");
