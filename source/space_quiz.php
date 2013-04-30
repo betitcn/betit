@@ -616,7 +616,7 @@ if($id) {
 		}else {
 			$query = $_SGLOBAL['db']->query("SELECT p.*,pf.* FROM $leftsql ".tname('quiz')." p $indexsql
 					LEFT JOIN ".tname('feed')." pf ON pf.id=p.quizid
-					$wheresql AND p.id!=1
+					$wheresql AND p.id!=1 AND pf.idtype='quizid'
 					ORDER BY $ordersql DESC LIMIT $start,$perpage");
 		}
 
@@ -632,7 +632,7 @@ $value3=array();
 		
 
 	}
-		$query4 = $_SGLOBAL['db']->query("SELECT uchome_feed.body_data FROM ".tname('feed')." WHERE id='$value[id]' ORDER BY id");
+		$query4 = $_SGLOBAL['db']->query("SELECT body_data FROM ".tname('feed')." WHERE id='$value[id]' ORDER BY id");
 $value4=array();
 		
 	while( $value4 = $_SGLOBAL['db']->fetch_array($query4))
