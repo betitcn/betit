@@ -155,7 +155,7 @@ $value3=array();
 		
 
 	}
-		$query4 = $_SGLOBAL['db']->query("SELECT body_data FROM ".tname('feed')." WHERE id='$value[id]' ORDER BY id");
+		$query4 = $_SGLOBAL['db']->query("SELECT body_data FROM ".tname('feed')." WHERE id='$value[id]' AND idtype='quizid' ORDER BY id");
 $value4=array();				
 	while( $value4 = $_SGLOBAL['db']->fetch_array($query4))
 	{
@@ -192,7 +192,9 @@ $value4=array();
 			}
 		}
 		$count++;
+
 	}
+	
 }
 
 $olfriendlist = $visitorlist = $task = $ols = $birthlist = $myapp = $hotlist = $guidelist = array();
@@ -337,7 +339,7 @@ if($space['self'] && empty($start)) {
 		$hotstarttime = $_SGLOBAL['timestamp'] - $_SCONFIG['feedhotday']*3600*24;
 		$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('feed')." b LEFT JOIN ".tname('quiz')." bf ON bf.quizid=b.id  WHERE b.dateline>='$hotstarttime' ORDER BY b.hot DESC LIMIT 0,10");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-							$query3 = $_SGLOBAL['db']->query("SELECT uchome_quizfield.option FROM ".tname('quizfield')." WHERE quizid='$value[id]' ORDER BY quizid");
+							$query3 = $_SGLOBAL['db']->query("SELECT uchome_quizfield.option FROM ".tname('quizfield')." WHERE quizid='$value[id]'  ORDER BY quizid");
 					$value3=array();				
 	while( $value3 = $_SGLOBAL['db']->fetch_array($query3))
 	{
@@ -348,7 +350,8 @@ if($space['self'] && empty($start)) {
 		
 
 	}
-		$query4 = $_SGLOBAL['db']->query("SELECT body_data FROM ".tname('feed')." WHERE id='$value[id]' ORDER BY id");
+
+		$query4 = $_SGLOBAL['db']->query("SELECT body_data FROM ".tname('feed')." WHERE id='$value[id]' AND idtype='quizid' ORDER BY id");
 $value4=array();				
 	while( $value4 = $_SGLOBAL['db']->fetch_array($query4))
 	{
